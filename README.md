@@ -21,4 +21,4 @@ An example to see how the IF statements in Magic.js works
 #### magic-loop.html
 An example of how the loop function in Magic.js works
 #### blog.html
-A full example showing a blogpage, dynamically generated with magic.js
+A full example showing a blogpage, dynamically generated with Magic.js
