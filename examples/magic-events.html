@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Magic Events</title>
+  <style>
+    .text {
+      display: inline-block;
+      border: 1px solid black;
+      padding: 10px;
+      background-color: yellow;
+      width: 300px;
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <p magic:class="myClass">Counted products: <span :id="counter">{{counter}}</span></p>
+  <button magic:onclick="count">Count products</button>
+</div>
+
+	<script src="../assets/MagicHour.js"></script>
+	
+	<script>
+	
+	let app = new Magic();
+	
+	app.load({
+		data: {
+			myClass: "text",
+			value: "value",
+			counter: 0,
+			count: true
+		}
+	});
+  
+	</script>
+</body>
+</html>

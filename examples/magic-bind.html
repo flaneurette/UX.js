@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<head>
+  <title>Magic Bindings</title>
+  <style>
+    .text {
+      background-color: blue;
+      padding: 20px;
+	  color: #fff;
+    }
+    .text2 {
+      background-color: red;
+      padding: 20px;
+    }
+    .text3 {
+      background-color: green;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="app">
+    <div magic:class="grey">{{message}}</div>
+	<div magic:class="red">{{message}} </div>
+	<div :class="green">{{message}} </div>
+  </div>
+	<script src="../assets/MagicHour.js"></script>
+	
+	<script>
+	
+	let app = new Magic();
+	
+	app.load({
+		data: { 
+			grey: "text",
+			red: "text2",
+			green: "text3",
+			message: "Hello World!"
+		}
+	});
+  
+	</script>
+</body>
+</html>

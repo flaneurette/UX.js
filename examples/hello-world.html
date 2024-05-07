@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Hello World</title>
+</head>
+<body>
+	<div>
+	<h1>{{title}}</h1>
+	</div>
+	<div>
+	<p>{{message}}</p>
+	</div>
+	<script src="../assets/MagicHour.js"></script>
+	
+	<script>
+	
+	let app = new Magic();
+
+	app.load({
+		data: { 
+			title: "My webpage",
+			message: "Hello World!"
+		}
+	});
+  
+	</script>
+</body>
+</html>

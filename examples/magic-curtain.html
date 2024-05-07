@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Magic curtain</title>
+  <style>
+    .text {
+      background-color: yellow;
+      width: 200px;
+      height: 200px;
+      padding: 20px;
+      margin: 10px;
+      border-radius: 233px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+<h1>Magic curtains</h1>
+<div magic:curtain="lightOn">{{message}}</div>
+  <div>
+    <div magic:curtain="lightOn" :class="myClass"></div>
+  </div>
+    <button magic:onclick="lightOn">Switch curtain</button>
+</div>
+	<script src="../assets/MagicHour.js"></script>
+	
+	<script>
+	
+	let app = new Magic();
+	
+	app.load({
+		data: {
+        lightOn: false,
+        message: 'Lights in the room are on!',
+        myClass: "text"
+		}
+	});
+  
+	</script>
+</body>
+</html>
