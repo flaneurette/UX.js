@@ -38,7 +38,7 @@ class Magic {
 							this.nodes('logicStructIf', key, value);
 							this.nodes('functions', key, value);
 							this.nodes('curtains', key, value);
-							this.log(key + ':' + value);
+							// this.log(key + ':' + value);
 						}
 					}
 				} catch (e) {
