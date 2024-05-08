@@ -407,8 +407,8 @@ class Magic {
 
 			if(find == node.getAttribute('magic:loop') || find == node.getAttribute('m:loop') || find == node.getAttribute(':loop')) {
 
-				let child = node.children[0];
-				let html = child.innerHTML;
+				let c = node.children[0];
+				let h = c.innerHTML;
 				let object = Object.entries(values);
 				let len = object.length;
 
@@ -417,27 +417,79 @@ class Magic {
 					let k = Object.keys(object[i][1]);
 					let v = Object.values(object[i][1]);
 
-					if(child.innerHTML) {
-						let docChildren = this.nodeChildren(child);
-						for(let j=0;j<docChildren.length;j++) {
-							if(docChildren[j].nodeType === 1) {
-								for(let h=0;h<k.length;h++) {
-								 docChildren[j].innerHTML = docChildren[j].innerHTML.replace("{{" + k[h] + "}}", v[h]);
-								}
-							}
-						}
+					if(c.innerHTML) {
 
+						
 						if(k.length == 1) {
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]);
-						}
+							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0]);
+						} else if(k.length == 2) {
+							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
+							.replace("{{"+k[1]+"}}",v[1]);
+						} else if(k.length == 3) {
+							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
+							.replace("{{"+k[1]+"}}",v[1])
+							.replace("{{"+k[2]+"}}",v[2]);
+						} else if(k.length == 4) {
+							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
+							.replace("{{"+k[1]+"}}",v[1])
+							.replace("{{"+k[2]+"}}",v[2])
+							.replace("{{"+k[3]+"}}",v[3]);
+						} else if(k.length == 5) {
+							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
+							.replace("{{"+k[1]+"}}",v[1])
+							.replace("{{"+k[2]+"}}",v[2])
+							.replace("{{"+k[3]+"}}",v[3])
+							.replace("{{"+k[4]+"}}",v[4]);
+						} else if(k.length == 6) {
+							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
+							.replace("{{"+k[1]+"}}",v[1])
+							.replace("{{"+k[2]+"}}",v[2])
+							.replace("{{"+k[3]+"}}",v[3])
+							.replace("{{"+k[4]+"}}",v[4])
+							.replace("{{"+k[5]+"}}",v[5]);
+						} else if(k.length == 7) {
+							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
+							.replace("{{"+k[1]+"}}",v[1])
+							.replace("{{"+k[2]+"}}",v[2])
+							.replace("{{"+k[3]+"}}",v[3])
+							.replace("{{"+k[4]+"}}",v[4])
+							.replace("{{"+k[5]+"}}",v[5])
+							.replace("{{"+k[6]+"}}",v[6]);
+						} else if(k.length == 8) {
+							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
+							.replace("{{"+k[1]+"}}",v[1])
+							.replace("{{"+k[2]+"}}",v[2])
+							.replace("{{"+k[3]+"}}",v[3])
+							.replace("{{"+k[4]+"}}",v[4])
+							.replace("{{"+k[5]+"}}",v[5])
+							.replace("{{"+k[6]+"}}",v[6])
+							.replace("{{"+k[7]+"}}",v[7]);
+						} else if(k.length == 9) {
+							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
+							.replace("{{"+k[1]+"}}",v[1])
+							.replace("{{"+k[2]+"}}",v[2])
+							.replace("{{"+k[3]+"}}",v[3])
+							.replace("{{"+k[4]+"}}",v[4])
+							.replace("{{"+k[5]+"}}",v[5])
+							.replace("{{"+k[6]+"}}",v[6])
+							.replace("{{"+k[7]+"}}",v[7])
+							.replace("{{"+k[8]+"}}",v[8]);
+						} else if(k.length == 10) {
+							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
+							.replace("{{"+k[1]+"}}",v[1])
+							.replace("{{"+k[2]+"}}",v[2])
+							.replace("{{"+k[3]+"}}",v[3])
+							.replace("{{"+k[4]+"}}",v[4])
+							.replace("{{"+k[5]+"}}",v[5])
+							.replace("{{"+k[6]+"}}",v[6])
+							.replace("{{"+k[7]+"}}",v[7])
+							.replace("{{"+k[8]+"}}",v[8])
+							.replace("{{"+k[9]+"}}",v[9]);
+						} else {}
 						
-						if(k.length == 2) {
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]);
-							child.innerHTML = html.replace("{{" + k[1] + "}}", v[1]);
-						} 
-						
-						node.append(child);
-						child = child.cloneNode(true);
+
+						node.append(c);
+						c = c.cloneNode(true);
 					}
 				}
 			}
@@ -484,7 +536,7 @@ class Magic {
 			for(var j = 0; j < docChildren.length; j++) {
 				if(method == 'replaceNodeValue') {
 					if(docChildren[j].nodeType === 3) {
-						const regex = new RegExp("{{\\s*" + find + "[0-9]*\\s*}}", "gmi");
+						const regex = new RegExp("{{\\s*" + find+"[0-9]*\\s*}}", "gmi");
 						docChildren[j].nodeValue = docChildren[j].nodeValue.replace(regex, value);
 					}
 				}
