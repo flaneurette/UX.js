@@ -314,6 +314,9 @@ class Magic {
 					if(arr.placeholder) {
 						opt.placeholder = arr.placeholder;
 					}
+					if(arr.required) {
+						opt.required = arr.required;
+					}
 					options.appendChild(label);
 					options.appendChild(opt);
 				}
@@ -325,6 +328,15 @@ class Magic {
 					opt.type = arr.type;
 					opt.name = arr.name;
 					opt.checked = arr.checked;
+					if(arr.required) {
+						opt.required = arr.required;
+					}
+					if(arr.id) {
+						opt.id = arr.id;
+					}
+					if(arr.className) {
+						opt.className = arr.className;
+					}
 					options.appendChild(label);
 					options.appendChild(opt);
 				}
@@ -345,6 +357,15 @@ class Magic {
 					opt.value = arr.value;
 					if(arr.placeholder) {
 						opt.placeholder = arr.placeholder;
+					}
+					if(arr.required) {
+						opt.required = arr.required;
+					}
+					if(arr.id) {
+						opt.id = arr.id;
+					}
+					if(arr.className) {
+						opt.className = arr.className;
 					}
 					options.appendChild(label);
 					options.appendChild(opt);
