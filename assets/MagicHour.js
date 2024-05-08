@@ -28,7 +28,8 @@ class Magic {
 			if(data) {
 				for(const [key, value] of Object.entries(data)) {
 					if(Array.isArray(value)) {
-					this.nodes('bindLoop', key, Object.values(value));
+					this.nodes('bindLoop', key, value);
+					this.nodes('bindForms', key, value);
 					} else {
 					// Parse Nodes
 					this.nodes('replaceNodeValue', key, value);
@@ -267,6 +268,106 @@ class Magic {
 		}
 		return;
 	}
+	
+	bindForms(node, find, values) {
+
+		let att = null;
+		
+		if(node.getAttribute('magic:form') !== null) {
+			att = node.getAttribute('magic:form');
+		}
+		if(node.getAttribute('m:form') !== null) {
+			att = node.getAttribute('m:form');
+		}
+		if(node.getAttribute(':form') !== null) {
+			att = node.getAttribute(':form');
+		}
+		
+		if(att !== null) {
+
+			let parents = document.getElementById(att);
+			let options = document.createElement('form');
+			
+			let j=0;
+			
+			for(let key in values) {
+				
+				let arr = values[key];
+				console.log(arr.value);
+
+				if(arr.type == 'form') {
+				
+					options.name = arr.name;
+					options.action = arr.action;
+					options.method = arr.method;
+					if(arr.enctype) { 
+					options.enctype = arr.enctype
+					}
+				} 
+				
+				if(arr.type == 'text') {
+					let opt = document.createElement('input');
+					let label = document.createElement('label');
+					label.innerHTML = arr.label;
+					opt.type = arr.type;
+					opt.name = arr.name;
+					opt.value = arr.value;
+					if(arr.placeholder) {
+						opt.placeholder = arr.placeholder;
+					}
+					options.appendChild(label);
+					options.appendChild(opt);
+				}
+
+				if(arr.type == 'checkbox') {
+					let opt = document.createElement('input');
+					let label = document.createElement('label');
+					label.innerHTML = arr.label;
+					opt.type = arr.type;
+					opt.name = arr.name;
+					opt.checked = arr.checked;
+					options.appendChild(label);
+					options.appendChild(opt);
+				}
+				
+				if(arr.type == 'hidden') {
+					let opt = document.createElement('input');
+					opt.type = arr.type;
+					opt.name = arr.name;
+					opt.value = arr.value;
+					options.appendChild(opt);
+				}
+
+				if(arr.type == 'textarea') {
+					let opt = document.createElement('textarea');
+					let label = document.createElement('label');
+					label.innerHTML = arr.label;
+					opt.name = arr.name;
+					opt.value = arr.value;
+					if(arr.placeholder) {
+						opt.placeholder = arr.placeholder;
+					}
+					options.appendChild(label);
+					options.appendChild(opt);
+				}		
+				
+				if(arr.type == 'submit') {
+					let opt = document.createElement('input');
+					opt.type = arr.type;
+					opt.name = arr.name;
+					opt.value = arr.value;
+					options.appendChild(opt);
+				}							
+
+				j++;
+			}	
+			
+			parents.appendChild(options);
+		
+		}
+		
+		
+	}
 
 	loop(node, find, values) {
 
@@ -334,6 +435,9 @@ class Magic {
 		var docElements = this.nodeParentList();
 		for(var i = 0; i < docElements.length; i++) {
 
+			if(method == 'bindForms') {
+				this.bindForms(docElements[i], find, value);
+			}
 
 			if(method == 'bindCurtains') {
 				this.curtains(docElements[i], find, value)
