@@ -15,7 +15,6 @@ class Magic {
 	}
 
 	load(list) {
-
 		if(!Object(list)) {
 			this.log(this.msg['initialize']);
 			return false;
@@ -24,7 +23,6 @@ class Magic {
 			let data = list.data
 			let method = list.method;
 			let events = list.events;
-
 			if(data) {
 				for(const [key, value] of Object.entries(data)) {
 					if(Array.isArray(value)) {
@@ -79,7 +77,6 @@ class Magic {
 	}
 
 	isVisible(id) {
-
 		try {
 			if(document.getElementById(id).style.display == "block") {
 				document.getElementById(id).style.display = "none";
@@ -144,7 +141,7 @@ class Magic {
 	curtains(node, find, value) {
 
 		let att = null;
-
+		var docElements = this.nodeParentList();
 		if(node.getAttribute('magic:onclick') !== null) {
 			att = node.getAttribute('magic:onclick');
 		}
@@ -154,8 +151,6 @@ class Magic {
 		if(node.getAttribute(':onclick') !== null) {
 			att = node.getAttribute(':onclick');
 		}
-
-		var docElements = this.nodeParentList();
 		for(var i = 0; i < docElements.length; i++) {
 			if(node.getAttribute('magic:curtain') !== null) {
 				let curtain = node.getAttribute('magic:curtain');
@@ -170,7 +165,6 @@ class Magic {
 				node.style = 'display:none;';
 			}
 		}
-
 		if(node.getAttribute('magic:onclick') !== null || node.getAttribute('m:onclick') !== null || node.getAttribute('magic:onclick') !== null) {
 			node.addEventListener('click', this.drawCurtains, false);
 		}
@@ -186,10 +180,8 @@ class Magic {
 	}
 
 	bindFunctions(node, find, value) {
-
 		let att = null;
 		var docElements = document.getElementsByTagName("*");
-
 		if(node.getAttribute('magic:onclick') !== null) {
 			att = node.getAttribute('magic:onclick');
 		}
@@ -199,9 +191,7 @@ class Magic {
 		if(node.getAttribute(':onclick') !== null) {
 			att = node.getAttribute(':onclick');
 		}
-
 		if(node.getAttribute('magic:onclick') !== null || node.getAttribute('m:onclick') !== null || node.getAttribute('magic:onclick') !== null) {
-
 			if(find == 'count') {
 				node.addEventListener('click', function() {
 					for(var i = 0; i < docElements.length; i++) {
@@ -210,17 +200,13 @@ class Magic {
 							docElements[i].innerText = (Number(docElements[i].innerText) + 1);
 						}
 					}
-
 				});
 			}
 		}
-
 	}
 
 	bindIf(node, find, value) {
-
 		let att = null;
-
 		if(node.getAttribute('magic:if') !== null) {
 			att = node.getAttribute('magic:if');
 		}
@@ -230,9 +216,7 @@ class Magic {
 		if(node.getAttribute(':if') !== null) {
 			att = node.getAttribute(':if');
 		}
-
 		if(node.getAttribute('magic:if') !== null || node.getAttribute('m:if') !== null || node.getAttribute(':if') !== null) {
-
 			if(att !== null) {
 				// functions
 				if(att.indexOf('.') != -1) {
@@ -247,7 +231,6 @@ class Magic {
 							}
 						}
 					}
-
 				} else if(att.search("/\s/")) {
 					// operators
 					let toEval = null,
@@ -256,13 +239,11 @@ class Magic {
 					let pieces = att.split("\s");
 					console.log(pieces);
 					node.style = 'display: none;';
-
 					for(let i = 0; i < pieces.length; i++) {
 						if(find == pieces[i]) {
 							opp += pieces[i];
 						}
 					}
-
 				} else {}
 			}
 		}
@@ -272,7 +253,6 @@ class Magic {
 	bindForms(node, find, values) {
 
 		let att = null;
-		
 		if(node.getAttribute('magic:form') !== null) {
 			att = node.getAttribute('magic:form');
 		}
@@ -282,20 +262,13 @@ class Magic {
 		if(node.getAttribute(':form') !== null) {
 			att = node.getAttribute(':form');
 		}
-		
 		if(att !== null) {
-
 			let parents = document.getElementById(att);
 			let options = document.createElement('form');
-			
 			let j=0;
-			
 			for(let key in values) {
-				
 				let arr = values[key];
-
 				if(arr.type == 'form') {
-				
 					options.name = arr.name;
 					options.action = arr.action;
 					options.method = arr.method;
@@ -303,7 +276,6 @@ class Magic {
 					options.enctype = arr.enctype
 					}
 				} 
-				
 				if(arr.type == 'text') {
 					let opt = document.createElement('input');
 					let label = document.createElement('label');
@@ -320,7 +292,6 @@ class Magic {
 					options.appendChild(label);
 					options.appendChild(opt);
 				}
-
 				if(arr.type == 'checkbox') {
 					let opt = document.createElement('input');
 					let label = document.createElement('label');
@@ -340,7 +311,6 @@ class Magic {
 					options.appendChild(label);
 					options.appendChild(opt);
 				}
-				
 				if(arr.type == 'hidden') {
 					let opt = document.createElement('input');
 					opt.type = arr.type;
@@ -348,7 +318,6 @@ class Magic {
 					opt.value = arr.value;
 					options.appendChild(opt);
 				}
-
 				if(arr.type == 'textarea') {
 					let opt = document.createElement('textarea');
 					let label = document.createElement('label');
@@ -370,7 +339,6 @@ class Magic {
 					options.appendChild(label);
 					options.appendChild(opt);
 				}		
-				
 				if(arr.type == 'submit') {
 					let opt = document.createElement('input');
 					opt.type = arr.type;
@@ -378,21 +346,14 @@ class Magic {
 					opt.value = arr.value;
 					options.appendChild(opt);
 				}							
-
 				j++;
 			}	
-			
 			parents.appendChild(options);
-		
 		}
-		
-		
 	}
 
 	loop(node, find, values) {
-
 		let att = null;
-
 		if(node.getAttribute('magic:loop') !== null) {
 			att = node.getAttribute('magic:loop');
 		}
@@ -402,24 +363,16 @@ class Magic {
 		if(node.getAttribute(':loop') !== null) {
 			att = node.getAttribute(':loop');
 		}
-
 		if(att != null) {
-
 			if(find == node.getAttribute('magic:loop') || find == node.getAttribute('m:loop') || find == node.getAttribute(':loop')) {
-
 				let c = node.children[0];
 				let h = c.innerHTML;
 				let object = Object.entries(values);
 				let len = object.length;
-
 				for(let i = 0; i < len; i++) {
-
 					let k = Object.keys(object[i][1]);
 					let v = Object.values(object[i][1]);
-
 					if(c.innerHTML) {
-
-						
 						if(k.length == 1) {
 							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0]);
 						} else if(k.length == 2) {
@@ -486,8 +439,6 @@ class Magic {
 							.replace("{{"+k[8]+"}}",v[8])
 							.replace("{{"+k[9]+"}}",v[9]);
 						} else {}
-						
-
 						node.append(c);
 						c = c.cloneNode(true);
 					}
@@ -497,7 +448,6 @@ class Magic {
 	}
 	
 	nodes(method, find, value) {
-
 		// Parentnodes.
 		var docElements = this.nodeParentList();
 		for(var i = 0; i < docElements.length; i++) {
@@ -505,11 +455,9 @@ class Magic {
 			if(method == 'bindForms') {
 				this.bindForms(docElements[i], find, value);
 			}
-
 			if(method == 'bindCurtains') {
 				this.curtains(docElements[i], find, value)
 			}
-
 			if(method == 'bindLoop') {
 				this.loop(docElements[i], find, value)
 			}
@@ -519,18 +467,15 @@ class Magic {
 			if(method == 'bindLogic') {
 				this.bindIf(docElements[i], find, value)
 			}
-
 			if(method == 'bindAttributesNode') {
 				this.bindClass(docElements[i], find, value)
 				// this.bindId(docElements[i], find, value)
 			}
-
 			if(method == 'findAttributesNode') {
 				if(docElements[i].hasAttribute("magic:for")) {
 					this.log(true);
 				}
 			}
-
 			// Childnodes.
 			var docChildren = this.nodeChildren(docElements[i]);
 			for(var j = 0; j < docChildren.length; j++) {
@@ -553,7 +498,6 @@ class Magic {
 	}
 
 	getData(uri) {
-
 		let req = new XMLHttpRequest();
 		req.open("GET", uri, true);
 		req.withCredentials = true;
@@ -568,7 +512,6 @@ class Magic {
 	}
 	
 	fetchJSON(uri,callback) {
-
 		let req = new XMLHttpRequest();
 		req.open("GET", uri, true);
 		req.withCredentials = true;
