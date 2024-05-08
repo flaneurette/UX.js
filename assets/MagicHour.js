@@ -418,11 +418,10 @@ class Magic {
 					let v = Object.values(object[i][1]);
 
 					if(child.innerHTML) {
-
 						let docChildren = this.nodeChildren(child);
 						for(let j=0;j<docChildren.length;j++) {
 							if(docChildren[j].nodeType === 1) {
-								for(let h=0;h<20;h++) {
+								for(let h=0;h<k.length;h++) {
 								 docChildren[j].innerHTML = docChildren[j].innerHTML.replace("{{" + k[h] + "}}", v[h]);
 								}
 							}
