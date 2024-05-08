@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Magic Forms</title>
+  <style>
+    .text {
+      display: inline-block;
+      border: 1px solid black;
+      padding: 10px;
+      background-color: #dedede;
+    }
+	input, textarea {
+		display: block;
+		padding: 10px;
+		margin:10px;
+	}
+  </style>
+</head>
+<body>
+
+<div id="app">
+ <p>{{formTitle}}</p>
+  <div :class="myClass" magic:form="form">
+	<div id="form">
+	<!-- id must be set -->
+	</div>
+  </div>
+</div>
+	<script src="../assets/MagicHour.js"></script>
+	
+	<script>
+	
+	let app = new Magic();
+	
+	app.load({
+		data: {
+			myClass: "text",
+			formTitle: 'Please fill out this form.',
+			form: [
+			{name: 'myform', type: 'form', action: 'index.php', method: 'POST', enctype: ''},
+			{name: 'Name', type: 'text', value: '', label: 'Name'},
+			{name: 'Address', type: 'text', value: '', label: 'Address'},
+			{name: 'City', type: 'text', value: '', label: 'City'},
+			{name: 'Country', type: 'text', value: '', label: 'Country'},
+			{name: 'Comments', type: 'textarea', value: '', label: 'Comments', placeholder: 'Your comments...'},
+			{name: 'Terms', type: 'checkbox', checked: 'true', label: 'Agree to terms?'},
+			{name: 'crsf', type: 'hidden', value: ''},
+			{name: 'Submit', type: 'submit', value: 'Submit'}]
+		}
+	});
+  
+	</script>
+</body>
+</html>
