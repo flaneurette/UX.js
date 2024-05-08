@@ -380,54 +380,34 @@ class Magic {
 		return obj;
 	 });
 	}
+
+	getData(uri) {
+
+		let req = new XMLHttpRequest();
+		req.open("GET", uri, true);
+		req.withCredentials = true;
+		req.setRequestHeader('Access-Control-Allow-Origin', '*');
+		req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		req.onreadystatechange = function() {
+			if (req.readyState == 4 && req.status == 200) {
+				return JSON.parse(req.responseText);
+			}
+		}
+		req.send();
+	}
 	
 	fetchJSON(uri,callback) {
 
 		let req = new XMLHttpRequest();
-
 		req.open("GET", uri, true);
 		req.withCredentials = true;
-		
 		req.setRequestHeader('Access-Control-Allow-Origin', '*');
 		req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-		
 		req.onreadystatechange = function() {
 			if (req.readyState == 4 && req.status == 200) {
 				callback(req.responseText);
 			}
 		}
 		req.send(null);
-	}
-	
-	fetchHTML(method,uri,data=[]) {
-
-		let req = new XMLHttpRequest();
-		let res = '';
-
-		if(method == 'POST' && data != null) {
-			let requestMethod = 'POST';
-		} else {
-			let requestMethod =  'GET';
-		}
-		
-		req.open(requestMethod, uri, true);
-		req.withCredentials = true;
-		req.setRequestHeader('Access-Control-Allow-Origin', '*');
-
-		if(requestMethod == 'POST' ) {
-			
-			req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-			req.send(data);
-			req.onreadystatechange = function() {
-				
-				if (req.readyState == 4 && req.status == 200) {
-					return req.responseText;
-				}
-			}
-		
-			} else {
-			req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-			req.send(null);
-		}
 	}
 }
