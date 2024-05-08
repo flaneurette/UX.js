@@ -419,28 +419,24 @@ class Magic {
 
 					if(child.innerHTML) {
 
+						let docChildren = this.nodeChildren(child);
+						for(let j=0;j<docChildren.length;j++) {
+							if(docChildren[j].nodeType === 1) {
+								for(let h=0;h<20;h++) {
+								 docChildren[j].innerHTML = docChildren[j].innerHTML.replace("{{" + k[h] + "}}", v[h]);
+								}
+							}
+						}
+
 						if(k.length == 1) {
 							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]);
-						} else if(k.length == 2) {
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]).replace("{{" + k[1] + "}}", v[1]);
-						} else if(k.length == 3) {
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]).replace("{{" + k[1] + "}}", v[1]).replace("{{" + k[2] + "}}", v[2]);
-						} else if(k.length == 4) {
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]).replace("{{" + k[1] + "}}", v[1]).replace("{{" + k[2] + "}}", v[2]).replace("{{" + k[3] + "}}", v[3]);
-						} else if(k.length == 5) {
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]).replace("{{" + k[1] + "}}", v[1]).replace("{{" + k[2] + "}}", v[2]).replace("{{" + k[3] + "}}", v[3]).replace("{{" + k[4] + "}}", v[4]);
-						} else if(k.length == 6) {
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]).replace("{{" + k[1] + "}}", v[1]).replace("{{" + k[2] + "}}", v[2]).replace("{{" + k[3] + "}}", v[3]).replace("{{" + k[4] + "}}", v[4]).replace("{{" + k[5] + "}}", v[5]);
-						} else if(k.length == 7) {
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]).replace("{{" + k[1] + "}}", v[1]).replace("{{" + k[2] + "}}", v[2]).replace("{{" + k[3] + "}}", v[3]).replace("{{" + k[4] + "}}", v[4]).replace("{{" + k[5] + "}}", v[5]).replace("{{" + k[6] + "}}", v[6]);
-						} else if(k.length == 8) {
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]).replace("{{" + k[1] + "}}", v[1]).replace("{{" + k[2] + "}}", v[2]).replace("{{" + k[3] + "}}", v[3]).replace("{{" + k[4] + "}}", v[4]).replace("{{" + k[5] + "}}", v[5]).replace("{{" + k[6] + "}}", v[6]).replace("{{" + k[7] + "}}", v[7]);
-						} else if(k.length == 9) {
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]).replace("{{" + k[1] + "}}", v[1]).replace("{{" + k[2] + "}}", v[2]).replace("{{" + k[3] + "}}", v[3]).replace("{{" + k[4] + "}}", v[4]).replace("{{" + k[5] + "}}", v[5]).replace("{{" + k[6] + "}}", v[6]).replace("{{" + k[7] + "}}", v[7]).replace("{{" + k[8] + "}}", v[8]);
-						} else if(k.length == 10) {
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]).replace("{{" + k[1] + "}}", v[1]).replace("{{" + k[2] + "}}", v[2]).replace("{{" + k[3] + "}}", v[3]).replace("{{" + k[4] + "}}", v[4]).replace("{{" + k[5] + "}}", v[5]).replace("{{" + k[6] + "}}", v[6]).replace("{{" + k[7] + "}}", v[7]).replace("{{" + k[8] + "}}", v[8]).replace("{{" + k[9] + "}}", v[9]);
-						} else {}
-
+						}
+						
+						if(k.length == 2) {
+							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]);
+							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]);
+						} 
+						
 						node.append(child);
 						child = child.cloneNode(true);
 					}
