@@ -13,8 +13,9 @@ class Magic {
 	log(msg) {
 		console.log(msg);
 	}
-   
+
 	load(list) {
+
 		if(!Object(list)) {
 			this.log(this.msg['initialize']);
 			return false;
@@ -25,23 +26,17 @@ class Magic {
 			let events = list.events;
 
 			if(data) {
-				try {
-					for(const [key, value] of Object.entries(data)) {
-
-						if(Array.isArray(value)) {
-							this.nodes('bindLoop', key, Object.values(value));
-						} else {
-							// Parse Nodes
-							this.nodes('replaceNodeValue', key, value);
-							this.nodes('bindAttributesNode', key, value);
-							this.nodes('bindLogic', key, value);
-							this.nodes('bindFunctions', key, value);
-							this.nodes('bindCurtains', key, value);
-							this.log(key + ':' + value);
-						}
+				for(const [key, value] of Object.entries(data)) {
+					if(Array.isArray(value)) {
+					this.nodes('bindLoop', key, Object.values(value));
+					} else {
+					// Parse Nodes
+					this.nodes('replaceNodeValue', key, value);
+					this.nodes('bindAttributesNode', key, value);
+					this.nodes('bindLogic', key, value);
+					this.nodes('bindFunctions', key, value);
+					this.nodes('bindCurtains', key, value);
 					}
-				} catch (e) {
-					this.log(this.msg['enumerate']);
 				}
 			}
 		}
