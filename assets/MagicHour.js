@@ -293,7 +293,6 @@ class Magic {
 			for(let key in values) {
 				
 				let arr = values[key];
-				console.log(arr.value);
 
 				if(arr.type == 'form') {
 				
