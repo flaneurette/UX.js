@@ -3,17 +3,17 @@
 <head>
   <title>Magic Forms</title>
   <style>
-.text {
-	display: inline-block;
-	border: 1px solid black;
-	padding: 10px;
-	background-color: #dedede;
-}
-input, textarea {
-	display: block;
-	padding: 10px;
-	margin:10px;
-}
+    .text {
+      display: inline-block;
+      border: 1px solid black;
+      padding: 10px;
+      background-color: #dedede;
+    }
+	input, textarea {
+		display: block;
+		padding: 10px;
+		margin:10px;
+	}
   </style>
 </head>
 <body>
@@ -38,7 +38,7 @@ input, textarea {
 			formTitle: 'Please fill out this form.',
 			form: [
 			{name: 'myform', type: 'form', action: 'index.php', method: 'POST', enctype: ''},
-			{name: 'Name', type: 'text', value: '', label: 'Name'},
+			{name: 'Name', type: 'text', value: '', label: 'Name', className: 'text'},
 			{name: 'Address', type: 'text', value: '', label: 'Address'},
 			{name: 'City', type: 'text', value: '', label: 'City'},
 			{name: 'Country', type: 'text', value: '', label: 'Country'},
