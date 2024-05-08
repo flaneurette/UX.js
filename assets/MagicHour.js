@@ -24,21 +24,22 @@ class Magic {
 			let i = 0;
 			let data = list.data
 			let method = list.method;
+			let events = list.events;
 
 			if(data) {
 				try {
 					for(const [key, value] of Object.entries(data)) {
 
 						if(Array.isArray(value)) {
-							this.nodes('loop', key, Object.values(value));
+							this.nodes('bindLoop', key, Object.values(value));
 						} else {
 							// Parse Nodes
 							this.nodes('replaceNodeValue', key, value);
 							this.nodes('bindAttributesNode', key, value);
-							this.nodes('logicStructIf', key, value);
-							this.nodes('functions', key, value);
-							this.nodes('curtains', key, value);
-							// this.log(key + ':' + value);
+							this.nodes('bindLogic', key, value);
+							this.nodes('bindFunctions', key, value);
+							this.nodes('bindCurtains', key, value);
+							this.log(key + ':' + value);
 						}
 					}
 				} catch (e) {
@@ -48,55 +49,8 @@ class Magic {
 		}
 	}
 
-	nodes(method, find, value) {
-
-		// Parentnodes.
-		var docElements = this.nodeParentList();
-		for(var i = 0; i < docElements.length; i++) {
-
-
-			if(method == 'curtains') {
-				this.curtains(docElements[i], find, value)
-			}
-
-			if(method == 'loop') {
-				this.loop(docElements[i], find, value)
-			}
-			if(method == 'functions') {
-				this.bindFunctions(docElements[i], find, value)
-			}
-			if(method == 'logicStructIf') {
-				this.bindIf(docElements[i], find, value)
-			}
-
-			if(method == 'bindAttributesNode') {
-				this.bindClass(docElements[i], find, value)
-				// this.bindId(docElements[i], find, value)
-			}
-
-			if(method == 'findAttributesNode') {
-				if(docElements[i].hasAttribute("magic:for")) {
-					this.log(true);
-				}
-			}
-
-			// Childnodes.
-			var docChildren = this.nodeChildren(docElements[i]);
-			for(var j = 0; j < docChildren.length; j++) {
-
-				if(method == 'replaceNodeValue') {
-					if(docChildren[j].nodeType === 3) {
-						const regex = new RegExp("{{\\s*" + find + "[0-9]*\\s*}}", "gmi");
-						docChildren[j].nodeValue = docChildren[j].nodeValue.replace(regex, value);
-					}
-				}
-
-				if(method == 'locateNode') {
-					console.log(docChildren[j]);
-				}
-
-			}
-		}
+	getElements() {
+		return document.getElementsByTagName("*");
 	}
 
 	nodeParentList() {
@@ -115,12 +69,32 @@ class Magic {
 		}
 		return childList;
 	}
+	
+	clone(list, id) {
+		if(id === null) {
+			return false;
+		} else {
+			const parentItem = document.getElementById(id).parentNode;
+			let docItem = document.getElementById(id);
+			let docClone = docItem.cloneNode(true);
 
-	getElements() {
-		return document.getElementsByTagName("*");
+			for(let i = 0; i < list.length; i++) {
+				parentItem.appendChild(docClone);
+			}
+		}
 	}
 
+	isVisible(id) {
 
+		try {
+			if(document.getElementById(id).style.display == "block") {
+				document.getElementById(id).style.display = "none";
+			} else if(document.getElementById(id).style.display == "none") {
+				document.getElementById(id).style.display = "block";
+			} else {}
+		} catch (e) {}
+	}
+	
 	bindClass(node, find, value) {
 		if(node.getAttribute('magic:class') !== null) {
 			let att = node.getAttribute('magic:class');
@@ -193,6 +167,14 @@ class Magic {
 				let curtain = node.getAttribute('magic:curtain');
 				node.style = 'display:none;';
 			}
+			if(node.getAttribute('m:curtain') !== null) {
+				let curtain = node.getAttribute('m:curtain');
+				node.style = 'display:none;';
+			}
+			if(node.getAttribute(':curtain') !== null) {
+				let curtain = node.getAttribute(':curtain');
+				node.style = 'display:none;';
+			}
 		}
 
 		if(node.getAttribute('magic:onclick') !== null || node.getAttribute('m:onclick') !== null || node.getAttribute('magic:onclick') !== null) {
@@ -240,7 +222,6 @@ class Magic {
 		}
 
 	}
-
 
 	bindIf(node, find, value) {
 
@@ -353,29 +334,110 @@ class Magic {
 			}
 		}
 	}
+	
+	nodes(method, find, value) {
 
-	clone(list, id) {
-		if(id === null) {
-			return false;
-		} else {
-			const parentItem = document.getElementById(id).parentNode;
-			let docItem = document.getElementById(id);
-			let docClone = docItem.cloneNode(true);
+		// Parentnodes.
+		var docElements = this.nodeParentList();
+		for(var i = 0; i < docElements.length; i++) {
 
-			for(let i = 0; i < list.length; i++) {
-				parentItem.appendChild(docClone);
+
+			if(method == 'bindCurtains') {
+				this.curtains(docElements[i], find, value)
+			}
+
+			if(method == 'bindLoop') {
+				this.loop(docElements[i], find, value)
+			}
+			if(method == 'bindFunctions') {
+				this.bindFunctions(docElements[i], find, value)
+			}
+			if(method == 'bindLogic') {
+				this.bindIf(docElements[i], find, value)
+			}
+
+			if(method == 'bindAttributesNode') {
+				this.bindClass(docElements[i], find, value)
+				// this.bindId(docElements[i], find, value)
+			}
+
+			if(method == 'findAttributesNode') {
+				if(docElements[i].hasAttribute("magic:for")) {
+					this.log(true);
+				}
+			}
+
+			// Childnodes.
+			var docChildren = this.nodeChildren(docElements[i]);
+			for(var j = 0; j < docChildren.length; j++) {
+
+				if(method == 'replaceNodeValue') {
+					if(docChildren[j].nodeType === 3) {
+						const regex = new RegExp("{{\\s*" + find + "[0-9]*\\s*}}", "gmi");
+						docChildren[j].nodeValue = docChildren[j].nodeValue.replace(regex, value);
+					}
+				}
+
 			}
 		}
+	}	
+	parseJSON(uri) {
+	 this.fetchJSON(uri,function(response) {
+		var obj =  JSON.parse(response);
+		return obj;
+	 });
 	}
+	
+	fetchJSON(uri,callback) {
 
-	isVisible(id) {
+		var req = new XMLHttpRequest();
 
-		try {
-			if(document.getElementById(id).style.display == "block") {
-				document.getElementById(id).style.display = "none";
-			} else if(document.getElementById(id).style.display == "none") {
-				document.getElementById(id).style.display = "block";
-			} else {}
-		} catch (e) {}
+		req.open("GET", uri, true);
+		req.withCredentials = true;
+		
+		req.setRequestHeader('Access-Control-Allow-Origin', '*');
+		req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+		
+		req.onreadystatechange = function() {
+			if (req.readyState == 4 && req.status == 200) {
+				callback(req.responseText);
+			}
+		}
+		req.send(null);
+	}
+	
+	fetchHTML(method,uri,data=[]) {
+
+		var req = new XMLHttpRequest();
+		var res = '';
+
+		if(method == 'POST') {
+			if(data != null) {
+				var requestMethod = 'POST';
+			}
+		} else {
+			var requestMethod =  'GET';
+		}
+		
+		req.open(requestMethod, uri, true);
+		req.withCredentials = true;
+		req.setRequestHeader('Access-Control-Allow-Origin', '*');
+
+		if(requestMethod == 'POST' ) {
+			
+			req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+			req.send(data);
+			
+			req.onreadystatechange = function() {
+				
+				if (req.readyState == 4 && req.status == 200) {
+					return req.responseText;
+				}
+			}
+		
+			} else {
+			req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+			req.send(null);
+		}
 	}
 }
