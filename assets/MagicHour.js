@@ -433,7 +433,7 @@ class Magic {
 						
 						if(k.length == 2) {
 							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]);
-							child.innerHTML = html.replace("{{" + k[0] + "}}", v[0]);
+							child.innerHTML = html.replace("{{" + k[1] + "}}", v[1]);
 						} 
 						
 						node.append(child);
