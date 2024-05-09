@@ -8,11 +8,6 @@ class Magic {
 		instanceid: 1e5
 	}
 	
-	msg = {
-		initialize: "MH: Cannot initialize a non-object.",
-		enumerate: "MH: Could not enumerate global object."
-	}
-
 	log(msg) {
 		console.log(msg);
 	}
@@ -425,7 +420,6 @@ class Magic {
 						docChildren[j].nodeValue = docChildren[j].nodeValue.replace(regex, value);
 					}
 				}
-
 			}
 		}
 	}	
@@ -469,5 +463,10 @@ class Magic {
 			}
 		}
 		req.send(null);
+	}
+	
+	msg = {
+		initialize: "MH: Cannot initialize a non-object.",
+		enumerate: "MH: Could not enumerate global object."
 	}
 }
