@@ -372,76 +372,14 @@ class Magic {
 				for(let i = 0; i < len; i++) {
 					let k = Object.keys(object[i][1]);
 					let v = Object.values(object[i][1]);
-					if(c.innerHTML) {
-						if(k.length == 1) {
-							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0]);
-						} else if(k.length == 2) {
-							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
-							.replace("{{"+k[1]+"}}",v[1]);
-						} else if(k.length == 3) {
-							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
-							.replace("{{"+k[1]+"}}",v[1])
-							.replace("{{"+k[2]+"}}",v[2]);
-						} else if(k.length == 4) {
-							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
-							.replace("{{"+k[1]+"}}",v[1])
-							.replace("{{"+k[2]+"}}",v[2])
-							.replace("{{"+k[3]+"}}",v[3]);
-						} else if(k.length == 5) {
-							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
-							.replace("{{"+k[1]+"}}",v[1])
-							.replace("{{"+k[2]+"}}",v[2])
-							.replace("{{"+k[3]+"}}",v[3])
-							.replace("{{"+k[4]+"}}",v[4]);
-						} else if(k.length == 6) {
-							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
-							.replace("{{"+k[1]+"}}",v[1])
-							.replace("{{"+k[2]+"}}",v[2])
-							.replace("{{"+k[3]+"}}",v[3])
-							.replace("{{"+k[4]+"}}",v[4])
-							.replace("{{"+k[5]+"}}",v[5]);
-						} else if(k.length == 7) {
-							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
-							.replace("{{"+k[1]+"}}",v[1])
-							.replace("{{"+k[2]+"}}",v[2])
-							.replace("{{"+k[3]+"}}",v[3])
-							.replace("{{"+k[4]+"}}",v[4])
-							.replace("{{"+k[5]+"}}",v[5])
-							.replace("{{"+k[6]+"}}",v[6]);
-						} else if(k.length == 8) {
-							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
-							.replace("{{"+k[1]+"}}",v[1])
-							.replace("{{"+k[2]+"}}",v[2])
-							.replace("{{"+k[3]+"}}",v[3])
-							.replace("{{"+k[4]+"}}",v[4])
-							.replace("{{"+k[5]+"}}",v[5])
-							.replace("{{"+k[6]+"}}",v[6])
-							.replace("{{"+k[7]+"}}",v[7]);
-						} else if(k.length == 9) {
-							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
-							.replace("{{"+k[1]+"}}",v[1])
-							.replace("{{"+k[2]+"}}",v[2])
-							.replace("{{"+k[3]+"}}",v[3])
-							.replace("{{"+k[4]+"}}",v[4])
-							.replace("{{"+k[5]+"}}",v[5])
-							.replace("{{"+k[6]+"}}",v[6])
-							.replace("{{"+k[7]+"}}",v[7])
-							.replace("{{"+k[8]+"}}",v[8]);
-						} else if(k.length == 10) {
-							c.innerHTML = h.replace("{{"+k[0]+"}}",v[0])
-							.replace("{{"+k[1]+"}}",v[1])
-							.replace("{{"+k[2]+"}}",v[2])
-							.replace("{{"+k[3]+"}}",v[3])
-							.replace("{{"+k[4]+"}}",v[4])
-							.replace("{{"+k[5]+"}}",v[5])
-							.replace("{{"+k[6]+"}}",v[6])
-							.replace("{{"+k[7]+"}}",v[7])
-							.replace("{{"+k[8]+"}}",v[8])
-							.replace("{{"+k[9]+"}}",v[9]);
-						} else {}
-						node.append(c);
-						c = c.cloneNode(true);
+					c.innerHTML = h.replace("magichour1234567890",""); // DOM bug
+					for(let j=0; j< v.length;j++) {
+						if(c.innerHTML) {
+							c.innerHTML = c.innerHTML.replace("{{"+k[j]+"}}",v[j]);
+						}
 					}
+					node.append(c);
+					c = c.cloneNode(true);	
 				}
 			}
 		}
