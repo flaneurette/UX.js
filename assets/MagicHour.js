@@ -1,10 +1,13 @@
-/***
- ** Magic Hour v1.001
- * (c) 2024 flaneurette
- */
-
 class Magic {
-
+	
+	init = { 
+		name: "Magic.js",
+		version:"1.000011",
+		copyright: "(c) 2024 flaneurette",
+		license: "MIT",
+		instanceid: 1e5
+	}
+	
 	msg = {
 		initialize: "MH: Cannot initialize a non-object.",
 		enumerate: "MH: Could not enumerate global object."
@@ -29,7 +32,7 @@ class Magic {
 					this.nodes('bindLoop', key, value);
 					this.nodes('bindForms', key, value);
 					} else {
-					// Parse Nodes
+					// Parse nodes
 					this.nodes('replaceNodeValue', key, value);
 					this.nodes('bindAttributesNode', key, value);
 					this.nodes('bindLogic', key, value);
@@ -40,14 +43,15 @@ class Magic {
 			}
 		}
 	}
-
+	
 	getElements() {
-		return document.getElementsByTagName("*");
+		var docElements = document.getElementsByTagName("*")
+		return docElements;
 	}
 
 	nodeParentList() {
 		let parentList = [];
-		var docElements = document.getElementsByTagName("*")
+		var docElements = this.getElements();
 		for(var i = 0; i < docElements.length; i++) {
 			parentList.push(docElements[i]);
 		}
@@ -129,7 +133,7 @@ class Magic {
 	}
 
 	drawCurtains() {
-		var docElements = document.getElementsByTagName("*")
+		var docElements = document.getElementsByTagName("*");
 		for(var i = 0; i < docElements.length; i++) {
 			if(docElements[i].getAttribute('magic:curtain') !== null) {
 				let curtain = docElements[i].getAttribute('magic:curtain');
@@ -138,7 +142,7 @@ class Magic {
 		}
 	}
 
-	curtains(node, find, value) {
+	bindCurtains(node, find, value) {
 
 		let att = null;
 		var docElements = this.nodeParentList();
@@ -237,7 +241,6 @@ class Magic {
 						key = null,
 						opp = '';
 					let pieces = att.split("\s");
-					console.log(pieces);
 					node.style = 'display: none;';
 					for(let i = 0; i < pieces.length; i++) {
 						if(find == pieces[i]) {
@@ -386,15 +389,14 @@ class Magic {
 	}
 	
 	nodes(method, find, value) {
-		// Parentnodes.
+		// Parent nodes.
 		var docElements = this.nodeParentList();
 		for(var i = 0; i < docElements.length; i++) {
-
 			if(method == 'bindForms') {
 				this.bindForms(docElements[i], find, value);
 			}
 			if(method == 'bindCurtains') {
-				this.curtains(docElements[i], find, value)
+				this.bindCurtains(docElements[i], find, value)
 			}
 			if(method == 'bindLoop') {
 				this.loop(docElements[i], find, value)
@@ -427,6 +429,12 @@ class Magic {
 			}
 		}
 	}	
+
+	duplicatearray(a,b) {
+		a.length = 0;
+		a.push.apply(a, b);
+		return a;
+	}
 	
 	parseJSON(uri) {
 	 this.fetchJSON(uri,function(response) {
