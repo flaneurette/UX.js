@@ -1,6 +1,6 @@
 # Magic.js
 
-<img src="https://github.com/flaneurette/Magic.js/blob/main/assets/images/magic-hour-logo.png" />
+<img src="https://github.com/flaneurette/Magic.js/blob/main/assets/images/magic-js-logo.png" />
 
 A minimal JavaScript framework, similar to VUE.js
 
