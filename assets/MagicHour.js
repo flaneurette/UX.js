@@ -26,8 +26,6 @@ class Magic {
 			let data = list.data
 			let method = list.methods;
 			let events = list.events;
-			console.log(list.methods);
-			
 			if(data) {
 				for(const [key, value] of Object.entries(data)) {
 					if(Array.isArray(value)) {
@@ -207,7 +205,7 @@ class Magic {
 		}
 	}
 	
-	bindOn(node, find, value) {
+	bindOn(node, find, value) { 
 		let att = this.getAtt(node,'click');
 		if(node.getAttribute('magic:click') !== null || node.getAttribute('m:click') !== null || node.getAttribute(':click') !== null) {
 			if(att !== null) {				
@@ -217,8 +215,6 @@ class Magic {
 					if(findMethod !== null) {
 						let calledMethod = findMethod[3];
 						if(calledMethod !== null) {
-							let p = calledMethod.split('\"');
-							console.log(p);
 							// PARSE THE FUNCTION VALUES HERE
 							let processClick = new Function(calledMethod);
 							processClick.apply();
