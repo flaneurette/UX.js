@@ -2,7 +2,7 @@
 
 <img src="https://github.com/flaneurette/Magic.js/blob/main/assets/images/magic-js-logo.png" />
 
-A minimal JavaScript framework, similar to VUE.js, React and other frameworks, but much easier to work with. Magic.js is unique as it seperates data loading and DOM manipulation from other JavaScript logic, making it much quicker to learn and easier to implement. 
+A minimal JavaScript framework, similar to VUE.js, React and other frameworks, but much easier to work with. Magic.js is unique as it separates data loading and DOM manipulation from other JavaScript logic, making it much quicker to learn and easier to implement or add to existing JavaScript code. Magic.js has been built to be fully scalable and easy to implement in any project, without having to rewrite entire codebases. It even works with the afforementioned frameworks.
 
 Currently under development.
 
