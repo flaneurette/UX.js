@@ -26,6 +26,18 @@ class Magic {
 			let data = list.data
 			let method = list.methods;
 			let events = list.events;
+			
+			// place in bindOn function, send pairs through bindOn.
+			if(method && Object(method)) { 
+				for(let key in method) { 
+					let funcs = method[key];
+					let pairs = this.functionToArray(funcs.toString());
+					if(pairs) {
+					//console.log(pairs);
+					}
+				}
+			}
+			
 			if(data) {
 				for(const [key, value] of Object.entries(data)) {
 					if(Array.isArray(value)) {
@@ -45,7 +57,22 @@ class Magic {
 			}
 		}
 	}
-	
+
+	functionToArray(x) {
+			let arr = [];
+			let z = x.split(/{/gm)
+				for(let i = 0; i< z.length;i++) {
+					if(z[i].match(':')) {
+					let parsed = z[i].replaceAll('}','').replace(/\s/g,'')
+					let finals = parsed.split(',')
+					for(let j=0;j<finals.length;j++) {
+					arr.push(finals[j].replace(':',','))
+				}
+					return arr;
+				}
+			}
+	}
+
 	getElements() {
 		var docElements = document.getElementsByTagName("*")
 		return docElements;
@@ -154,6 +181,15 @@ class Magic {
 				let curtain = docElements[i].getAttribute('magic:curtain');
 				docElements[i].style = 'display:block;';
 			}
+			if(docElements[i].getAttribute('m:curtain') !== null) {
+				let curtain = docElements[i].getAttribute('m:curtain');
+				docElements[i].style = 'display:block;';
+			}
+			if(docElements[i].getAttribute(':curtain') !== null) {
+				let curtain = docElements[i].getAttribute(':curtain');
+				docElements[i].style = 'display:block;';
+			}
+			
 		}
 	}
 
@@ -216,6 +252,7 @@ class Magic {
 						let calledMethod = findMethod[3];
 						if(calledMethod !== null) {
 							// PARSE THE FUNCTION VALUES HERE
+							console.log(findMethod[0])
 							let processClick = new Function(calledMethod);
 							processClick.apply();
 						}
@@ -353,6 +390,7 @@ class Magic {
 
 	loop(node, find, values) {
 		let att = this.getAtt(node,'loop');
+		let attclick = this.getAtt(node,'click');
 		if(att != null) {
 				let c = node.children[0];
 				let h = c.innerHTML;
@@ -361,7 +399,7 @@ class Magic {
 				for(let i = 0; i < len; i++) {
 					let k = Object.keys(object[i][1]);
 					let v = Object.values(object[i][1]);
-					c.innerHTML = h.replace("magic1234567890",""); // DOM bug
+					c.innerHTML = h.replace("magic123",""); // DOM bug
 					for(let j=0; j< v.length;j++) {
 						if(c.innerHTML) {
 							c.innerHTML = c.innerHTML.replace("{{"+k[j]+"}}",v[j]);
