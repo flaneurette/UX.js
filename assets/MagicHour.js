@@ -196,12 +196,11 @@ class Magic {
   bindOn(node, data, methods, find, value) {
     let att = this.getAtt(node, 'click');
     if(node.getAttribute('magic:click') !== null || node.getAttribute('m:click') !== null || node.getAttribute(':click') !== null) {
-		if(methods && Object(methods)) {
+	if(methods && Object(methods)) {
            for(let key in methods) {
                let funcs = methods[key];
                let pairs = this.functionToArray(funcs.toString());
                if(pairs) {
-				   console.log(pairs);
                  }
                }
         }
@@ -258,7 +257,7 @@ class Magic {
 	  
     let att = this.getAtt(node, 'loop');
     let attclick = this.getAtt(node, 'click');
-	let zebra = this.getAtt(node, 'zebra');
+    let zebra = this.getAtt(node, 'zebra');
     if(att !== null && att == find) {
       let c = node.children[0];
       let h = c.innerHTML;
@@ -271,13 +270,13 @@ class Magic {
         for(let j = 0; j < v.length; j++) {
           if(c.innerHTML) {
             c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
-			c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
+	    c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
           }
-		  c.setAttribute('id',find+i);
+	c.setAttribute('id',find+i);
         }
         node.append(c);
         c = c.cloneNode(true);
-		if(zebra !== null && node.children[i]) {
+	if(zebra !== null && node.children[i]) {
             if(i % 2 !== 0) node.children[i].className = zebra;
         }
       }
