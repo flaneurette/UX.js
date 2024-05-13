@@ -288,28 +288,13 @@ class Magic {
     // Parent nodes.
     var docElements = this.nodeParentList();
     for(var i = 0; i < docElements.length; i++) {
-      if(method == 'createForm') {
-        this.createForm(docElements[i], find, value);
-      }
-      if(method == 'bindCurtains') {
-        this.bindCurtains(docElements[i], find, value)
-      }
-      if(method == 'bindLoop') {
-        this.loop(docElements[i], find, value)
-      }
-      if(method == 'bindFunctions') {
-        this.bindFunctions(docElements[i], find, value)
-      }
-      if(method == 'bindLogic') {
-        this.bindIf(docElements[i], find, value)
-      }
-      if(method == 'bindOn') {
-        this.bindOn(docElements[i], find, value)
-      }
-      if(method == 'bindAttributesNode') {
-        this.bindClass(docElements[i], find, value)
-        // this.bindId(docElements[i], find, value)
-      }
+      if(method == 'createForm') this.createForm(docElements[i], find, value);
+      if(method == 'bindCurtains') this.bindCurtains(docElements[i], find, value);
+      if(method == 'bindLoop') this.loop(docElements[i], find, value);
+      if(method == 'bindFunctions') this.bindFunctions(docElements[i], find, value);
+      if(method == 'bindLogic') this.bindIf(docElements[i], find, value); 
+      if(method == 'bindOn') this.bindOn(docElements[i], find, value);
+      if(method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
       if(method == 'findAttributesNode') {
         if(docElements[i].hasAttribute("magic:for")) {
           this.log(true);
@@ -341,7 +326,7 @@ class Magic {
       return obj;
     });
   }
-
+  
   getData(uri) {
     let req = new XMLHttpRequest();
     req.open("GET", uri, true);
