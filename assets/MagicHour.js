@@ -26,24 +26,12 @@ class Magic {
       let data = list.data
       let method = list.methods;
       let events = list.events;
-
-      // place in bindOn function, send pairs through bindOn.
-      if(method && Object(method)) {
-        for(let key in method) {
-          let funcs = method[key];
-          let pairs = this.functionToArray(funcs.toString());
-          if(pairs) {
-            //console.log(pairs);
-          }
-        }
-      }
-
       if(data) {
         for(const [key, value] of Object.entries(data)) {
           if(Array.isArray(value)) {
             this.nodes('bindLoop', key, value);
             this.nodes('createForm', key, value);
-            this.nodes('bindOn', key, value);
+            this.nodes('bindOn', data, method, key, value);
           } else {
             // Parse nodes
             this.nodes('replaceNodeValue', key, value);
@@ -51,13 +39,37 @@ class Magic {
             this.nodes('bindLogic', key, value);
             this.nodes('bindFunctions', key, value);
             this.nodes('bindCurtains', key, value);
-            this.nodes('bindOn', key, value);
+            this.nodes('bindOn', key, value, data, method);
           }
         }
       }
     }
   }
-
+  
+  nodes(method, find, value, data=null, methods=null) {
+    // Parent nodes.
+    var docElements = this.nodeParentList();
+    for(var i = 0; i < docElements.length; i++) {
+      if(method == 'createForm') this.createForm(docElements[i], find, value);
+      if(method == 'bindCurtains') this.bindCurtains(docElements[i], find, value);
+      if(method == 'bindLoop') this.loop(docElements[i], find, value);
+      if(method == 'bindFunctions') this.bindFunctions(docElements[i], find, value);
+      if(method == 'bindLogic') this.bindIf(docElements[i], find, value); 
+      if(method == 'bindOn') this.bindOn(docElements[i], data, methods, find, value);
+      if(method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
+      // Childnodes.
+      var docChildren = this.nodeChildren(docElements[i]);
+      for(var j = 0; j < docChildren.length; j++) {
+        if(method == 'replaceNodeValue') {
+          if(docChildren[j].nodeType === 3) {
+            const regex = new RegExp("{{\\s*" + find + "[0-9]*\\s*}}", "gmi");
+            docChildren[j].nodeValue = docChildren[j].nodeValue.replace(regex, value);
+          }
+        }
+      }
+    }
+  }
+  
   getElements() {
     var docElements = Magic.docElements;
     return docElements;
@@ -181,9 +193,18 @@ class Magic {
     }
   }
 
-  bindOn(node, find, value) {
+  bindOn(node, data, methods, find, value) {
     let att = this.getAtt(node, 'click');
     if(node.getAttribute('magic:click') !== null || node.getAttribute('m:click') !== null || node.getAttribute(':click') !== null) {
+		if(methods && Object(methods)) {
+           for(let key in methods) {
+               let funcs = methods[key];
+               let pairs = this.functionToArray(funcs.toString());
+               if(pairs) {
+				   console.log(pairs);
+                 }
+               }
+        }
       if(att !== null) {
         node.addEventListener('click', function() {
           let statics = Magic.staticHTML;
@@ -191,8 +212,6 @@ class Magic {
           if(findMethod !== null) {
             let calledMethod = findMethod[3];
             if(calledMethod !== null) {
-              // PARSE THE FUNCTION VALUES HERE
-              console.log(findMethod[0])
               let processClick = new Function(calledMethod);
               processClick.apply();
             }
@@ -236,10 +255,11 @@ class Magic {
   }
 
   loop(node, find, values) {
+	  
     let att = this.getAtt(node, 'loop');
     let attclick = this.getAtt(node, 'click');
 	let zebra = this.getAtt(node, 'zebra');
-    if(att !== null) {
+    if(att !== null && att == find) {
       let c = node.children[0];
       let h = c.innerHTML;
       let object = Object.entries(values);
@@ -251,41 +271,14 @@ class Magic {
         for(let j = 0; j < v.length; j++) {
           if(c.innerHTML) {
             c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
+			c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
           }
+		  c.setAttribute('id',find+i);
         }
         node.append(c);
         c = c.cloneNode(true);
 		if(zebra !== null && node.children[i]) {
             if(i % 2 !== 0) node.children[i].className = zebra;
-        }
-      }
-    }
-  }
-
-  nodes(method, find, value) {
-    // Parent nodes.
-    var docElements = this.nodeParentList();
-    for(var i = 0; i < docElements.length; i++) {
-      if(method == 'createForm') this.createForm(docElements[i], find, value);
-      if(method == 'bindCurtains') this.bindCurtains(docElements[i], find, value);
-      if(method == 'bindLoop') this.loop(docElements[i], find, value);
-      if(method == 'bindFunctions') this.bindFunctions(docElements[i], find, value);
-      if(method == 'bindLogic') this.bindIf(docElements[i], find, value); 
-      if(method == 'bindOn') this.bindOn(docElements[i], find, value);
-      if(method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
-      if(method == 'findAttributesNode') {
-        if(docElements[i].hasAttribute("magic:for")) {
-          this.log(true);
-        }
-      }
-      // Childnodes.
-      var docChildren = this.nodeChildren(docElements[i]);
-      for(var j = 0; j < docChildren.length; j++) {
-        if(method == 'replaceNodeValue') {
-          if(docChildren[j].nodeType === 3) {
-            const regex = new RegExp("{{\\s*" + find + "[0-9]*\\s*}}", "gmi");
-            docChildren[j].nodeValue = docChildren[j].nodeValue.replace(regex, value);
-          }
         }
       }
     }
