@@ -7,7 +7,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.114",
+    version: "1.115",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -238,7 +238,8 @@ class Magic {
   loop(node, find, values) {
     let att = this.getAtt(node, 'loop');
     let attclick = this.getAtt(node, 'click');
-    if(att != null) {
+	let zebra = this.getAtt(node, 'zebra');
+    if(att !== null) {
       let c = node.children[0];
       let h = c.innerHTML;
       let object = Object.entries(values);
@@ -254,6 +255,9 @@ class Magic {
         }
         node.append(c);
         c = c.cloneNode(true);
+		if(zebra !== null && node.children[i]) {
+            if(i % 2 !== 0) node.children[i].className = zebra;
+        }
       }
     }
   }
