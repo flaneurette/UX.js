@@ -22,5 +22,7 @@ An example to see how the IF statements in Magic.js works
 An example of how the loop function in Magic.js works
 #### magic-forms.html
 An example showing a form, dynamically generated with Magic.js
+#### magic-zebra.html
+An example showing a zebra, dynamically generated with Magic.js
 #### blog.html
 A full example showing a blogpage, dynamically generated with Magic.js
