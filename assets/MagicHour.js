@@ -74,7 +74,7 @@ class Magic {
 	}
 
 	getElements() {
-		var docElements = document.getElementsByTagName("*")
+		var docElements = Magic.docElements;
 		return docElements;
 	}
 
@@ -133,20 +133,8 @@ class Magic {
 	}
 	
 	bindClass(node, find, value) {
-		if(node.getAttribute('magic:class') !== null) {
-			let att = node.getAttribute('magic:class');
-			if(att.toString() === find.toString()) {
-				node.className = value;
-			}
-		}
-		if(node.getAttribute('m:class') !== null) {
-			let att = node.getAttribute('m:class');
-			if(att.toString() === find.toString()) {
-				node.className = value;
-			}
-		}
-		if(node.getAttribute(':class') !== null) {
-			let att = node.getAttribute(':class');
+		let att = this.getAtt(node,'class');
+		if(att !== null) { 
 			if(att.toString() === find.toString()) {
 				node.className = value;
 			}
@@ -154,20 +142,8 @@ class Magic {
 	}
 
 	bindId(node, find, value) {
-		if(node.getAttribute('magic:id') !== null) {
-			let att = node.getAttribute('magic:id');
-			if(att.toString() === find.toString()) {
-				node.id = value;
-			}
-		}
-		if(node.getAttribute('m:id') !== null) {
-			let att = node.getAttribute('m:id');
-			if(att.toString() === find.toString()) {
-				node.id = value;
-			}
-		}
-		if(node.getAttribute(':id') !== null) {
-			let att = node.getAttribute(':id');
+		let att = this.getAtt(node,'id');
+		if(att !== null) { 
 			if(att.toString() === find.toString()) {
 				node.id = value;
 			}
@@ -175,21 +151,15 @@ class Magic {
 	}
 
 	drawCurtains() {
-		var docElements = document.getElementsByTagName("*");
+		var docElements = Magic.docElements;
 		for(var i = 0; i < docElements.length; i++) {
 			if(docElements[i].getAttribute('magic:curtain') !== null) {
-				let curtain = docElements[i].getAttribute('magic:curtain');
+				docElements[i].style = 'display:block;';
+			} else if(docElements[i].getAttribute('m:curtain') !== null) {
+				docElements[i].style = 'display:block;';
+			} else if(docElements[i].getAttribute(':curtain') !== null) {
 				docElements[i].style = 'display:block;';
 			}
-			if(docElements[i].getAttribute('m:curtain') !== null) {
-				let curtain = docElements[i].getAttribute('m:curtain');
-				docElements[i].style = 'display:block;';
-			}
-			if(docElements[i].getAttribute(':curtain') !== null) {
-				let curtain = docElements[i].getAttribute(':curtain');
-				docElements[i].style = 'display:block;';
-			}
-			
 		}
 	}
 
@@ -198,15 +168,10 @@ class Magic {
 		var docElements = this.nodeParentList();
 		for(var i = 0; i < docElements.length; i++) {
 			if(node.getAttribute('magic:curtain') !== null) {
-				let curtain = node.getAttribute('magic:curtain');
 				node.style = 'display:none;';
-			}
-			if(node.getAttribute('m:curtain') !== null) {
-				let curtain = node.getAttribute('m:curtain');
+			} else if(node.getAttribute('m:curtain') !== null) {
 				node.style = 'display:none;';
-			}
-			if(node.getAttribute(':curtain') !== null) {
-				let curtain = node.getAttribute(':curtain');
+			} else if(node.getAttribute(':curtain') !== null) {
 				node.style = 'display:none;';
 			}
 		}
@@ -226,7 +191,7 @@ class Magic {
 	
 	bindFunctions(node, find, value) {
 		let att = this.getAtt(node,'click');
-		var docElements = document.getElementsByTagName("*");
+		var docElements = Magic.docElements;
 		if(att !== null) {
 			if(find == 'count') {
 				node.addEventListener('click', function() {
