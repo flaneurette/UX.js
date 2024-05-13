@@ -42,7 +42,7 @@ class Magic {
 				for(const [key, value] of Object.entries(data)) {
 					if(Array.isArray(value)) {
 					this.nodes('bindLoop', key, value);
-					this.nodes('bindForms', key, value);
+					this.nodes('createForm', key, value);
 					this.nodes('bindOn', key, value);
 					} else {
 					// Parse nodes
@@ -260,98 +260,6 @@ class Magic {
 			}
 		return;
 	}
-	
-	bindForms(node, find, values) {
-		let att = this.getAtt(node,'form');
-		if(att !== null) {
-			let parents = document.getElementById(att);
-			let options = document.createElement('form');
-			let j=0;
-			for(let key in values) {
-				let arr = values[key];
-				if(arr.type == 'form') {
-					options.name = arr.name;
-					options.action = arr.action;
-					options.method = arr.method;
-					if(arr.enctype) { 
-					options.enctype = arr.enctype
-					}
-				} 
-				if(arr.type == 'text') {
-					let opt = document.createElement('input');
-					let label = document.createElement('label');
-					label.innerHTML = arr.label;
-					opt.type = arr.type;
-					opt.name = arr.name;
-					opt.value = arr.value;
-					if(arr.placeholder) {
-						opt.placeholder = arr.placeholder;
-					}
-					if(arr.required) {
-						opt.required = arr.required;
-					}
-					options.appendChild(label);
-					options.appendChild(opt);
-				}
-				if(arr.type == 'checkbox') {
-					let opt = document.createElement('input');
-					let label = document.createElement('label');
-					label.innerHTML = arr.label;
-					opt.type = arr.type;
-					opt.name = arr.name;
-					opt.checked = arr.checked;
-					if(arr.required) {
-						opt.required = arr.required;
-					}
-					if(arr.id) {
-						opt.id = arr.id;
-					}
-					if(arr.className) {
-						opt.className = arr.className;
-					}
-					options.appendChild(label);
-					options.appendChild(opt);
-				}
-				if(arr.type == 'hidden') {
-					let opt = document.createElement('input');
-					opt.type = arr.type;
-					opt.name = arr.name;
-					opt.value = arr.value;
-					options.appendChild(opt);
-				}
-				if(arr.type == 'textarea') {
-					let opt = document.createElement('textarea');
-					let label = document.createElement('label');
-					label.innerHTML = arr.label;
-					opt.name = arr.name;
-					opt.value = arr.value;
-					if(arr.placeholder) {
-						opt.placeholder = arr.placeholder;
-					}
-					if(arr.required) {
-						opt.required = arr.required;
-					}
-					if(arr.id) {
-						opt.id = arr.id;
-					}
-					if(arr.className) {
-						opt.className = arr.className;
-					}
-					options.appendChild(label);
-					options.appendChild(opt);
-				}		
-				if(arr.type == 'submit') {
-					let opt = document.createElement('input');
-					opt.type = arr.type;
-					opt.name = arr.name;
-					opt.value = arr.value;
-					options.appendChild(opt);
-				}							
-				j++;
-			}	
-			parents.appendChild(options);
-		}
-	}
 
 	loop(node, find, values) {
 		let att = this.getAtt(node,'loop');
@@ -380,8 +288,8 @@ class Magic {
 		// Parent nodes.
 		var docElements = this.nodeParentList();
 		for(var i = 0; i < docElements.length; i++) {
-			if(method == 'bindForms') {
-				this.bindForms(docElements[i], find, value);
+			if(method == 'createForm') {
+				this.createForm(docElements[i], find, value);
 			}
 			if(method == 'bindCurtains') {
 				this.bindCurtains(docElements[i], find, value)
@@ -460,6 +368,71 @@ class Magic {
 			}
 		}
 		req.send(null);
+	}
+
+	createElements(node,type,arr) {
+		let opt = document.createElement(type);
+			if(arr.type == 'text') {
+				let opt = document.createElement('input');
+			}
+			if(arr.name) {
+				opt.name = arr.name;
+			}	
+			if(arr.type && arr.type != 'textarea') {
+				opt.type = arr.type;
+			}			
+			if(arr.value) {
+				opt.value = arr.value;
+			}		
+			if(arr.label) {
+				opt.innerHTML = arr.label;
+			}
+			if(arr.placeholder) {
+				opt.placeholder = arr.placeholder;
+			}
+			if(arr.required) {
+				opt.required = arr.required;
+			}
+			if(arr.checked) {
+				opt.checked = arr.checked;
+			}		
+		node.appendChild(opt);
+	}
+	
+	createForm(node, find, values) {
+		let att = this.getAtt(node,'form');
+		if(att !== null) {
+			let parents = document.getElementById(att);
+			let options = document.createElement('form');
+			for(let key in values) {
+				let arr = values[key];
+				if(arr.type == 'form') {
+					options.name = arr.name;
+					options.action = arr.action;
+					options.method = arr.method;
+					if(arr.enctype) { 
+					options.enctype = arr.enctype
+					}
+				} 
+				if(arr.type == 'checkbox' || arr.type == 'hidden' || arr.type == 'text' || arr.type == 'file') {
+					this.createElements(options,'label',arr);
+					this.createElements(options,'input',arr);
+				}
+
+				if(arr.type == 'textarea') {
+					this.createElements(options,'label',arr);
+					this.createElements(options,'textarea',arr);
+				}		
+				if(arr.type == 'submit') {
+					let opt = document.createElement('input');
+					opt.type = arr.type;
+					opt.name = arr.name;
+					opt.value = arr.value;
+					options.appendChild(opt);
+				}							
+			}	
+			parents.appendChild(options);
+		}
 	}
 	
 	msg = {
