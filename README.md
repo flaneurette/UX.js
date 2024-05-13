@@ -25,7 +25,7 @@ An example of how the loop function in Magic.js works
 #### magic-forms.html
 An example showing a form, dynamically generated with Magic.js
 #### magic-http.html
-An example showing a http
+An example showing a http request
 
 #### blog.html
 An example showing a blogpage, dynamically generated with Magic.js
