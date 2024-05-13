@@ -7,7 +7,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.112",
+    version: "1.114",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -54,21 +54,6 @@ class Magic {
             this.nodes('bindOn', key, value);
           }
         }
-      }
-    }
-  }
-
-  functionToArray(x) {
-    let arr = [];
-    let z = x.split(/{/gm)
-    for(let i = 0; i < z.length; i++) {
-      if(z[i].match(':')) {
-        let parsed = z[i].replaceAll('}', '').replace(/\s/g, '')
-        let finals = parsed.split(',')
-        for(let j = 0; j < finals.length; j++) {
-          arr.push(finals[j].replace(':', ','))
-        }
-        return arr;
       }
     }
   }
@@ -309,11 +294,25 @@ class Magic {
             docChildren[j].nodeValue = docChildren[j].nodeValue.replace(regex, value);
           }
         }
-
       }
     }
   }
 
+  functionToArray(x) {
+    let arr = [];
+    let z = x.split(/{/gm)
+    for(let i = 0; i < z.length; i++) {
+      if(z[i].match(':')) {
+        let parsed = z[i].replaceAll('}', '').replace(/\s/g, '')
+        let finals = parsed.split(',')
+        for(let j = 0; j < finals.length; j++) {
+          arr.push(finals[j].replace(':', ','))
+        }
+        return arr;
+      }
+    }
+  }
+  
   duplicatearray(a, b) {
     a.length = 0;
     a.push.apply(a, b);
@@ -327,32 +326,28 @@ class Magic {
     });
   }
   
-  getData(uri) {
+  http(method, uri, callback=false) {
+
     let req = new XMLHttpRequest();
     req.open("GET", uri, true);
     req.withCredentials = true;
     req.setRequestHeader('Access-Control-Allow-Origin', Magic.allowOrigin);
     req.setRequestHeader("Content-Type", Magic.contentType);
+    if(callback) {
+    req.onreadystatechange = function() {
+      if(req.readyState == 4 && req.status == 200) {
+        callback(req.responseText);
+      }
+    }
+    req.send(null);  
+    } else {
     req.onreadystatechange = function() {
       if(req.readyState == 4 && req.status == 200) {
         return JSON.parse(req.responseText);
       }
     }
     req.send();
-  }
-
-  fetchJSON(uri, callback) {
-    let req = new XMLHttpRequest();
-    req.open("GET", uri, true);
-    req.withCredentials = true;
-    req.setRequestHeader('Access-Control-Allow-Origin', Magic.allowOrigin);
-    req.setRequestHeader("Content-Type", Magic.contentType);
-    req.onreadystatechange = function() {
-      if(req.readyState == 4 && req.status == 200) {
-        callback(req.responseText);
-      }
-    }
-    req.send(null);
+	}
   }
 
   createElements(node, type, arr) {
