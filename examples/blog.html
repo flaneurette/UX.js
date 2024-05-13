@@ -3,14 +3,19 @@
 <head>
   <title>Blog</title>
   <style>
-    div {
+    .blogItem {
        padding: 10px;
 	   margin: 10px;
+	   border: 1px solid lightgrey;
+	   border-radius: 5px;
     } 
-	.zebraClass {
+    .blogItem2 {
+       padding: 10px;
+	   margin: 10px;
+	   border: 1px solid lightgrey;
+	   border-radius: 5px;
 	   background-color: #f7f7f7;
-	}
-	
+    } 	
   </style>
 </head>
 <body>
@@ -18,8 +23,8 @@
 <div id="app">
  <h1>{{blogTitle}}</h1>
   <div>
-    <div :loop="blogs" :zebra="zebraClass">
-	<div>
+    <div :loop="blogs" :zebra="blogItem2">
+	<div :class="MyClass">
 		 <h2>{{blogname}}</h2>
 		 <p>{{blogtext}}</p>
 		 <span>{{link}}</span>
@@ -35,6 +40,7 @@
 	
 	app.load({
 		data: {
+			MyClass: 'blogItem',
 			blogTitle: 'Blog',
 			blogs: [
 			{blogname: 'I like Bananas', blogtext: 'Bananas are healthy', link: '#'},
