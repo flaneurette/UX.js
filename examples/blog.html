@@ -3,12 +3,14 @@
 <head>
   <title>Blog</title>
   <style>
-    .div {
-      border: 1px solid black;
-      padding: 10px;
-	  margin: 10px;
-    }
-
+    div {
+       padding: 10px;
+	   margin: 10px;
+    } 
+	.zebraClass {
+	   background-color: #f7f7f7;
+	}
+	
   </style>
 </head>
 <body>
@@ -16,8 +18,8 @@
 <div id="app">
  <h1>{{blogTitle}}</h1>
   <div>
-    <div magic:loop="blogs">
-	<div :class="myClass">
+    <div :loop="blogs" :zebra="zebraClass">
+	<div>
 		 <h2>{{blogname}}</h2>
 		 <p>{{blogtext}}</p>
 		 <span>{{link}}</span>
@@ -33,10 +35,8 @@
 	
 	app.load({
 		data: {
-			myClass: "div",
-			blogTitle: 'This is my Blog',
+			blogTitle: 'Blog',
 			blogs: [
-			// maximum of arguments is 10;
 			{blogname: 'I like Bananas', blogtext: 'Bananas are healthy', link: '#'},
 			{blogname: 'I love Oranges', blogtext: 'Oranges are healthy', link: '#'},
 			{blogname: 'I do not like Vegetables', blogtext: 'Vegetables are healthy', link: '#'}]
