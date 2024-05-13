@@ -107,16 +107,6 @@ class Magic {
     }
   }
 
-  isVisible(id) {
-    try {
-      if(document.getElementById(id).style.display == "block") {
-        document.getElementById(id).style.display = "none";
-      } else if(document.getElementById(id).style.display == "none") {
-        document.getElementById(id).style.display = "block";
-      } else {}
-    } catch (e) {}
-  }
-
   bindClass(node, find, value) {
     let att = this.getAtt(node, 'class');
     if(att !== null) {
@@ -139,11 +129,11 @@ class Magic {
     var docElements = Magic.docElements;
     for(var i = 0; i < docElements.length; i++) {
       if(docElements[i].getAttribute('magic:curtain') !== null) {
-        docElements[i].style = 'display:block;';
+        docElements[i].hidden = false;
       } else if(docElements[i].getAttribute('m:curtain') !== null) {
-        docElements[i].style = 'display:block;';
+        docElements[i].hidden = false;
       } else if(docElements[i].getAttribute(':curtain') !== null) {
-        docElements[i].style = 'display:block;';
+        docElements[i].hidden = false;
       }
     }
   }
@@ -153,11 +143,11 @@ class Magic {
     var docElements = this.nodeParentList();
     for(var i = 0; i < docElements.length; i++) {
       if(node.getAttribute('magic:curtain') !== null) {
-        node.style = 'display:none;';
+        node.hidden = true;
       } else if(node.getAttribute('m:curtain') !== null) {
-        node.style = 'display:none;';
+        node.hidden = true;
       } else if(node.getAttribute(':curtain') !== null) {
-        node.style = 'display:none;';
+        node.hidden = true;
       }
     }
     if(node.getAttribute('magic:onclick') !== null || node.getAttribute('m:onclick') !== null || node.getAttribute(':onclick') !== null) {
@@ -207,7 +197,6 @@ class Magic {
               processClick.apply();
             }
           }
-
         });
       }
     }
@@ -223,9 +212,9 @@ class Magic {
           if(pieces.indexOf('has')) {
             let key = this.has(pieces[1]).toString();
             if(value.indexOf(key) != -1) {
-              node.style = 'display: block';
+              node.hidden = false;
             } else {
-              node.style = 'display: none;';
+              node.hidden = true;
             }
           }
         }
@@ -235,7 +224,7 @@ class Magic {
           key = null,
           opp = '';
         let pieces = att.split("\s");
-        node.style = 'display: none;';
+        node.hidden = true;
         for(let i = 0; i < pieces.length; i++) {
           if(find == pieces[i]) {
             opp += pieces[i];
