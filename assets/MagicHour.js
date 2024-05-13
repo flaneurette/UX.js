@@ -375,27 +375,13 @@ class Magic {
 			if(arr.type == 'text') {
 				let opt = document.createElement('input');
 			}
-			if(arr.name) {
-				opt.name = arr.name;
-			}	
-			if(arr.type && arr.type != 'textarea') {
-				opt.type = arr.type;
-			}			
-			if(arr.value) {
-				opt.value = arr.value;
-			}		
-			if(arr.label) {
-				opt.innerHTML = arr.label;
-			}
-			if(arr.placeholder) {
-				opt.placeholder = arr.placeholder;
-			}
-			if(arr.required) {
-				opt.required = arr.required;
-			}
-			if(arr.checked) {
-				opt.checked = arr.checked;
-			}		
+			if(arr.name) opt.name = arr.name;
+			if(arr.type && arr.type != 'textarea') opt.type = arr.type;
+			if(arr.value) opt.value = arr.value;		
+			if(arr.label) opt.innerHTML = arr.label;
+			if(arr.placeholder) opt.placeholder = arr.placeholder;
+			if(arr.required) opt.required = arr.required;
+			if(arr.checked) opt.checked = arr.checked;	
 		node.appendChild(opt);
 	}
 	
