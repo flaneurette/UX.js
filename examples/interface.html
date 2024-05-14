@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interface</title>
+  <style>
+  
+	* {
+		font-family: arial;
+	}
+	
+	html, body {
+		margin:0px;
+		padding:0px;
+	}
+
+	#navigation {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		align-items: center;
+		background-color: blue;
+		color: #dadada;
+		list-style: none;
+		margin:0px;
+		padding:0px;
+		text-transform: uppercase;
+		list-style: none;
+		height: 58px;
+	}
+	
+	#main {
+		display: flex;
+		justify-content: left;
+		align-items: flex-start;
+		margin:0px;
+		padding:10px;
+	}
+	
+	#main > div {
+	
+	}
+
+	#left {
+	    display: flex;
+		flex-flow: column;
+		align-items: center;
+		justify-content: space-between;
+		min-width: 15%;
+	}
+	.div1 {
+		padding: 10px;
+		border-top: 1px solid lightgrey;
+		min-width: 70%;
+	}
+	
+	#navigation ul {
+		list-style: none;
+		float: left; 
+		padding: 0px;
+		min-width: 90%;
+	}
+	
+	#navigation li {
+		list-style: none;
+		float: left; 
+		padding: 5px;
+		min-width: 10%;
+		text-align:center;
+		display:inline-block;
+	}
+	
+	#navigation a:link, #navigation a:visited { 
+		padding: 0px;
+		color: white;
+		font-size:14px;
+		text-align: left;
+		float:left;
+		text-decoration:none;
+	}
+
+	#navigation a:hover {
+		background: #1565C0;
+	}
+	
+	.content {
+		margin-top: 30px;
+		padding: 0px;
+		border: 1px solid lightgrey;
+		border-top: 1px solid white;
+		min-width: 70%;
+	}
+	
+	.zebraClass {
+       padding: 10px;
+	   border-radius: 5px;
+	   border-top: 1px solid lightgrey;
+	   background-color: #f7f7f7;
+	}
+  </style>
+</head>
+<body>
+	<div id="navigation">
+		<ul :loop="navigation">
+		<li>{{link}}</li>
+		</ul>
+	</div>
+<div id="main">
+	<div id="left"><h1>{{title}}</h1></div>
+		<div :loop="stripes" :zebra="zebraClass" class="content">
+			<div :class="mydiv">
+				 <span>{{name}}</span>
+				 <span>{{text}}</span>
+			</div>
+		</div>
+</div>
+
+	<script src="../assets/MagicHour.js"></script>
+	
+	<script>
+	
+	let app = new Magic();
+
+	app.load({
+		data: {
+			mydiv: 'div1',
+			title: 'Interface',
+			navigation: [
+			{name: 'Index', link: '<a href="#">Index</a>'},
+			{name: 'About', link: '<a href="#">About</a>'},
+			{name: 'Projects', link: '<a href="#">Projects</a>'},
+			{name: 'Media', link: '<a href="#">Media</a>'},
+			{name: 'Contact', link: '<a href="#">Contact</a>'},
+			{name: 'Social', link: '<a href="#">Social</a>'},
+			{name: 'Links', link: '<a href="#">Links</a>'},
+			],
+			stripes: [
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'}]
+		}
+	});
+  
+	</script>
+</body>
+</html>
