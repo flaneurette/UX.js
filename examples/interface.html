@@ -98,9 +98,20 @@
 		padding: 0px;
 		border: 1px solid lightgrey;
 		border-top: 1px solid white;
-		min-width: 70%;
+		min-width: 60%;
+		margin-right: 10px;
 	}
-	
+    .text {
+		  display: inline-block;
+		  border: 1px solid black;
+		  padding: 10px;
+		  background-color: #dedede;
+    }
+	input, textarea {
+		display: block;
+		padding: 10px;
+		margin:0px;
+	}
 	.zebraClass {
        padding: 10px;
 	   border-radius: 5px;
@@ -119,16 +130,23 @@
 	<div id="left"><h1>{{title}}</h1>
 	<div id="navigationLeft">
 		<ul :loop="navigation">
+		<!-- navigation is the object -->
 		<li>{{link}}</li>
 		</ul>
 	</div>	
 	</div>
 		<div :loop="stripes" :zebra="zebraClass" class="content">
+		<!-- stripes is the object, zebraClass is a CSS class -->
 			<div :class="mydiv">
 				 <span>{{name}}</span>
 				 <span>{{text}}</span>
 			</div>
 		</div>
+	  <div :form="form">
+	<div id="form">
+	<!-- id must be set -->
+	</div>
+  </div>
 </div>
 
 	<script src="../assets/MagicHour.js"></script>
@@ -158,7 +176,17 @@
 			{name: 'I am a Zebra', text: 'test'},
 			{name: 'I am a Zebra', text: 'test'},
 			{name: 'I am a Zebra', text: 'test'},
-			{name: 'I am a Zebra', text: 'test'}]
+			{name: 'I am a Zebra', text: 'test'}],
+			form: [
+			{name: 'myform', type: 'form', action: 'index.php', method: 'POST', enctype: ''},
+			{name: 'Name', type: 'text', value: '', label: 'Name', className: 'text'},
+			{name: 'Address', type: 'text', value: '', label: 'Address'},
+			{name: 'City', type: 'text', value: '', label: 'City'},
+			{name: 'Country', type: 'text', value: '', label: 'Country'},
+			{name: 'Comments', type: 'textarea', value: '', label: 'Comments', placeholder: 'Your comments...'},
+			{name: 'Terms', type: 'checkbox', checked: 'true', label: 'Agree to terms?'},
+			{name: 'crsf', type: 'hidden', value: ''},
+			{name: 'Submit', type: 'submit', value: 'Submit'}]
 		}
 	});
   
