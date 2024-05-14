@@ -27,6 +27,7 @@ An example showing a form, dynamically generated with Magic.js
 #### magic-http.html
 An example showing a http request
 
+# Full examples
 
 #### interface.html
 An example showing a responsive interface, dynamically generated with Magic.js
