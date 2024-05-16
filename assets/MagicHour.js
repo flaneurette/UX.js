@@ -1,13 +1,12 @@
 class Magic {
 
-  static staticHTML = document.body.innerHTML;
   static docElements = document.getElementsByTagName("*");
   static contentType = "application/json;charset=UTF-8";
   static allowOrigin = '*';
 
   init = {
     name: "Magic.js",
-    version: "1.115",
+    version: "1.116",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -26,7 +25,7 @@ class Magic {
       let data = list.data
       let method = list.methods;
       let events = list.events;
-      if(data) {
+      if(data) { 
         for(const [key, value] of Object.entries(data)) {
           if(Array.isArray(value)) {
             this.nodes('bindLoop', key, value);
@@ -206,7 +205,7 @@ class Magic {
         }
       if(att !== null) {
         node.addEventListener('click', function() {
-          let statics = Magic.staticHTML;
+          let statics = document.body.innerHTML;
           let findMethod = statics.match(/(:click|m:click|magic:click)\s*=\s*("(.*)"|'(.*)')(\s*|\+)/);
           if(findMethod !== null) {
             let calledMethod = findMethod[3];
@@ -311,28 +310,27 @@ class Magic {
     });
   }
   
-  http(method, uri, callback=false) {
-
+  http(uri, method, callback) {
     let req = new XMLHttpRequest();
     req.open("GET", uri, true);
     req.withCredentials = true;
     req.setRequestHeader('Access-Control-Allow-Origin', Magic.allowOrigin);
     req.setRequestHeader("Content-Type", Magic.contentType);
-    if(callback) {
+    if(method == 'callback') {
     req.onreadystatechange = function() {
       if(req.readyState == 4 && req.status == 200) {
         callback(req.responseText);
       }
     }
-    req.send(null);  
-    } else {
+    req.send();  
+    } else if(method == 'get') {
     req.onreadystatechange = function() {
       if(req.readyState == 4 && req.status == 200) {
         return JSON.parse(req.responseText);
       }
     }
     req.send();
-	}
+    }
   }
 
   createElements(node, type, arr) {
