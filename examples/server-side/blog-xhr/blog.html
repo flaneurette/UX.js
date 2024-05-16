@@ -15,7 +15,7 @@
 <body>
 
 <div id="app">
- <h1>HTTP Test</h1>
+ <h1>{{blogTitle}}</h1>
   <div>
     <div magic:loop="blogs">
 	<div :class="myClass">
@@ -36,10 +36,8 @@
 	
 	function mycall(dataset) {
 		app.load({
-			blogTitle: 'HTTP test',
 			data: {
-				myClass: "text",
-				test: 'test',
+				blogTitle: 'HTTP test',
 				blogs: JSON.parse(dataset)
 			}
 		});
