@@ -15,7 +15,7 @@
 <body>
 
 <div id="app">
- <h1>{{blogTitle}}</h1>
+ <h1>HTTP Test</h1>
   <div>
     <div magic:loop="blogs">
 	<div :class="myClass">
@@ -34,8 +34,15 @@
 	
 	app.http('data.php', 'callback', mycall);
 	
-	function mycall(data) {
-	   app.load(data);
+	function mycall(dataset) {
+		app.load({
+			blogTitle: 'HTTP test',
+			data: {
+				myClass: "text",
+				test: 'test',
+				blogs: JSON.parse(dataset)
+			}
+		});
 	}
 	</script>
 </body>

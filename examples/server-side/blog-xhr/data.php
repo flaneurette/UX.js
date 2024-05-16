@@ -1,5 +1,4 @@
-data: {
-	"blogs":[
+ [
    {
       "blogname":"I like Bananas",
       "blogtext":"Bananas are healthy",
@@ -15,4 +14,4 @@ data: {
       "blogtext":"Vegetables are healthy",
       "link":"#"
    }
-]}
+]
