@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.116",
+    version: "1.118",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -237,9 +237,7 @@ class Magic {
         }
       } else if(att.search("/\s/")) {
         // operators
-        let toEval = null,
-          key = null,
-          opp = '';
+        let toEval = null,key = null,opp = '';
         let pieces = att.split("\s");
         node.hidden = true;
         for(let i = 0; i < pieces.length; i++) {
@@ -269,13 +267,13 @@ class Magic {
         for(let j = 0; j < v.length; j++) {
           if(c.innerHTML) {
             c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
-	    c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
+            c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
           }
-	c.setAttribute('id',find+i);
+            c.setAttribute('id',find+i);
         }
         node.append(c);
         c = c.cloneNode(true);
-	if(zebra !== null && node.children[i]) {
+        if(zebra !== null && node.children[i]) {
             if(i % 2 !== 0) node.children[i].className = zebra;
         }
       }
@@ -385,7 +383,7 @@ class Magic {
   }
 
   msg = {
-    initialize: "MH: Cannot initialize a non-object.",
-    enumerate: "MH: Could not enumerate global object."
+    initialize: "Magic: Cannot initialize a non-object.",
+    enumerate: "Magic: Could not enumerate global object."
   }
 }
