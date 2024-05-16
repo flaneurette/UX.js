@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	
   <title>Blog</title>
   <style>
     .div {
@@ -25,27 +26,17 @@
     </ul>
   </div>
 </div>
-	<script src="../../assets/MagicHour.js"></script>
+	<script src="../../../assets/MagicHour.js"></script>
 	
 	<script>
-	
+
 	let app = new Magic();
 	
-	let serverData = app.parseJSON('data.php');
-
-	app.load({
-		data: {
-			myClass: "div",
-			blogTitle: 'This is my Blog',
-			blogs: serverData
-		}
-		
-	});
+	app.http('data.php', 'callback', mycall);
 	
-	if(serverData) { 
-		console.log(serverData);
+	function mycall(data) {
+	   app.load(data);
 	}
- 
 	</script>
 </body>
 </html>
