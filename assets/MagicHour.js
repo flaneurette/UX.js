@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.118",
+    version: "1.119",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -272,27 +272,6 @@ class Magic {
     }
   }
 
-  functionToArray(x) {
-    let arr = [];
-    let z = x.split(/{/gm)
-    for(let i = 0; i < z.length; i++) {
-      if(z[i].match(':')) {
-        let parsed = z[i].replaceAll('}', '').replace(/\s/g, '')
-        let finals = parsed.split(',')
-        for(let j = 0; j < finals.length; j++) {
-          arr.push(finals[j].replace(':', ','))
-        }
-        return arr;
-      }
-    }
-  }
-  
-  duplicatearray(a, b) {
-    a.length = 0;
-    a.push.apply(a, b);
-    return a;
-  }
-
   parseJSON(uri) {
     this.fetchJSON(uri, function(response) {
       let obj = JSON.parse(response);
@@ -353,16 +332,13 @@ class Magic {
             options.enctype = arr.enctype
           }
         }
-        if(arr.type == 'checkbox' || arr.type == 'hidden' || arr.type == 'text' || arr.type == 'file') {
+        if(arr.type != 'textarea' && arr.type != 'submit') {
           this.createElements(options, 'label', arr);
           this.createElements(options, 'input', arr);
-        }
-
-        if(arr.type == 'textarea') {
+        } else if(arr.type == 'textarea') {
           this.createElements(options, 'label', arr);
           this.createElements(options, 'textarea', arr);
-        }
-        if(arr.type == 'submit') {
+        } else if(arr.type == 'submit') {
           let opt = document.createElement('input');
           opt.type = arr.type;
           opt.name = arr.name;
