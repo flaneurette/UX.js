@@ -34,4 +34,6 @@ An example showing a responsive interface, dynamically generated with Magic.js
 An example showing a blogpage, dynamically generated with Magic.js
 #### shopping-cart.html
 An example showing a shoppingcart, dynamically generated with Magic.js
+#### style-guide.html
+A bootstrap styleguide
 
