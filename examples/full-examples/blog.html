@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blog</title>
+  <style>
+    .blogItem {
+       padding: 10px;
+	   margin: 10px;
+	   border: 1px solid lightgrey;
+	   border-radius: 5px;
+    } 
+    .blogItem2 {
+       padding: 10px;
+	   margin: 10px;
+	   border: 1px solid lightgrey;
+	   border-radius: 5px;
+	   background-color: #f7f7f7;
+    } 	
+  </style>
+</head>
+<body>
+
+<div id="app">
+ <h1>{{blogTitle}}</h1>
+  <div>
+    <div :loop="blogs" :zebra="blogItem2">
+	<div :class="MyClass">
+		 <h2>{{blogname}}</h2>
+		 <p>{{blogtext}}</p>
+		 <span>{{link}}</span>
+	 </div>
+    </ul>
+  </div>
+</div>
+	<script src="../assets/MagicHour.js"></script>
+	
+	<script>
+	
+	let app = new Magic();
+	
+	app.load({
+		data: {
+			MyClass: 'blogItem',
+			blogTitle: 'Blog',
+			blogs: [
+			{blogname: 'I like Bananas', blogtext: 'Bananas are healthy', link: '<a href="github.com">View more</a>'},
+			{blogname: 'I love Oranges', blogtext: 'Oranges are healthy', link: '<a href="github.com">View more</a>'},
+			{blogname: 'I do not like Vegetables', blogtext: 'Vegetables are healthy', link: '<a href="github.com">View more</a>'}]
+		}
+	});
+  
+	</script>
+</body>
+</html>

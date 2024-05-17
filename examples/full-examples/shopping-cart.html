@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Magic Shopping Cart</title>
+<style>
+	* {
+		font-family: Roboto, Arial, Verdana;
+	}
+	
+	ul.products {
+		list-style;none;
+		list-style-type: none;
+		display: flex;
+		flex-grow: 1;
+		padding: 10px;
+		border-radius:10px;
+		flex-wrap: wrap;
+		align-items: center;
+		flex-direction: row;
+	}
+	
+	li.products {
+		margin: 5px;
+		padding: 10px;
+	}
+	
+	.product {
+		paddin: 10px;
+		border: 1px solid #fdfdfd;
+		height: 100px;
+		border-radius: 10px;
+		display:block;
+		float:left;
+	}
+	.itemImage {
+		background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Berries_in_Berlin.jpg/1024px-Berries_in_Berlin.jpg);
+		height: 120px;
+		width: 120px;
+		border-radius: 10px;
+		margin:5px;
+	}
+	
+	.itemName {
+		padding: 5px;
+		font-size: 12px;
+	}
+	.itemPrice {
+		text-align: right;
+		padding: 5px;
+	}	
+	.order {
+		background-color: #f8f8f8;
+		margin-top:55px;
+		padding: 10px;
+		width: 50%;
+	}
+
+    #app {
+      background-color: #fdfdfd;
+      padding: 10px;
+      border: 1px solid: #000;
+    }
+    p {
+      margin:5px;
+    }
+	hr {
+	
+	}
+</style>
+</head>
+<body>
+
+<div id="app">
+<form action="" method="post">
+    <h1>What would you like to order?</h1>
+    <p>
+    <ul class="products">
+      <li :loop="productList" class="products">
+		  <div class="product">
+			<div class="itemImage"></div>
+			<span class="itemName">{{name}}</span> 
+			<span class="itemPrice">${{price}}</span>
+			<input type="button" value="+" onclick="addItem('{{name}}','{{price}}')" />
+		  </div>
+      </li>
+    </ul>
+    </p>
+	</div>
+	</div>
+</form>
+
+<script src="../assets/MagicHour.js"></script>
+
+<script>
+
+	let app = new Magic();
+	
+	app.load({
+		data: {
+        productList: [
+          { id: 1, name: 'Apple', type: 'Fruit', price: '2.00' },
+          { id: 2, name: 'Banana', type: 'Fruit', price: '1.00' },
+          { id: 3, name: 'Orange', type: 'Fruit', price: '2.50' },
+          { id: 4, name: 'Kiwi', type: 'Fruit', price: '3.00' },
+          { id: 5, name: 'Cherries', type: 'Fruit', price: '5.00'}]
+    	}
+		
+	});
+	
+	function addItem(a,b) {
+		alert(a);
+	}
+ 
+</script>
+
+</body>
+</html>
