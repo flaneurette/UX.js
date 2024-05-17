@@ -169,7 +169,7 @@
 <body>
 	<div id="navigation">
 		<ul id="navLeft">
-		<li>My Website</li>
+		<li>{{title}}</li>
 		</ul>	
 		<ul :loop="navigation" id="navRight">
 		<li>{{link}}</li>
@@ -203,7 +203,7 @@
 	app.load({
 		data: {
 			mydiv: 'div1',
-			title: 'Interface',
+			title: 'My Website',
 			firstBarTitle: 'We make websites...',
 			firstBarText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pellentesque, nunc pharetra feugiat ullamcorper, nisl nunc semper dui, ac egestas tellus lacus non ligula. Nulla sit amet tellus mollis, laoreet urna ac, efficitur velit. Integer fringilla odio sed orci facilisis maximus. Maecenas luctus vestibulum tortor, quis tincidunt turpis aliquam sed. Nam suscipit placerat vulputate. Vivamus elit justo, malesuada vel pulvinar vitae, congue sed magna. Duis vitae ipsum eget ipsum imperdiet convallis. In hac habitasse platea dictumst. Praesent at urna commodo, blandit leo non, laoreet sapien. Integer ut rutrum dui. Aenean pharetra ornare dolor, sit amet tempus diam rhoncus at. Vivamus pellentesque ipsum nec vehicula rutrum.',
 			navigation: [
