@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.119",
+    version: "1.120",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -103,7 +103,14 @@ class Magic {
       return att;
     }
   }
-
+  
+  getAttCheck(node, part) {
+    let check = (node.getAttribute('magic:'+part) !== null 
+    || node.getAttribute('m:'+part) !== null 
+    || node.getAttribute(':'+part) !== null) ? true : false;
+    return check;
+  }
+  
   clone(list, id) {
     if(id === null) {
       return false;
@@ -139,7 +146,9 @@ class Magic {
   drawCurtains() {
     var docElements = Magic.docElements;
     for(var i = 0; i < docElements.length; i++) {
-      if(docElements[i].getAttribute('magic:curtain') !== null || docElements[i].getAttribute('m:curtain') !== null || docElements[i].getAttribute(':curtain') !== null) {
+      if(docElements[i].getAttribute('magic:curtain') !== null 
+        || docElements[i].getAttribute('m:curtain') !== null 
+        || docElements[i].getAttribute(':curtain') !== null) {
         docElements[i].hidden = false;
       } 
     }
@@ -149,11 +158,11 @@ class Magic {
     let att = this.getAtt(node, 'click');
     var docElements = this.nodeParentList();
     for(var i = 0; i < docElements.length; i++) {
-      if(docElements[i].getAttribute('magic:curtain') !== null || docElements[i].getAttribute('m:curtain') !== null || docElements[i].getAttribute(':curtain') !== null) {
+      if(this.getAttCheck(docElements[i], 'curtain') == true) {
         docElements[i].hidden = true;
       } 
     }
-    if(node.getAttribute('magic:onclick') !== null || node.getAttribute('m:onclick') !== null || node.getAttribute(':onclick') !== null) {
+    if(this.getAttCheck(node, 'curtain') == false) {
       node.addEventListener('click', this.drawCurtains, false);
     }
   }
@@ -186,7 +195,7 @@ class Magic {
 
   bindOn(node, data, methods, find, value) {
     let att = this.getAtt(node, 'click');
-    if(node.getAttribute('magic:click') !== null || node.getAttribute('m:click') !== null || node.getAttribute(':click') !== null) {
+    if(this.getAttCheck(node, 'click') == true) {
 	if(methods && Object(methods)) {
            for(let key in methods) {
                let funcs = methods[key];
@@ -271,6 +280,8 @@ class Magic {
       }
     }
   }
+
+ 
 
   parseJSON(uri) {
     this.fetchJSON(uri, function(response) {
