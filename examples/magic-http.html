@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+  <title>Magic HTTP</title>
+  <style>
+    .div {
+      border: 1px solid black;
+      padding: 10px;
+	  margin: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+<div id="app">
+ <h1>{{blogTitle}}</h1>
+  <div>
+    <div magic:loop="blogs">
+	<div :class="myClass">
+		 <h2>{{blogname}}</h2>
+		 <p>{{blogtext}}</p>
+		 <span>{{link}}</span>
+	 </div>
+    </ul>
+  </div>
+</div>
+	<script src="../../../assets/MagicHour.js"></script>
+	
+	<script>
+
+	let app = new Magic();
+	
+	app.http('server-side/blog-xhr/data.php', 'callback', mycall);
+	
+	function mycall(dataset) {
+		app.load({
+			data: {
+				blogTitle: 'HTTP test',
+				blogs: JSON.parse(dataset)
+			}
+		});
+	}
+	</script>
+</body>
+</html>
