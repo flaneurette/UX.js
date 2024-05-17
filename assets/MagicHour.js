@@ -139,13 +139,9 @@ class Magic {
   drawCurtains() {
     var docElements = Magic.docElements;
     for(var i = 0; i < docElements.length; i++) {
-      if(docElements[i].getAttribute('magic:curtain') !== null) {
+      if(docElements[i].getAttribute('magic:curtain') !== null || docElements[i].getAttribute('m:curtain') !== null || docElements[i].getAttribute(':curtain') !== null) {
         docElements[i].hidden = false;
-      } else if(docElements[i].getAttribute('m:curtain') !== null) {
-        docElements[i].hidden = false;
-      } else if(docElements[i].getAttribute(':curtain') !== null) {
-        docElements[i].hidden = false;
-      }
+      } 
     }
   }
 
@@ -153,13 +149,9 @@ class Magic {
     let att = this.getAtt(node, 'click');
     var docElements = this.nodeParentList();
     for(var i = 0; i < docElements.length; i++) {
-      if(node.getAttribute('magic:curtain') !== null) {
-        node.hidden = true;
-      } else if(node.getAttribute('m:curtain') !== null) {
-        node.hidden = true;
-      } else if(node.getAttribute(':curtain') !== null) {
-        node.hidden = true;
-      }
+      if(docElements[i].getAttribute('magic:curtain') !== null || docElements[i].getAttribute('m:curtain') !== null || docElements[i].getAttribute(':curtain') !== null) {
+        docElements[i].hidden = true;
+      } 
     }
     if(node.getAttribute('magic:onclick') !== null || node.getAttribute('m:onclick') !== null || node.getAttribute(':onclick') !== null) {
       node.addEventListener('click', this.drawCurtains, false);
