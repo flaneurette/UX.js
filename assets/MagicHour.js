@@ -6,14 +6,10 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.120",
+    version: "1.118",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
-  }
-
-  log(msg) {
-    console.log(msg);
   }
 
   load(list) {
@@ -46,7 +42,6 @@ class Magic {
   }
   
   nodes(method, find, value, data=null, methods=null) {
-    // Parent nodes.
     var docElements = this.nodeParentList();
     for(var i = 0; i < docElements.length; i++) {
       if(method == 'createForm') this.createForm(docElements[i], find, value);
@@ -56,7 +51,6 @@ class Magic {
       if(method == 'bindLogic') this.bindIf(docElements[i], find, value); 
       if(method == 'bindOn') this.bindOn(docElements[i], data, methods, find, value);
       if(method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
-      // Childnodes.
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -118,7 +112,6 @@ class Magic {
       const parentItem = document.getElementById(id).parentNode;
       let docItem = document.getElementById(id);
       let docClone = docItem.cloneNode(true);
-
       for(let i = 0; i < list.length; i++) {
         parentItem.appendChild(docClone);
       }
@@ -128,18 +121,14 @@ class Magic {
   bindClass(node, find, value) {
     let att = this.getAtt(node, 'class');
     if(att !== null) {
-      if(att.toString() === find.toString()) {
-        node.className = value;
-      }
+      if(att.toString() === find.toString()) node.className = value;
     }
   }
 
   bindId(node, find, value) {
     let att = this.getAtt(node, 'id');
     if(att !== null) {
-      if(att.toString() === find.toString()) {
-        node.id = value;
-      }
+      if(att.toString() === find.toString()) node.id = value;
     }
   }
 
@@ -158,9 +147,7 @@ class Magic {
     let att = this.getAtt(node, 'click');
     var docElements = this.nodeParentList();
     for(var i = 0; i < docElements.length; i++) {
-      if(this.getAttCheck(docElements[i], 'curtain') == true) {
-        docElements[i].hidden = true;
-      } 
+      if(this.getAttCheck(docElements[i], 'curtain') == true) docElements[i].hidden = true;
     }
     if(this.getAttCheck(node, 'curtain') == false) {
       node.addEventListener('click', this.drawCurtains, false);
@@ -199,9 +186,7 @@ class Magic {
 	if(methods && Object(methods)) {
            for(let key in methods) {
                let funcs = methods[key];
-               let pairs = this.functionToArray(funcs.toString());
-               if(pairs) {
-                 }
+               let pairs = funcs.toString();
                }
         }
       if(att !== null) {
@@ -212,7 +197,7 @@ class Magic {
             let calledMethod = findMethod[3];
             if(calledMethod !== null) {
               let processClick = new Function(calledMethod);
-              processClick.apply();
+              //processClick.apply();
             }
           }
         });
@@ -229,11 +214,7 @@ class Magic {
         if(pieces.length > 0) {
           if(pieces.indexOf('has')) {
             let key = this.has(pieces[1]).toString();
-            if(value.indexOf(key) != -1) {
-              node.hidden = false;
-            } else {
-              node.hidden = true;
-            }
+            node.hidden = (value.indexOf(key) != -1) ? false : true;
           }
         }
       } else if(att.search("/\s/")) {
@@ -264,7 +245,7 @@ class Magic {
       for(let i = 0; i < len; i++) {
         let k = Object.keys(object[i][1]);
         let v = Object.values(object[i][1]);
-        c.innerHTML = h.replace("magic123", ""); // DOM bug
+        c.innerHTML = h.replace("magichour1234", ""); // DOM bug
         for(let j = 0; j < v.length; j++) {
           if(c.innerHTML) {
             c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
@@ -281,15 +262,6 @@ class Magic {
     }
   }
 
- 
-
-  parseJSON(uri) {
-    this.fetchJSON(uri, function(response) {
-      let obj = JSON.parse(response);
-      return obj;
-    });
-  }
-  
   http(uri, method, callback) {
     let req = new XMLHttpRequest();
     req.open("GET", uri, true);
@@ -339,9 +311,7 @@ class Magic {
           options.name = arr.name;
           options.action = arr.action;
           options.method = arr.method;
-          if(arr.enctype) {
-            options.enctype = arr.enctype
-          }
+          if(arr.enctype) options.enctype = arr.enctype;
         }
         if(arr.type != 'textarea' && arr.type != 'submit') {
           this.createElements(options, 'label', arr);
@@ -360,7 +330,11 @@ class Magic {
       parents.appendChild(options);
     }
   }
-
+  
+  log(msg) {
+    console.log(msg);
+  }
+  
   msg = {
     initialize: "Magic: Cannot initialize a non-object.",
     enumerate: "Magic: Could not enumerate global object."
