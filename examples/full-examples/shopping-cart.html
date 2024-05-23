@@ -3,20 +3,16 @@
 <head>
   <title>Magic Shopping Cart</title>
 <style>
-	* {
-		font-family: Roboto, Arial, Verdana;
-	}
 	
 	ul.products {
-		list-style;none;
+		list-style: none;
 		list-style-type: none;
 		display: flex;
 		flex-grow: 1;
-		padding: 10px;
-		border-radius:10px;
 		flex-wrap: wrap;
-		align-items: center;
+		align-items: left;
 		flex-direction: row;
+		margin-left: -50px;
 	}
 	
 	li.products {
@@ -73,7 +69,6 @@
 <div id="app">
 <form action="" method="post">
     <h1>What would you like to order?</h1>
-    <p>
     <ul class="products">
       <li :loop="productList" class="products">
 		  <div class="product">
@@ -84,7 +79,6 @@
 		  </div>
       </li>
     </ul>
-    </p>
 	</div>
 	</div>
 </form>
