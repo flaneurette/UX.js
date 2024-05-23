@@ -3,20 +3,8 @@
 <head>
 	
   <title>Magic HTTP</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
   
-	* {
-		font-family: "Montserrat", sans-serif;
-		font-style: normal;
-	}
-	
-	html, body {
-		margin:20;
-		padding:20;
-	}
     .div {
       border: 1px solid black;
       padding: 10px;
@@ -28,10 +16,11 @@
 <body>
 
 <div id="app">
- <h1>{{blogTitle}}</h1>
+<h1>Magic HTTP</h1>
+ <p>{{blogTitle}}</p>
   <div>
-    <div magic:loop="blogs">
-	<div :class="myClass">
+    <div :loop="blogs">
+	<div>
 		 <h2>{{blogname}}</h2>
 		 <p>{{blogtext}}</p>
 		 <span>{{link}}</span>
@@ -39,7 +28,7 @@
     </ul>
   </div>
 </div>
-	<script src="../../../assets/MagicHour.js"></script>
+	<script src="../assets/MagicHour.js"></script>
 	
 	<script>
 

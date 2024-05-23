@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.118",
+    version: "1.119",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -256,7 +256,14 @@ class Magic {
         node.append(c);
         c = c.cloneNode(true);
         if(zebra !== null && node.children[i]) {
-            if(i % 2 !== 0) node.children[i].className = zebra;
+		    let mod = 2;
+			let className = zebra;
+            if(zebra.indexOf(':') != -1) { 
+               let parts = zebra.split(':');
+			   className = parts[0];
+			   mod = parts[1];
+            }
+            if(i % mod !== 0) node.children[i].className = className;
         }
       }
     }
@@ -303,7 +310,8 @@ class Magic {
   createForm(node, find, values) {
     let att = this.getAtt(node, 'form');
     if(att !== null) {
-      let parents = document.getElementById(att);
+      let parents = document.createElement('div');
+	  node.appendChild(parents);
       let options = document.createElement('form');
       for(let key in values) {
         let arr = values[key];
