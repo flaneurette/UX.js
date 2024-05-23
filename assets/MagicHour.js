@@ -256,12 +256,12 @@ class Magic {
         node.append(c);
         c = c.cloneNode(true);
         if(zebra !== null && node.children[i]) {
-	 let mod = 2;
-	 let className = zebra;
+            let mod = 2;
+            let className = zebra;
             if(zebra.indexOf(':') != -1) { 
                let parts = zebra.split(':');
-		className = parts[0];
-		mod = parts[1];
+               className = parts[0];
+               mod = parts[1];
             }
             if(i % mod !== 0) node.children[i].className = className;
         }
