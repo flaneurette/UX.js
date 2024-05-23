@@ -107,7 +107,7 @@ class Magic {
   dom(id,method,value=null) {
     if(id !== null) {		
       switch(method) {
-		case 'id': return document.getElementById(id); break;
+	case 'id': return document.getElementById(id); break;
         case 'get': return document.getElementById(id).value; break;
         case 'set': document.getElementById(id).value = value; break;
         case 'none': document.getElementById(id).hidden = true; break;
@@ -116,9 +116,9 @@ class Magic {
         case 'gethtml': return document.getElementById(id).innerHTML; break;
         case 'display': document.getElementById(id).style.display = value; break;
         case 'parent': return document.getElementById(id).parentNode; break;
-		case 'children': return document.getElementById(id).children; break;
-	   }
-	 }
+	case 'children': return document.getElementById(id).children; break;
+      }
+    }
   }
   
   cloneNodes(list, id) {
