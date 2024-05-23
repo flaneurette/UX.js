@@ -37,7 +37,7 @@ $blogs = "[
     </ul>
   </div>
 </div>
-	<script src="../../../assets/MagicHour.js"></script>
+	<script src="../../../assets/Magic.js"></script>
 	
 	<script>
 	
