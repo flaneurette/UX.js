@@ -14,10 +14,10 @@
   </style>
 </head>
 <body>
-
+<h1>Magic Events</h1>
 <div id="app">
-  <p :class="myClass">Counted products: <span :id="counter">{{counter}}</span></p>
-  <button :click="count">Count products</button>
+  <p :class="myClass">Counted products: <span :id="counter">{{count}}</span></p>
+  <button :click="count++">Count products up</button>
 </div>
 
 	<script src="../assets/Magic.js"></script>
@@ -29,7 +29,7 @@
 	app.load({
 		data: {
 			myClass: "text",
-			counter: 0
+			count: 0
 		}
 	});
   

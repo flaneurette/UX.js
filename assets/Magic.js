@@ -17,7 +17,6 @@ class Magic {
       this.log(this.msg['initialize']);
       return false;
     } else {
-      let i = 0;
       let data = list.data
       let method = list.methods;
       let events = list.events;
@@ -62,7 +61,7 @@ class Magic {
       }
     }
   }
-  
+
   getElements() {
     var docElements = Magic.docElements;
     return docElements;
@@ -104,13 +103,30 @@ class Magic {
     || node.getAttribute(':'+part) !== null) ? true : false;
     return check;
   }
+
+  dom(id,method,value=null) {
+    if(id !== null) {		
+      switch(method) {
+		case 'id': return document.getElementById(id); break;
+        case 'get': return document.getElementById(id).value; break;
+        case 'set': document.getElementById(id).value = value; break;
+        case 'none': document.getElementById(id).hidden = true; break;
+        case 'block': document.getElementById(id).hidden = false; break;
+        case 'sethtml': document.getElementById(id).innerHTML = value; break;
+        case 'gethtml': return document.getElementById(id).innerHTML; break;
+        case 'display': document.getElementById(id).style.display = value; break;
+        case 'parent': return document.getElementById(id).parentNode; break;
+		case 'children': return document.getElementById(id).children; break;
+	   }
+	 }
+  }
   
-  clone(list, id) {
+  cloneNodes(list, id) {
     if(id === null) {
       return false;
     } else {
-      const parentItem = document.getElementById(id).parentNode;
-      let docItem = document.getElementById(id);
+      const parentItem = this.dom(id,'parent');
+      let docItem = this.dom(id,'id');
       let docClone = docItem.cloneNode(true);
       for(let i = 0; i < list.length; i++) {
         parentItem.appendChild(docClone);
@@ -172,7 +188,9 @@ class Magic {
           for(var i = 0; i < docElements.length; i++) {
             if(docElements[i].getAttribute(':id') !== null) {
               let attribute = docElements[i].getAttribute(':id');
+              if(att = 'count++') {
               docElements[i].innerText = (Number(docElements[i].innerText) + 1);
+		      }
             }
           }
         });
