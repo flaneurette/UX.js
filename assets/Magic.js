@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.119",
+    version: "1.120",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -117,8 +117,8 @@ class Magic {
         case 'display': document.getElementById(id).style.display = value; break;
         case 'parent': return document.getElementById(id).parentNode; break;
 	case 'children': return document.getElementById(id).children; break;
-      }
-    }
+	}
+     }
   }
   
   cloneNodes(list, id) {
@@ -197,25 +197,39 @@ class Magic {
       }
     }
   }
-
+  
+  bindMethods(node, data, methods, find, value) {
+    let process = new Function(methods);
+    process.apply();
+  }
+  
   bindOn(node, data, methods, find, value) {
     let att = this.getAtt(node, 'click');
     if(this.getAttCheck(node, 'click') == true) {
-	if(methods && Object(methods)) {
-           for(let key in methods) {
-               let funcs = methods[key];
-               let pairs = funcs.toString();
-               }
-        }
       if(att !== null) {
         node.addEventListener('click', function() {
           let statics = document.body.innerHTML;
-          let findMethod = statics.match(/(:click|m:click|magic:click)\s*=\s*("(.*)"|'(.*)')(\s*|\+)/);
+          let findMethod = node.getAttribute(':click');
           if(findMethod !== null) {
-            let calledMethod = findMethod[3];
-            if(calledMethod !== null) {
-              let processClick = new Function(calledMethod);
-              //processClick.apply();
+	     if(methods && Object(methods)) {
+                 for(let key in methods) {
+                 let funcs = methods[key];
+                 let pairs = funcs.toString();
+		 let fp = pairs.split("\n");
+                   for(let i=0;i<fp.length;i++) {
+                   //operators
+                    if(fp[i].indexOf('this.') !== -1 && fp[i].indexOf('=') !== -1) {
+                      let ps = fp[i].split('=');
+                      ps[0] = ps[0].toString().replace(/^\s+|\s+|\t+$/gm,'');
+		      ps[1] = ps[1].toString().replace(/,|'|"|/gm,'');
+                      let op = ps[0].split('.');
+                      const regex = new RegExp("{{\\s*" + op[1] + "[0-9]*\\s*}}", "gmi");
+		      node.innerHTML = node.innerHTML.replace(regex,ps[1]);
+                    }
+                   }
+                 // method functions
+		funcs.apply();
+               }
             }
           }
         });
@@ -267,7 +281,9 @@ class Magic {
         for(let j = 0; j < v.length; j++) {
           if(c.innerHTML) {
             c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
-            c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
+            if(c.innerHTML.indexOf("{{" + k[j] + "}}") != -1) {
+               c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
+			}
           }
             c.setAttribute('id',find+i);
         }
