@@ -16,6 +16,8 @@ An example to show and hide objects in HTML
 An example showing a zebra, dynamically generated with Magic.js
 #### magic-events.html
 An example to trigger events
+#### magic-methods.html
+An example of how methods in Magic.js works
 #### magic-if.html
 An example to see how the IF statements in Magic.js works
 #### magic-loop.html
