@@ -14,10 +14,12 @@ An example howto bind to classes.
 An example to show and hide objects in HTML
 #### magic-zebra.html
 An example showing a zebra, dynamically generated with Magic.js
+#### magic-flex.html
+An example showing flexboxes, dynamically generated with Magic.js (no CSS)
 #### magic-events.html
 An example to trigger events
 #### magic-methods.html
-An example of how methods in Magic.js works
+An example of how methods in Magic.js works (under development)
 #### magic-if.html
 An example to see how the IF statements in Magic.js works
 #### magic-loop.html
