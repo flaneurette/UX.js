@@ -26,6 +26,7 @@ class Magic {
             this.nodes('bindLoop', key, value);
             this.nodes('createForm', key, value);
             this.nodes('bindOn', data, method, key, value);
+            this.nodes('bindFlex', data, method, key, value);
           } else {
             // Parse nodes
             this.nodes('replaceNodeValue', key, value);
@@ -34,6 +35,7 @@ class Magic {
             this.nodes('bindFunctions', key, value);
             this.nodes('bindCurtains', key, value);
             this.nodes('bindOn', key, value, data, method);
+            this.nodes('bindFlex', data, method, key, value);
           }
         }
       }
@@ -50,6 +52,7 @@ class Magic {
       if(method == 'bindLogic') this.bindIf(docElements[i], find, value); 
       if(method == 'bindOn') this.bindOn(docElements[i], data, methods, find, value);
       if(method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
+      if(method == 'bindFlex') this.bindFlex(docElements[i], find, value);
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -106,8 +109,8 @@ class Magic {
 
   dom(id,method,value=null) {
     if(id !== null) {		
-      switch(method) {
-	case 'id': return document.getElementById(id); break;
+    switch(method) {
+        case 'id': return document.getElementById(id); break;
         case 'get': return document.getElementById(id).value; break;
         case 'set': document.getElementById(id).value = value; break;
         case 'none': document.getElementById(id).hidden = true; break;
@@ -116,8 +119,8 @@ class Magic {
         case 'gethtml': return document.getElementById(id).innerHTML; break;
         case 'display': document.getElementById(id).style.display = value; break;
         case 'parent': return document.getElementById(id).parentNode; break;
-	case 'children': return document.getElementById(id).children; break;
-	}
+        case 'children': return document.getElementById(id).children; break;
+	   }
      }
   }
   
@@ -179,6 +182,22 @@ class Magic {
     }
   }
 
+  bindFlex(node, find, value) {
+    let att = this.getAtt(node, 'flex');
+    if(att !==null) {
+    if(att.indexOf(':') != -1 ) { 
+    let flexbox = att.split(':');
+    let flex = 'display:flex;';
+    console.log(flexbox);
+    let flexdir = 'flex-direction:' + flexbox[1] + ';';
+      if(flexbox[0] == 'true' || flexbox[0] == '1') node.style = flex + flexdir;
+      if(flexbox[0] == 'end') node.style = flex + 'justify-content: flex-end;' + flexdir;
+      if(flexbox[0] == 'center') node.style = flex + 'justify-content: center;'+ flexdir;
+      if(flexbox[0] == 'bottom') node.style = flex + 'align-items: baseline;'+ flexdir;
+    }
+   }
+  }
+  
   bindFunctions(node, find, value) {
     let att = this.getAtt(node, 'click');
     var docElements = Magic.docElements;
@@ -211,25 +230,30 @@ class Magic {
           let statics = document.body.innerHTML;
           let findMethod = node.getAttribute(':click');
           if(findMethod !== null) {
-	     if(methods && Object(methods)) {
+	        if(methods && Object(methods)) {
                  for(let key in methods) {
                  let funcs = methods[key];
                  let pairs = funcs.toString();
-		 let fp = pairs.split("\n");
+                 let fp = pairs.split("\n");
                    for(let i=0;i<fp.length;i++) {
-                   //operators
+                   // operators
                     if(fp[i].indexOf('this.') !== -1 && fp[i].indexOf('=') !== -1) {
                       let ps = fp[i].split('=');
-                      ps[0] = ps[0].toString().replace(/^\s+|\s+|\t+$/gm,'');
-		      ps[1] = ps[1].toString().replace(/,|'|"|/gm,'');
-                      let op = ps[0].split('.');
-                      const regex = new RegExp("{{\\s*" + op[1] + "[0-9]*\\s*}}", "gmi");
-		      node.innerHTML = node.innerHTML.replace(regex,ps[1]);
+                      if(ps[1].indexOf('.') !== -1) { 
+                      // expressions
+                      } else {
+                        // text processing
+                        ps[0] = ps[0].toString().replace(/^\s+|\t+/gm,'');
+                        ps[1] = ps[1].toString().replace(/,|'|"|/gm,'');
+                        let op = ps[0].split('.');
+                        const regex = new RegExp("{{\\s*" + op[1] + "[0-9]*\\s*}}", "gmi");
+                        node.innerHTML = node.innerHTML.replace(regex,ps[1]);         
+                      }
                     }
                    }
                  // method functions
-		funcs.apply();
-               }
+                funcs.apply();
+              }
             }
           }
         });
@@ -251,7 +275,7 @@ class Magic {
         }
       } else if(att.search("/\s/")) {
         // operators
-        let toEval = null,key = null,opp = '';
+        let toEval = null, key = null, opp = '';
         let pieces = att.split("\s");
         node.hidden = true;
         for(let i = 0; i < pieces.length; i++) {
