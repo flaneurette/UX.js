@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.120",
+    version: "1.122",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
