@@ -20,6 +20,8 @@ An example showing flexboxes, dynamically generated with Magic.js (no CSS)
 An example to trigger events
 #### magic-methods.html
 An example of how methods in Magic.js works (under development)
+#### magic-cleartype.html
+An example of how Clear Type in Magic.js works (under development)
 #### magic-if.html
 An example to see how the IF statements in Magic.js works
 #### magic-loop.html
