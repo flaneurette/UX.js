@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.122",
+    version: "1.120",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -189,10 +189,10 @@ class Magic {
     let flexbox = att.split(':');
     let flex = 'display:flex;';
     let flexdir = 'flex-direction:' + flexbox[1] + ';';
-      if(flexbox[0] == 'true' || flexbox[0] == '1') node.style = flex + flexdir;
-      if(flexbox[0] == 'end') node.style = flex + 'justify-content: flex-end;' + flexdir;
-      if(flexbox[0] == 'center') node.style = flex + 'justify-content: center;'+ flexdir;
-      if(flexbox[0] == 'bottom') node.style = flex + 'align-items: baseline;'+ flexdir;
+      if(flexbox[0] == 'true' || flexbox[0] == '1') node.setAttribute("style",flex + flexdir);
+      if(flexbox[0] == 'end') node.setAttribute("style", flex + 'justify-content: flex-end;' + flexdir);
+      if(flexbox[0] == 'center') node.setAttribute("style",flex + 'justify-content: center;'+ flexdir);
+      if(flexbox[0] == 'bottom') node.setAttribute("style",flex + 'align-items: baseline;'+ flexdir);
     }
    }
   }
