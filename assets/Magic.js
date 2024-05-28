@@ -184,11 +184,10 @@ class Magic {
 
   bindFlex(node, find, value) {
     let att = this.getAtt(node, 'flex');
-    if(att !==null) {
+    if(att !== null) {
     if(att.indexOf(':') != -1 ) { 
     let flexbox = att.split(':');
     let flex = 'display:flex;';
-    console.log(flexbox);
     let flexdir = 'flex-direction:' + flexbox[1] + ';';
       if(flexbox[0] == 'true' || flexbox[0] == '1') node.style = flex + flexdir;
       if(flexbox[0] == 'end') node.style = flex + 'justify-content: flex-end;' + flexdir;
