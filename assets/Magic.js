@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.120",
+    version: "1.124",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -26,7 +26,8 @@ class Magic {
             this.nodes('bindLoop', key, value);
             this.nodes('createForm', key, value);
             this.nodes('bindOn', data, method, key, value);
-            this.nodes('bindFlex', data, method, key, value);
+            this.nodes('bindFlex', data, key, value);
+			this.nodes('bindParser', data, key, value);
           } else {
             // Parse nodes
             this.nodes('replaceNodeValue', key, value);
@@ -35,7 +36,8 @@ class Magic {
             this.nodes('bindFunctions', key, value);
             this.nodes('bindCurtains', key, value);
             this.nodes('bindOn', key, value, data, method);
-            this.nodes('bindFlex', data, method, key, value);
+            this.nodes('bindFlex', data, key, value);
+			this.nodes('bindParser', data, key, value);
           }
         }
       }
@@ -53,6 +55,7 @@ class Magic {
       if(method == 'bindOn') this.bindOn(docElements[i], data, methods, find, value);
       if(method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
       if(method == 'bindFlex') this.bindFlex(docElements[i], find, value);
+	  if(method == 'bindParser') this.bindParser(docElements[i], find, value);
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -182,6 +185,15 @@ class Magic {
     }
   }
 
+  bindParser(node, find, value) {
+	let span = /(::s)\s([a-zA-Z][0-9]\s)/gm
+	let div = /(::d)\s([a-zA-Z][0-9]\s)/gm
+	node.innerHTML = node.innerHTML.replaceAll('::d',"<div>");
+	node.innerHTML = node.innerHTML.replaceAll('d::',"</div>");
+	node.innerHTML = node.innerHTML.replaceAll('::s',"<span>");
+	node.innerHTML = node.innerHTML.replaceAll('s::',"</span>");
+  }
+  
   bindFlex(node, find, value) {
     let att = this.getAtt(node, 'flex');
     if(att !== null) {
