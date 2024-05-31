@@ -9,7 +9,7 @@ A minimal font-end development JavaScript framework, similar to VUE.js, React an
 #### hello-world.html
 A simple example of how Magic.js works.
 #### magic-bind.html
-An example howto bind to classes.
+An example how to bind to classes.
 #### magic-curtain.html
 An example to show and hide objects in HTML
 #### magic-zebra.html
