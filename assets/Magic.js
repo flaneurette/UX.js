@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.126",
+    version: "1.127",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -27,8 +27,9 @@ class Magic {
             this.nodes('createForm', key, value);
             this.nodes('bindOn', data, method, key, value);
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
-			this.nodes('bindParser', data, key, value);
-			this.nodes('bindFlex', key, value, data, method);
+	    this.nodes('bindParser', data, key, value);
+            this.nodes('bindFlex', key, value, data, method);
+            if(key == 'active' && value == true) this.nodes('bindActive', key, value);
           } else {
             // Parse nodes
             this.nodes('replaceNodeValue', key, value);
@@ -37,7 +38,8 @@ class Magic {
             this.nodes('bindFunctions', key, value);
             this.nodes('bindCurtains', key, value);
             this.nodes('bindOn', key, value, data, method);
-			this.nodes('bindFlex', key, value, data, method);
+            this.nodes('bindFlex', key, value, data, method);
+            if(key == 'active' && value == true) this.nodes('bindActive', key, value);
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
           }
         }
@@ -56,7 +58,8 @@ class Magic {
       if(method == 'bindOn') this.bindOn(docElements[i], data, methods, find, value);
       if(method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
       if(method == 'clearType') this.clearType(docElements[i], find, value);
-	  if(method == 'bindFlex') this.bindFlex(docElements[i], find, value);
+      if(method == 'bindFlex') this.bindFlex(docElements[i], find, value);
+      if(method == 'bindActive') this.bindActive(docElements[i], find, value);
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -193,6 +196,19 @@ class Magic {
 	node.innerHTML = node.innerHTML.replaceAll('d::',"</div>");
 	node.innerHTML = node.innerHTML.replaceAll('::s',"<span>");
 	node.innerHTML = node.innerHTML.replaceAll('s::',"</span>");
+  }
+  
+  bindActive(node, find, value) {
+      let att = this.getAtt(node, 'active');
+      let active = window.location.href;
+	  if(att !== null) {
+	  if(att.indexOf(':') != -1 ) { 
+          let pieces = att.split(':');
+		if(active.match(pieces[0])) {
+                   node.className = pieces[1].toString();
+	      }
+	  }
+      }
   }
   
   bindFlex(node, find, value) {
