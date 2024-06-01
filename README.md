@@ -14,6 +14,8 @@ An example how to bind to classes.
 An example to show and hide objects in HTML
 #### magic-zebra.html
 An example showing a zebra, dynamically generated with Magic.js
+#### magic-active.html
+An example showing the active attribute, to switch css classes dynamically
 #### magic-flex.html
 An example showing flexboxes, dynamically generated with Magic.js (no CSS)
 #### magic-events.html
