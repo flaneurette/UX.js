@@ -12,6 +12,8 @@ A simple example of how Magic.js works.
 An example how to bind to classes.
 #### magic-curtain.html
 An example to show and hide objects in HTML
+#### magic-menu.html
+An example showing a menu, dynamically generated with Magic.js
 #### magic-zebra.html
 An example showing a zebra, dynamically generated with Magic.js
 #### magic-active.html
