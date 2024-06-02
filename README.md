@@ -2,7 +2,7 @@
 
 <img src="https://github.com/flaneurette/Magic.js/blob/main/assets/images/magic-js-logo.png" />
 
-A minimal font-end development JavaScript framework, similar to VUE.js, React and other frameworks, but much easier to work with. Magic.js is unique as it separates data loading and DOM manipulation from other JavaScript logic, making it much quicker to learn and easier to implement or add to existing JavaScript code. Magic automates the most used front-end development tasks, and has been built to be fully scalable and easy to implement in any project, without having to rewrite entire codebases. It even works in parallel to the aforementioned frameworks. If you want to set up a blog, or an entire webshop, Magic.js lets you create a website or app in hours. Hence the name: Magic Hour.
+A minimal font-end development JavaScript framework, Magic automates the most used front-end development tasks. Similar to VUE.js, React and other frameworks, but much easier to work with. Magic.js is unique as it separates data loading and DOM manipulation from other JavaScript logic, making it much quicker to learn and easier to implement or add to existing JavaScript code and has been built to be fully scalable and easy to implement in any project, without having to rewrite entire codebases. It even works in parallel to the aforementioned frameworks. If you want to set up a blog, or an entire webshop, Magic.js lets you create a website or app in hours. Hence the name: Magic Hour.
 
 # Examples
 
