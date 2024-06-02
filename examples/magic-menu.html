@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Magic Menu</title>
+  <style>
+  div {
+	padding: 20px;
+	margin: 10px;
+  }
+  ul {
+	list-style: none;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+	width: 200px;
+  }
+  .menu {
+	transition: width 2s, height 4s;
+	background-color: red;
+	padding: 20px;
+  }
+  </style>
+<script src="../assets/Magic.js"></script>
+</head>
+<body>
+
+	<div :flex="right:row">
+	    <div>
+		<ul><li><a href="" :menu="menu1:in">Test 1</a></li><ul>
+		<ul class="menu" id="menu1" :menu="menu1:out">
+			<li>Link 1</li>
+			<li>Link 1</li>
+			<li>Link 1</li>
+			<li>Link 1</li>
+			<li>Link 1</li>
+		</ul>
+		</div>
+		<div>
+		<ul><li><a href="" :menu="menu2:in">Test 2</a></li><ul>
+		<ul class="menu" id="menu2" :menu="menu2:out">
+			<li>Link 2</li>
+			<li>Link 2</li>
+			<li>Link 2</li>
+			<li>Link 2</li>
+			<li>Link 2</li>
+		</ul>
+		</div>
+		<div>
+		<ul><li><a href="" :menu="menu3:in">Test 3</a></li><ul>
+		<ul class="menu" id="menu3" :menu="menu3:out">
+			<li>Link 3</li>
+			<li>Link 3</li>
+			<li>Link 3</li>
+			<li>Link 3</li>
+			<li>Link 3</li>
+		</ul>
+		</div>
+	</div>
+	
+	<script>
+	
+	let app = new Magic();
+
+	app.load({
+		data: { 
+			title: "My webpage",
+			message: "Hello World!"
+		}
+	});
+  
+	</script>
+</body>
+</html>
