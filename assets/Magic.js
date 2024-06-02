@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.128",
+    version: "1.129",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -277,8 +277,12 @@ class Magic {
       }
       if(pairs[1] == 'out') {
         node.addEventListener('mouseout', function() {
-          document.getElementById(pairs[0]).hidden = true;
-        });
+		let att = node.getAttribute(':menu');
+          if(att !== null && att.indexOf(':') !== -1) {
+           let pairs = att.split(':');
+	      document.getElementById(pairs[0]).hidden = true;
+	     }   
+	    });
       }
     }
   }
