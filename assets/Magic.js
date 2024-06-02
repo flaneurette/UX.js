@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.129",
+    version: "1.130",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -38,6 +38,7 @@ class Magic {
             this.nodes('bindFlex', key, value, data, method);
             this.nodes('bindActive', key, value);
             this.nodes('bindMenu', key, value);
+            this.nodes('bindToggle', key, value);
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
           }
         }
@@ -61,6 +62,7 @@ class Magic {
       if(method == 'bindFlex') this.bindFlex(docElements[i], find, value);
       if(method == 'bindActive') this.bindActive(docElements[i], find, value);
       if(method == 'bindMenu') this.bindMenu(docElements[i], find, value);
+      if(method == 'bindToggle') this.bindToggle(docElements[i], find, value);
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -261,6 +263,32 @@ class Magic {
     }
   }
 
+  bindToggle(node, find, value) {
+    let att = this.getAtt(node, 'toggle');
+    if(att !== null && att.indexOf(':') !== -1) {
+      let pairs = att.split(':');
+      if(pairs[1] == 'in') {
+        let list = document.getElementById(pairs[0]).children;
+        for(let i = 0; i < list.length; i++) {
+          list[i].setAttribute(':toggle', att);
+        }
+        document.getElementById(pairs[0]).hidden = true;
+        node.addEventListener('click', function() {
+          document.getElementById(pairs[0]).hidden = false;
+        });
+      }
+      if(pairs[1] == 'out') {
+        node.addEventListener('mouseout', function() {
+          let att = node.getAttribute(':toggle');
+          if(att !== null && att.indexOf(':') !== -1) {
+            let pairs = att.split(':');
+            document.getElementById(pairs[0]).hidden = true;
+          }
+        });
+      }
+    }
+  }
+
   bindMenu(node, find, value) {
     let att = this.getAtt(node, 'menu');
     if(att !== null && att.indexOf(':') !== -1) {
@@ -277,12 +305,12 @@ class Magic {
       }
       if(pairs[1] == 'out') {
         node.addEventListener('mouseout', function() {
-		let att = node.getAttribute(':menu');
+          let att = node.getAttribute(':menu');
           if(att !== null && att.indexOf(':') !== -1) {
-           let pairs = att.split(':');
-	      document.getElementById(pairs[0]).hidden = true;
-	     }   
-	    });
+            let pairs = att.split(':');
+            document.getElementById(pairs[0]).hidden = true;
+          }
+        });
       }
     }
   }
