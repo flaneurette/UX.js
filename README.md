@@ -2,7 +2,7 @@
 
 <img src="https://github.com/flaneurette/Magic.js/blob/main/assets/images/magic-js-logo.png" />
 
-A minimal font-end development JavaScript framework, similar to VUE.js, React and other frameworks, but much easier to work with. Magic.js is unique as it separates data loading and DOM manipulation from other JavaScript logic, making it much quicker to learn and easier to implement or add to existing JavaScript code. Magic.js has been built to be fully scalable and easy to implement in any project, without having to rewrite entire codebases. It even works in parallel to the aforementioned frameworks. If you want to set up a blog, or an entire webshop, Magic.js makes you do it in hours. Hence the name: Magic Hour.
+A minimal font-end development JavaScript framework, similar to VUE.js, React and other frameworks, but much easier to work with. Magic.js is unique as it separates data loading and DOM manipulation from other JavaScript logic, making it much quicker to learn and easier to implement or add to existing JavaScript code. Magic.js has been built to be fully scalable and easy to implement in any project, without having to rewrite entire codebases. It even works in parallel to the aforementioned frameworks. If you want to set up a blog, or an entire webshop, Magic.js makes create a website or app in hours. Hence the name: Magic Hour.
 
 # Examples
 
@@ -13,13 +13,13 @@ An example how to bind to classes.
 #### magic-curtain.html
 An example to show and hide objects in HTML
 #### magic-menu.html
-An example showing a menu, dynamically generated with Magic.js
+An example showing a menu attribute, dynamically generated with Magic.js
 #### magic-zebra.html
-An example showing a zebra, dynamically generated with Magic.js
+An example showing a zebra attribute, dynamically generated with Magic.js
 #### magic-active.html
 An example showing the active attribute, to switch css classes dynamically
 #### magic-flex.html
-An example showing flexboxes, dynamically generated with Magic.js (no CSS)
+An example showing flexbox attribute, dynamically generated with Magic.js (no CSS)
 #### magic-events.html
 An example to trigger events
 #### magic-methods.html
