@@ -39,6 +39,7 @@ class Magic {
             this.nodes('bindActive', key, value);
             this.nodes('bindMenu', key, value);
             this.nodes('bindToggle', key, value);
+            this.nodes('bindVoid', key, value);
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
           }
         }
@@ -63,6 +64,7 @@ class Magic {
       if(method == 'bindActive') this.bindActive(docElements[i], find, value);
       if(method == 'bindMenu') this.bindMenu(docElements[i], find, value);
       if(method == 'bindToggle') this.bindToggle(docElements[i], find, value);
+      if(method == 'bindVoid') this.bindVoid(docElements[i], find, value);
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -232,6 +234,14 @@ class Magic {
     let att = this.getAtt(node, 'hidden');
     if(att !== null && att == 'true') {
       node.hidden = true;
+    }
+  }
+
+  bindVoid(node) {
+    let att = this.getAtt(node, 'void');
+    console.log('sdfsd');
+    if(att !== null) {
+      node.setAttribute('href', 'javascript:void(0);');
     }
   }
 
