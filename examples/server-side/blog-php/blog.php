@@ -22,6 +22,7 @@ $blogs = "[
     }
 
   </style>
+<script src="../../../assets/Magic.js"></script>
 </head>
 <body>
 
@@ -37,8 +38,6 @@ $blogs = "[
     </ul>
   </div>
 </div>
-	<script src="../../../assets/Magic.js"></script>
-	
 	<script>
 	
 	let app = new Magic();
