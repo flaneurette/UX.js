@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.127",
+    version: "1.128",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -26,12 +26,9 @@ class Magic {
             this.nodes('bindLoop', key, value);
             this.nodes('createForm', key, value);
             this.nodes('bindOn', data, method, key, value);
-            if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
-	    this.nodes('bindParser', data, key, value);
-            this.nodes('bindFlex', key, value, data, method);
-            if(key == 'active' && value == true) this.nodes('bindActive', key, value);
           } else {
-            // Parse nodes
+            this.nodes('bindShow', key, value);
+			this.nodes('bindHide', key, value);
             this.nodes('replaceNodeValue', key, value);
             this.nodes('bindAttributesNode', key, value);
             this.nodes('bindLogic', key, value);
@@ -39,7 +36,8 @@ class Magic {
             this.nodes('bindCurtains', key, value);
             this.nodes('bindOn', key, value, data, method);
             this.nodes('bindFlex', key, value, data, method);
-            if(key == 'active' && value == true) this.nodes('bindActive', key, value);
+            this.nodes('bindActive', key, value);
+			this.nodes('bindMenu', key, value);
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
           }
         }
@@ -50,6 +48,8 @@ class Magic {
   nodes(method, find, value, data=null, methods=null) {
     var docElements = this.nodeParentList();
     for(var i = 0; i < docElements.length; i++) {
+      if(method == 'bindShow') this.bindShow(docElements[i], find, value);
+	  if(method == 'bindHide') this.bindHide(docElements[i], find, value);
       if(method == 'createForm') this.createForm(docElements[i], find, value);
       if(method == 'bindCurtains') this.bindCurtains(docElements[i], find, value);
       if(method == 'bindLoop') this.loop(docElements[i], find, value);
@@ -60,6 +60,7 @@ class Magic {
       if(method == 'clearType') this.clearType(docElements[i], find, value);
       if(method == 'bindFlex') this.bindFlex(docElements[i], find, value);
       if(method == 'bindActive') this.bindActive(docElements[i], find, value);
+	  if(method == 'bindMenu') this.bindMenu(docElements[i], find, value);
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -197,18 +198,32 @@ class Magic {
 	node.innerHTML = node.innerHTML.replaceAll('::s',"<span>");
 	node.innerHTML = node.innerHTML.replaceAll('s::',"</span>");
   }
+ 
+  bindShow(node) {
+    let att = this.getAtt(node, 'hidden');
+    if(att !== null) {
+      node.hidden = false;
+	}
+  }
+  
+  bindHide(node) {
+    let att = this.getAtt(node, 'hidden');
+    if(att !== null && att == 'true') {
+      node.hidden = true;
+	}
+  }
   
   bindActive(node, find, value) {
       let att = this.getAtt(node, 'active');
       let active = window.location.href;
-	  if(att !== null) {
-	  if(att.indexOf(':') != -1 ) { 
+      if(att !== null) {
+      if(att.indexOf(':') != -1 ) { 
           let pieces = att.split(':');
 		if(active.match(pieces[0])) {
-                   node.className = pieces[1].toString();
-	      }
-	  }
+           node.className = pieces[1].toString();
+        }
       }
+    }
   }
   
   bindFlex(node, find, value) {
@@ -224,6 +239,29 @@ class Magic {
       if(flexbox[0] == 'bottom') node.setAttribute("style",flex + 'align-items: baseline;'+ flexdir);
     }
    }
+  }
+ 
+  bindMenu(node, find, value) {
+    let att = this.getAtt(node, 'menu');
+    if(att !== null && att.indexOf(':') !==-1) {
+      let pairs = att.split(':');
+	  
+	  if(pairs[1] == 'in') {
+	    let list = document.getElementById(pairs[0]).children;
+	    for(let i=0; i< list.length; i++) {
+		  list[i].setAttribute(':menu',att);
+	    }
+	    document.getElementById(pairs[0]).hidden = true;
+        node.addEventListener('mouseover', function() {
+        document.getElementById(pairs[0]).hidden = false;
+      });
+	  }
+	  if(pairs[1] == 'out') {
+         node.addEventListener('mouseout', function() {
+         document.getElementById(pairs[0]).hidden = true;
+      });
+	  }
+    }
   }
   
   bindFunctions(node, find, value) {
