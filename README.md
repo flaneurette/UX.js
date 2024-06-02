@@ -13,13 +13,15 @@ An example how to bind to classes.
 #### magic-curtain.html
 An example to show and hide objects in HTML
 #### magic-menu.html
-An example showing a menu attribute, dynamically generated with Magic.js
+An example showing the menu attribute, dynamically generated with Magic.js
+#### magic-toggle.html
+An example showing the toggle attribute, to switch a menu on
 #### magic-zebra.html
-An example showing a zebra attribute, dynamically generated with Magic.js
+An example showing the zebra attribute, dynamically generated with Magic.js
 #### magic-active.html
 An example showing the active attribute, to switch css classes dynamically
 #### magic-flex.html
-An example showing flexbox attribute, dynamically generated with Magic.js (no CSS)
+An example showing the flexbox attribute, dynamically generated with Magic.js (no CSS)
 #### magic-events.html
 An example to trigger events
 #### magic-methods.html
