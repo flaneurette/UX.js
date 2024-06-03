@@ -6,7 +6,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.130",
+    version: "1.131",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -239,7 +239,6 @@ class Magic {
 
   bindVoid(node) {
     let att = this.getAtt(node, 'void');
-    console.log('sdfsd');
     if(att !== null) {
       node.setAttribute('href', 'javascript:void(0);');
     }
@@ -282,17 +281,25 @@ class Magic {
         for(let i = 0; i < list.length; i++) {
           list[i].setAttribute(':toggle', att);
         }
+
         document.getElementById(pairs[0]).hidden = true;
-        node.addEventListener('click', function() {
+        node.addEventListener('click', function eventHandler() {
+          node.setAttribute(':toggle', pairs[0] + ':over');
           document.getElementById(pairs[0]).hidden = false;
         });
       }
+
+      if(pairs[1] == 'over') {
+        alert();
+      }
       if(pairs[1] == 'out') {
+        node.setAttribute(':toggle', pairs[0] + ':out');
         node.addEventListener('mouseout', function() {
           let att = node.getAttribute(':toggle');
           if(att !== null && att.indexOf(':') !== -1) {
             let pairs = att.split(':');
             document.getElementById(pairs[0]).hidden = true;
+            node.removeEventListener('click', eventHandler, false);
           }
         });
       }
