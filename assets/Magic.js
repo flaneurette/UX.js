@@ -281,7 +281,6 @@ class Magic {
         for(let i = 0; i < list.length; i++) {
           list[i].setAttribute(':toggle', att);
         }
-
         document.getElementById(pairs[0]).hidden = true;
         node.addEventListener('click', function eventHandler() {
           node.setAttribute(':toggle', pairs[0] + ':over');
@@ -290,8 +289,12 @@ class Magic {
       }
 
       if(pairs[1] == 'over') {
-        alert();
+		  node.removeEventListener('click', eventHandler);
+        node.addEventListener('click', function eventHandler() {
+          document.getElementById(pairs[0]).hidden = true;
+        });
       }
+	  
       if(pairs[1] == 'out') {
         node.setAttribute(':toggle', pairs[0] + ':out');
         node.addEventListener('mouseout', function() {
