@@ -200,7 +200,7 @@ class Magic {
     for(var i = 0; i < docElements.length; i++) {
       if(this.getAttCheck(docElements[i], 'curtain') == true) docElements[i].hidden = true;
     }
-    if(this.getAttCheck(node, 'curtain') == false) {
+    if(this.getAttCheck(node, 'curtain') !== null) {
       node.addEventListener('click', this.drawCurtains, false);
     }
   }
@@ -287,14 +287,12 @@ class Magic {
           document.getElementById(pairs[0]).hidden = false;
         });
       }
-
       if(pairs[1] == 'over') {
 		  node.removeEventListener('click', eventHandler);
         node.addEventListener('click', function eventHandler() {
           document.getElementById(pairs[0]).hidden = true;
         });
       }
-	  
       if(pairs[1] == 'out') {
         node.setAttribute(':toggle', pairs[0] + ':out');
         node.addEventListener('mouseout', function() {
@@ -302,7 +300,7 @@ class Magic {
           if(att !== null && att.indexOf(':') !== -1) {
             let pairs = att.split(':');
             document.getElementById(pairs[0]).hidden = true;
-            node.removeEventListener('click', eventHandler, false);
+            //node.removeEventListener('click', eventHandler, false);
           }
         });
       }
