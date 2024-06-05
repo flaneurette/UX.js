@@ -2,6 +2,7 @@ class Magic {
 
   static docElements = document.getElementsByTagName("*");
   static contentType = "application/json;charset=UTF-8";
+  static asyncType = "application/x-www-form-urlencoded; charset=UTF-8";
   static allowOrigin = '*';
 
   init = {
@@ -47,7 +48,7 @@ class Magic {
     }
   }
 
-  nodes(method, find, value, data = null, methods = null) {
+  nodes(method, find, value, data = null, methods = null, callback = null) {
     var docElements = this.nodeParentList();
     for(var i = 0; i < docElements.length; i++) {
       if(method == 'bindShow') this.bindShow(docElements[i], find, value);
@@ -65,6 +66,7 @@ class Magic {
       if(method == 'bindMenu') this.bindMenu(docElements[i], find, value);
       if(method == 'bindToggle') this.bindToggle(docElements[i], find, value);
       if(method == 'bindVoid') this.bindVoid(docElements[i], find, value);
+      if(method == 'bindAsync') this.bindAsync(docElements[i], find, value);
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -288,7 +290,7 @@ class Magic {
         });
       }
       if(pairs[1] == 'over') {
-		  node.removeEventListener('click', eventHandler);
+        node.removeEventListener('click', eventHandler);
         node.addEventListener('click', function eventHandler() {
           document.getElementById(pairs[0]).hidden = true;
         });
@@ -300,7 +302,7 @@ class Magic {
           if(att !== null && att.indexOf(':') !== -1) {
             let pairs = att.split(':');
             document.getElementById(pairs[0]).hidden = true;
-            //node.removeEventListener('click', eventHandler, false);
+            node.removeEventListener('click', eventHandler, false);
           }
         });
       }
@@ -460,6 +462,47 @@ class Magic {
           }
           if(i % mod !== 0) node.children[i].className = className;
         }
+      }
+    }
+  }
+
+  async (uri, method, callback) {
+    let att = false;
+    var docElements = this.nodeParentList();
+    for(var j = 0; j < docElements.length; j++) {
+      att = this.getAtt(docElements[j], 'async');
+      if(att !== null) {
+        docElements[j].addEventListener('submit', event => {
+          event.preventDefault();
+          let parentList = [];
+          var docElements1 = document.getElementsByTagName("*");
+          for(var i = 0; i < docElements1.length; i++) {
+            if(docElements1[i].getAttribute(':async') == 'true') {
+
+              let children = docElements1[i].children;
+              let req = new XMLHttpRequest();
+              let data = [];
+              data.push('magicAsync=true');
+              for(let i = 0; i < children.length; i++) {
+                if(children[i].value != '') {
+                  data.push('&' + children[i].name + '=' + encodeURIComponent(children[i].value.toString()));
+                }
+              }
+              req.open("POST", uri, true);
+              req.withCredentials = true;
+              req.setRequestHeader('Access-Control-Allow-Origin', Magic.allowOrigin);
+              req.setRequestHeader('Content-Type', Magic.asyncType);
+              req.onreadystatechange = function() {
+                if(req.readyState == 4 && req.status == 200) {
+                  if(req.responseText) {
+                    callback(req.responseText);
+                  }
+                }
+              }
+              req.send(data);
+            }
+          }
+        });
       }
     }
   }
