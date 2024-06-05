@@ -10,6 +10,10 @@ A minimal font-end development JavaScript framework, Magic automates the most us
 A simple example of how Magic.js works.
 #### magic-bind.html
 An example how to bind to classes.
+#### magic-async.html
+An example of how form async in Magic.js works
+#### magic-http.html
+An example showing a http request
 #### magic-if.html
 An example to see how the IF statements in Magic.js works
 #### magic-loop.html
@@ -34,8 +38,6 @@ An example of how methods in Magic.js works (under development)
 An example of how Clear Type in Magic.js works (under development)
 #### magic-forms.html
 An example showing a form, dynamically generated with Magic.js
-#### magic-http.html
-An example showing a http request
 
 # Full examples
 #### website.html
