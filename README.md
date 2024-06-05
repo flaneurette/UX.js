@@ -23,7 +23,7 @@ An example showing the toggle attribute, to switch a menu on
 #### magic-zebra.html
 An example showing the zebra attribute, dynamically generated with Magic.js
 #### magic-active.html
-An example showing the active attribute, to switch css classes dynamically
+An example showing the active URL attribute, to switch css classes dynamically
 #### magic-flex.html
 An example showing the flexbox attribute, dynamically generated with Magic.js (no CSS)
 #### magic-async.html
