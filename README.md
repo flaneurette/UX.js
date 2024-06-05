@@ -26,6 +26,10 @@ An example showing the zebra attribute, dynamically generated with Magic.js
 An example showing the active URL attribute, to switch css classes dynamically
 #### magic-flex.html
 An example showing the flexbox attribute, dynamically generated with Magic.js (no CSS)
+#### magic-scroll.html
+An example showing the scroll attribute
+#### magic-void.html
+An example showing the void attribute
 #### magic-async.html
 An example of how form async in Magic.js works
 #### magic-http.html
