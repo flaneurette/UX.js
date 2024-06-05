@@ -27,6 +27,7 @@ class Magic {
             this.nodes('bindLoop', key, value);
             this.nodes('createForm', key, value);
             this.nodes('bindActive', key, value);
+            this.nodes('bindSelect', key, value);
             this.nodes('bindShow', key, value);
             this.nodes('bindHide', key, value);
             this.nodes('replaceNodeValue', key, value);
@@ -41,6 +42,7 @@ class Magic {
             this.nodes('bindVoid', key, value);
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
           } else {
+            this.nodes('bindSelect', key, value);
             this.nodes('bindActive', key, value);
             this.nodes('bindShow', key, value);
             this.nodes('bindHide', key, value);
@@ -65,6 +67,7 @@ class Magic {
     var docElements = this.nodeParentList();
     for(var i = 0; i < docElements.length; i++) {
       if(method == 'bindActive') this.bindActive(docElements[i], find, value);
+      if(method == 'bindSelect') this.bindSelect(docElements[i], find, value);
       if(method == 'bindShow') this.bindShow(docElements[i], find, value);
       if(method == 'bindHide') this.bindHide(docElements[i], find, value);
       if(method == 'createForm') this.createForm(docElements[i], find, value);
@@ -279,6 +282,13 @@ class Magic {
           node.className = pieces[1].toString();
         }
       }
+    }
+  }
+
+  bindSelect(node, find, value) {
+    let att = this.getAtt(node, 'select');
+    if(att !== null) {
+      node.className = att.toString();
     }
   }
 
