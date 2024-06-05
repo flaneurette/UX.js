@@ -10,10 +10,6 @@ A minimal font-end development JavaScript framework, Magic automates the most us
 A simple example of how Magic.js works.
 #### magic-bind.html
 An example how to bind to classes.
-#### magic-async.html
-An example of how form async in Magic.js works
-#### magic-http.html
-An example showing a http request
 #### magic-if.html
 An example to see how the IF statements in Magic.js works
 #### magic-loop.html
@@ -30,6 +26,10 @@ An example showing the zebra attribute, dynamically generated with Magic.js
 An example showing the active attribute, to switch css classes dynamically
 #### magic-flex.html
 An example showing the flexbox attribute, dynamically generated with Magic.js (no CSS)
+#### magic-async.html
+An example of how form async in Magic.js works
+#### magic-http.html
+An example showing a http request
 #### magic-events.html
 An example to trigger events
 #### magic-methods.html
