@@ -7,7 +7,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.131",
+    version: "1.133",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -26,8 +26,7 @@ class Magic {
           if(Array.isArray(value)) {
             this.nodes('bindLoop', key, value);
             this.nodes('createForm', key, value);
-            this.nodes('bindOn', data, method, key, value);
-          } else {
+            this.nodes('bindActive', key, value);
             this.nodes('bindShow', key, value);
             this.nodes('bindHide', key, value);
             this.nodes('replaceNodeValue', key, value);
@@ -37,7 +36,21 @@ class Magic {
             this.nodes('bindCurtains', key, value);
             this.nodes('bindOn', key, value, data, method);
             this.nodes('bindFlex', key, value, data, method);
+            this.nodes('bindMenu', key, value);
+            this.nodes('bindToggle', key, value);
+            this.nodes('bindVoid', key, value);
+            if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
+          } else {
             this.nodes('bindActive', key, value);
+            this.nodes('bindShow', key, value);
+            this.nodes('bindHide', key, value);
+            this.nodes('replaceNodeValue', key, value);
+            this.nodes('bindAttributesNode', key, value);
+            this.nodes('bindLogic', key, value);
+            this.nodes('bindFunctions', key, value);
+            this.nodes('bindCurtains', key, value);
+            this.nodes('bindOn', key, value, data, method);
+            this.nodes('bindFlex', key, value, data, method);
             this.nodes('bindMenu', key, value);
             this.nodes('bindToggle', key, value);
             this.nodes('bindVoid', key, value);
@@ -51,6 +64,7 @@ class Magic {
   nodes(method, find, value, data = null, methods = null, callback = null) {
     var docElements = this.nodeParentList();
     for(var i = 0; i < docElements.length; i++) {
+      if(method == 'bindActive') this.bindActive(docElements[i], find, value);
       if(method == 'bindShow') this.bindShow(docElements[i], find, value);
       if(method == 'bindHide') this.bindHide(docElements[i], find, value);
       if(method == 'createForm') this.createForm(docElements[i], find, value);
@@ -62,7 +76,6 @@ class Magic {
       if(method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
       if(method == 'clearType') this.clearType(docElements[i], find, value);
       if(method == 'bindFlex') this.bindFlex(docElements[i], find, value);
-      if(method == 'bindActive') this.bindActive(docElements[i], find, value);
       if(method == 'bindMenu') this.bindMenu(docElements[i], find, value);
       if(method == 'bindToggle') this.bindToggle(docElements[i], find, value);
       if(method == 'bindVoid') this.bindVoid(docElements[i], find, value);
@@ -466,6 +479,15 @@ class Magic {
     }
   }
 
+  bindPrevent(node, find, value) {
+    let att = this.getAtt(node, 'prevent');
+    if(att !== null) {
+      docElements[j].addEventListener('submit', event => {
+        event.preventDefault();
+      });
+    }
+  }
+
   async (uri, method, callback) {
     let att = false;
     var docElements = this.nodeParentList();
@@ -478,7 +500,6 @@ class Magic {
           var docElements1 = document.getElementsByTagName("*");
           for(var i = 0; i < docElements1.length; i++) {
             if(docElements1[i].getAttribute(':async') == 'true') {
-
               let children = docElements1[i].children;
               let req = new XMLHttpRequest();
               let data = [];
