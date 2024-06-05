@@ -7,7 +7,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.133",
+    version: "1.134",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -256,6 +256,16 @@ class Magic {
     let att = this.getAtt(node, 'void');
     if(att !== null) {
       node.setAttribute('href', 'javascript:void(0);');
+    }
+  }
+
+  bindScroll() {
+    let att = this.getAtt(node, 'scroll');
+    if(att !== null) {
+      node.setAttribute('href', 'javascript:void(0);');
+      node.addEventListener('click', function eventHandler() {
+        window.scrollTo = scrollTo(0, window.innerHeight);
+      });
     }
   }
 
