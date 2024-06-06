@@ -32,18 +32,26 @@
   }
   
   .menu {
-	background-color: black;
-	width: 100px;
-	z-index: 1;
-  }
-   .menu1open {
     display:block;
 	background-color: black;
 	width: 200px;
 	z-index: 1;
 	margin-top:-20px;
+	margin-left:-110px;
+	display:none;
+  }
+
+  .menuRed {
+    display:block;
+	background-color: red;
+	z-index: 1;
+	margin-top:-14px;
 	margin-left:10px;
-  } 
+	display:none;
+    width: 100%;
+    left: 0;
+  }
+  
   a:link, a:visited, li {
 	color: white;
   }
@@ -66,10 +74,10 @@
 </head>
 <body>
 
-<div class="div1" :flex="left:row">
+<div class="div1" :flex="right:row">
 		<div class="h3"><h3>Openable</h3></div>
 	    <div class="div2">
-		<ul><li><img :toggle="menu1:in:menu1open" width="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAuCAMAAADp/0xsAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAD9QTFRFAAAAEBAQFRUVBgYGr6+v6urqREREv7+/////S0tLUFBQa2trHx8fWFhYdXV1IiIiICAgKysrDAwMODg4FhYWNuJ9tAAAAGtJREFUeJzt0mEGgEAUxPEeEZtYuv8NE5FiWTpCs+Nt8sz/Ar8PMzZ8kAkRIuTPiNG2VRgZeaTAyMQjt5A+SOKRE0acE+KAxLmwkCZk4ZEDRpyLjmR+kx1G4lxYSBOyXiwybzDinBAhQt57AMJjFS+zv0W1AAAAAElFTkSuQmCC"
+		<ul><li><img :toggle="menu1:in:menuRed" width="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAuCAMAAADp/0xsAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAD9QTFRFAAAAEBAQFRUVBgYGr6+v6urqREREv7+/////S0tLUFBQa2trHx8fWFhYdXV1IiIiICAgKysrDAwMODg4FhYWNuJ9tAAAAGtJREFUeJzt0mEGgEAUxPEeEZtYuv8NE5FiWTpCs+Nt8sz/Ar8PMzZ8kAkRIuTPiNG2VRgZeaTAyMQjt5A+SOKRE0acE+KAxLmwkCZk4ZEDRpyLjmR+kx1G4lxYSBOyXiwybzDinBAhQt57AMJjFS+zv0W1AAAAAElFTkSuQmCC"
 ></li><ul>
 		<ul class="menu" id="menu1">
 			<li><a href="#">Link 1</a></li>
@@ -80,6 +88,7 @@
 		</ul>
 		</div>
 	</div>
+
 	<script>
 	
 	let app = new Magic();
