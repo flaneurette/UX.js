@@ -4,7 +4,7 @@
   <title>Magic Menu</title>
   <style>
   html, body {
- 	padding: 0px;
+ 	padding: 10px;
 	margin: 0px;
   }
   
@@ -29,17 +29,21 @@
     margin: 0px;
     padding: 0px;
 	width: 100px;
-	border-radius: 20px;
   }
   
   .menu {
-	background-color: blue;
-    border-radius: 10px;
+	background-color: black;
 	width: 100px;
 	z-index: 1;
-	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   }
-  
+   .menu1open {
+    display:block;
+	background-color: black;
+	width: 200px;
+	z-index: 1;
+	margin-top:-20px;
+	margin-left:10px;
+  } 
   a:link, a:visited, li {
 	color: white;
   }
@@ -48,27 +52,34 @@
     padding: 10px 0px  10px  10px ;
     margin-left: 10px  0px  10px  10px ;
   }
-
+  img {
+	width: 60px;
+	background-color: black;
+	padding: 10px;
+   }
+   .h3 {
+	width: 100px;
+   }
+   
   </style>
 <script src="../assets/Magic.js"></script>
 </head>
 <body>
 
-<div class="div1" :flex="end:row">
-		<div><h3>Click the icon</h3></div>
+<div class="div1" :flex="left:row">
+		<div class="h3"><h3>Openable</h3></div>
 	    <div class="div2">
-		<ul><li><img :toggle="menu1:in" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAApgAAAKYB3X3/OAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANCSURBVEiJtZZPbBtFFMZ/M7ubXdtdb1xSFyeilBapySVU8h8OoFaooFSqiihIVIpQBKci6KEg9Q6H9kovIHoCIVQJJCKE1ENFjnAgcaSGC6rEnxBwA04Tx43t2FnvDAfjkNibxgHxnWb2e/u992bee7tCa00YFsffekFY+nUzFtjW0LrvjRXrCDIAaPLlW0nHL0SsZtVoaF98mLrx3pdhOqLtYPHChahZcYYO7KvPFxvRl5XPp1sN3adWiD1ZAqD6XYK1b/dvE5IWryTt2udLFedwc1+9kLp+vbbpoDh+6TklxBeAi9TL0taeWpdmZzQDry0AcO+jQ12RyohqqoYoo8RDwJrU+qXkjWtfi8Xxt58BdQuwQs9qC/afLwCw8tnQbqYAPsgxE1S6F3EAIXux2oQFKm0ihMsOF71dHYx+f3NND68ghCu1YIoePPQN1pGRABkJ6Bus96CutRZMydTl+TvuiRW1m3n0eDl0vRPcEysqdXn+jsQPsrHMquGeXEaY4Yk4wxWcY5V/9scqOMOVUFthatyTy8QyqwZ+kDURKoMWxNKr2EeqVKcTNOajqKoBgOE28U4tdQl5p5bwCw7BWquaZSzAPlwjlithJtp3pTImSqQRrb2Z8PHGigD4RZuNX6JYj6wj7O4TFLbCO/Mn/m8R+h6rYSUb3ekokRY6f/YukArN979jcW+V/S8g0eT/N3VN3kTqWbQ428m9/8k0P/1aIhF36PccEl6EhOcAUCrXKZXXWS3XKd2vc/TRBG9O5ELC17MmWubD2nKhUKZa26Ba2+D3P+4/MNCFwg59oWVeYhkzgN/JDR8deKBoD7Y+ljEjGZ0sosXVTvbc6RHirr2reNy1OXd6pJsQ+gqjk8VWFYmHrwBzW/n+uMPFiRwHB2I7ih8ciHFxIkd/3Omk5tCDV1t+2nNu5sxxpDFNx+huNhVT3/zMDz8usXC3ddaHBj1GHj/As08fwTS7Kt1HBTmyN29vdwAw+/wbwLVOJ3uAD1wi/dUH7Qei66PfyuRj4Ik9is+hglfbkbfR3cnZm7chlUWLdwmprtCohX4HUtlOcQjLYCu+fzGJH2QRKvP3UNz8bWk1qMxjGTOMThZ3kvgLI5AzFfo379UAAAAASUVORK5CYII="
+		<ul><li><img :toggle="menu1:in:menu1open" width="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAuCAMAAADp/0xsAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAD9QTFRFAAAAEBAQFRUVBgYGr6+v6urqREREv7+/////S0tLUFBQa2trHx8fWFhYdXV1IiIiICAgKysrDAwMODg4FhYWNuJ9tAAAAGtJREFUeJzt0mEGgEAUxPEeEZtYuv8NE5FiWTpCs+Nt8sz/Ar8PMzZ8kAkRIuTPiNG2VRgZeaTAyMQjt5A+SOKRE0acE+KAxLmwkCZk4ZEDRpyLjmR+kx1G4lxYSBOyXiwybzDinBAhQt57AMJjFS+zv0W1AAAAAElFTkSuQmCC"
 ></li><ul>
 		<ul class="menu" id="menu1">
-			<li>Link 1</li>
-			<li>Link 1</li>
-			<li>Link 1</li>
-			<li>Link 1</li>
-			<li>Link 1</li>
+			<li><a href="#">Link 1</a></li>
+			<li><a href="#">Link 1</a></li>
+			<li><a href="#">Link 1</a></li>
+			<li><a href="#">Link 1</a></li>
+			<li><a href="#">Link 1</a></li>
 		</ul>
 		</div>
 	</div>
-	
 	<script>
 	
 	let app = new Magic();
