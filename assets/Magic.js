@@ -22,40 +22,32 @@ class Magic {
       let method = list.methods;
       let events = list.events;
       if(data) {
+        this.nodes('bindToggle');
+        this.nodes('bindMenu');
+        this.nodes('bindVoid');
+        this.nodes('bindPrevent');
+        this.nodes('bindSelect');
+        this.nodes('bindFlex');
+        this.nodes('bindActive');
+        this.nodes('bindShow');
+        this.nodes('bindHide');
+        this.nodes('bindCurtains');
         for(const [key, value] of Object.entries(data)) {
           if(Array.isArray(value)) {
             this.nodes('bindLoop', key, value);
             this.nodes('createForm', key, value);
-            this.nodes('bindActive', key, value);
-            this.nodes('bindSelect', key, value);
-            this.nodes('bindShow', key, value);
-            this.nodes('bindHide', key, value);
             this.nodes('replaceNodeValue', key, value);
             this.nodes('bindAttributesNode', key, value);
             this.nodes('bindLogic', key, value);
             this.nodes('bindFunctions', key, value);
-            this.nodes('bindCurtains', key, value);
             this.nodes('bindOn', key, value, data, method);
-            this.nodes('bindFlex', key, value, data, method);
-            this.nodes('bindMenu', key, value);
-            this.nodes('bindToggle', key, value);
-            this.nodes('bindVoid', key, value);
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
           } else {
-            this.nodes('bindSelect', key, value);
-            this.nodes('bindActive', key, value);
-            this.nodes('bindShow', key, value);
-            this.nodes('bindHide', key, value);
             this.nodes('replaceNodeValue', key, value);
             this.nodes('bindAttributesNode', key, value);
             this.nodes('bindLogic', key, value);
             this.nodes('bindFunctions', key, value);
-            this.nodes('bindCurtains', key, value);
             this.nodes('bindOn', key, value, data, method);
-            this.nodes('bindFlex', key, value, data, method);
-            this.nodes('bindMenu', key, value);
-            this.nodes('bindToggle', key, value);
-            this.nodes('bindVoid', key, value);
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
           }
         }
@@ -82,6 +74,7 @@ class Magic {
       if(method == 'bindMenu') this.bindMenu(docElements[i], find, value);
       if(method == 'bindToggle') this.bindToggle(docElements[i], find, value);
       if(method == 'bindVoid') this.bindVoid(docElements[i], find, value);
+      if(method == 'bindPrevent') this.bindPrevent(docElements[i], find, value);
       if(method == 'bindAsync') this.bindAsync(docElements[i], find, value);
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
@@ -218,7 +211,7 @@ class Magic {
     for(var i = 0; i < docElements.length; i++) {
       if(this.getAttCheck(docElements[i], 'curtain') == true) docElements[i].hidden = true;
     }
-    if(this.getAttCheck(node, 'curtain') !== null) {
+    if(att !== null && this.getAttCheck(node, 'curtain') !== null) {
       node.addEventListener('click', this.drawCurtains, false);
     }
   }
@@ -262,7 +255,7 @@ class Magic {
     }
   }
 
-  bindScroll() {
+  bindScroll(node) {
     let att = this.getAtt(node, 'scroll');
     if(att !== null) {
       node.setAttribute('href', 'javascript:void(0);');
@@ -272,7 +265,7 @@ class Magic {
     }
   }
 
-  bindActive(node, find, value) {
+  bindActive(node) {
     let att = this.getAtt(node, 'active');
     let active = window.location.href;
     if(att !== null) {
@@ -285,14 +278,14 @@ class Magic {
     }
   }
 
-  bindSelect(node, find, value) {
+  bindSelect(node) {
     let att = this.getAtt(node, 'select');
     if(att !== null) {
       node.className = att.toString();
     }
   }
 
-  bindFlex(node, find, value) {
+  bindFlex(node) {
     let att = this.getAtt(node, 'flex');
     if(att !== null) {
       if(att.indexOf(':') != -1) {
@@ -307,42 +300,37 @@ class Magic {
     }
   }
 
-  bindToggle(node, find, value) {
+  bindToggle(node) {
     let att = this.getAtt(node, 'toggle');
     if(att !== null && att.indexOf(':') !== -1) {
       let pairs = att.split(':');
-      if(pairs[1] == 'in') {
-        let list = document.getElementById(pairs[0]).children;
-        for(let i = 0; i < list.length; i++) {
-          list[i].setAttribute(':toggle', att);
-        }
-        document.getElementById(pairs[0]).hidden = true;
-        node.addEventListener('click', function eventHandler() {
-          node.setAttribute(':toggle', pairs[0] + ':over');
-          document.getElementById(pairs[0]).hidden = false;
-        });
-      }
-      if(pairs[1] == 'over') {
-        node.removeEventListener('click', eventHandler);
-        node.addEventListener('click', function eventHandler() {
-          document.getElementById(pairs[0]).hidden = true;
-        });
-      }
-      if(pairs[1] == 'out') {
-        node.setAttribute(':toggle', pairs[0] + ':out');
-        node.addEventListener('mouseout', function() {
-          let att = node.getAttribute(':toggle');
-          if(att !== null && att.indexOf(':') !== -1) {
-            let pairs = att.split(':');
-            document.getElementById(pairs[0]).hidden = true;
-            node.removeEventListener('click', eventHandler, false);
+      document.getElementById(pairs[0]).hidden = true;
+      node.addEventListener('click', function() {
+        var docElements1 = document.getElementsByTagName("*");
+        for(var i = 0; i < docElements1.length; i++) {
+          let att = docElements1[i].getAttribute(':toggle');
+          if(att !== null) {
+            let pairs1 = att.split(':');
+            if(pairs1[1] == 'in') {
+              node.setAttribute(':toggle', pairs1[0] + ':close');
+              document.getElementById(pairs1[0]).hidden = false;
+              document.getElementById(pairs1[0]).style.display = 'block';
+            }
+            if(pairs1[1] == 'close') {
+              node.setAttribute(':toggle', pairs1[0] + ':in');
+              document.getElementById(pairs1[0]).hidden = true;
+              document.getElementById(pairs1[0]).style.display = 'none';
+            }
           }
-        });
-      }
+
+        }
+        if(pairs[2] != null) document.getElementById(pairs[0]).className = pairs[2].toString();
+      });
+
     }
   }
 
-  bindMenu(node, find, value) {
+  bindMenu(node) {
     let att = this.getAtt(node, 'menu');
     if(att !== null && att.indexOf(':') !== -1) {
       let pairs = att.split(':');
