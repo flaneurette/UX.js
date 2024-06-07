@@ -7,7 +7,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.134",
+    version: "1.135",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -28,10 +28,9 @@ class Magic {
         this.nodes('bindPrevent');
         this.nodes('bindSelect');
         this.nodes('bindFlex');
-        this.nodes('bindActive');
         this.nodes('bindShow');
-        this.nodes('bindHide');
-        this.nodes('bindCurtains');
+        this.nodes('bindHide');	
+        this.nodes('bindCurtains');	
         for(const [key, value] of Object.entries(data)) {
           if(Array.isArray(value)) {
             this.nodes('bindLoop', key, value);
@@ -41,6 +40,7 @@ class Magic {
             this.nodes('bindLogic', key, value);
             this.nodes('bindFunctions', key, value);
             this.nodes('bindOn', key, value, data, method);
+			this.nodes('bindActive');
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
           } else {
             this.nodes('replaceNodeValue', key, value);
@@ -48,6 +48,7 @@ class Magic {
             this.nodes('bindLogic', key, value);
             this.nodes('bindFunctions', key, value);
             this.nodes('bindOn', key, value, data, method);
+			this.nodes('bindActive');
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
           }
         }
@@ -59,7 +60,7 @@ class Magic {
     var docElements = this.nodeParentList();
     for(var i = 0; i < docElements.length; i++) {
       if(method == 'bindActive') this.bindActive(docElements[i], find, value);
-      if(method == 'bindSelect') this.bindSelect(docElements[i], find, value);
+	  if(method == 'bindSelect') this.bindSelect(docElements[i], find, value);
       if(method == 'bindShow') this.bindShow(docElements[i], find, value);
       if(method == 'bindHide') this.bindHide(docElements[i], find, value);
       if(method == 'createForm') this.createForm(docElements[i], find, value);
@@ -75,7 +76,7 @@ class Magic {
       if(method == 'bindToggle') this.bindToggle(docElements[i], find, value);
       if(method == 'bindVoid') this.bindVoid(docElements[i], find, value);
       if(method == 'bindPrevent') this.bindPrevent(docElements[i], find, value);
-      if(method == 'bindAsync') this.bindAsync(docElements[i], find, value);
+      if(method == 'bindAsync') this.bindAsync(docElements[i], find, value);	  
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -143,10 +144,10 @@ class Magic {
           document.getElementById(id).value = value;
           break;
         case 'none':
-          document.getElementById(id).hidden = true;
+          document.getElementById(id).style.display = 'none';
           break;
         case 'block':
-          document.getElementById(id).hidden = false;
+          document.getElementById(id).style.display = 'block';
           break;
         case 'sethtml':
           document.getElementById(id).innerHTML = value;
@@ -183,7 +184,7 @@ class Magic {
   bindClass(node, find, value) {
     let att = this.getAtt(node, 'class');
     if(att !== null) {
-      if(att.toString() === find.toString()) node.className = value;
+      if(att.toString() === find.toString()) node.classList.toggle(value);
     }
   }
 
@@ -200,7 +201,7 @@ class Magic {
       if(docElements[i].getAttribute('magic:curtain') !== null ||
         docElements[i].getAttribute('m:curtain') !== null ||
         docElements[i].getAttribute(':curtain') !== null) {
-        docElements[i].hidden = false;
+        docElements[i].hidden = false; 
       }
     }
   }
@@ -254,20 +255,20 @@ class Magic {
       node.setAttribute('href', 'javascript:void(0);');
     }
   }
-
+  
   bindScroll(node) {
-    let att = this.getAtt(node, 'scroll');
+   let att = this.getAtt(node, 'scroll');
     if(att !== null) {
       node.setAttribute('href', 'javascript:void(0);');
-      node.addEventListener('click', function eventHandler() {
-        window.scrollTo = scrollTo(0, window.innerHeight);
-      });
-    }
+        node.addEventListener('click', function eventHandler() {
+          window.scrollTo = scrollTo(0, window.innerHeight);
+        });
+    }  
   }
-
+  
   bindActive(node) {
     let att = this.getAtt(node, 'active');
-    let active = window.location.href;
+    let active = window.location.href; 
     if(att !== null) {
       if(att.indexOf(':') != -1) {
         let pieces = att.split(':');
@@ -281,10 +282,10 @@ class Magic {
   bindSelect(node) {
     let att = this.getAtt(node, 'select');
     if(att !== null) {
-      node.className = att.toString();
+        node.className = att.toString();
     }
   }
-
+  
   bindFlex(node) {
     let att = this.getAtt(node, 'flex');
     if(att !== null) {
@@ -304,36 +305,36 @@ class Magic {
     let att = this.getAtt(node, 'toggle');
     if(att !== null && att.indexOf(':') !== -1) {
       let pairs = att.split(':');
-      document.getElementById(pairs[0]).hidden = true;
-      node.addEventListener('click', function() {
-        var docElements1 = document.getElementsByTagName("*");
-        for(var i = 0; i < docElements1.length; i++) {
-          let att = docElements1[i].getAttribute(':toggle');
-          if(att !== null) {
-            let pairs1 = att.split(':');
-            if(pairs1[1] == 'in') {
-              node.setAttribute(':toggle', pairs1[0] + ':close');
-              document.getElementById(pairs1[0]).hidden = false;
-              document.getElementById(pairs1[0]).style.display = 'block';
-            }
-            if(pairs1[1] == 'close') {
-              node.setAttribute(':toggle', pairs1[0] + ':in');
-              document.getElementById(pairs1[0]).hidden = true;
-              document.getElementById(pairs1[0]).style.display = 'none';
-            }
-          }
-
-        }
-        if(pairs[2] != null) document.getElementById(pairs[0]).className = pairs[2].toString();
-      });
-
+        document.getElementById(pairs[0]).hidden = true;
+        node.addEventListener('click', function() {
+		  var docElements1 = document.getElementsByTagName("*");
+          for(var i = 0; i < docElements1.length; i++) {
+			  let att = docElements1[i].getAttribute(':toggle');
+			  if(att !== null) { 
+			  let pairs1 = att.split(':');
+				  if(pairs1[1] == 'in') { 
+				  node.setAttribute(':toggle', pairs1[0] + ':close');
+				  document.getElementById(pairs1[0]).style.display = 'block';
+				  }
+				  if(pairs1[1] == 'close') {
+				  node.setAttribute(':toggle', pairs1[0] + ':in');
+				  document.getElementById(pairs1[0]).style.display = 'none';
+				  }
+			  }
+			  
+		  }
+		  if(pairs[2]) document.getElementById(pairs[0]).classList.toggle(pieces[2].toString());
+        });
+    
     }
   }
-
+  
   bindMenu(node) {
     let att = this.getAtt(node, 'menu');
     if(att !== null && att.indexOf(':') !== -1) {
+		
       let pairs = att.split(':');
+	  
       if(pairs[1] == 'in') {
         let list = document.getElementById(pairs[0]).children;
         for(let i = 0; i < list.length; i++) {
@@ -481,7 +482,7 @@ class Magic {
             className = parts[0];
             mod = parts[1];
           }
-          if(i % mod !== 0) node.children[i].className = className;
+          if(i % mod !== 0) node.children[i].classList.toggle(className);
         }
       }
     }
