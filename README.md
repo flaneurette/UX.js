@@ -46,6 +46,8 @@ An example of how Clear Type in Magic.js works (under development)
 An example showing a form, dynamically generated with Magic.js
 
 # Full examples
+#### responsive.html
+An example showing a responsive template, dynamically generated with Magic.js (including toggle)
 #### website.html
 An example showing a responsive website, dynamically generated with Magic.js
 #### interface.html
