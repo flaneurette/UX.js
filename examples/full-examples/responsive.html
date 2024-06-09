@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+.header {
+	background-color: #e7e7e7;
+	padding: 8px;
+	text-align:center;
+	margin-bottom:8px;
+}
+
+.main {
+	padding: 10px;
+	float:left;
+	width:80%;
+}
+
+.menu {
+	float: left;
+	width: 18%;
+	background-color: #e7e7e7;
+	padding: 8px;
+	margin-right: 8px;
+}
+
+.menu a {
+	display: block;
+	width: 100%;
+	margin: 8px;
+}
+
+.footer {
+	background-color: #e7e7e7;
+	padding: 8px;
+	margin-top:8px;
+	text-align:center;
+	display:block;
+	width: 100%;
+	float:left;
+}
+
+#menu1 {
+
+    display:block;
+	background-color: black;
+	width: 200px;
+	margin-top:0px;
+	display:none;
+	z-index: 1;
+	right:0;
+	position:absolute;
+}
+
+.mobile-menu {
+	float:right;
+	display:none;
+}
+
+ul {
+	list-style:none;
+}
+
+/* w3schools.com rwd example */
+
+@media only screen and (max-width: 600px) {
+	
+	.main, .footer {
+		width: 100%;
+	}
+	
+	.menu {
+		display:none;
+	}
+	
+	.mobile-menu {
+		display: block;
+	}
+}
+</style>
+<script src="../../assets/Magic.js"></script>
+</head>
+<body>
+
+<div class="header">
+  <!-- process plaintext -->
+  <h1>{{title}}</h1>
+</div>
+
+<div>
+	<div class="mobile-menu">
+		<ul>
+			<li>
+			<!-- toggle class menu1 -->
+			<img :toggle="menu1:in" width="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAuCAMAAADp/0xsAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAD9QTFRFAAAAEBAQFRUVBgYGr6+v6urqREREv7+/////S0tLUFBQa2trHx8fWFhYdXV1IiIiICAgKysrDAwMODg4FhYWNuJ9tAAAAGtJREFUeJzt0mEGgEAUxPEeEZtYuv8NE5FiWTpCs+Nt8sz/Ar8PMzZ8kAkRIuTPiNG2VRgZeaTAyMQjt5A+SOKRE0acE+KAxLmwkCZk4ZEDRpyLjmR+kx1G4lxYSBOyXiwybzDinBAhQt57AMJjFS+zv0W1AAAAAElFTkSuQmCC">
+			</li>
+		<ul>
+		<!-- loop through navigation array -->
+		<ul :loop="navigation" class="menu" id="menu1">
+			<li>{{link}}</li>
+		</ul>
+	</div>
+	<div class="menu">
+			<!-- loop through navigation array -->
+			<ul :loop="navigation">
+			<li>{{link}}</li>
+			</ul>
+	</div>
+	<div class="main">
+		<!-- process plaintext -->
+		<h2>{{firstBarTitle}}</h2>
+		<p>{{firstBarText}}</p>
+	</div>
+</div>
+
+<div class="footer">{{footer}}</div>
+<script>
+let app = new Magic();
+	app.load({
+		data: {
+			title: 'Lorem Ipsum',
+			firstBarTitle: 'Lorem Ipsum.',
+			firstBarText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pellentesque, nunc pharetra feugiat ullamcorper, nisl nunc semper dui, ac egestas tellus lacus non ligula. Nulla sit amet tellus mollis, laoreet urna ac, efficitur velit. Integer fringilla odio sed orci facilisis maximus. Maecenas luctus vestibulum tortor, quis tincidunt turpis aliquam sed. Nam suscipit placerat vulputate. Vivamus elit justo, malesuada vel pulvinar vitae, congue sed magna. Duis vitae ipsum eget ipsum imperdiet convallis. In hac habitasse platea dictumst. Praesent at urna commodo, blandit leo non, laoreet sapien. Integer ut rutrum dui. Aenean pharetra ornare dolor, sit amet tempus diam rhoncus at. Vivamus pellentesque ipsum nec vehicula rutrum.',
+			footer: 'Lorem Ipsum',
+			navigation: [
+			{name: 'Index', link: '<a href="#">Index</a>'},
+			{name: 'About', link: '<a href="#">About</a>'},
+			{name: 'Projects', link: '<a href="#">Projects</a>'},
+			{name: 'Media', link: '<a href="#">Media</a>'},
+			{name: 'Contact', link: '<a href="#">Contact</a>'},
+			{name: 'Social', link: '<a href="#">Social</a>'},
+			{name: 'Links', link: '<a href="#">Links</a>'},
+			]
+		}
+	});
+</script>
+</body>
+</html>
