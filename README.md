@@ -19,7 +19,7 @@ An example to show and hide objects in HTML
 #### magic-menu.html
 An example showing the menu attribute, dynamically generated with Magic.js
 #### magic-toggle.html
-An example showing the toggle attribute, to switch a menu on
+An example showing the toggle attribute, to switch a menu on/off
 #### magic-zebra.html
 An example showing the zebra attribute, dynamically generated with Magic.js
 #### magic-active.html
