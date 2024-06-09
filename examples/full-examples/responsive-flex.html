@@ -10,23 +10,13 @@
 	margin-bottom:10px;
 }
 
-.main {
-	padding: 10px;
-}
-
 .menu {
 	background-color: #e7e7e7;
 	padding: 10px;
 	margin-right: 10px;
 }
 
-.menu a {
-	display: block;
-	width: 100%;
-	margin: 10px;
-}
-
-#menu1 {
+#menu-display {
     display:block;
 	background-color: black;
 	width: 200px;
@@ -56,10 +46,6 @@ ul {
 
 @media only screen and (max-width: 600px) {
 	
-	.main, .footer {
-		width: 100%;
-	}
-	
 	.menu {
 		display:none;
 	}
@@ -69,7 +55,7 @@ ul {
 	}
 }
 </style>
-<script src="assets/Magic.js"></script>
+<script src="../../assets/Magic.js"></script>
 </head>
 <body>
 <!-- flex -->
@@ -82,12 +68,12 @@ ul {
 	<div class="mobile-menu">
 		<ul>
 			<li>
-			<!-- toggle class menu1 -->
-			<img :toggle="menu1:in" width="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAuCAMAAADp/0xsAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAD9QTFRFAAAAEBAQFRUVBgYGr6+v6urqREREv7+/////S0tLUFBQa2trHx8fWFhYdXV1IiIiICAgKysrDAwMODg4FhYWNuJ9tAAAAGtJREFUeJzt0mEGgEAUxPEeEZtYuv8NE5FiWTpCs+Nt8sz/Ar8PMzZ8kAkRIuTPiNG2VRgZeaTAyMQjt5A+SOKRE0acE+KAxLmwkCZk4ZEDRpyLjmR+kx1G4lxYSBOyXiwybzDinBAhQt57AMJjFS+zv0W1AAAAAElFTkSuQmCC">
+			<!-- toggle class menu-display -->
+			<img :toggle="menu-display:in" width="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAuCAMAAADp/0xsAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAD9QTFRFAAAAEBAQFRUVBgYGr6+v6urqREREv7+/////S0tLUFBQa2trHx8fWFhYdXV1IiIiICAgKysrDAwMODg4FhYWNuJ9tAAAAGtJREFUeJzt0mEGgEAUxPEeEZtYuv8NE5FiWTpCs+Nt8sz/Ar8PMzZ8kAkRIuTPiNG2VRgZeaTAyMQjt5A+SOKRE0acE+KAxLmwkCZk4ZEDRpyLjmR+kx1G4lxYSBOyXiwybzDinBAhQt57AMJjFS+zv0W1AAAAAElFTkSuQmCC">
 			</li>
 		<ul>
 		<!-- loop through navigation array -->
-		<ul :loop="navigation" class="menu" id="menu1">
+		<ul :loop="navigation" class="menu" id="menu-display">
 			<li>{{link}}</li>
 		</ul>
 	</div>
@@ -99,7 +85,7 @@ ul {
 			<li>{{link}}</li>
 			</ul>
 	</div>
-	<div class="main">
+	<div>
 		<!-- process plaintext -->
 		<h2>{{firstBarTitle}}</h2>
 		<p>{{firstBarText}}</p>
