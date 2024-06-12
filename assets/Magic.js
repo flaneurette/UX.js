@@ -7,7 +7,7 @@ class Magic {
 
   init = {
     name: "Magic.js",
-    version: "1.135",
+    version: "1.136",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -42,6 +42,7 @@ class Magic {
             this.nodes('bindOn', key, value, data, method);
 			this.nodes('bindActive');
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
+			if(key == 'devtools' && value == true) this.nodes('devtools', data, key, value);
           } else {
             this.nodes('replaceNodeValue', key, value);
             this.nodes('bindAttributesNode', key, value);
@@ -50,6 +51,7 @@ class Magic {
             this.nodes('bindOn', key, value, data, method);
 			this.nodes('bindActive');
             if(key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
+			if(key == 'devtools' && value == true) this.nodes('devtools', data, key, value);
           }
         }
       }
@@ -76,7 +78,8 @@ class Magic {
       if(method == 'bindToggle') this.bindToggle(docElements[i], find, value);
       if(method == 'bindVoid') this.bindVoid(docElements[i], find, value);
       if(method == 'bindPrevent') this.bindPrevent(docElements[i], find, value);
-      if(method == 'bindAsync') this.bindAsync(docElements[i], find, value);	  
+      if(method == 'bindAsync') this.bindAsync(docElements[i], find, value);
+      if(method == 'devtools') this.bindDevtool(docElements[i], find, value);	  
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -130,7 +133,7 @@ class Magic {
       node.getAttribute(':' + part) !== null) ? true : false;
     return check;
   }
-
+  
   dom(id, method, value = null) {
     if(id !== null) {
       switch(method) {
@@ -300,7 +303,7 @@ class Magic {
       }
     }
   }
-
+  
   bindToggle(node) {
     let att = this.getAtt(node, 'toggle');
     if(att !== null && att.indexOf(':') !== -1) {
@@ -332,9 +335,7 @@ class Magic {
   bindMenu(node) {
     let att = this.getAtt(node, 'menu');
     if(att !== null && att.indexOf(':') !== -1) {
-		
       let pairs = att.split(':');
-	  
       if(pairs[1] == 'in') {
         let list = document.getElementById(pairs[0]).children;
         for(let i = 0; i < list.length; i++) {
@@ -606,7 +607,18 @@ class Magic {
       parents.appendChild(options);
     }
   }
-
+  bindDevtool(node) {
+    if(node.className !== '' && node.id !== '') { 
+      node.setAttribute('title','CLASS: '+node.className+', ID: '+node.id);
+	  node.style = 'border: 1px dashed green;';
+	} else if(node.className !== '') {
+      node.setAttribute('title','CLASS: '+node.className);
+	  node.style = 'border: 1px dashed black;';
+	} else if(node.id !== '') {
+      node.setAttribute('title','ID: '+node.id);
+	  node.style = 'border: 1px dashed red;';
+	}
+  }
   log(msg) {
     console.log(msg);
   }
