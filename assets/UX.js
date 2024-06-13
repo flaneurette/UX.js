@@ -7,7 +7,7 @@ class UX {
 
   init = {
     name: "UX.js",
-    version: "1.136",
+    version: "1.137",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -31,6 +31,7 @@ class UX {
         this.nodes('bindShow');
         this.nodes('bindHide');	
         this.nodes('bindCurtains');	
+		this.nodes('bindAnimate');	
         for(const [key, value] of Object.entries(data)) {
           if(Array.isArray(value)) {
             this.nodes('bindLoop', key, value);
@@ -79,7 +80,8 @@ class UX {
       if(method == 'bindVoid') this.bindVoid(docElements[i], find, value);
       if(method == 'bindPrevent') this.bindPrevent(docElements[i], find, value);
       if(method == 'bindAsync') this.bindAsync(docElements[i], find, value);
-      if(method == 'devtools') this.bindDevtool(docElements[i], find, value);	  
+      if(method == 'devtools') this.bindDevtool(docElements[i], find, value);
+      if(method == 'bindAnimate') this.bindAnimate(docElements[i], find, value);	  
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -299,6 +301,19 @@ class UX {
         if(flexbox[0] == 'bottom') node.setAttribute("style", flex + 'align-items: baseline;' + flexdir);
       }
     }
+  }
+
+  bindAnimate(node) {
+    let att = this.getAtt(node, 'animate');
+    if(att !== null) {
+      if(att.indexOf(':') != -1) {
+        let a = att.split(':');
+        var keyframes = document.createElement("style");
+        keyframes.textContent = '@keyframes '+a[0]+' { from { '+a[5].toString()+': var(--from);} to {'+a[5].toString()+':var(--to);}}';
+	document.body.appendChild(keyframes);
+        node.style = 'position: relative; --from:'+a[3]+'px; --to:'+a[4]+'px; animation: '+a[0]+' '+a[2]+' forwards; animation-timing-function: '+a[1]+';';
+       }
+    }  
   }
   
   bindToggle(node) {
