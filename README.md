@@ -48,6 +48,8 @@ An example showing a form, dynamically generated with UX.js
 # Full examples
 #### responsive-flex.html
 An example showing a responsive template, dynamically generated with UX.js (including toggle & flex)
+#### dev-tool.html
+By setting devtools: true, UX.js shows tooltip information and borders the elements for development.
 #### website.html
 An example showing a responsive website, dynamically generated with UX.js
 #### interface.html
