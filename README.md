@@ -8,6 +8,8 @@ A minimal font-end development JavaScript framework, UX automates the most used 
 
 #### hello-world.html
 A simple example of how UX.js works.
+#### UX-animate.html
+An example showing the animate attribute, to dynamically animate objects.
 #### UX-bind.html
 An example how to bind to classes.
 #### UX-if.html
