@@ -56,6 +56,4 @@ An example showing a responsive interface, dynamically generated with UX.js
 An example showing a blogpage, dynamically generated with UX.js
 #### shopping-cart.html
 An example showing a shoppingcart, dynamically generated with UX.js
-#### style-guide.html
-A bootstrap styleguide
 
