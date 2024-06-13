@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style> 
+div {
+  background-color: blue;
+  color: white;
+  margin: 20px;
+  width: 100px;
+  height: 100px;
+}
+
+</style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+
+<h1>{{text}}</h1>
+
+<div :animate="uxanimate0:linear:1s:0:200:top">linear</div>
+<div :animate="uxanimate1:ease:2s:10:200:top">ease</div>
+<div :animate="uxanimate2:ease-in:3s:10:200:top">ease-in</div>
+<div :animate="uxanimate3:ease-out:4s:10:200:left">ease-out</div>
+<div :animate="uxanimate4:ease-in-out:5s:10:200:left">ease-in-out</div>
+<div :animate="uxanimate5:cubic-bezier(0.42,10,0.58,1):5s:10:200:left">cubic bezier</div>
+
+
+<script>
+	let app = new UX();
+	
+	app.load({
+		data: {
+			text: 'Animate'
+		}
+	});
+</script>
+</body>
+</html>
