@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>UX Flexbox</title>
+  <style>
+  div {
+	border: 1px solid black;
+	padding: 20px;
+	margin: 10px;
+  }
+  </style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+
+	<div :flex="true:row">
+		<div>
+		<h1>{{title}}</h1>
+		</div>
+		<div>
+		<p>{{message}}</p>
+		</div>
+	</div>
+	
+	<div :flex="right:row">
+		<div>
+		<h1>{{title}}</h1>
+		</div>
+		<div>
+		<p>{{message}}</p>
+		</div>
+	</div>
+	
+	<div :flex="center:row">
+		<div>
+		<h1>{{title}}</h1>
+		</div>
+		<div>
+		<p>{{message}}</p>
+		</div>
+	</div>	
+
+	<div :flex="bottom:column">
+		<div>
+		<h1>{{title}}</h1>
+		</div>
+		<div>
+		<p>{{message}}</p>
+		</div>
+	</div>
+	
+	<script>
+	
+	let app = new UX();
+
+	app.load({
+		data: { 
+			title: "My webpage",
+			message: "Hello World!"
+		}
+	});
+  
+	</script>
+</body>
+</html>

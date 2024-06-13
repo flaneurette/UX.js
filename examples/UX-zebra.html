@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UX Zebra</title>
+  <style>
+	  .div1 {
+       padding: 10px;
+	   margin: 10px;
+	   border: 1px solid lightgrey;
+	   border-radius: 5px;
+	  }
+	.zebraClass {
+       padding: 10px;
+	   margin: 10px;
+	   border: 1px solid lightgrey;
+	   border-radius: 5px;
+	   background-color: #f7f7f7;
+	}
+  </style>
+</head>
+<body>
+
+<div id="app">
+ <h1>{{title}}</h1>
+  <div>
+    <div :loop="stripes" :zebra="zebraClass">
+	<!-- stripes is the object, zebraClass is a CSS class -->
+	<div :class="mydiv">
+		 <h2>{{name}}</h2>
+		 <p>{{text}}</p>
+	 </div>
+    </ul>
+  </div>
+</div>
+	<script src="../assets/UX.js"></script>
+	
+	<script>
+	
+	let app = new UX();
+	
+	app.load({
+		data: {
+			mydiv: 'div1',
+			title: 'Zebra',
+			stripes: [
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'},
+			{name: 'I am a Zebra', text: 'test'}]
+		}
+	});
+  
+	</script>
+</body>
+</html>

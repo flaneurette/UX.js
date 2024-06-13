@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UX Forms</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <style>
+  
+	* {
+		font-family: "Montserrat", sans-serif;
+		font-style: normal;
+	}
+	
+	html, body {
+		margin:20;
+		padding:20;
+	}
+    .text {
+      display: inline-block;
+      border: 1px solid black;
+      padding: 10px;
+      background-color: #dedede;
+    }
+	input, textarea {
+		display: block;
+		padding: 10px;
+		margin:10px;
+	}
+  </style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+
+<div id="app">
+ <p>{{formTitle}}</p>
+  <div :class="myClass" :form="forms">
+  </div>
+</div>
+	
+	<script>
+	
+	let app = new UX();
+	
+	app.load({
+		data: {
+			myClass: "text",
+			formTitle: 'Please fill out this form.',
+			form: [
+			{name: 'myform', type: 'form', action: 'index.php', method: 'POST', enctype: ''},
+			{name: 'Name', type: 'text', value: '', label: 'Name', className: 'text'},
+			{name: 'Address', type: 'text', value: '', label: 'Address'},
+			{name: 'City', type: 'text', value: '', label: 'City'},
+			{name: 'Country', type: 'text', value: '', label: 'Country'},
+			{name: 'Comments', type: 'textarea', value: '', label: 'Comments', placeholder: 'Your comments...'},
+			{name: 'Terms', type: 'checkbox', checked: 'true', label: 'Agree to terms?'},
+			{name: 'crsf', type: 'hidden', value: ''},
+			{name: 'Submit', type: 'submit', value: 'Submit'}]
+		}
+	});
+  
+	</script>
+</body>
+</html>

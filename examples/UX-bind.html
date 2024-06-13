@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<head>
+  <title>UX Bindings</title>
+  <style>
+    .text {
+      background-color: #ded;
+      padding: 20px;
+	  color: #fff;
+    }
+    .text2 {
+      background-color: #ddd;
+      padding: 20px;
+    }
+    .text3 {
+      background-color: #ccc;
+      padding: 20px;
+    }
+  </style>
+  <script src="../assets/UX.js"></script>
+</head>
+<body>
+
+  <div id="app">
+    <div UX:class="grey">{{message}}</div>
+	<div UX:class="red">{{message}} </div>
+	<div :class="green">{{message}} </div>
+  </div>
+	
+	<script>
+	
+	let app = new UX();
+	
+	app.load({
+		data: { 
+			grey: "text",
+			red: "text2",
+			green: "text3",
+			message: "Hello World!"
+		}
+	});
+  
+	</script>
+</body>
+</html>

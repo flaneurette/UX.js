@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UX Events</title>
+  <style>
+    .text {
+      display: inline-block;
+      border: 1px solid black;
+      padding: 10px;
+      background-color: yellow;
+      width: 300px;
+      display: flex;
+    }
+  </style>
+  <script src="../assets/UX.js"></script>
+</head>
+<body>
+<h1>UX Events</h1>
+<div id="app">
+  <p :class="myClass">Counted products: <span :id="counter">{{count}}</span></p>
+  <button :click="count++">Count products up</button>
+</div>
+	
+	<script>
+	
+	let app = new UX();
+	
+	app.load({
+		data: {
+			myClass: "text",
+			count: 0
+		}
+	});
+  
+	</script>
+</body>
+</html>

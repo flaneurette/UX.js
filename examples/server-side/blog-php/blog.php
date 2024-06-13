@@ -22,14 +22,14 @@ $blogs = "[
     }
 
   </style>
-<script src="../../../assets/Magic.js"></script>
+<script src="../../../assets/UX.js"></script>
 </head>
 <body>
 
 <div id="app">
  <h1>{{blogTitle}}</h1>
   <div>
-    <div magic:loop="blogs">
+    <div UX:loop="blogs">
 	<div :class="myClass">
 		 <h2>{{blogname}}</h2>
 		 <p>{{blogtext}}</p>
@@ -40,7 +40,7 @@ $blogs = "[
 </div>
 	<script>
 	
-	let app = new Magic();
+	let app = new UX();
 	
 	app.load({
 		data: {

@@ -2,8 +2,9 @@
 <html>
 <head>
 	
-  <title>Blog</title>
+  <title>UX HTTP</title>
   <style>
+  
     .div {
       border: 1px solid black;
       padding: 10px;
@@ -11,15 +12,16 @@
     }
 
   </style>
-<script src="../../../assets/UX.js"></script>
+<script src="../assets/UX.js"></script>
 </head>
 <body>
 
 <div id="app">
- <h1>{{blogTitle}}</h1>
+<h1>UX HTTP</h1>
+ <p>{{blogTitle}}</p>
   <div>
-    <div UX:loop="blogs">
-	<div :class="myClass">
+    <div :loop="blogs">
+	<div>
 		 <h2>{{blogname}}</h2>
 		 <p>{{blogtext}}</p>
 		 <span>{{link}}</span>
@@ -32,7 +34,7 @@
 
 	let app = new UX();
 	
-	app.http('data.php', 'callback', mycall);
+	app.http('server-side/blog-xhr/data.php', 'callback', mycall);
 	
 	function mycall(dataset) {
 		app.load({

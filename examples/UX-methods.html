@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UX Methods</title>
+<style>
+#text {
+	background-color: #ded;
+	padding: 10px;
+}
+</style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <p>Click on the box below:</p>
+  <div :click="textChange" id="text">
+    {{text}}, {{hello}} {{world}}
+  </div>
+</div>
+
+<script>
+
+	let app = new UX();
+	
+	app.load({
+		data: {
+          text: 'Test'
+		},
+		methods: {
+          textChange() {
+          this.hello = 'Hello World!',
+		  this.world = 'Hello Earth!',
+		  alerter(this.hello)
+        }
+	  }
+	});
+	
+	function alerter(a) {
+		console.log(a);
+	}
+ 
+</script>
+
+</body>
+</html>

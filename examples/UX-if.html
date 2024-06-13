@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>UX If</title>
+  <style>
+    .text {
+      background-color: #ded;
+      padding: 20px;
+      margin: 10px;
+	  color: #000;
+    }
+  </style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+
+<div id="app">
+<h1>UX IF</h1>
+  <div>
+   <p>Do you have Bananas?</p>
+  </div>
+  <div UX:if="message.has('Chips')" :class="UXClass">
+    <p>Yes we have Chips!</p>
+  </div>
+  <div :if="message.has('Bananas')" :class="UXClass">
+    <p>We have Bananas and Cola!</p>
+  </div>
+</div>
+	<script>
+	
+	let app = new UX();
+	
+	app.load({
+		data: {
+			UXClass: 'text',
+			message: "Do you have have Bananas?"
+		}
+	});
+  
+	</script>
+</body>
+</html>
