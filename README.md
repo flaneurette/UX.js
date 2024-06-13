@@ -1,6 +1,6 @@
 # UX.js
 
-<img src="https://github.com/flaneurette/UX.js/blob/main/assets/images/UX-logo.png" />
+<img src="https://github.com/flaneurette/UX.js/blob/main/assets/images/UX-logo.png" style="margin-left-10px;" />
 
 A minimal font-end development JavaScript framework, UX automates the most used front-end development tasks. Similar to VUE.js, React and other frameworks, but much easier to work with. UX.js is unique as it separates data loading and DOM manipulation from other JavaScript logic, making it much quicker to learn and easier to implement or add to existing JavaScript code and has been built to be fully scalable and easy to implement in any project, without having to rewrite entire codebases. It even works in parallel to the aforementioned frameworks. If you want to set up a blog, or an entire webshop, UX.js lets you create a website or app in hours.
 
