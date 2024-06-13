@@ -17,13 +17,12 @@ div {
 
 <h1>{{text}}</h1>
 
-<div :animate="uxanimate0:linear:1s:0:200:top">linear</div>
-<div :animate="uxanimate1:ease:2s:10:200:top">ease</div>
-<div :animate="uxanimate2:ease-in:3s:10:200:top">ease-in</div>
-<div :animate="uxanimate3:ease-out:4s:10:200:left">ease-out</div>
-<div :animate="uxanimate4:ease-in-out:5s:10:200:left">ease-in-out</div>
+<div :animate="uxanimate0:linear:3s:-100:200:top">linear</div>
+<div :animate="uxanimate1:ease:2s:-100:200:top">ease</div>
+<div :animate="uxanimate2:ease-in:1s:0:200:top">ease-in</div>
+<div :animate="uxanimate3:ease-out:4s:0:200:left">ease-out</div>
+<div :animate="uxanimate4:ease-in-out:5s:0:200:left">ease-in-out</div>
 <div :animate="uxanimate5:cubic-bezier(0.42,10,0.58,1):5s:10:200:left">cubic bezier</div>
-
 
 <script>
 	let app = new UX();
