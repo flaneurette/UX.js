@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>UX Link</title>
+
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+
+	<input type="button" value="Click me" :link="http://www.example.com" />
+	
+	<script>
+	
+	let app = new UX();
+
+	app.load({
+		data: { 
+			title: "My webpage",
+			message: "Hello World!"
+		}
+	});
+  
+	</script>
+</body>
+</html>
