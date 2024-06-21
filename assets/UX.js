@@ -7,7 +7,7 @@ class UX {
 
   init = {
     name: "UX.js",
-    version: "1.137",
+    version: "1.138",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -31,7 +31,8 @@ class UX {
         this.nodes('bindShow');
         this.nodes('bindHide');	
         this.nodes('bindCurtains');	
-		this.nodes('bindAnimate');	
+		this.nodes('bindAnimate');
+        this.nodes('bindUri');			
         for(const [key, value] of Object.entries(data)) {
           if(Array.isArray(value)) {
             this.nodes('bindLoop', key, value);
@@ -81,7 +82,8 @@ class UX {
       if(method == 'bindPrevent') this.bindPrevent(docElements[i], find, value);
       if(method == 'bindAsync') this.bindAsync(docElements[i], find, value);
       if(method == 'devtools') this.bindDevtool(docElements[i], find, value);
-      if(method == 'bindAnimate') this.bindAnimate(docElements[i], find, value);	  
+      if(method == 'bindAnimate') this.bindAnimate(docElements[i], find, value);
+      if(method == 'bindUri') this.bindUri(docElements[i], find, value);	  
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
         if(method == 'replaceNodeValue') {
@@ -313,6 +315,16 @@ class UX {
 	document.body.appendChild(keyframes);
         node.style = 'position: relative; --from:'+a[3]+'px; --to:'+a[4]+'px; animation: '+a[0]+' '+a[2]+' forwards; animation-timing-function: '+a[1]+';';
        }
+    }  
+  }
+ 
+   bindUri(node) {
+   let att = this.getAtt(node, 'link');
+    if(att !== null) {
+      node.setAttribute('href', 'javascript:void(0);');
+        node.addEventListener('click', function eventHandler() {
+          document.location = att;
+        });
     }  
   }
   
