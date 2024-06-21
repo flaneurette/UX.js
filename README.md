@@ -34,6 +34,8 @@ An example showing the flexbox attribute, dynamically generated with UX.js (no C
 An example showing the scroll attribute
 #### UX-void.html
 An example showing the void attribute
+#### UX-link.html
+An example showing the link attribute
 #### UX-async.html
 An example of how form async in UX.js works
 #### UX-http.html
