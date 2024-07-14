@@ -2,7 +2,7 @@
 
 <img src="https://github.com/flaneurette/UX.js/blob/main/assets/images/UX-logo.png" />
 
-A minimal fontend development JavaScript framework, UX automates the most used frontend development tasks. Similar to VUE.js, React and other frameworks, but much easier to work with. UX.js is unique as it separates data loading and DOM manipulation from other JavaScript logic, making it much quicker to learn and easier to implement or add to existing JavaScript code. UX.js lets you create a website or app in hours.
+A minimal JavaScript framework, UX automates the most used frontend development tasks. Similar to VUE.js, React and other frameworks, but much easier to work with. UX.js is unique as it separates data loading and DOM manipulation from other JavaScript logic, making it much quicker to learn and easier to implement or add to existing JavaScript code. UX.js lets you create a website or app in hours.
 
 # Examples
 
