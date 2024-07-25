@@ -10,6 +10,8 @@ A minimal JavaScript framework, UX automates the most used frontend development 
 A simple example of how UX.js works.
 #### UX-animate.html
 An example showing the animate attribute, to dynamically animate objects.
+#### UX-cascade.html
+An example showing the cascade attribute, to dynamically scroll objects.
 #### UX-bind.html
 An example how to bind to classes.
 #### UX-if.html
