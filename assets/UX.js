@@ -7,7 +7,7 @@ class UX {
 
   init = {
     name: "UX.js",
-    version: "1.138",
+    version: "1.139",
     copyright: "(c) 2024 flaneurette",
     license: "MIT",
     instanceid: 1e5
@@ -32,6 +32,7 @@ class UX {
         this.nodes('bindHide');	
         this.nodes('bindCurtains');	
 		this.nodes('bindAnimate');
+		this.nodes('bindCascade');
         this.nodes('bindUri');			
         for(const [key, value] of Object.entries(data)) {
           if(Array.isArray(value)) {
@@ -83,6 +84,7 @@ class UX {
       if(method == 'bindAsync') this.bindAsync(docElements[i], find, value);
       if(method == 'devtools') this.bindDevtool(docElements[i], find, value);
       if(method == 'bindAnimate') this.bindAnimate(docElements[i], find, value);
+	  if(method == 'bindCascade') this.bindCascade(docElements[i], find, value);
       if(method == 'bindUri') this.bindUri(docElements[i], find, value);	  
       var docChildren = this.nodeChildren(docElements[i]);
       for(var j = 0; j < docChildren.length; j++) {
@@ -312,12 +314,27 @@ class UX {
         let a = att.split(':');
         var keyframes = document.createElement("style");
         keyframes.textContent = '@keyframes '+a[0]+' { from { '+a[5].toString()+': var(--from);} to {'+a[5].toString()+':var(--to);}}';
-	document.body.appendChild(keyframes);
+        document.body.appendChild(keyframes);
         node.style = 'position: relative; --from:'+a[3]+'px; --to:'+a[4]+'px; animation: '+a[0]+' '+a[2]+' forwards; animation-timing-function: '+a[1]+';';
        }
     }  
   }
- 
+  
+  bindCascade(node,find) {
+    let att = this.getAtt(node, 'cascade');
+    if(att !== null) {
+        let a = att.split(':');
+        let childs = node.children;
+        for(let i=0;i<childs.length;i++) {
+            if(i==a[0]) {
+            node.children[i].style = 'position:fixed!important;z-index:0;height:' + a[1] +'px!important;';	
+            } else {
+            node.children[i].style = 'position:relative!important;z-index:'+ (i+2) + ';top:' +a[1]+ 'px;';
+			}
+        }
+	}
+  }
+  
    bindUri(node) {
    let att = this.getAtt(node, 'link');
     if(att !== null) {
