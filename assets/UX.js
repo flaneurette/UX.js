@@ -326,10 +326,18 @@ class UX {
         let a = att.split(':');
         let childs = node.children;
         for(let i=0;i<childs.length;i++) {
-            if(i==a[0]) {
-            node.children[i].style = 'position:fixed!important;z-index:'+(childs.length+1)+';height:'+a[1]+'px!important;width:100%;';	
-            } else {
-            node.children[i].style = 'position:relative!important;z-index:'+(i+2)+';top:'+a[2]+'px;';
+			if(a[0] == 'menu') { 
+				if(i==a[1]) {
+				node.children[i].style = 'position:fixed!important;z-index:'+(childs.length+1)+';height:'+a[2]+'px!important;width:100%;';	
+				} else {
+				node.children[i].style = 'position:relative!important;z-index:'+(i+2)+';top:'+a[3]+'px;';
+				}
+			} else {
+				if(i==a[1]) {
+				node.children[i].style = 'position:fixed!important;z-index:0;width:100%;';	
+				} else {
+				node.children[i].style = 'position:relative!important;z-index:'+(i+2)+';top:'+a[3]+'px;';
+				}	
 			}
         }
 	 }
