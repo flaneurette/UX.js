@@ -328,17 +328,34 @@ class UX {
         for(let i=0;i<childs.length;i++) {
 			if(a[0] == 'menu') { 
 				if(i==a[1]) {
-				node.children[i].style = 'position:fixed!important;z-index:'+(childs.length+1)+';height:'+a[2]+'px!important;width:100%;';	
+                let styles = '';
+				styles += 'position:fixed!important;';
+				styles += 'z-index:'+(childs.length+1)+';';
+				styles += 'height:'+a[2]+'px!important;';
+				styles += 'width:100%;';
+                node.children[i].style = styles;				
 				} else {
-				node.children[i].style = 'position:relative!important;z-index:'+(i+2)+';top:'+a[3]+'px;';
+                let styles = '';
+				styles += 'position:relative!important;';
+				styles += 'z-index:'+(i+2)+';';
+				styles += 'top:'+a[3]+'px;';
+				node.children[i].style = styles;
 				}
 			} else {
 				if(i==a[1]) {
-				node.children[i].style = 'position:fixed!important;z-index:0;width:100%;';	
+                let styles = '';
+				styles += 'position:fixed!important;';
+				styles += 'z-index:0;';
+				styles += 'width:100%;';
+                node.children[i].style = styles;				
 				} else {
-				node.children[i].style = 'position:relative!important;z-index:'+(i+2)+';top:'+a[3]+'px;';
+				let styles = '';
+				styles +=  'position:relative!important;';
+				styles += 'z-index:'+(i+2)+';';
+				styles += 'top:'+a[3]+'px;';
+				node.children[i].style = styles;
 				}	
-			}
+			}	
         }
 	 }
   }
