@@ -333,13 +333,13 @@ class UX {
                         styles += 'z-index:' + (childs.length + 1) + ';';
                         styles += 'height:' + a[2] + 'px!important;';
                         styles += 'width:100%;';
-                        node.children[i].style = styles;
+                        node.children[i].setAttribute("style",styles);
                     } else {
                         let styles = '';
                         styles += 'position:relative!important;';
                         styles += 'z-index:' + (i + 2) + ';';
                         styles += 'top:' + a[3] + 'px;';
-                        node.children[i].style = styles;
+                        node.children[i].setAttribute("style",styles);
                     }
                 } else {
                     if (i == a[1]) {
@@ -347,13 +347,13 @@ class UX {
                         styles += 'position:fixed!important;';
                         styles += 'z-index:0;';
                         styles += 'width:100%;';
-                        node.children[i].style = styles;
+                        node.children[i].setAttribute("style",styles);
                     } else {
                         let styles = '';
                         styles += 'position:relative!important;';
                         styles += 'z-index:' + (i + 2) + ';';
                         styles += 'top:' + a[3] + 'px;';
-                        node.children[i].style = styles;
+                        node.children[i].setAttribute("style",styles);
                     }
                 }
             }
