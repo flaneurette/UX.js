@@ -13,7 +13,7 @@ An example showing the animate attribute, to dynamically animate objects.
 #### UX-cascade.html
 An example showing the cascade attribute, to dynamically scroll objects.
 #### UX-lazyload.html
-An example lazyloading images with the UX attribute :lazy
+An example lazyloading images
 #### UX-bind.html
 An example how to bind to classes.
 #### UX-if.html
