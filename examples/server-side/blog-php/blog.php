@@ -29,7 +29,7 @@ $blogs = "[
 <div id="app">
  <h1>{{blogTitle}}</h1>
   <div>
-    <div UX:loop="blogs">
+    <div :loop="blogs">
 	<div :class="myClass">
 		 <h2>{{blogname}}</h2>
 		 <p>{{blogtext}}</p>

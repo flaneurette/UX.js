@@ -19,7 +19,7 @@
   <div>
    <p>Do you have Bananas?</p>
   </div>
-  <div UX:if="message.has('Chips')" :class="UXClass">
+  <div :if="message.has('Chips')" :class="UXClass">
     <p>Yes we have Chips!</p>
   </div>
   <div :if="message.has('Bananas')" :class="UXClass">

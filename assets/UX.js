@@ -32,6 +32,7 @@ class UX {
                 this.nodes('bindHide');
                 this.nodes('bindCurtains');
                 this.nodes('bindAnimate');
+                this.nodes('bindLazyLoad');
                 this.nodes('bindCascade');
                 this.nodes('bindUri');
                 for (const [key, value] of Object.entries(data)) {
@@ -85,6 +86,7 @@ class UX {
             if (method == 'devtools') this.bindDevtool(docElements[i], find, value);
             if (method == 'bindAnimate') this.bindAnimate(docElements[i], find, value);
             if (method == 'bindCascade') this.bindCascade(docElements[i], find, value);
+            if (method == 'bindLazyLoad') this.bindLazyLoad(docElements[i], find, value);
             if (method == 'bindUri') this.bindUri(docElements[i], find, value);
             var docChildren = this.nodeChildren(docElements[i]);
             for (var j = 0; j < docChildren.length; j++) {
@@ -358,6 +360,18 @@ class UX {
                 }
             }
         }
+    }
+
+    bindLazyLoad(node, find) {
+        let att = this.getAtt(node, 'lazy');
+        if (att !== null) {
+            let a = att.split(':');
+            node.setAttribute("loading","lazy");
+			let style = '';
+			style += "background-color:" + a[1] + ";";
+			style += "background-size: cover;";
+			node.setAttribute("style",style);
+		}
     }
 
     bindUri(node) {
