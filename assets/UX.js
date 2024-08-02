@@ -62,6 +62,26 @@ class UX {
         }
     }
 
+    fetch(obj) {
+        if (Object(obj)) {
+            var docElements = this.nodeParentList();
+                for (var i = 0; i < docElements.length; i++) {
+                    var docChildren = this.nodeChildren(docElements[i]);
+                        for (var j = 0; j < docChildren.length; j++) {
+                            for (const [key, value] of Object.entries(obj)) {
+                                if (Object(value)) {
+                                    for (const [key1, value1] of Object.entries(value)) {
+                                        if (docChildren[j].nodeType === 3) {
+                                        docChildren[j].nodeValue = docChildren[j].nodeValue.replace("{{"+key1+"}}", value1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }    
+        }
+    }
+
     nodes(method, find, value, data = null, methods = null, callback = null) {
         var docElements = this.nodeParentList();
         for (var i = 0; i < docElements.length; i++) {
@@ -367,11 +387,11 @@ class UX {
         if (att !== null) {
             let a = att.split(':');
             node.setAttribute("loading","lazy");
-			let style = '';
-			style += "background-color:" + a[1] + ";";
-			style += "background-size: cover;";
-			node.setAttribute("style",style);
-		}
+            let style = '';
+            style += "background-color:" + a[1] + ";";
+            style += "background-size: cover;";
+            node.setAttribute("style",style);
+        }
     }
 
     bindUri(node) {

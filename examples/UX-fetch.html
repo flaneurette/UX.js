@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+  <title>UX HTTP</title>
+  <style>
+  
+    .div {
+      border: 1px solid black;
+      padding: 10px;
+	  margin: 10px;
+    }
+
+  </style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+
+<div id="app">
+<h1>UX FETCH</h1>
+  <div>
+    <div>
+	<div>
+		 <h2>{{blogname_1}}</h2>
+		 <p>{{blogtext_1}}</p>
+		 <span>{{link_1}}</span>
+	 </div>
+	<div>
+		 <h2>{{blogname_2}}</h2>
+		 <p>{{blogtext_2}}</p>
+		 <span>{{link_2}}</span>
+	 </div>
+	<div>
+		 <h2>{{blogname_3}}</h2>
+		 <p>{{blogtext_3}}</p>
+		 <span>{{link_3}}</span>
+	 </div>
+    </ul>
+  </div>
+</div>
+	
+	<script>
+
+	let app = new UX();
+	
+	app.http('server-side/blog-xhr/data-unique.php', 'callback', mycall);
+	
+	function mycall(dataset) {
+		app.fetch(JSON.parse(dataset));
+	}
+	</script>
+</body>
+</html>
