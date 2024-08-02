@@ -12,6 +12,8 @@ A simple example of how UX.js works.
 An example showing the animate attribute, to dynamically animate objects.
 #### UX-cascade.html
 An example showing the cascade attribute, to dynamically scroll objects.
+#### UX-fetch.html
+An example fetching unique JSON and displaying it.
 #### UX-lazyload.html
 An example lazyloading images
 #### UX-bind.html
