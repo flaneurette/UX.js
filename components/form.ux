@@ -1,0 +1,7 @@
+<form name="login" action="">
+	<label>Name</label>
+	<input type="text" name="name" />
+	<label>E-mail</label>
+	<input type="text" name="email" />
+	<input type="submit" />
+</form>
