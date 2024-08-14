@@ -7,7 +7,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.139",
+        version: "1.140",
         copyright: "(c) 2024 flaneurette",
         license: "MIT",
         instanceid: 1e5
@@ -21,20 +21,21 @@ class UX {
             let data = list.data
             let method = list.methods;
             let events = list.events;
+            this.nodes('render');
+            this.nodes('bindToggle');
+            this.nodes('bindMenu');
+            this.nodes('bindVoid');
+            this.nodes('bindPrevent');
+            this.nodes('bindSelect');
+            this.nodes('bindFlex');
+            this.nodes('bindShow');
+            this.nodes('bindHide');
+            this.nodes('bindCurtains');
+            this.nodes('bindAnimate');
+            this.nodes('bindLazyLoad');
+            this.nodes('bindCascade');
+            this.nodes('bindUri');
             if (data) {
-                this.nodes('bindToggle');
-                this.nodes('bindMenu');
-                this.nodes('bindVoid');
-                this.nodes('bindPrevent');
-                this.nodes('bindSelect');
-                this.nodes('bindFlex');
-                this.nodes('bindShow');
-                this.nodes('bindHide');
-                this.nodes('bindCurtains');
-                this.nodes('bindAnimate');
-                this.nodes('bindLazyLoad');
-                this.nodes('bindCascade');
-                this.nodes('bindUri');
                 for (const [key, value] of Object.entries(data)) {
                     if (Array.isArray(value)) {
                         this.nodes('bindLoop', key, value);
@@ -62,29 +63,10 @@ class UX {
         }
     }
 
-    fetch(obj) {
-        if (Object(obj)) {
-            var docElements = this.nodeParentList();
-                for (var i = 0; i < docElements.length; i++) {
-                    var docChildren = this.nodeChildren(docElements[i]);
-                        for (var j = 0; j < docChildren.length; j++) {
-                            for (const [key, value] of Object.entries(obj)) {
-                                if (Object(value)) {
-                                    for (const [key1, value1] of Object.entries(value)) {
-                                        if (docChildren[j].nodeType === 3) {
-                                        docChildren[j].nodeValue = docChildren[j].nodeValue.replace("{{"+key1+"}}", value1);
-                                }
-                            }
-                        }
-                    }
-                }
-            }    
-        }
-    }
-
     nodes(method, find, value, data = null, methods = null, callback = null) {
         var docElements = this.nodeParentList();
         for (var i = 0; i < docElements.length; i++) {
+			if (method == 'render') this.render(docElements[i], find, value);
             if (method == 'bindActive') this.bindActive(docElements[i], find, value);
             if (method == 'bindSelect') this.bindSelect(docElements[i], find, value);
             if (method == 'bindShow') this.bindShow(docElements[i], find, value);
@@ -598,6 +580,44 @@ class UX {
         }
     }
 
+    render(node) {
+        let att = this.getAtt(node, 'render');
+		let uri = '../components/' + att;
+        if (att !== null) {
+        let req = new XMLHttpRequest();
+            req.open("GET", uri, true);
+            req.withCredentials = true;
+            req.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
+            req.setRequestHeader("Content-Type", UX.contentType);
+            req.onreadystatechange = function() {
+            if (req.readyState == 4 && req.status == 200) {
+                node.innerHTML = req.responseText;
+              }
+            }
+            req.send();
+		}
+	}
+
+    fetch(obj) {
+        if (Object(obj)) {
+            var docElements = this.nodeParentList();
+                for (var i = 0; i < docElements.length; i++) {
+                    var docChildren = this.nodeChildren(docElements[i]);
+                        for (var j = 0; j < docChildren.length; j++) {
+                            for (const [key, value] of Object.entries(obj)) {
+                                if (Object(value)) {
+                                    for (const [key1, value1] of Object.entries(value)) {
+                                        if (docChildren[j].nodeType === 3) {
+                                        docChildren[j].nodeValue = docChildren[j].nodeValue.replace("{{"+key1+"}}", value1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }    
+        }
+    }
+	
     async (uri, method, callback) {
         let att = false;
         var docElements = this.nodeParentList();
@@ -658,7 +678,15 @@ class UX {
                 }
             }
             req.send();
-        }
+        } else if(method == 'render') {
+            req.onreadystatechange = function() {
+                if (req.readyState == 4 && req.status == 200) {
+                    return req.responseText;
+                }
+            }
+            req.send();	
+		}
+		
     }
 
     createElements(node, type, arr) {
