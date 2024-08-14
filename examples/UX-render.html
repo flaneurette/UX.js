@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<head>
+  <title>{{title}}</title>
+  <style>
+  body {
+	margin: 0px;
+	padding:0px;
+  }
+  .nav ul {
+	list-style: none;
+	display: block;
+	padding: 40px;
+	margin: 0px;
+	background-color: #000;
+	color: white;
+  }
+   .nav ul li {
+	float:left;
+	width: 20%;
+	padding:0px;
+	margin-top:-8px;
+  } 
+  .form {
+	display: block;
+	margin: 20px;
+  }
+  input {
+	padding: 20px;
+	margin: 20px;
+	display: block;
+  }
+  </style>
+  <script src="../assets/UX.js"></script>
+</head>
+<body>
+
+	<div class="nav" :render="nav.ux">
+	</div>
+
+	<div class="form" :render="form.ux">
+	</div>
+	
+	<script>
+	
+	let app = new UX();
+	app.load({
+		data: { 
+		title: "UX render" 
+		}
+	});
+  
+	</script>
+</body>
+</html>
