@@ -9,7 +9,7 @@ A minimal JavaScript framework, UX automates the most used frontend development 
 #### hello-world.html
 A simple example of how UX.js works.
 #### UX-render.html
-An example of rendering UX components from the /components/ directory. 
+An example of rendering reusable UX components from the /components/ directory. 
 #### UX-animate.html
 An example showing the animate attribute, to dynamically animate objects.
 #### UX-cascade.html
