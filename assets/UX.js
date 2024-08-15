@@ -206,9 +206,7 @@ class UX {
     drawCurtains() {
         var docElements = UX.docElements;
         for (var i = 0; i < docElements.length; i++) {
-            if (docElements[i].getAttribute('ux:curtain') !== null ||
-                docElements[i].getAttribute('m:curtain') !== null ||
-                docElements[i].getAttribute(':curtain') !== null) {
+            if (docElements[i].getAttribute(':curtain') !== null) {
                 docElements[i].hidden = false;
             }
         }

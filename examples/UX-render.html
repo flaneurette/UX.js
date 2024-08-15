@@ -31,17 +31,22 @@
 	margin: 20px;
 	display: block;
   }
+  .test {
+	background-color:red!important;
+  }
+  
   </style>
   <script src="../assets/UX.js"></script>
 </head>
 <body>
-
 	<div class="nav" :render="nav.ux">
 	</div>
-
+	<div class="nav" :render="header.ux">
+	</div>
 	<div class="form" :render="form.ux">
 	</div>
-	
+	<div class="nav" :render="footer.ux">
+	</div>
 	<script>
 	let app = new UX();
 	app.render();
