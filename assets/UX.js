@@ -7,7 +7,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.140",
+        version: "1.141",
         copyright: "(c) 2024 flaneurette",
         license: "MIT",
         instanceid: 1e5
@@ -21,7 +21,6 @@ class UX {
             let data = list.data
             let method = list.methods;
             let events = list.events;
-            this.nodes('render');
             this.nodes('bindToggle');
             this.nodes('bindMenu');
             this.nodes('bindVoid');
@@ -66,7 +65,6 @@ class UX {
     nodes(method, find, value, data = null, methods = null, callback = null) {
         var docElements = this.nodeParentList();
         for (var i = 0; i < docElements.length; i++) {
-			if (method == 'render') this.render(docElements[i], find, value);
             if (method == 'bindActive') this.bindActive(docElements[i], find, value);
             if (method == 'bindSelect') this.bindSelect(docElements[i], find, value);
             if (method == 'bindShow') this.bindShow(docElements[i], find, value);
@@ -580,24 +578,20 @@ class UX {
         }
     }
 
-    render(node) {
-        let att = this.getAtt(node, 'render');
-		let uri = '../components/' + att;
-        if (att !== null) {
-        let req = new XMLHttpRequest();
-            req.open("GET", uri, true);
-            req.withCredentials = true;
-            req.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
-            req.setRequestHeader("Content-Type", UX.contentType);
-            req.onreadystatechange = function() {
-            if (req.readyState == 4 && req.status == 200) {
-                node.innerHTML = req.responseText;
-              }
-            }
-            req.send();
-		}
+    render() {
+        var docElements = this.nodeParentList();
+        for (var i = 0; i < docElements.length; i++) {			 
+             let att = this.getAtt(docElements[i], 'render');
+		     let uri = '../components/' + att;
+			 let node = docElements[i];
+             if (att !== null) {
+                 fetch(uri)
+                 .then(file => file.text())
+                 .then(response => node.innerHTML = response);
+		    }
+	   }
 	}
-
+	
     fetch(obj) {
         if (Object(obj)) {
             var docElements = this.nodeParentList();
