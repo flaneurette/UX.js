@@ -49,7 +49,19 @@
 	</div>
 	<script>
 	let app = new UX();
-	app.render();
+	app.load({
+		data: { 
+		    link1: "Index",
+			link2: "Who we are",
+			link3: "What we do",
+			link4: "Links",
+			link5: "Contact",
+			name: "Your name",
+			email: "Your e-mail",
+			header: "Header",
+			footer: "Footer",
+		}
+	});
 	</script>
 </body>
 </html>

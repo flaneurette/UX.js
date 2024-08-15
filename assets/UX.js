@@ -34,6 +34,7 @@ class UX {
             this.nodes('bindLazyLoad');
             this.nodes('bindCascade');
             this.nodes('bindUri');
+            this.nodes('render', data);
             if (data) {
                 for (const [key, value] of Object.entries(data)) {
                     if (Array.isArray(value)) {
@@ -63,8 +64,9 @@ class UX {
     }
 
     nodes(method, find, value, data = null, methods = null, callback = null) {
-        var docElements = this.nodeParentList();
-        for (var i = 0; i < docElements.length; i++) {
+        let docElements = this.nodeParentList();
+        for (let i = 0; i < docElements.length; i++) {
+            if (method == 'render') this.render(docElements[i], find, value);
             if (method == 'bindActive') this.bindActive(docElements[i], find, value);
             if (method == 'bindSelect') this.bindSelect(docElements[i], find, value);
             if (method == 'bindShow') this.bindShow(docElements[i], find, value);
@@ -88,8 +90,8 @@ class UX {
             if (method == 'bindCascade') this.bindCascade(docElements[i], find, value);
             if (method == 'bindLazyLoad') this.bindLazyLoad(docElements[i], find, value);
             if (method == 'bindUri') this.bindUri(docElements[i], find, value);
-            var docChildren = this.nodeChildren(docElements[i]);
-            for (var j = 0; j < docChildren.length; j++) {
+            let docChildren = this.nodeChildren(docElements[i]);
+            for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
                     if (docChildren[j].nodeType === 3) {
                         const regex = new RegExp("{{\\s*" + find + "[0-9]*\\s*}}", "gmi");
@@ -101,14 +103,14 @@ class UX {
     }
 
     getElements() {
-        var docElements = UX.docElements;
+        let docElements = UX.docElements;
         return docElements;
     }
 
     nodeParentList() {
         let parentList = [];
-        var docElements = this.getElements();
-        for (var i = 0; i < docElements.length; i++) {
+        let docElements = this.getElements();
+        for (let i = 0; i < docElements.length; i++) {
             parentList.push(docElements[i]);
         }
         return parentList;
@@ -116,7 +118,7 @@ class UX {
 
     nodeChildren(parents) {
         let childList = [];
-        for (var i = 0; i < parents.childNodes.length; i++) {
+        for (let i = 0; i < parents.childNodes.length; i++) {
             childList.push(parents.childNodes[i]);
         }
         return childList;
@@ -204,8 +206,8 @@ class UX {
     }
 
     drawCurtains() {
-        var docElements = UX.docElements;
-        for (var i = 0; i < docElements.length; i++) {
+        let docElements = UX.docElements;
+        for (let i = 0; i < docElements.length; i++) {
             if (docElements[i].getAttribute(':curtain') !== null) {
                 docElements[i].hidden = false;
             }
@@ -214,8 +216,8 @@ class UX {
 
     bindCurtains(node, find, value) {
         let att = this.getAtt(node, 'click');
-        var docElements = this.nodeParentList();
-        for (var i = 0; i < docElements.length; i++) {
+        let docElements = this.nodeParentList();
+        for (let i = 0; i < docElements.length; i++) {
             if (this.getAttCheck(docElements[i], 'curtain') == true) docElements[i].hidden = true;
         }
         if (att !== null && this.getAttCheck(node, 'curtain') !== null) {
@@ -312,7 +314,7 @@ class UX {
         if (att !== null) {
             if (att.indexOf(':') != -1) {
                 let a = att.split(':');
-                var keyframes = document.createElement("style");
+                let keyframes = document.createElement("style");
                 keyframes.textContent = '@keyframes ' + a[0] + ' { from { ' + a[5].toString() + ': var(--from);} to {' + a[5].toString() + ':var(--to);}}';
                 document.body.appendChild(keyframes);
                 node.style = 'position: relative; --from:' + a[3] + 'px; --to:' + a[4] + 'px; animation: ' + a[0] + ' ' + a[2] + ' forwards; animation-timing-function: ' + a[1] + ';';
@@ -324,25 +326,26 @@ class UX {
         let att = this.getAtt(node, 'cascade');
         if (att !== null) {
             let a = att.split(':');
+            const [type,index,height1,height2] = a;
             let childs = node.children;
             for (let i = 0; i < childs.length; i++) {
-                if (a[0] == 'menu') {
-                    if (i == a[1]) {
+                if (type == 'menu') {
+                    if (i == index) {
                         let styles = '';
                         styles += 'position:fixed!important;';
                         styles += 'z-index:' + (childs.length + 1) + ';';
-                        styles += 'height:' + a[2] + 'px!important;';
+                        styles += 'height:' + height1 + 'px!important;';
                         styles += 'width:100%;';
                         node.children[i].setAttribute("style",styles);
                     } else {
                         let styles = '';
                         styles += 'position:relative!important;';
                         styles += 'z-index:' + (i + 2) + ';';
-                        styles += 'top:' + a[3] + 'px;';
+                        styles += 'top:' + height2 + 'px;';
                         node.children[i].setAttribute("style",styles);
                     }
                 } else {
-                    if (i == a[1]) {
+                    if (i == index) {
                         let styles = '';
                         styles += 'position:fixed!important;';
                         styles += 'z-index:0;';
@@ -352,7 +355,7 @@ class UX {
                         let styles = '';
                         styles += 'position:relative!important;';
                         styles += 'z-index:' + (i + 2) + ';';
-                        styles += 'top:' + a[3] + 'px;';
+                        styles += 'top:' + height2 + 'px;';
                         node.children[i].setAttribute("style",styles);
                     }
                 }
@@ -388,8 +391,8 @@ class UX {
             let pairs = att.split(':');
             document.getElementById(pairs[0]).hidden = true;
             node.addEventListener('click', function() {
-                var docElements1 = document.getElementsByTagName("*");
-                for (var i = 0; i < docElements1.length; i++) {
+                let docElements1 = document.getElementsByTagName("*");
+                for (let i = 0; i < docElements1.length; i++) {
                     let att = docElements1[i].getAttribute(':toggle');
                     if (att !== null) {
                         let pairs1 = att.split(':');
@@ -438,11 +441,11 @@ class UX {
 
     bindFunctions(node, find, value) {
         let att = this.getAtt(node, 'click');
-        var docElements = UX.docElements;
+        let docElements = UX.docElements;
         if (att !== null) {
             if (find == 'count') {
                 node.addEventListener('click', function() {
-                    for (var i = 0; i < docElements.length; i++) {
+                    for (let i = 0; i < docElements.length; i++) {
                         if (docElements[i].getAttribute(':id') !== null) {
                             let attribute = docElements[i].getAttribute(':id');
                             if (att = 'count++') {
@@ -529,7 +532,6 @@ class UX {
     }
 
     loop(node, find, values) {
-
         let att = this.getAtt(node, 'loop');
         let attclick = this.getAtt(node, 'click');
         let zebra = this.getAtt(node, 'zebra');
@@ -575,27 +577,37 @@ class UX {
             });
         }
     }
-
-    render() {
-        var docElements = this.nodeParentList();
-        for (var i = 0; i < docElements.length; i++) {			 
-             let att = this.getAtt(docElements[i], 'render');
-		     let uri = '../components/' + att;
-			 let node = docElements[i];
-             if (att !== null) {
+    
+    reparse(nodes, data) {
+        let nodalTree = null;
+            for (const [key, value] of Object.entries(data)) {
+            nodalTree = nodes.replaceAll('{{'+ key +'}}', value);
+        }
+        return nodalTree;
+    }
+    
+    render(node, data) {
+        let docElements = this.nodeParentList();             
+        let att = this.getAtt(node, 'render');
+        let uri = '../components/' + att;
+            if (att !== null) {
                  fetch(uri)
                  .then(file => file.text())
-                 .then(response => node.innerHTML = response);
-		    }
-	   }
-	}
-	
+                 .then(response => node.innerHTML = response)
+                 .then(function(){     
+                    for (const [key, value] of Object.entries(data)) {    
+                        node.innerHTML = node.innerHTML.replace('{{'+ key +'}}', value);
+                    }
+                 });
+        }
+    }
+    
     fetch(obj) {
         if (Object(obj)) {
-            var docElements = this.nodeParentList();
-                for (var i = 0; i < docElements.length; i++) {
-                    var docChildren = this.nodeChildren(docElements[i]);
-                        for (var j = 0; j < docChildren.length; j++) {
+            let docElements = this.nodeParentList();
+                for (let i = 0; i < docElements.length; i++) {
+                    let docChildren = this.nodeChildren(docElements[i]);
+                        for (let j = 0; j < docChildren.length; j++) {
                             for (const [key, value] of Object.entries(obj)) {
                                 if (Object(value)) {
                                     for (const [key1, value1] of Object.entries(value)) {
@@ -609,18 +621,18 @@ class UX {
             }    
         }
     }
-	
+    
     async (uri, method, callback) {
         let att = false;
-        var docElements = this.nodeParentList();
-        for (var j = 0; j < docElements.length; j++) {
+        let docElements = this.nodeParentList();
+        for (let j = 0; j < docElements.length; j++) {
             att = this.getAtt(docElements[j], 'async');
             if (att !== null) {
                 docElements[j].addEventListener('submit', event => {
                     event.preventDefault();
                     let parentList = [];
-                    var docElements1 = document.getElementsByTagName("*");
-                    for (var i = 0; i < docElements1.length; i++) {
+                    let docElements1 = document.getElementsByTagName("*");
+                    for (let i = 0; i < docElements1.length; i++) {
                         if (docElements1[i].getAttribute(':async') == 'true') {
                             let children = docElements1[i].children;
                             let req = new XMLHttpRequest();
@@ -676,9 +688,9 @@ class UX {
                     return req.responseText;
                 }
             }
-            req.send();	
-		}
-		
+            req.send();    
+        }
+        
     }
 
     createElements(node, type, arr) {
@@ -727,6 +739,7 @@ class UX {
             parents.appendChild(options);
         }
     }
+    
     bindDevtool(node) {
         if (node.className !== '' && node.id !== '') {
             node.setAttribute('title', 'CLASS: ' + node.className + ', ID: ' + node.id);
@@ -739,6 +752,7 @@ class UX {
             node.style = 'border: 1px dashed red;';
         }
     }
+    
     log(msg) {
         console.log(msg);
     }
