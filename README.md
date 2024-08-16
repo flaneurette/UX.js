@@ -5,7 +5,7 @@
 A minimal JavaScript framework, UX automates the most used frontend development tasks. Similar to VUE.js, React and other frameworks, but much easier to work with. UX.js is unique as it separates data loading and DOM manipulation from other JavaScript logic, making it much quicker to learn and easier to implement or add to existing JavaScript code. UX.js lets you create a website or app in hours.
 
 # What is new
-Version 1.4 introduces components. Components are reusable static HTML blocks that have a .ux extension. UX.js renders these components within a HTML page, asynchronously, with the :render attribute and render() function. Components have placeholders that can be parsed by UX.js. For a demo, see UX-render.html in the examples folder. In this way, a website can be completely build from reusable components.
+Version 1.4 introduces components. Components are reusable static HTML blocks that have a .ux extension. UX.js renders these components within a HTML page, asynchronously, with the :render attribute or render() function. Components have placeholders that can be parsed by UX.js. For a demo, see UX-render.html in the examples folder. In this way, a website can be completely build from reusable components, making it easy to reuse components across a website or other websites.
 
 <img src="https://github.com/flaneurette/UX.js/blob/main/assets/images/render_flowchart.png" />
 
