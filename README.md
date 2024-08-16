@@ -13,7 +13,7 @@ An example of rendering reusable UX components from the /components/ directory.
 #### UX-animate.html
 An example showing the animate attribute, to dynamically animate objects.
 #### UX-cascade.html
-An example showing the cascade attribute, to dynamically scroll objects.
+An example showing the cascade attribute, to dynamically layer objects.
 #### UX-fetch.html
 An example fetching unique JSON and displaying it.
 #### UX-lazyload.html
