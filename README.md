@@ -71,6 +71,9 @@ An example showing a blogpage, dynamically generated with UX.js
 #### shopping-cart.html
 An example showing a shoppingcart, dynamically generated with UX.js
 
+# Flowchart
+
+<img src="https://github.com/flaneurette/UX.js/blob/main/assets/images/flowchart.png" />
 
 # Code Explanation
 
