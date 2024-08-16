@@ -71,3 +71,51 @@ An example showing a blogpage, dynamically generated with UX.js
 #### shopping-cart.html
 An example showing a shoppingcart, dynamically generated with UX.js
 
+
+# Code Explanation
+
+### 1. Static Properties:
+docElements: Stores a reference to all the HTML elements on the page.
+contentType: Defines the default content type for HTTP requests.
+asyncType: Defines the default content type for asynchronous HTTP requests.
+allowOrigin: Defines the default allowed origin for cross-origin requests.
+
+### 2. Initialization:
+init: An object that holds the library's name, version, copyright, license, and a unique instance ID.
+
+### 3. Load Function:
+load(list): This function is responsible for initializing and binding various UI behaviors to the HTML elements on the page. It processes the provided list object, which contains data, methods, and events, and applies the corresponding behaviors.
+
+### 4. Node Manipulation Functions:
+nodes(method, find, value, data, methods, callback): This function is a central hub for applying various UI behaviors to the HTML elements. It dispatches the appropriate behavior based on the provided method parameter. 
+getElements(), nodeParentList(), and nodeChildren(parents): These functions help retrieve and manage the HTML elements on the page. 
+getAtt(node, part) and getAttCheck(node, part): These functions retrieve and check the presence of custom attributes on HTML elements.
+
+### 5. DOM Manipulation Functions:
+dom(id, method, value): Provides a set of methods for interacting with HTML elements by their ID, such as getting/setting values, toggling visibility, and manipulating HTML content. 
+cloneNodes(list, id): Clones a node and appends it to the parent element.
+
+### 6. Behavior Binding Functions:
+bindClass(node, find, value), bindId(node, find, value), bindShow(node), bindHide(node), bindVoid(node), bindScroll(node), bindActive(node), bindSelect(node), bindFlex(node), bindAnimate(node), bindCascade(node, find), bindLazyLoad(node, find), bindUri(node), bindToggle(node), bindMenu(node), bindFunctions(node, find, value), bindMethods(node, data, methods, find, value), bindOn(node, data, methods, find, value), bindIf(node, find, value), loop(node, find, values), bindPrevent(node, find, value): These functions bind various UI behaviors to the HTML elements, such as toggling visibility, applying CSS classes, handling clicks, and processing data.
+
+### 7. Rendering and Data Handling Functions:
+reparse(nodes, data): Replaces placeholders in the HTML with the corresponding data values.
+render(node, data): Fetches and renders a component template, replacing the placeholders with the provided data. fetch(obj): Replaces placeholders in the HTML with the corresponding data values from the provided object.
+
+### 8. Asynchronous Functions:
+async(uri, method, callback): Handles asynchronous form submissions and makes AJAX requests to the specified URI. - http(uri, method, callback): Handles synchronous HTTP requests to the specified URI.
+
+### 9. Form Handling Functions:
+createElements(node, type, arr): Creates HTML elements based on the provided configuration object.
+createForm(node, find, values): Generates a form based on the provided configuration object.
+
+### 10. Utility Functions:
+drawCurtains(): Reveals hidden elements with the :curtain attribute. 
+has(value): Extracts a value from a string enclosed in single quotes. 
+clearType(node, find, value): Replaces custom HTML tags. 
+bindDevtool(node): Adds a title and border to the element for debugging purposes. 
+log(msg): Logs a message to the console.
+msg: An object containing error messages. 
+
+Overall, this library provides a comprehensive set of tools and functions for building dynamic user interfaces, handling user interactions, managing data, and making HTTP requests.
+
