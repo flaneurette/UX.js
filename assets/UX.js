@@ -46,7 +46,6 @@ class UX {
                         this.nodes('bindFunctions', key, value);
                         this.nodes('bindOn', key, value, data, method);
                         this.nodes('bindActive');
-                        if (key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
                         if (key == 'devtools' && value == true) this.nodes('devtools', data, key, value);
                     } else {
                         this.nodes('replaceNodeValue', key, value);
@@ -55,7 +54,6 @@ class UX {
                         this.nodes('bindFunctions', key, value);
                         this.nodes('bindOn', key, value, data, method);
                         this.nodes('bindActive');
-                        if (key == 'cleartype' && value == true) this.nodes('clearType', data, key, value);
                         if (key == 'devtools' && value == true) this.nodes('devtools', data, key, value);
                     }
                 }
@@ -78,7 +76,6 @@ class UX {
             if (method == 'bindLogic') this.bindIf(docElements[i], find, value);
             if (method == 'bindOn') this.bindOn(docElements[i], data, methods, find, value);
             if (method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
-            if (method == 'clearType') this.clearType(docElements[i], find, value);
             if (method == 'bindFlex') this.bindFlex(docElements[i], find, value);
             if (method == 'bindMenu') this.bindMenu(docElements[i], find, value);
             if (method == 'bindToggle') this.bindToggle(docElements[i], find, value);
@@ -233,16 +230,7 @@ class UX {
             }
         }
     }
-
-    clearType(node, find, value) {
-        let span = /(::s)\s([a-zA-Z][0-9]\s)/gm
-        let div = /(::d)\s([a-zA-Z][0-9]\s)/gm
-        node.innerHTML = node.innerHTML.replaceAll('::d', "<div>");
-        node.innerHTML = node.innerHTML.replaceAll('d::', "</div>");
-        node.innerHTML = node.innerHTML.replaceAll('::s', "<span>");
-        node.innerHTML = node.innerHTML.replaceAll('s::', "</span>");
-    }
-
+    
     bindShow(node) {
         let att = this.getAtt(node, 'hidden');
         if (att !== null) {
