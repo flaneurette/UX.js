@@ -57,8 +57,6 @@ An example showing a http request
 An example to trigger events
 #### UX-methods.html
 An example of how methods in UX.js works (under development)
-#### UX-cleartype.html
-An example of how Clear Type in UX.js works (under development)
 #### UX-forms.html
 An example showing a form, dynamically generated with UX.js
 
@@ -114,10 +112,7 @@ An example showing a shoppingcart, dynamically generated with UX.js
 - createElements(node, type, arr): Creates HTML elements based on the provided configuration object.
 - createForm(node, find, values): Generates a form based on the provided configuration object.
 
-### 10. Utility Functions:
-- drawCurtains(): Reveals hidden elements with the :curtain attribute. 
-- has(value): Extracts a value from a string enclosed in single quotes. 
-- clearType(node, find, value): Replaces custom HTML tags. 
+### 10. Utility Functions:  
 - bindDevtool(node): Adds a title and border to the element for debugging purposes. 
 - log(msg): Logs a message to the console.
 - msg: An object containing error messages. 
