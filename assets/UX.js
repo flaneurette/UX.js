@@ -595,11 +595,20 @@ class UX {
                  .then(file => file.text())
                  .then(response => node.innerHTML = response)
                  .then(function(){     
-                    for (const [key, value] of Object.entries(data)) {    
+                    for (const [key, value] of Object.entries(data)) { 
+                        if(Array.isArray(value)) {
+                            let j =0;
+                            for (const [keys, values] of Object.entries(value)) { 
+                                let array = Object.entries(value[j]);
+                                node.innerHTML = node.innerHTML.replace('{{'+ array[0][0] +'}}', array[0][1]);
+                                j++;
+                            }
+                        } else {                            
                         node.innerHTML = node.innerHTML.replace('{{'+ key +'}}', value);
+                        }
                     }
                  });
-        }
+            }
     }
     
     fetch(obj) {

@@ -31,31 +31,29 @@
 	margin: 20px;
 	display: block;
   }
-  .test {
-	background-color:red!important;
-  }
-  
   </style>
   <script src="../assets/UX.js"></script>
 </head>
 <body>
 	<div class="nav" :render="nav.ux">
 	</div>
-	<div class="nav" :render="header.ux">
+	<div :render="header.ux">
 	</div>
 	<div class="form" :render="form.ux">
 	</div>
-	<div class="nav" :render="footer.ux">
+	<div :render="footer.ux">
 	</div>
 	<script>
 	let app = new UX();
 	app.load({
 		data: { 
-		    link1: "Index",
-			link2: "Who we are",
-			link3: "What we do",
-			link4: "Links",
-			link5: "Contact",
+			menu: [
+				{link1: 'Index'},
+				{link2: 'Who we are'},
+				{link3: 'What we do'},
+				{link4: 'Links'},
+				{link5: 'Contact'}
+			],
 			name: "Your name",
 			email: "Your e-mail",
 			header: "Header",
