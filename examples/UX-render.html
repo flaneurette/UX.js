@@ -8,7 +8,7 @@
 	margin: 0px;
 	padding:0px;
   }
-  .nav ul {
+  .navigation ul {
 	list-style: none;
 	display: block;
 	padding: 40px;
@@ -16,13 +16,13 @@
 	background-color: #000;
 	color: white;
   }
-   .nav ul li {
+   .navigation ul li {
 	float:left;
 	width: 20%;
 	padding:0px;
 	margin-top:-8px;
   } 
-  .form {
+  .signup {
 	display: block;
 	margin: 20px;
   }
@@ -35,13 +35,13 @@
   <script src="../assets/UX.js"></script>
 </head>
 <body>
-	<div class="nav" :render="nav.ux">
+	<div class="navigation" :render="navigation.ux">
 	</div>
-	<div :render="header.ux">
+	<div class="header" :render="header.ux">
 	</div>
-	<div class="form" :render="form.ux">
+	<div class="signup" :render="signup.ux">
 	</div>
-	<div :render="footer.ux">
+	<div class="footer" :render="footer.ux">
 	</div>
 	<script>
 	let app = new UX();
