@@ -26,7 +26,11 @@
 	padding:0px;
 	margin-top:-8px;
   } 
-  .signup {
+  a:link {
+	color:#000;
+	text-decoration: none;
+  }
+  .login {
 	display: block;
 	margin: 20px;
   }
@@ -38,7 +42,7 @@
   input {
 	border: 1px solid #fff;
   }
-  .signup {
+  .login {
 	height: 300px;
   }
   .footer {
@@ -55,7 +59,7 @@
 	
 	<section class="header" :render="header.ux"></section>
 	
-	<section class="signup" :render="signup.ux"></section>
+	<section class="login" :render="login.ux"></section>
 	
 	<section class="footer" :render="footer.ux"></section>
 	
@@ -65,15 +69,15 @@
 		data: { 
 			navigation: [
 				{link1: '<a href="#">Index</a>'},
-				{link2: 'Who we are'},
-				{link3: 'What we do'},
-				{link4: 'Links'},
-				{link5: 'Contact'}
+				{link2: '<a href="#">Who we are</a>'},
+				{link3: '<a href="#">What we do</a>'},
+				{link4: '<a href="#">Links</a>'},
+				{link5: '<a href="#">Contact</a>'}
 			],
-			name: "Your name",
-			email: "Your e-mail",
+			userName: "Your name",
+			password: "Your password",
 			header: "Header",
-			footer: "Copyright(c)",
+			footer: "Copyright (c)",
 		}
 	});
 	</script>
