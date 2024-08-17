@@ -3,6 +3,7 @@ class UX {
     static docElements = document.getElementsByTagName("*");
     static contentType = "application/json;charset=UTF-8";
     static asyncType = "application/x-www-form-urlencoded; charset=UTF-8";
+	static componentsDir = "../components/";
     static allowOrigin = '*';
 
     init = {
@@ -577,7 +578,7 @@ class UX {
     render(node, data) {
         let docElements = this.nodeParentList();             
         let att = this.getAtt(node, 'render');
-        let uri = '../components/' + att;
+        let uri = UX.componentsDir + att;
             if (att !== null) {
                  fetch(uri)
                  .then(file => file.text())
