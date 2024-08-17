@@ -3,9 +3,9 @@
 	</header>
 		<form name="signup" class="signup" action="" method="post">
 			<label for="name">{{name}}</label>
-			<input type="text" id="name" name="name" />
+			<input type="text" id="name" name="name" autocomplete="given-name" />
 			<label for="email">{{email}}</label>
-			<input type="text" id="email" name="email" />
+			<input type="text" id="email" name="email" autocomplete="email" />
 			<input type="submit" />
 		</form>
 	<footer>
