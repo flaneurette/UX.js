@@ -1,0 +1,16 @@
+<section>
+	<header>{{tableDescription}}</header>
+	<table>
+		<thead>
+			<tr>
+				<th>{{tableHead}}</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>{{tableBody}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<footer></footer>
+</section>
