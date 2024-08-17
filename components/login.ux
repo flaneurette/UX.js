@@ -1,0 +1,12 @@
+<section>
+	<header>
+	</header>
+		<form name="login" class="login" action="">
+		  <label for="userName">{{userName}}</label>
+		  <input type="text" id="userName" name="userName">
+		  <label for="password">{{password}}</label>
+		  <input type="password" id="password" name="password">
+		</form>
+	<footer>
+	</footer>
+</section>

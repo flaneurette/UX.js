@@ -1,7 +1,7 @@
 <section>
 	<header>
 	</header>
-		<form name="form" action="">
+		<form name="form" class="form" action="">
 			<label for="firstName">{{firstName}}</label>
 			<input type="text" id="firstName" name="firstName" />
 			<label for="lastName">{{lastName}}</label>

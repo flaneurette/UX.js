@@ -1,5 +1,5 @@
 <section>
-	<article>
+	<article class="card">
 	  <header>
 		  <h1>{{cardTitle}}</h1>
 	  </header>
