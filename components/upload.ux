@@ -1,0 +1,11 @@
+<section>
+	<header>
+	</header>
+		<form name="upload" class="upload" action="" method="post" enctype="multipart/form-data">
+			<label for="fileName">{{fileName}}</label>
+			<input type="file" id="fileName" name="fileName" />
+			<input type="submit" />
+		</form>
+	<footer>
+	</footer>
+</section>

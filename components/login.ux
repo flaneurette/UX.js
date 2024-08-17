@@ -1,7 +1,7 @@
 <section>
 	<header>
 	</header>
-		<form name="login" class="login" action="">
+		<form name="login" class="login" action="" method="post">
 		  <label for="userName">{{userName}}</label>
 		  <input type="text" id="userName" name="userName">
 		  <label for="password">{{password}}</label>
