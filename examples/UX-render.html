@@ -4,17 +4,21 @@
 <head>
   <title>UX-Render</title>
   <style>
+  * {
+	font-family: "Segoe UI", Arial
+  }
   body {
 	margin: 0px;
 	padding:0px;
+	background-color: #f7f7f7;
   }
   .navigation ul {
 	list-style: none;
 	display: block;
 	padding: 40px;
 	margin: 0px;
-	background-color: #000;
-	color: white;
+	background-color: #fff;
+	color: #000;
   }
    .navigation ul li {
 	float:left;
@@ -31,24 +35,40 @@
 	margin: 10px;
 	display: block;
   }
+  input {
+	border: 1px solid #fff;
+  }
+  .signup {
+	height: 300px;
+  }
+  .footer {
+	background-color: #000;
+	height: 300px;
+	color: #fff;
+  }
   </style>
   <script src="../assets/UX.js"></script>
 </head>
 <body>
-	<div class="navigation" :render="navigation.ux">
-	</div>
-	<div class="header" :render="header.ux">
-	</div>
-	<div class="signup" :render="signup.ux">
-	</div>
-	<div class="footer" :render="footer.ux">
-	</div>
+
+	<section class="navigation" :render="navigation.ux">
+	</section>
+	
+	<section class="header" :render="header.ux">
+	</section>
+	
+	<section class="signup" :render="signup.ux">
+	</section>
+	
+	<section class="footer" :render="footer.ux">
+	</section>
+	
 	<script>
 	let app = new UX();
 	app.load({
 		data: { 
 			menu: [
-				{link1: 'Index'},
+				{link1: '<a href="#">Index</a>'},
 				{link2: 'Who we are'},
 				{link3: 'What we do'},
 				{link4: 'Links'},
