@@ -1,0 +1,8 @@
+<section>
+	<article>
+	  <header>
+		  <h1>{{cardTitle}}</h1>
+	  </header>
+		  <p>{{cardText}}</p>
+	</article>
+</section>

@@ -1,1 +1,5 @@
-<p>{{footer}}</p>
+<section>
+<footer>
+	<p>{{footer}}</p>
+</footer>
+</section>

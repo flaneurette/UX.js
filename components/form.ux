@@ -1,7 +1,13 @@
-<form name="login" action="">
-	<label>{{name}}</label>
-	<input type="text" name="name" />
-	<label>{{email}}</label>
-	<input type="text" name="email" />
-	<input type="submit" />
-</form>
+<section>
+	<header>
+	</header>
+		<form name="form" action="">
+			<label for="firstName">{{firstName}}</label>
+			<input type="text" id="firstName" name="firstName" />
+			<label for="lastName">{{lastName}}</label>
+			<input type="text" id="lastName" name="lastName" />
+			<input type="submit" />
+		</form>
+	<footer>
+	</footer>
+</section>

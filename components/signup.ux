@@ -1,7 +1,13 @@
-<form name="login" action="">
-	<label>{{name}}</label>
-	<input type="text" name="name" />
-	<label>{{email}}</label>
-	<input type="text" name="email" />
+<section>
+<header>
+</header>
+<form name="signup" action="">
+	<label for="name">{{name}}</label>
+	<input type="text" id="name" name="name" />
+	<label for="email">{{email}}</label>
+	<input type="text" id="email" name="email" />
 	<input type="submit" />
 </form>
+<footer>
+</footer>
+</section>
