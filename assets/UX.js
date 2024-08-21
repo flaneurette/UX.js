@@ -3,7 +3,7 @@ class UX {
     static docElements = document.getElementsByTagName("*");
     static contentType = "application/json;charset=UTF-8";
     static asyncType = "application/x-www-form-urlencoded; charset=UTF-8";
-	static componentsDir = "../components/";
+    static componentsDir = "../components/";
     static allowOrigin = '*';
 
     init = {
@@ -89,6 +89,7 @@ class UX {
             if (method == 'bindLazyLoad') this.bindLazyLoad(docElements[i], find, value);
             if (method == 'bindUri') this.bindUri(docElements[i], find, value);
             let docChildren = this.nodeChildren(docElements[i]);
+            
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
                     if (docChildren[j].nodeType === 3) {
@@ -566,23 +567,14 @@ class UX {
             });
         }
     }
-    
-    reparse(nodes, data) {
-        let nodalTree = null;
-            for (const [key, value] of Object.entries(data)) {
-            nodalTree = nodes.replaceAll('{{'+ key +'}}', value);
-        }
-        return nodalTree;
-    }
-    
-    render(node, data) {
-        let docElements = this.nodeParentList();             
+
+    render(node, data, run=true) {       
         let att = this.getAtt(node, 'render');
         let uri = UX.componentsDir + att;
             if (att !== null) {
                  fetch(uri)
                  .then(file => file.text())
-                 .then(response => node.innerHTML = response)
+                 .then(response => node.setHTMLUnsafe(response))
                  .then(function(){     
                     for (const [key, value] of Object.entries(data)) { 
                         if(Array.isArray(value)) {
@@ -594,10 +586,37 @@ class UX {
                             }
                         } else {                            
                         node.innerHTML = node.innerHTML.replace('{{'+ key +'}}', value);
+                    
                         }
                     }
-                 });
-            }
+                    var doc = document.querySelectorAll('*').forEach(function(node,idx) {
+                    var att = node.getAttribute(":active");
+                        if(att != null) {
+                            let active = window.location.href;
+                                if (att.indexOf(':') != -1) {
+                                    let pieces = att.split(':');
+                                    if(active.match(pieces[0])) node.className = pieces[1].toString();
+                                }
+                        }
+                        att = node.getAttribute(":select");
+                        if(att !== null) node.className = att.toString();
+                        att = node.getAttribute(":hidden");
+                        if(att !== null) node.hidden = false;
+                        if(att !== null && att == 'true') node.hidden = true;
+                        att = node.getAttribute(":void");
+                        if(att !== null) node.setAttribute('href', 'javascript:void(0);');
+                        att = node.getAttribute(":class");
+                        if(att !== null) node.classList.toggle(att);
+                        att = node.getAttribute(":id");
+                        if(att !== null) node.id = att;
+                        att = node.getAttribute(":link");
+                        if(att !== null) node.setAttribute('href', 'javascript:void(0);'); node.addEventListener('click', 
+                            function eventHandler() { document.location = att; });
+                        att = node.getAttribute(":prevent");
+                        if(att !== null) node.addEventListener('submit', event => { event.preventDefault(); });
+                });
+            });
+        }
     }
     
     fetch(obj) {
