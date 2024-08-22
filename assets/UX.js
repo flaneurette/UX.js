@@ -8,7 +8,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.141",
+        version: "1.142",
         copyright: "(c) 2024 flaneurette",
         license: "MIT",
         instanceid: 1e5
@@ -19,9 +19,11 @@ class UX {
             this.log(this.msg['initialize']);
             return false;
         } else {
+			
             let data = list.data
             let method = list.methods;
             let events = list.events;
+			
             this.nodes('bindToggle');
             this.nodes('bindMenu');
             this.nodes('bindVoid');
@@ -36,6 +38,11 @@ class UX {
             this.nodes('bindCascade');
             this.nodes('bindUri');
             this.nodes('render', data);
+			
+			if(Reflect.has(data, "devtools")) {
+				this.nodes('devtools', data);
+			}
+			
             if (data) {
                 for (const [key, value] of Object.entries(data)) {
                     if (Array.isArray(value)) {
@@ -47,7 +54,6 @@ class UX {
                         this.nodes('bindFunctions', key, value);
                         this.nodes('bindOn', key, value, data, method);
                         this.nodes('bindActive');
-                        if (key == 'devtools' && value == true) this.nodes('devtools', data, key, value);
                     } else {
                         this.nodes('replaceNodeValue', key, value);
                         this.nodes('bindAttributesNode', key, value);
@@ -55,7 +61,6 @@ class UX {
                         this.nodes('bindFunctions', key, value);
                         this.nodes('bindOn', key, value, data, method);
                         this.nodes('bindActive');
-                        if (key == 'devtools' && value == true) this.nodes('devtools', data, key, value);
                     }
                 }
             }
@@ -63,8 +68,11 @@ class UX {
     }
 
     nodes(method, find, value, data = null, methods = null, callback = null) {
+		
         let docElements = this.nodeParentList();
+		
         for (let i = 0; i < docElements.length; i++) {
+			
             if (method == 'render') this.render(docElements[i], find, value);
             if (method == 'bindActive') this.bindActive(docElements[i], find, value);
             if (method == 'bindSelect') this.bindSelect(docElements[i], find, value);
@@ -88,6 +96,7 @@ class UX {
             if (method == 'bindCascade') this.bindCascade(docElements[i], find, value);
             if (method == 'bindLazyLoad') this.bindLazyLoad(docElements[i], find, value);
             if (method == 'bindUri') this.bindUri(docElements[i], find, value);
+			
             let docChildren = this.nodeChildren(docElements[i]);
             
             for (let j = 0; j < docChildren.length; j++) {
@@ -136,44 +145,22 @@ class UX {
 
     getAttCheck(node, part) {
         let check = (node.getAttribute('ux:' + part) !== null ||
-            node.getAttribute(':' + part) !== null) ? true : false;
+        node.getAttribute(':' + part) !== null) ? true : false;
         return check;
     }
 
     dom(id, method, value = null) {
         if (id !== null) {
-            switch (method) {
-                case 'id':
-                    return document.getElementById(id);
-                    break;
-                case 'get':
-                    return document.getElementById(id).value;
-                    break;
-                case 'set':
-                    document.getElementById(id).value = value;
-                    break;
-                case 'none':
-                    document.getElementById(id).style.display = 'none';
-                    break;
-                case 'block':
-                    document.getElementById(id).style.display = 'block';
-                    break;
-                case 'sethtml':
-                    document.getElementById(id).innerHTML = value;
-                    break;
-                case 'gethtml':
-                    return document.getElementById(id).innerHTML;
-                    break;
-                case 'display':
-                    document.getElementById(id).style.display = value;
-                    break;
-                case 'parent':
-                    return document.getElementById(id).parentNode;
-                    break;
-                case 'children':
-                    return document.getElementById(id).children;
-                    break;
-            }
+            if(method == 'id') return document.getElementById(id);
+            if(method == 'get') return document.getElementById(id).value;
+            if(method == 'set') document.getElementById(id).value = value;    
+            if(method == 'none') document.getElementById(id).style.display = 'none';  
+            if(method == 'block') document.getElementById(id).style.display = 'block';  
+            if(method == 'sethtml') document.getElementById(id).innerHTML = value; 
+            if(method == 'gethtml') return document.getElementById(id).innerHTML; 
+            if(method == 'display') document.getElementById(id).style.display = value;  
+            if(method == 'parent') return document.getElementById(id).parentNode;  
+            if(method == 'children') return document.getElementById(id).children; 
         }
     }
 
@@ -228,7 +215,7 @@ class UX {
         if (value) {
             if (value.indexOf("'") != -1) {
                 let pieces = value.split('\'');
-                return pieces[1];
+                return Reflect.get(pieces, 1);
             }
         }
     }
@@ -270,8 +257,8 @@ class UX {
         if (att !== null) {
             if (att.indexOf(':') != -1) {
                 let pieces = att.split(':');
-                if (active.match(pieces[0])) {
-                    node.className = pieces[1].toString();
+                if (active.match(Reflect.get(pieces, 0))) {
+                    node.className = Reflect.get(pieces, 1).toString();
                 }
             }
         }
@@ -290,11 +277,15 @@ class UX {
             if (att.indexOf(':') != -1) {
                 let flexbox = att.split(':');
                 let flex = 'display:flex;';
-                let flexdir = 'flex-direction:' + flexbox[1] + ';';
-                if (flexbox[0] == 'true' || flexbox[0] == '1' || flexbox[0] == 'start' || flexbox[0] == 'left') node.setAttribute("style", flex + flexdir);
-                if (flexbox[0] == 'end' || flexbox[0] == 'right') node.setAttribute("style", flex + 'justify-content: flex-end;' + flexdir);
-                if (flexbox[0] == 'center') node.setAttribute("style", flex + 'justify-content: center;' + flexdir);
-                if (flexbox[0] == 'bottom') node.setAttribute("style", flex + 'align-items: baseline;' + flexdir);
+                let flexdir = 'flex-direction:' + Reflect.get(flexbox, 1) + ';';
+                if(Reflect.get(flexbox, 0) == 'true' 
+				|| Reflect.get(flexbox, 0) == '1' 
+				|| Reflect.get(flexbox, 0) == 'start' 
+				|| Reflect.get(flexbox, 0) == 'left') node.setAttribute("style", flex + flexdir);
+                if(Reflect.get(flexbox, 0) == 'end' 
+				|| Reflect.get(flexbox, 0) == 'right') node.setAttribute("style", flex + 'justify-content: flex-end;' + flexdir);
+                if(Reflect.get(flexbox, 0) == 'center') node.setAttribute("style", flex + 'justify-content: center;' + flexdir);
+                if(Reflect.get(flexbox, 0) == 'bottom') node.setAttribute("style", flex + 'align-items: baseline;' + flexdir);
             }
         }
     }
@@ -303,11 +294,18 @@ class UX {
         let att = this.getAtt(node, 'animate');
         if (att !== null) {
             if (att.indexOf(':') != -1) {
-                let a = att.split(':');
+                let f = att.split(':');
                 let keyframes = document.createElement("style");
-                keyframes.textContent = '@keyframes ' + a[0] + ' { from { ' + a[5].toString() + ': var(--from);} to {' + a[5].toString() + ':var(--to);}}';
+                keyframes.textContent = '@keyframes ' + Reflect.get(f, 0) 
+				+ '{ from { ' + Reflect.get(f, 5).toString() 
+				+ ': var(--from);} to {' + Reflect.get(f, 5).toString() 
+				+ ':var(--to);}}';
                 document.body.appendChild(keyframes);
-                node.style = 'position: relative; --from:' + a[3] + 'px; --to:' + a[4] + 'px; animation: ' + a[0] + ' ' + a[2] + ' forwards; animation-timing-function: ' + a[1] + ';';
+                node.style = 'position: relative; --from:' 
+				+ Reflect.get(f, 3) + 'px; --to:' + Reflect.get(f, 4) 
+				+ 'px; animation: ' + Reflect.get(f, 0) + ' ' 
+				+ Reflect.get(f, 2) + ' forwards; animation-timing-function: ' 
+				+ Reflect.get(f, 1) + ';';
             }
         }
     }
@@ -356,10 +354,10 @@ class UX {
     bindLazyLoad(node, find) {
         let att = this.getAtt(node, 'lazy');
         if (att !== null) {
-            let a = att.split(':');
+            let lazy = att.split(':');
             node.setAttribute("loading","lazy");
             let style = '';
-            style += "background-color:" + a[1] + ";";
+            style += "background-color:" + Reflect.get(lazy, 1) + ";";
             style += "background-size: cover;";
             node.setAttribute("style",style);
         }
@@ -379,25 +377,26 @@ class UX {
         let att = this.getAtt(node, 'toggle');
         if (att !== null && att.indexOf(':') !== -1) {
             let pairs = att.split(':');
-            document.getElementById(pairs[0]).hidden = true;
+            document.getElementById(Reflect.get(pairs, 0)).hidden = true;
             node.addEventListener('click', function() {
                 let docElements1 = document.getElementsByTagName("*");
                 for (let i = 0; i < docElements1.length; i++) {
                     let att = docElements1[i].getAttribute(':toggle');
                     if (att !== null) {
                         let pairs1 = att.split(':');
-                        if (pairs1[1] == 'in') {
-                            node.setAttribute(':toggle', pairs1[0] + ':close');
-                            document.getElementById(pairs1[0]).style.display = 'block';
+                        if (Reflect.get(pairs, 1) == 'in') {
+                            node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':close');
+                            document.getElementById(Reflect.get(pairs, 0)).style.display = 'block';
                         }
-                        if (pairs1[1] == 'close') {
-                            node.setAttribute(':toggle', pairs1[0] + ':in');
-                            document.getElementById(pairs1[0]).style.display = 'none';
+                        if (Reflect.get(pairs, 1) == 'close') {
+                            node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in');
+                            document.getElementById(Reflect.get(pairs, 0)).style.display = 'none';
                         }
                     }
 
                 }
-                if (pairs[2]) document.getElementById(pairs[0]).classList.toggle(pieces[2].toString());
+                if (Reflect.get(pairs, 2)) document.getElementById(Reflect.get(pairs, 0))
+					.classList.toggle(Reflect.get(pairs, 2).toString());
             });
 
         }
@@ -407,22 +406,22 @@ class UX {
         let att = this.getAtt(node, 'menu');
         if (att !== null && att.indexOf(':') !== -1) {
             let pairs = att.split(':');
-            if (pairs[1] == 'in') {
-                let list = document.getElementById(pairs[0]).children;
+            if (Reflect.get(pairs, 1) == 'in') {
+                let list = document.getElementById(Reflect.get(pairs, 0)).children;
                 for (let i = 0; i < list.length; i++) {
                     list[i].setAttribute(':menu', att);
                 }
-                document.getElementById(pairs[0]).hidden = true;
+                document.getElementById(Reflect.get(pairs, 0)).hidden = true;
                 node.addEventListener('mouseover', function() {
-                    document.getElementById(pairs[0]).hidden = false;
+                    document.getElementById(Reflect.get(pairs, 0)).hidden = false;
                 });
             }
-            if (pairs[1] == 'out') {
+            if (Reflect.get(pairs, 1) == 'out') {
                 node.addEventListener('mouseout', function() {
                     let att = node.getAttribute(':menu');
                     if (att !== null && att.indexOf(':') !== -1) {
                         let pairs = att.split(':');
-                        document.getElementById(pairs[0]).hidden = true;
+                        document.getElementById(Reflect.get(pairs, 0)).hidden = true;
                     }
                 });
             }
@@ -500,7 +499,7 @@ class UX {
                 let pieces = att.split('.');
                 if (pieces.length > 0) {
                     if (pieces.indexOf('has')) {
-                        let key = this.has(pieces[1]).toString();
+                        let key = this.has(Reflect.get(pieces, 1)).toString();
                         node.hidden = (value.indexOf(key) != -1) ? false : true;
                     }
                 }
@@ -572,10 +571,10 @@ class UX {
         let att = this.getAtt(node, 'render');
         let uri = UX.componentsDir + att;
             if (att !== null) {
-                 fetch(uri)
+                let promise = fetch(uri)
                  .then(file => file.text())
                  .then(response => node.setHTMLUnsafe(response))
-                 .then(function(){     
+                 .then(function parse(){     
                     for (const [key, value] of Object.entries(data)) { 
                         if(Array.isArray(value)) {
                             let j =0;
@@ -586,7 +585,6 @@ class UX {
                             }
                         } else {                            
                         node.innerHTML = node.innerHTML.replace('{{'+ key +'}}', value);
-                    
                         }
                     }
                     var doc = document.querySelectorAll('*').forEach(function(node,idx) {
@@ -595,7 +593,7 @@ class UX {
                             let active = window.location.href;
                                 if (att.indexOf(':') != -1) {
                                     let pieces = att.split(':');
-                                    if(active.match(pieces[0])) node.className = pieces[1].toString();
+                                    if(active.match(Reflect.get(pieces, 0))) node.className = Reflect.get(pieces, 1).toString();
                                 }
                         }
                         att = node.getAttribute(":select");
@@ -611,7 +609,7 @@ class UX {
                         if(att !== null) node.id = att;
                         att = node.getAttribute(":link");
                         if(att !== null) node.setAttribute('href', 'javascript:void(0);'); node.addEventListener('click', 
-                            function eventHandler() { document.location = att; });
+                        function eventHandler() { document.location = att; });
                         att = node.getAttribute(":prevent");
                         if(att !== null) node.addEventListener('submit', event => { event.preventDefault(); });
                 });
