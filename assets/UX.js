@@ -15,15 +15,14 @@ class UX {
     }
 
     load(list) {
+		
         if (!Object(list)) {
             this.log(this.msg['initialize']);
             return false;
         } else {
-			
             let data = list.data
             let method = list.methods;
             let events = list.events;
-			
             this.nodes('bindToggle');
             this.nodes('bindMenu');
             this.nodes('bindVoid');
@@ -37,13 +36,11 @@ class UX {
             this.nodes('bindLazyLoad');
             this.nodes('bindCascade');
             this.nodes('bindUri');
-            this.nodes('render', data);
-			
-			if(Reflect.has(data, "devtools")) {
-				this.nodes('devtools', data);
-			}
-			
             if (data) {
+                this.nodes('render', data);
+			    if(Reflect.has(data, "devtools")) {
+				    this.nodes('devtools', data);
+			    }
                 for (const [key, value] of Object.entries(data)) {
                     if (Array.isArray(value)) {
                         this.nodes('bindLoop', key, value);
