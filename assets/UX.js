@@ -594,17 +594,6 @@ class UX {
              node.innerHTML = node.innerHTML.replace('{{'+ key +'}}', value);
              }
          }
-         
-         var doc = document.querySelectorAll('*').forEach(function(node,idx) {
-             var att = node.getAttribute(":active");
-                if(att != null) {
-                    let active = window.location.href;
-                        if (att.indexOf(':') != -1) {
-                            let pieces = att.split(':');
-                            if(active.match(Reflect.get(pieces, 0))) node.className = Reflect.get(pieces, 1).toString();
-                        }
-                }
-        });
     }
 
     reparseNodes() {
