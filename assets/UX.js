@@ -15,14 +15,18 @@ class UX {
     }
 
     load(list) {
-		
+        
         if (!Object(list)) {
+            
             this.log(this.msg['initialize']);
             return false;
-        } else {
+            
+            } else {
+                
             let data = list.data
             let method = list.methods;
             let events = list.events;
+            
             this.nodes('bindToggle');
             this.nodes('bindMenu');
             this.nodes('bindVoid');
@@ -36,11 +40,16 @@ class UX {
             this.nodes('bindLazyLoad');
             this.nodes('bindCascade');
             this.nodes('bindUri');
+            
+            Reflect.preventExtensions(data);
+            
             if (data) {
+                
                 this.nodes('render', data);
-			    if(Reflect.has(data, "devtools")) {
-				    this.nodes('devtools', data);
-			    }
+                if(Reflect.has(data, "devtools")) {
+                    this.nodes('devtools', data);
+                }
+                
                 for (const [key, value] of Object.entries(data)) {
                     if (Array.isArray(value)) {
                         this.nodes('bindLoop', key, value);
@@ -51,7 +60,7 @@ class UX {
                         this.nodes('bindFunctions', key, value);
                         this.nodes('bindOn', key, value, data, method);
                         this.nodes('bindActive');
-                    } else {
+                        } else {
                         this.nodes('replaceNodeValue', key, value);
                         this.nodes('bindAttributesNode', key, value);
                         this.nodes('bindLogic', key, value);
@@ -65,11 +74,8 @@ class UX {
     }
 
     nodes(method, find, value, data = null, methods = null, callback = null) {
-		
         let docElements = this.nodeParentList();
-		
         for (let i = 0; i < docElements.length; i++) {
-			
             if (method == 'render') this.render(docElements[i], find, value);
             if (method == 'bindActive') this.bindActive(docElements[i], find, value);
             if (method == 'bindSelect') this.bindSelect(docElements[i], find, value);
@@ -93,9 +99,7 @@ class UX {
             if (method == 'bindCascade') this.bindCascade(docElements[i], find, value);
             if (method == 'bindLazyLoad') this.bindLazyLoad(docElements[i], find, value);
             if (method == 'bindUri') this.bindUri(docElements[i], find, value);
-			
             let docChildren = this.nodeChildren(docElements[i]);
-            
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
                     if (docChildren[j].nodeType === 3) {
@@ -276,11 +280,11 @@ class UX {
                 let flex = 'display:flex;';
                 let flexdir = 'flex-direction:' + Reflect.get(flexbox, 1) + ';';
                 if(Reflect.get(flexbox, 0) == 'true' 
-				|| Reflect.get(flexbox, 0) == '1' 
-				|| Reflect.get(flexbox, 0) == 'start' 
-				|| Reflect.get(flexbox, 0) == 'left') node.setAttribute("style", flex + flexdir);
+                || Reflect.get(flexbox, 0) == '1' 
+                || Reflect.get(flexbox, 0) == 'start' 
+                || Reflect.get(flexbox, 0) == 'left') node.setAttribute("style", flex + flexdir);
                 if(Reflect.get(flexbox, 0) == 'end' 
-				|| Reflect.get(flexbox, 0) == 'right') node.setAttribute("style", flex + 'justify-content: flex-end;' + flexdir);
+                || Reflect.get(flexbox, 0) == 'right') node.setAttribute("style", flex + 'justify-content: flex-end;' + flexdir);
                 if(Reflect.get(flexbox, 0) == 'center') node.setAttribute("style", flex + 'justify-content: center;' + flexdir);
                 if(Reflect.get(flexbox, 0) == 'bottom') node.setAttribute("style", flex + 'align-items: baseline;' + flexdir);
             }
@@ -294,15 +298,15 @@ class UX {
                 let f = att.split(':');
                 let keyframes = document.createElement("style");
                 keyframes.textContent = '@keyframes ' + Reflect.get(f, 0) 
-				+ '{ from { ' + Reflect.get(f, 5).toString() 
-				+ ': var(--from);} to {' + Reflect.get(f, 5).toString() 
-				+ ':var(--to);}}';
+                + '{ from { ' + Reflect.get(f, 5).toString() 
+                + ': var(--from);} to {' + Reflect.get(f, 5).toString() 
+                + ':var(--to);}}';
                 document.body.appendChild(keyframes);
                 node.style = 'position: relative; --from:' 
-				+ Reflect.get(f, 3) + 'px; --to:' + Reflect.get(f, 4) 
-				+ 'px; animation: ' + Reflect.get(f, 0) + ' ' 
-				+ Reflect.get(f, 2) + ' forwards; animation-timing-function: ' 
-				+ Reflect.get(f, 1) + ';';
+                + Reflect.get(f, 3) + 'px; --to:' + Reflect.get(f, 4) 
+                + 'px; animation: ' + Reflect.get(f, 0) + ' ' 
+                + Reflect.get(f, 2) + ' forwards; animation-timing-function: ' 
+                + Reflect.get(f, 1) + ';';
             }
         }
     }
@@ -393,7 +397,7 @@ class UX {
 
                 }
                 if (Reflect.get(pairs, 2)) document.getElementById(Reflect.get(pairs, 0))
-					.classList.toggle(Reflect.get(pairs, 2).toString());
+                    .classList.toggle(Reflect.get(pairs, 2).toString());
             });
 
         }
@@ -449,6 +453,15 @@ class UX {
         process.apply();
     }
 
+    bindPrevent(node, find, value) {
+        let att = this.getAtt(node, 'prevent');
+        if (att !== null) {
+            docElements[j].addEventListener('submit', event => {
+                event.preventDefault();
+            });
+        }
+    }
+    
     bindOn(node, data, methods, find, value) {
         let att = this.getAtt(node, 'click');
         if (this.getAttCheck(node, 'click') == true) {
@@ -554,16 +567,7 @@ class UX {
             }
         }
     }
-
-    bindPrevent(node, find, value) {
-        let att = this.getAtt(node, 'prevent');
-        if (att !== null) {
-            docElements[j].addEventListener('submit', event => {
-                event.preventDefault();
-            });
-        }
-    }
-
+    
     render(node, data, run=true) {       
         let att = this.getAtt(node, 'render');
         let uri = UX.componentsDir + att;
@@ -571,67 +575,73 @@ class UX {
                 let promise = fetch(uri)
                  .then(file => file.text())
                  .then(response => node.setHTMLUnsafe(response))
-                 .then(function parse(){     
-                    for (const [key, value] of Object.entries(data)) { 
-                        if(Array.isArray(value)) {
-                            let j =0;
-                            for (const [keys, values] of Object.entries(value)) { 
-                                let array = Object.entries(value[j]);
-                                node.innerHTML = node.innerHTML.replace('{{'+ array[0][0] +'}}', array[0][1]);
-                                j++;
-                            }
-                        } else {                            
-                        node.innerHTML = node.innerHTML.replace('{{'+ key +'}}', value);
-                        }
-                    }
-                    var doc = document.querySelectorAll('*').forEach(function(node,idx) {
-                    var att = node.getAttribute(":active");
-                        if(att != null) {
-                            let active = window.location.href;
-                                if (att.indexOf(':') != -1) {
-                                    let pieces = att.split(':');
-                                    if(active.match(Reflect.get(pieces, 0))) node.className = Reflect.get(pieces, 1).toString();
-                                }
-                        }
-                        att = node.getAttribute(":select");
-                        if(att !== null) node.className = att.toString();
-                        att = node.getAttribute(":hidden");
-                        if(att !== null) node.hidden = false;
-                        if(att !== null && att == 'true') node.hidden = true;
-                        att = node.getAttribute(":void");
-                        if(att !== null) node.setAttribute('href', 'javascript:void(0);');
-                        att = node.getAttribute(":class");
-                        if(att !== null) node.classList.toggle(att);
-                        att = node.getAttribute(":id");
-                        if(att !== null) node.id = att;
-                        att = node.getAttribute(":link");
-                        if(att !== null) node.setAttribute('href', 'javascript:void(0);'); node.addEventListener('click', 
-                        function eventHandler() { document.location = att; });
-                        att = node.getAttribute(":prevent");
-                        if(att !== null) node.addEventListener('submit', event => { event.preventDefault(); });
-                });
-            });
+                 .then(renderHTML => this.renderHTML(node,data))
+                 .then(reparse => this.reparseNodes());
         }
+    }
+	
+    renderHTML(node,data) { 
+    
+        for (const [key, value] of Object.entries(data)) { 
+         if(Array.isArray(value)) {
+            let j =0;
+                for (const [keys, values] of Object.entries(value)) { 
+                     let array = Object.entries(value[j]);
+                    node.innerHTML = node.innerHTML.replace('{{'+ array[0][0] +'}}', array[0][1]);
+                    j++;
+                 }
+             } else {         
+             node.innerHTML = node.innerHTML.replace('{{'+ key +'}}', value);
+             }
+         }
+         
+         var doc = document.querySelectorAll('*').forEach(function(node,idx) {
+             var att = node.getAttribute(":active");
+                if(att != null) {
+                    let active = window.location.href;
+                        if (att.indexOf(':') != -1) {
+                            let pieces = att.split(':');
+                            if(active.match(Reflect.get(pieces, 0))) node.className = Reflect.get(pieces, 1).toString();
+                        }
+                }
+        });
+    }
+
+    reparseNodes() {
+        this.nodes('bindActive');            
+        this.nodes('bindToggle');
+        this.nodes('bindMenu');
+        this.nodes('bindVoid');
+        this.nodes('bindPrevent');
+        this.nodes('bindSelect');
+        this.nodes('bindFlex');
+        this.nodes('bindShow');
+        this.nodes('bindHide');
+        this.nodes('bindCurtains');
+        this.nodes('bindAnimate');
+        this.nodes('bindLazyLoad');
+        this.nodes('bindCascade');
+        this.nodes('bindUri');            
     }
     
     fetch(obj) {
         if (Object(obj)) {
             let docElements = this.nodeParentList();
-                for (let i = 0; i < docElements.length; i++) {
-                    let docChildren = this.nodeChildren(docElements[i]);
-                        for (let j = 0; j < docChildren.length; j++) {
-                            for (const [key, value] of Object.entries(obj)) {
-                                if (Object(value)) {
-                                    for (const [key1, value1] of Object.entries(value)) {
-                                        if (docChildren[j].nodeType === 3) {
-                                        docChildren[j].nodeValue = docChildren[j].nodeValue.replace("{{"+key1+"}}", value1);
-                                }
-                            }
-                        }
-                    }
+              for (let i = 0; i < docElements.length; i++) {
+                let docChildren = this.nodeChildren(docElements[i]);
+                  for (let j = 0; j < docChildren.length; j++) {
+                    for (const [key, value] of Object.entries(obj)) {
+                      if (Object(value)) {
+                        for (const [key1, value1] of Object.entries(value)) {
+                         if (docChildren[j].nodeType === 3) {
+                           docChildren[j].nodeValue = docChildren[j].nodeValue.replace("{{"+key1+"}}", value1);
+                  }
                 }
-            }    
-        }
+              }
+            }
+          }
+        }    
+      }
     }
     
     async (uri, method, callback) {
@@ -756,10 +766,10 @@ class UX {
         if (node.className !== '' && node.id !== '') {
             node.setAttribute('title', 'CLASS: ' + node.className + ', ID: ' + node.id);
             node.style = 'border: 1px dashed green;';
-        } else if (node.className !== '') {
+            } else if (node.className !== '') {
             node.setAttribute('title', 'CLASS: ' + node.className);
             node.style = 'border: 1px dashed black;';
-        } else if (node.id !== '') {
+            } else if (node.id !== '') {
             node.setAttribute('title', 'ID: ' + node.id);
             node.style = 'border: 1px dashed red;';
         }
