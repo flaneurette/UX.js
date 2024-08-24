@@ -9,7 +9,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.142",
+        version: "1.143",
         copyright: "(c) 2024 flaneurette",
         license: "MIT",
         instanceid: 1e5
@@ -20,7 +20,7 @@ class UX {
             let data = list.data
             let method = list.methods;
             let events = list.events;
-            this.parseNodes();    
+            this.parseNodes(data);    
             Reflect.preventExtensions(data);
             if (data) {
                 this.nodes('render', data);
@@ -44,7 +44,7 @@ class UX {
             if (method == 'createForm') this.createForm(docElements[i], find, value);
             if (method == 'bindCurtains') this.bindCurtains(docElements[i], find, value);
             if (method == 'bindLoop') this.loop(docElements[i], find, value);
-            if (method == 'bindFunctions') this.bindFunctions(docElements[i], find, value);
+            if (method == 'bindFunctions') this.bindFunctions(docElements[i], data, find, value);
             if (method == 'bindLogic') this.bindIf(docElements[i], find, value);
             if (method == 'bindOn') this.bindOn(docElements[i], data, methods, find, value);
             if (method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
@@ -79,21 +79,19 @@ class UX {
             this.nodes('replaceNodeValue', key, value);
             this.nodes('bindAttributesNode', key, value);
             this.nodes('bindLogic', key, value);
-            this.nodes('bindFunctions', key, value);
             this.nodes('bindOn', key, value, data, method);
             this.nodes('bindActive');
             } else {
             this.nodes('replaceNodeValue', key, value);
             this.nodes('bindAttributesNode', key, value);
             this.nodes('bindLogic', key, value);
-            this.nodes('bindFunctions', key, value);
             this.nodes('bindOn', key, value, data, method);
             this.nodes('bindActive');
         }
       }
     }
     
-    parseNodes() {
+    parseNodes(data) {
         this.nodes('bindActive');            
         this.nodes('bindToggle');
         this.nodes('bindMenu');
@@ -107,7 +105,8 @@ class UX {
         this.nodes('bindAnimate');
         this.nodes('bindLazyLoad');
         this.nodes('bindCascade');
-        this.nodes('bindUri');            
+        this.nodes('bindUri');
+		this.nodes('bindFunctions', false, false, data);		
     }
     
     getElements() {
@@ -149,6 +148,10 @@ class UX {
         return check;
     }
 
+	isInt(value) {
+		return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
+	}
+	
     dom(id, method, value = null) {
         if (id !== null) {
             if(method == 'id') return document.getElementById(id);
@@ -427,23 +430,38 @@ class UX {
             }
         }
     }
-
-    bindFunctions(node, find, value) {
+		
+    bindFunctions(node, data, find, value) {
+		
         let att = this.getAtt(node, 'click');
         let docElements = UX.docElements;
-        if (att !== null) {
-            if (find == 'count') {
-                node.addEventListener('click', function() {
-                    for (let i = 0; i < docElements.length; i++) {
-                        if (docElements[i].getAttribute(':id') !== null) {
-                            let attribute = docElements[i].getAttribute(':id');
-                            if (att = 'count++') {
-                                docElements[i].innerText = (Number(docElements[i].innerText) + 1);
-                            }
-                        }
-                    }
-                });
-            }
+		let countID, count, multiply, countdown, interval, clear, countvalue = 0; 
+		
+		for(const [key, value] of Object.entries(data)) { 
+			if(key == 'id') countID = value; 
+			if(key == 'count') count = value;  
+			if(key == 'countvalue') countvalue = value;
+			if(key == 'multiply') multiply = value; 
+			if(key == 'countdown') countdown = value; 
+			if(key == 'interval') interval = value; 
+			if(key == 'clear') clear = value; 
+		}
+		
+        if (att !== null) { 
+			let counterNode = document.getElementById(countID);
+            node.addEventListener('click', () => {
+				var calc = Number(counterNode.innerText);
+                if (att == 'count++') counterNode.innerText = this.isInt((calc) + countvalue);
+                if (att == 'count--') counterNode.innerText = this.isInt((calc) - countvalue);
+				if (att == 'multiply') counterNode.innerText = this.isInt((calc) * multiply);
+				if (att == 'countdown') { 
+				let timer = setInterval(() =>{
+					counterNode.innerText = this.isInt(Number(counterNode.innerText) - countvalue); 
+					if(Number(counterNode.innerText)<=clear) clearInterval(timer); 
+					}, interval);
+				}
+            });
+           
         }
     }
 
@@ -577,7 +595,7 @@ class UX {
                  .then(file => file.text())
                  .then(response => node.setHTMLUnsafe(response))
                  .then(() => this.renderHTML(node,data))
-                 .then(() => this.parseNodes());
+                 .then(() => this.parseNodes(data));
         }
     }
         

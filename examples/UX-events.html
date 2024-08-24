@@ -7,7 +7,7 @@
       display: inline-block;
       border: 1px solid black;
       padding: 10px;
-      background-color: yellow;
+      background-color: #f7f7f7;
       width: 300px;
       display: flex;
     }
@@ -17,8 +17,11 @@
 <body>
 <h1>UX Events</h1>
 <div id="app">
-  <p :class="myClass">Counted products: <span :id="counter">{{count}}</span></p>
+  <p :class="myClass">Counted products: <span id="counter">{{count}}</span></p>
   <button :click="count++">Count products up</button>
+  <button :click="count--">Count products down</button>
+  <button :click="multiply">Multiply products</button>
+  <button :click="countdown">Timer products</button>
 </div>
 	
 	<script>
@@ -28,7 +31,13 @@
 	app.load({
 		data: {
 			myClass: "text",
-			count: 0
+			count: 99.99,
+			countvalue: 0.99,
+			multiply: 10,
+			countdown: 0,
+			interval: 10,
+			clear: -100,
+			id: 'counter'
 		}
 	});
   
