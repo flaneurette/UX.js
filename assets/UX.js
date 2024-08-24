@@ -381,7 +381,7 @@ class UX {
         if (att !== null && att.indexOf(':') !== -1) {
             let pairs = att.split(':');
             document.getElementById(Reflect.get(pairs, 0)).hidden = true;
-            node.addEventListener('click', function() {
+            node.addEventListener('click', () => {
                 let docElements1 = document.getElementsByTagName("*");
                 for (let i = 0; i < docElements1.length; i++) {
                     let att = docElements1[i].getAttribute(':toggle');
@@ -415,12 +415,12 @@ class UX {
                     list[i].setAttribute(':menu', att);
                 }
                 document.getElementById(Reflect.get(pairs, 0)).hidden = true;
-                node.addEventListener('mouseover', function() {
+                node.addEventListener('mouseover', () => {
                     document.getElementById(Reflect.get(pairs, 0)).hidden = false;
                 });
             }
             if (Reflect.get(pairs, 1) == 'out') {
-                node.addEventListener('mouseout', function() {
+                node.addEventListener('mouseout', () =>  {
                     let att = node.getAttribute(':menu');
                     if (att !== null && att.indexOf(':') !== -1) {
                         let pairs = att.split(':');
@@ -483,7 +483,7 @@ class UX {
         let att = this.getAtt(node, 'click');
         if (this.getAttCheck(node, 'click') == true) {
             if (att !== null) {
-                node.addEventListener('click', function() {
+                node.addEventListener('click', () => {
                     let statics = document.body.innerHTML;
                     let findMethod = node.getAttribute(':click');
                     if (findMethod !== null) {
@@ -659,7 +659,7 @@ class UX {
                             req.withCredentials = true;
                             req.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
                             req.setRequestHeader('Content-Type', UX.asyncType);
-                            req.onreadystatechange = function() {
+                            req.onreadystatechange = () =>  {
                                 if (req.readyState == 4 && req.status == 200) {
                                     if (req.responseText) {
                                         callback(req.responseText);
@@ -681,21 +681,21 @@ class UX {
         req.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
         req.setRequestHeader("Content-Type", UX.contentType);
         if (method == 'callback') {
-            req.onreadystatechange = function() {
+            req.onreadystatechange = () =>  {
                 if (req.readyState == 4 && req.status == 200) {
                     callback(req.responseText);
                 }
             }
             req.send();
         } else if (method == 'get') {
-            req.onreadystatechange = function() {
+            req.onreadystatechange = () =>  {
                 if (req.readyState == 4 && req.status == 200) {
                     return JSON.parse(req.responseText);
                 }
             }
             req.send();
         } else if(method == 'render') {
-            req.onreadystatechange = function() {
+            req.onreadystatechange = () =>  {
                 if (req.readyState == 4 && req.status == 200) {
                     return req.responseText;
                 }
