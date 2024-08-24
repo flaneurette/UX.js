@@ -106,7 +106,7 @@ class UX {
         this.nodes('bindLazyLoad');
         this.nodes('bindCascade');
         this.nodes('bindUri');
-		this.nodes('bindFunctions', false, false, data);		
+        this.nodes('bindFunctions', false, false, data);        
     }
     
     getElements() {
@@ -148,10 +148,10 @@ class UX {
         return check;
     }
 
-	isInt(value) {
-		return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
-	}
-	
+    isInt(value) {
+        return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
+    }
+    
     dom(id, method, value = null) {
         if (id !== null) {
             if(method == 'id') return document.getElementById(id);
@@ -430,36 +430,36 @@ class UX {
             }
         }
     }
-		
+        
     bindFunctions(node, data, find, value) {
-		
+        
         let att = this.getAtt(node, 'click');
         let docElements = UX.docElements;
-		let countID, count, multiply, countdown, interval, clear, countvalue = 0; 
-		
-		for(const [key, value] of Object.entries(data)) { 
-			if(key == 'id') countID = value; 
-			if(key == 'count') count = value;  
-			if(key == 'countvalue') countvalue = value;
-			if(key == 'multiply') multiply = value; 
-			if(key == 'countdown') countdown = value; 
-			if(key == 'interval') interval = value; 
-			if(key == 'clear') clear = value; 
-		}
-		
+        let countID, count, multiply, countdown, interval, clear, countvalue = 0; 
+        
+        for(const [key, value] of Object.entries(data)) { 
+            if(key == 'id') countID = value; 
+            if(key == 'count') count = value;  
+            if(key == 'countvalue') countvalue = value;
+            if(key == 'multiply') multiply = value; 
+            if(key == 'countdown') countdown = value; 
+            if(key == 'interval') interval = value; 
+            if(key == 'clear') clear = value; 
+        }
+        
         if (att !== null) { 
-			let counterNode = document.getElementById(countID);
+            let counterNode = document.getElementById(countID);
             node.addEventListener('click', () => {
-				var calc = Number(counterNode.innerText);
+                var calc = Number(counterNode.innerText);
                 if (att == 'count++') counterNode.innerText = this.isInt((calc) + countvalue);
                 if (att == 'count--') counterNode.innerText = this.isInt((calc) - countvalue);
-				if (att == 'multiply') counterNode.innerText = this.isInt((calc) * multiply);
-				if (att == 'countdown') { 
-				let timer = setInterval(() =>{
-					counterNode.innerText = this.isInt(Number(counterNode.innerText) - countvalue); 
-					if(Number(counterNode.innerText)<=clear) clearInterval(timer); 
-					}, interval);
-				}
+                if (att == 'multiply') counterNode.innerText = this.isInt((calc) * multiply);
+                if (att == 'countdown') { 
+                let timer = setInterval(() =>{
+                    counterNode.innerText = this.isInt(Number(counterNode.innerText) - countvalue); 
+                    if(Number(counterNode.innerText)<=clear) clearInterval(timer); 
+                    }, interval);
+                }
             });
            
         }
@@ -703,7 +703,7 @@ class UX {
             req.send();    
         }
         
-    }
+    }    
 
     createElements(node, type, arr) {
         let opt = document.createElement(type);
