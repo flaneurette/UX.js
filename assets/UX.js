@@ -4,6 +4,7 @@ class UX {
     static contentType = "application/json;charset=UTF-8";
     static asyncType = "application/x-www-form-urlencoded; charset=UTF-8";
     static componentsDir = "../components/";
+	static cacheControl = "no-cache";
     static allowOrigin = '*';
 
     init = {
@@ -17,16 +18,12 @@ class UX {
     load(list) {
         
         if (!Object(list)) {
-            
             this.log(this.msg['initialize']);
             return false;
-            
-            } else {
-                
+        } else {
             let data = list.data
             let method = list.methods;
             let events = list.events;
-            
             this.nodes('bindToggle');
             this.nodes('bindMenu');
             this.nodes('bindVoid');
@@ -568,15 +565,17 @@ class UX {
         }
     }
     
-    render(node, data, run=true) {       
-        let att = this.getAtt(node, 'render');
-        let uri = UX.componentsDir + att;
-            if (att !== null) {
-                let promise = fetch(uri)
+    render(node, data) {       
+        let attribute = this.getAtt(node, 'render');
+        let uri = UX.componentsDir + attribute;
+            if (attribute !== null) {
+				const options = new Headers();
+				options.append("Cache-Control", UX.cacheControl);
+                let promise = fetch(uri, options)
                  .then(file => file.text())
                  .then(response => node.setHTMLUnsafe(response))
-                 .then(renderHTML => this.renderHTML(node,data))
-                 .then(reparse => this.reparseNodes());
+                 .then(() => this.renderHTML(node,data))
+                 .then(() => this.reparseNodes());
         }
     }
 	
