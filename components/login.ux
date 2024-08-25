@@ -1,7 +1,7 @@
 <section>
 	<header>
 	</header>
-		<form name="login" class="login" action="" method="post">
+		<form name="login" class="{{class}}" action="" method="post">
 		  <label for="userName">{{userName}}</label>
 		  <input type="text" id="userName" name="userName" autocomplete="username">
 		  <label for="password">{{password}}</label>
