@@ -6,7 +6,7 @@
 			<input type="text" id="name" name="name" autocomplete="given-name" />
 			<label for="email">{{email}}</label>
 			<input type="text" id="email" name="email" autocomplete="email" />
-			<input type="submit" />
+			<input type="submit" value="{{submit}}" />
 		</form>
 	<footer>
 	</footer>

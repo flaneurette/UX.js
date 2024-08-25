@@ -6,6 +6,7 @@
 		  <input type="text" id="userName" name="userName" autocomplete="username">
 		  <label for="password">{{password}}</label>
 		  <input type="password" id="password" name="password" autocomplete="current-password">
+		  <input type="submit" value="{{submit}}" />
 		</form>
 	<footer>
 	</footer>

@@ -2,11 +2,25 @@
 	<header>
 	</header>
 		<form name="form" class="form" action="" method="post" enctype="multipart/form-data">
-			<label for="firstName">{{firstName}}</label>
-			<input type="text" id="firstName" name="firstName" />
-			<label for="lastName">{{lastName}}</label>
-			<input type="text" id="lastName" name="lastName" />
-			<input type="submit" />
+		<label for="firstName">{{firstName}}</label>
+		<input name="firstName" id="firstName" type="text" autocomplete="given-name" />
+		<label for="lastName">{{lastName}}</label>
+		<input name="lastName" id="lastName" type="text" autocomplete="family-name" />
+		<label for="streetAddress">{{streetAddress}}</label>
+		<input name="streetAddress" id="streetAddress" type="text" autocomplete="street-address" />
+		<label for="addressLine1">{{addressLine1}}</label>
+		<input name="addressLine1" id="addressLine1" type="text" autocomplete="address-line1" />
+		<label for="addressLine2">{{addressLine2}}</label>
+		<input name="addressLine2" id="addressLine2" type="text" autocomplete="address-line2" />
+		<label for="addressLine3">{{addressLine3}}</label>
+		<input name="addressLine3" id="addressLine3" type="text" autocomplete="address-line3" />
+		<label for="country">{{country}}</label>
+		<input name="country" id="country" type="text" autocomplete="country" />
+		<label for="postalCode">{{postalCode}}</label>
+		<input name="postalCode" id="postalCode" type="text" autocomplete="postal-code" />
+		<label for="email">{{email}}</label>
+		<input name="email" id="email" type="email" autocomplete="email" />
+		<input type="submit" value="{{submit}}" />
 		</form>
 	<footer>
 	</footer>
