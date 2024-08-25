@@ -9,7 +9,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.143",
+        version: "1.144",
         copyright: "(c) 2024 flaneurette",
         license: "MIT",
         instanceid: 1e5
