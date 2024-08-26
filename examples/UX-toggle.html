@@ -4,7 +4,7 @@
   <title>UX Toggle</title>
   <style>
   html, body {
- 	padding: 10px;
+ 	padding: 0px;
 	margin: 0px;
   }
   
@@ -12,6 +12,8 @@
 	min-width: 100%;
 	padding: 0px;
 	margin: 0px;
+	background-color: black;
+	height:100px;
   }
   
   .div1, .div2 {
@@ -31,25 +33,27 @@
 	width: 100px;
   }
   
-  .menu {
+  #menu {
     display:block;
 	background-color: black;
 	width: 200px;
-	z-index: 1;
-	margin-top:-20px;
+	height: 200px;
+	z-index: 2;
+	margin-top:120px;
 	margin-left:-110px;
 	display:none;
   }
 
-  .menuRed {
+  .menuShown {
+    transition: height 2s;
     display:block;
-	background-color: red;
+	background-color: black;
+	width: 200px;
+	height: 200px;
 	z-index: 1;
-	margin-top:-14px;
-	margin-left:10px;
+	margin-top:-20px;
+	margin-left:-110px;
 	display:none;
-    width: 100%;
-    left: 0;
   }
   
   a:link, a:visited, li {
@@ -77,9 +81,11 @@
 <div class="div1" :flex="right:row">
 		<div class="h3"><h3>Openable</h3></div>
 	    <div class="div2">
-		<ul><li><img :toggle="menu1:in" width="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAuCAMAAADp/0xsAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAD9QTFRFAAAAEBAQFRUVBgYGr6+v6urqREREv7+/////S0tLUFBQa2trHx8fWFhYdXV1IiIiICAgKysrDAwMODg4FhYWNuJ9tAAAAGtJREFUeJzt0mEGgEAUxPEeEZtYuv8NE5FiWTpCs+Nt8sz/Ar8PMzZ8kAkRIuTPiNG2VRgZeaTAyMQjt5A+SOKRE0acE+KAxLmwkCZk4ZEDRpyLjmR+kx1G4lxYSBOyXiwybzDinBAhQt57AMJjFS+zv0W1AAAAAElFTkSuQmCC"
+		<ul>
+		<li>
+		<img :toggle="menu1:in:menuShown" width="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAuCAMAAADp/0xsAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAD9QTFRFAAAAEBAQFRUVBgYGr6+v6urqREREv7+/////S0tLUFBQa2trHx8fWFhYdXV1IiIiICAgKysrDAwMODg4FhYWNuJ9tAAAAGtJREFUeJzt0mEGgEAUxPEeEZtYuv8NE5FiWTpCs+Nt8sz/Ar8PMzZ8kAkRIuTPiNG2VRgZeaTAyMQjt5A+SOKRE0acE+KAxLmwkCZk4ZEDRpyLjmR+kx1G4lxYSBOyXiwybzDinBAhQt57AMJjFS+zv0W1AAAAAElFTkSuQmCC"
 ></li><ul>
-		<ul class="menu" id="menu1">
+		<ul id="menu1">
 			<li><a href="#">Link 1</a></li>
 			<li><a href="#">Link 1</a></li>
 			<li><a href="#">Link 1</a></li>
@@ -87,7 +93,7 @@
 			<li><a href="#">Link 1</a></li>
 		</ul>
 		</div>
-	</div>
+</div>
 
 	<script>
 	
