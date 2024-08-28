@@ -383,6 +383,8 @@ class UX {
         if (att !== null && att.indexOf(':') !== -1) {
             let pairs = att.split(':');
             let width = Reflect.get(pairs, 1);
+			let height = 10;
+			let spacing = Reflect.get(pairs, 2);
 			    let canvas = document.createElement('canvas');
 				node.append(canvas);
 				canvas.setAttribute('width',width);
@@ -390,17 +392,18 @@ class UX {
                 var c = canvas;
                 var ctx = c.getContext("2d");
                 ctx.strokeStyle = Reflect.get(pairs, 0);
-                ctx.moveTo(width,10);
-                ctx.lineTo(0,10);
+				if(!spacing) spacing = 0;
+                ctx.moveTo(width,spacing);
+                ctx.lineTo(0,spacing);
                 ctx.stroke();
-                ctx.moveTo(width,20);
-                ctx.lineTo(0,20);
+                ctx.moveTo(width,(spacing * 2));
+                ctx.lineTo(0,(spacing * 2));
                 ctx.stroke();
-                ctx.moveTo(width,30);
-                ctx.lineTo(0,30);
+                ctx.moveTo(width,(spacing * 3));
+                ctx.lineTo(0,(spacing * 3));
                 ctx.stroke(); 
-                ctx.moveTo(width,30);
-                ctx.lineTo(0,30);
+                ctx.moveTo(width,(spacing * 3));
+                ctx.lineTo(0,(spacing * 3));
                 ctx.stroke();  				
         }
     }
