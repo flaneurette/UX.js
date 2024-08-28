@@ -59,6 +59,7 @@ class UX {
             if (method == 'bindCascade') this.bindCascade(docElements[i], find, value);
             if (method == 'bindLazyLoad') this.bindLazyLoad(docElements[i], find, value);
             if (method == 'bindUri') this.bindUri(docElements[i], find, value);
+            if (method == 'bindHamburger')  this.bindHamburger(docElements[i]);
             let docChildren = this.nodeChildren(docElements[i]);
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
@@ -106,6 +107,7 @@ class UX {
         this.nodes('bindLazyLoad');
         this.nodes('bindCascade');
         this.nodes('bindUri');
+        this.nodes('bindHamburger');
         this.nodes('bindFunctions', false, false, data);        
     }
     
@@ -375,6 +377,26 @@ class UX {
             });
         }
     }
+    
+    bindHamburger(node) {
+        let att = this.getAtt(node, 'hamburger');
+        if (att !== null && att.indexOf(':') !== -1) {
+            let pairs = att.split(':');
+            let width = Reflect.get(pairs, 2);
+                var c = document.getElementById(Reflect.get(pairs, 0));
+                var ctx = c.getContext("2d");
+                ctx.strokeStyle = Reflect.get(pairs, 1);
+                ctx.moveTo(width,10);
+                ctx.lineTo(0,10);
+                ctx.stroke();
+                ctx.moveTo(width,20);
+                ctx.lineTo(0,20);
+                ctx.stroke();
+                ctx.moveTo(width,30);
+                ctx.lineTo(0,30);
+                ctx.stroke();    
+        }
+    }
 
     bindToggle(node) {
         let att = this.getAtt(node, 'toggle');
@@ -388,8 +410,8 @@ class UX {
                         let pairs1 = att.split(':');
                         if (Reflect.get(pairs, 1) == 'in') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':close');
-							if(Reflect.get(pairs, 2)) document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2));
-							document.getElementById(Reflect.get(pairs, 0)).style.display = 'block';
+                            if(Reflect.get(pairs, 2)) document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2));
+                            document.getElementById(Reflect.get(pairs, 0)).style.display = 'block';
                         }
                         if (Reflect.get(pairs, 1) == 'close') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in');
@@ -772,3 +794,4 @@ class UX {
         enumerate: "ux: Could not enumerate global object."
     }
 }
+    
