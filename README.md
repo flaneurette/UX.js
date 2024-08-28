@@ -14,7 +14,11 @@ Version 1.4 introduces components. Components are reusable HTML fragments that h
 #### hello-world.html
 A simple example of how UX.js works.
 #### UX-render.html
-An example of rendering reusable UX components from the /components/ directory. 
+An example of rendering reusable UX components from the /components/ directory.
+#### UX-hamburger.html
+An example showing a hamburger toggle menu, same as ux-toggle.
+#### UX-toggle.html
+An example showing the toggle attribute, to switch a menu on/off
 #### UX-animate.html
 An example showing the animate attribute, to dynamically animate objects.
 #### UX-cascade.html
@@ -33,8 +37,6 @@ An example of how the loop function in UX.js works
 An example to show and hide objects in HTML
 #### UX-menu.html
 An example showing the menu attribute, dynamically generated with UX.js
-#### UX-toggle.html
-An example showing the toggle attribute, to switch a menu on/off
 #### UX-zebra.html
 An example showing the zebra attribute, dynamically generated with UX.js
 #### UX-active.html
