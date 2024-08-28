@@ -34,7 +34,6 @@
   }
   
   #menu {
-    display:block;
 	background-color: black;
 	width: 200px;
 	height: 200px;
@@ -82,8 +81,10 @@
 <div class="div1" :flex="right:row">
 	    <div class="div2">
 		<ul>
-		<li>
-		<canvas id="hamburger" :toggle="menu1:in:menuShown" height="50" width="50"></li><ul>
+			<li>
+			<canvas id="hamburger" :toggle="menu1:in:menuShown" height="50" width="50">
+			</li>
+		<ul>
 		<ul id="menu1" :loop="navigation">
 			<li>{{link}}</li>
 		</ul>
@@ -109,6 +110,7 @@
 		}
 	});
   
+	// Hamburger menu icon.
 	var c = document.getElementById("hamburger");
 	var ctx = c.getContext("2d");
 	ctx.strokeStyle = "orange";
