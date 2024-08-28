@@ -382,10 +382,14 @@ class UX {
         let att = this.getAtt(node, 'hamburger');
         if (att !== null && att.indexOf(':') !== -1) {
             let pairs = att.split(':');
-            let width = Reflect.get(pairs, 2);
-                var c = document.getElementById(Reflect.get(pairs, 0));
+            let width = Reflect.get(pairs, 1);
+			    let canvas = document.createElement('canvas');
+				node.append(canvas);
+				canvas.setAttribute('width',width);
+				canvas.setAttribute('height',width);
+                var c = canvas;
                 var ctx = c.getContext("2d");
-                ctx.strokeStyle = Reflect.get(pairs, 1);
+                ctx.strokeStyle = Reflect.get(pairs, 0);
                 ctx.moveTo(width,10);
                 ctx.lineTo(0,10);
                 ctx.stroke();
@@ -394,7 +398,10 @@ class UX {
                 ctx.stroke();
                 ctx.moveTo(width,30);
                 ctx.lineTo(0,30);
-                ctx.stroke();    
+                ctx.stroke(); 
+                ctx.moveTo(width,30);
+                ctx.lineTo(0,30);
+                ctx.stroke();  				
         }
     }
 
