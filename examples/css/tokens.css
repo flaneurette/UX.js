@@ -1,0 +1,227 @@
+:root { 
+
+	/* colors */
+
+	--red: #d93a63;
+	--lightred: #fdc5d3;
+	--green: #00cc33;
+	--lightgreen: #e4fcb7;
+	--blue: #3a50d9;
+	--lightblue: #c9dff9;
+	--magenta: #d200ff;
+	--lightmagenta: #f3c5fd;
+	--black: #000000;
+	--lightblack: #666666;
+	--white: #ffffff;
+	--lightwhite: #fffdf5;
+	--grey: #999999;	
+	--lightgrey: #b1b1b1;
+	
+	/* fonts */
+	--font-family: Roboto, Arial, Helvetica, sans-serif;
+	--fontsize-small: 14px;
+	--fontsize-medium: 24px;
+	--fontsize-large: 32px;
+	--fontsize-xlarge: 48px;
+
+	/* spacing */
+	--spacing-reset: 0px;
+	--spacing-small: 5px;
+	--spacing-medium: 10px;
+	--spacing-large: 20px;
+	--spacing-xlarge: 32px;
+	
+	--shadow-small: 0 1px 1px 0 rgba(0,0,0,0.12), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
+	--shadow-medium: 0 3px 4px 0 rgba(0,0,0,0.12), 0 3px 3px -2px rgba(0,0,0,0.12), 0 1px 8px 0 rgba(0,0,0,0.20);
+	--shadow-large: 0 6px 10px 0 rgba(0,0,0,0.12), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.20);
+	
+	--view-width-small: 10vw;
+	--view-width-medium: 20vw;
+	--view-width-large: 50vw;
+	--view-width-xlarge: 100vw;
+}
+
+* {
+	font-family: var(--font-family);
+}
+
+html, body {
+	margin: var(--spacing-reset);
+	padding: var(--spacing-reset);
+}
+
+fieldset {
+	color: var(--lightgrey);
+	display: inline-block;
+	border: 1px solid var(--lightgrey);
+	margin: 0em !important;
+	padding: 0em;
+	border-radius: 0.3em;
+	margin-inline-start: 0em;
+	margin-inline-end: 0em;
+	padding-block-start: 0.1em;
+	padding-inline-start: 0.5em;
+	padding-inline-end: 0.5em;
+	padding-block-end: 0.5em;
+	min-inline-size: 0em;
+}
+
+input {
+	padding: 0.6em;
+	margin: 0em;
+	border: 1px solid #f7f7f7;
+	border-radius: 0.3em;
+	width: var(--view-width-medium);
+	font-size: var(--font-medium);
+	box-shadow: var(--shadow-small);
+	display: block;
+}
+
+input[type=checkbox], input[type=radio]  {
+	accent-color: var(--blue); 
+}
+
+input[type=file], input[type=range] {
+	padding: 0.4em;
+	margin: 0em;
+}
+input[type=button],input[type=submit],input[type=reset] {
+	width: var(--view-width-medium);
+	background-color: var(--blue);
+    color: var(--lightblue);
+	border: 1px solid var(--blue);
+	box-shadow: var(--shadow-medium);
+	text-transform: uppercase;
+}
+
+input:focus {
+	outline: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: var(--font-family);
+}
+
+h1 {
+	font-size: var(--fontsize-large);
+}
+
+h2 {
+	font-size: var(--fontsize-large);
+}
+
+h3 {
+	font-size: var(--fontsize-medium);
+}
+
+hr {
+	margin: var(--spacing-large) 0px var(--spacing-large) 0px;
+	border: none;
+	height: 1px;
+	color: var(--grey);
+	background-color: var(--grey); 
+}
+
+.submit {
+	background-color: var(--green) !important;
+	border: 1px solid var(--green) !important;
+	color: var(--white);
+}
+.reset {
+	background-color: var(--magenta) !important;
+	border: 1px solid var(--magenta) !important;
+	color: var(--white);
+}
+
+.card {
+	width: var(--view-width-large);
+	padding: var(--spacing-large);
+	margin: var(--spacing-large);
+	box-shadow: var(--shadow-small);
+}
+
+.table {
+	border: 1px solid  var(--grey);
+	border-bottom: 1px solid  var(--white);
+	box-shadow: var(--shadow-small);
+	border-collapse: collapse;
+}
+.table tr {
+	margin: 0em;
+	padding: 0em;
+}
+
+.table td {
+	padding: var(--spacing-large);
+	border-bottom: 1px solid  var(--grey);
+	margin: 0em;
+}
+
+
+
+#dialog-message {
+	width: var(--view-width-large);
+	padding: var(--spacing-large);
+	margin: var(--spacing-large);
+	background-color: var(--blue);
+	color: var(--white);
+}
+
+#dialog-success {
+	width: var(--view-width-large);
+	padding: var(--spacing-large);
+	margin: var(--spacing-large);
+	background-color: var(--green);
+	color: var(--white);
+}
+
+#dialog-alert {
+	width: var(--view-width-large);
+	padding: var(--spacing-large);
+	margin: var(--spacing-large);
+	background-color: var(--red);
+	color: var(--white);
+}
+
+.close-dialog {
+	float:right;
+	font-weight: bold;
+	cursor:pointer;
+	font-size: var(--fontsize-medium);
+	transition: 0.5s;
+	color: var(--white);
+	margin: 0em;
+	padding: 0em;
+	margin-bottom: 0.5em;
+}
+.close-dialog:hover {
+  color: var(--black);
+}
+
+.chip {
+	width: var(--view-width-small);
+	padding: var(--spacing-large);
+	border-radius: 30px;
+	background-color: var(--lightblue);
+	text-align: center;
+	vertical-align: middle;
+}
+
+.dots {
+	padding: var(--spacing-small);
+	margin: var(--spacing-small);
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background-color: var(--lightblue);
+	text-align: center;
+	display: inline-block;
+	line-height:25px;
+}
+
+/* remove this */
+
+fieldset {
+	margin: 20px;
+	margin-right: 40px;
+}

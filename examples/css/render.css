@@ -1,0 +1,46 @@
+.navigation ul {
+	list-style: none;
+	display: block;
+	padding: 40px;
+	margin: 0px;
+	background-color: #000;
+	color: #fff;
+  }
+   .navigation ul li {
+	float:left;
+	width: 20%;
+	padding:0px;
+	margin-top:-8px;
+  } 
+  a:link, a:visited {
+	color:#fff;
+	text-decoration: none;
+  }
+  .login {
+	display: block;
+	margin: 20px;
+  }
+
+  input, p, h1 {
+	padding: 10px;
+	margin: 10px;
+	display: block;
+  }
+  
+  h1 {
+	margin-left: 33px;
+  }
+
+  .login {
+	height: 300px;
+  }
+  .footer {
+	background-color: #000;
+	height: 300px;
+	color: #fff;
+  }
+  .test {
+	color: blue;
+	font-weight: bold;
+  }
+  
