@@ -72,11 +72,11 @@
   width: 200px;
   height: 400px;
   z-index: 2;
-  display:none;
   float:right;
-  margin-top: 71px;
-  margin-right: -60px;
+  margin-top: 81px;
+  margin-right: 0px;
   border: 1px dashed black;
+  display:none;
   }
 
   li, ul {
