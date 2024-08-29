@@ -3,8 +3,9 @@
 	display: block;
 	padding: 40px;
 	margin: 0px;
-	background-color: #000;
+	background-color: #fff;
 	color: #fff;
+	border: 1px dashed black;
   }
    #navigation ul li {
 	float:left;
@@ -13,7 +14,7 @@
 	margin-top:-8px;
   } 
   a:link, a:visited {
-	color:#fff;
+	color:#000;
 	text-decoration: none;
   }
   .login {
@@ -35,9 +36,10 @@
 	height: 300px;
   }
   #footer {
-	background-color: #000;
+	background-color: #fff;
 	height: 300px;
-	color: #fff;
+	color: #000;
+	border: 1px dashed black;
   }
   .test {
 	color: blue;
@@ -55,17 +57,18 @@
 	  list-style:none;
   }
   #menuOut {
-  background-color: black;
+  background-color: #fff;
   z-index: 2;
   margin-top: 71px;
   margin-right: -50px;
   display:none;
+  border: 1px dashed black;
   }
 
   .menuShown {
   /* place menu effects here */
   transition: ease-in 0.3s;
-  background-color: black;
+  background-color: #fff;
   width: 200px;
   height: 400px;
   z-index: 2;
@@ -73,12 +76,9 @@
   float:right;
   margin-top: 71px;
   margin-right: -60px;
+  border: 1px dashed black;
   }
 
-  a:link, a:visited, li {
-  color: white;
-  text-decoration: none;
-  }
   li, ul {
   padding: 0px;
   margin-left: 0px;
@@ -90,10 +90,9 @@
   border-bottom: 1px solid #333;
   }
   #hamburger {
-  background-color: black;
+  background-color: white;
   padding:0px;
   float:right;
-  background-color: #000;
   margin-top: 20px;
   margin-right: 20px;
   height: 40px;
