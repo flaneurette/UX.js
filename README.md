@@ -61,17 +61,3 @@ An example to trigger events
 An example of how methods in UX.js works (under development)
 #### UX-forms.html
 An example showing a form, dynamically generated with UX.js
-
-# Full examples
-#### responsive-flex.html
-An example showing a responsive template, dynamically generated with UX.js (including toggle & flex)
-#### dev-tool.html
-By setting devtools: true, UX.js shows tooltip information and borders the elements for development.
-#### website.html
-An example showing a responsive website, dynamically generated with UX.js
-#### interface.html
-An example showing a responsive interface, dynamically generated with UX.js
-#### blog.html
-An example showing a blogpage, dynamically generated with UX.js
-#### shopping-cart.html
-An example showing a shoppingcart, dynamically generated with UX.js
