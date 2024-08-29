@@ -386,10 +386,12 @@ class UX {
             let width = Reflect.get(pairs, 1);
             let height = 10;
             let spacing = Reflect.get(pairs, 2);
+			if(document.getElementById('uxcanvas') == null) { 
             let canvas = document.createElement('canvas');
             node.append(canvas);
             canvas.setAttribute('width', width);
             canvas.setAttribute('height', width);
+			canvas.setAttribute('id', 'uxcanvas');
             var c = canvas;
             var ctx = c.getContext("2d");
             ctx.strokeStyle = Reflect.get(pairs, 0);
@@ -404,6 +406,7 @@ class UX {
             ctx.moveTo(width, (spacing * 3));
             ctx.lineTo(0, (spacing * 3));
             ctx.stroke();
+			}
 			
         }
     }
@@ -578,7 +581,6 @@ class UX {
     }
 
     loop(node, find, values) {
-		console.log(find);
         let att = this.getAtt(node, 'loop');
         let attclick = this.getAtt(node, 'click');
         let zebra = this.getAtt(node, 'zebra');
