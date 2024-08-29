@@ -2,94 +2,18 @@
 <html lang="en">
 <head>
   <title>UX Hamburger</title>
-  <style>
-  html, body {
-  padding: 0px;
-  margin: 0px;
-  font-family: "Segoe UI", Arial;
-  }
-
-  .div1 {
-  min-width: 100%;
-  padding: 0px;
-  margin: 0px;
-  background-color: black;
-  height:70px;
-  }
-
-  .div1, .div2 {
-  padding: 0px;
-  }
-
-  .div2 {
-  padding:5px;
-  margin: 10px;
-  }
-
-  ul {
-  list-style: none;
-  float: left;
-  margin: 0px;
-  padding: 0px;
-  width: 100px;
-  }
-
-  #menu {
-  background-color: black;
-  width: 200px;
-  height: 200px;
-  z-index: 2;
-  margin-top:0px;
-  margin-left:-10px;
-  display:none;
-  }
-
-  .menuShown {
-  /* place menu effects here */
-  transition: ease-in 0.3s;
-  background-color: black;
-  width: 200px;
-  height: 400px;
-  z-index: 2;
-  margin-top:-10px;
-  margin-left:-85px;
-  display:none;
-  }
-
-  a:link, a:visited, li {
-  color: white;
-  text-decoration: none;
-  }
-  li {
-  padding: 10px;
-  margin-left: 0px;
-  }
-  .menuShown li {
-  border-bottom: 1px solid #333;
-  }
-  #hamburger {
-  background-color: black;
-  padding:0px;
-  margin-top:-10px;
-  }
-  </style>
+    <link rel="stylesheet" href="css/tokens.css">
+	<link rel="stylesheet" href="css/hamburger.css">
 <script src="../assets/UX.js"></script>
 </head>
 <body>
 
-<div class="div1" :flex="right:row">
-	    <div class="div2">
-		<ul>
-			<li>
-			<div id="hamburger" :hamburger="orange:40:10" :toggle="menuOut:in:menuShown">
-			</div>
-			</li>
-		<ul>
+		<div id="hamburger">
+			<div :hamburger="orange:40:10" :toggle="menuOut:in:menuShown"></div>
+		</div>
 		<ul id="menuOut" :loop="navigation">
 			<li>{{link}}</li>
 		</ul>
-		</div>
-</div>
 
 	<script>
 	

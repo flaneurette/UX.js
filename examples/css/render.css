@@ -1,4 +1,4 @@
-.navigation ul {
+	#navigation ul {
 	list-style: none;
 	display: block;
 	padding: 40px;
@@ -6,7 +6,7 @@
 	background-color: #000;
 	color: #fff;
   }
-   .navigation ul li {
+   #navigation ul li {
 	float:left;
 	width: 20%;
 	padding:0px;
@@ -18,7 +18,7 @@
   }
   .login {
 	display: block;
-	margin: 20px;
+	margin: 39px;
   }
 
   input, p, h1 {
@@ -31,10 +31,10 @@
 	margin-left: 33px;
   }
 
-  .login {
+  #login {
 	height: 300px;
   }
-  .footer {
+  #footer {
 	background-color: #000;
 	height: 300px;
 	color: #fff;
@@ -43,4 +43,60 @@
 	color: blue;
 	font-weight: bold;
   }
+  #header {
+	  margin-top: 30px;
+  }
   
+  footer > div {
+	  margin-top:33px;
+  }
+
+  ul {
+	  list-style:none;
+  }
+  #menuOut {
+  background-color: black;
+  z-index: 2;
+  margin-top: 71px;
+  margin-right: -50px;
+  display:none;
+  }
+
+  .menuShown {
+  /* place menu effects here */
+  transition: ease-in 0.3s;
+  background-color: black;
+  width: 200px;
+  height: 400px;
+  z-index: 2;
+  display:none;
+  float:right;
+  margin-top: 71px;
+  margin-right: -60px;
+  }
+
+  a:link, a:visited, li {
+  color: white;
+  text-decoration: none;
+  }
+  li, ul {
+  padding: 0px;
+  margin-left: 0px;
+  }
+  li {
+	 padding: 10px;  
+  }
+  .menuShown li {
+  border-bottom: 1px solid #333;
+  }
+  #hamburger {
+  background-color: black;
+  padding:0px;
+  float:right;
+  background-color: #000;
+  margin-top: 20px;
+  margin-right: 20px;
+  height: 40px;
+  width: 40px;
+  overflow:hidden;
+  }

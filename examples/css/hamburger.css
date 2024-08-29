@@ -1,0 +1,76 @@
+  html, body {
+  padding: 0px;
+  margin: 0px;
+  font-family: "Segoe UI", Arial;
+  }
+
+  .div1 {
+  min-width: 100%;
+  padding: 0px;
+  margin: 0px;
+  background-color: black;
+  height:70px;
+  }
+
+  .div1, .div2 {
+  padding: 0px;
+  }
+
+  .div2 {
+  padding:5px;
+  margin: 10px;
+  }
+
+  ul {
+  list-style: none;
+  float: left;
+  margin: 0px;
+  padding: 0px;
+  width: 100px;
+  }
+
+  #menu {
+  background-color: black;
+  width: 200px;
+  height: 200px;
+  z-index: 2;
+  margin-top:0px;
+  margin-left:-10px;
+  display:none;
+  }
+
+  .menuShown {
+  /* place menu effects here */
+  transition: ease-in 0.3s;
+  background-color: black;
+  width: 200px;
+  height: 400px;
+  z-index: 2;
+  display:none;
+  }
+
+  a:link, a:visited, li {
+  color: white;
+  text-decoration: none;
+  }
+  li {
+  padding: 10px;
+  margin-left: 0px;
+  }
+  .menuShown li {
+  border-bottom: 1px solid #333;
+  }
+  #hamburger {
+  background-color: black;
+  padding:0px;
+  float:right;
+  background-color: #000;
+  width: 100%;
+  position: absolute;
+  right: 0px;
+  }
+  #hamburger > div {
+	float:right;
+	margin-right:20px;
+  }
+  

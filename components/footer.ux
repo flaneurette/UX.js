@@ -1,5 +1,8 @@
 <section>
-	<footer>
-		<p>{{footer}}</p>
+	<footer :flex="center:row">
+		<div>{{footer}}</div>
+		<div></div>
+		<div></div>
+		<div></div>
 	</footer>
 </section>

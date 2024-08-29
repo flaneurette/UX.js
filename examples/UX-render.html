@@ -9,13 +9,17 @@
 </head>
 <body>
 
-	<section class="navigation" :render="navigation.ux"></section>
-	
-	<section class="header" :render="header.ux"></section>
-	
-	<section class="login" :render="login.ux"></section>
-	
-	<section class="footer" :render="footer.ux"></section>
+	<div id="hamburger">
+		<div :hamburger="white:40:10" :toggle="menuOut:in:menuShown"></div>
+	</div>
+	<ul id="menuOut" :loop="hamburger">
+			<li>{{link}}</li>
+	</ul>
+
+	<section id="navigation" :render="navigation.ux"></section>
+	<section id="header" :render="header.ux"></section>
+	<section id="login" :render="login.ux"></section>
+	<section id="footer" :render="footer.ux"></section>
 	
 	<script>
 	let app = new UX();
@@ -27,10 +31,17 @@
 				{link3: '<a href="#">Contact</a>'},
 				{link4: '<a href="#">Links</a>'},
 			],
+			hamburger: [
+			{name: 'Index', link: '<a href="#">Index</a>'},
+			{name: 'About', link: '<a href="#">About</a>'},
+			{name: 'Projects', link: '<a href="#">Projects</a>'},
+			{name: 'Media', link: '<a href="#">Media</a>'},
+			{name: 'Contact', link: '<a href="#">Contact</a>'},
+			],
 			userName: "Your name",
 			password: "Your password",
 			submit: "Sign-in",
-			class: "login",
+			classList: "login",
 			header: "Login",
 			footer: "Copyright (c)",
 		}

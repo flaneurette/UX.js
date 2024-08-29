@@ -20,12 +20,12 @@ class UX {
             let data = list.data
             let method = list.methods;
             let events = list.events;
-            this.parseNodes(data);    
+            this.parseNodes(data);
             Reflect.preventExtensions(data);
             if (data) {
                 this.nodes('render', data);
-                this.parseFunctions(data,method);
-                if(Reflect.has(data, "devtools")) this.nodes('devtools', data);
+                this.parseFunctions(data, method);
+                if (Reflect.has(data, "devtools")) this.nodes('devtools', data);
             }
         } else {
             this.log(this.msg['initialize']);
@@ -59,7 +59,7 @@ class UX {
             if (method == 'bindCascade') this.bindCascade(docElements[i], find, value);
             if (method == 'bindLazyLoad') this.bindLazyLoad(docElements[i], find, value);
             if (method == 'bindUri') this.bindUri(docElements[i], find, value);
-            if (method == 'bindHamburger')  this.bindHamburger(docElements[i]);
+            if (method == 'bindHamburger') this.bindHamburger(docElements[i]);
             let docChildren = this.nodeChildren(docElements[i]);
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
@@ -71,29 +71,30 @@ class UX {
             }
         }
     }
-    
-    parseFunctions(data,method) {
+
+    parseFunctions(data, method) {
+
         for (const [key, value] of Object.entries(data)) {
-        if (Array.isArray(value)) {
-            this.nodes('bindLoop', key, value);
-            this.nodes('createForm', key, value);
-            this.nodes('replaceNodeValue', key, value);
-            this.nodes('bindAttributesNode', key, value);
-            this.nodes('bindLogic', key, value);
-            this.nodes('bindOn', key, value, data, method);
-            this.nodes('bindActive');
+            if (Array.isArray(value)) {
+                this.nodes('bindLoop', key, value);
+                this.nodes('createForm', key, value);
+                this.nodes('replaceNodeValue', key, value);
+                this.nodes('bindAttributesNode', key, value);
+                this.nodes('bindLogic', key, value);
+                this.nodes('bindOn', key, value, data, method);
+                this.nodes('bindActive');
             } else {
-            this.nodes('replaceNodeValue', key, value);
-            this.nodes('bindAttributesNode', key, value);
-            this.nodes('bindLogic', key, value);
-            this.nodes('bindOn', key, value, data, method);
-            this.nodes('bindActive');
+                this.nodes('replaceNodeValue', key, value);
+                this.nodes('bindAttributesNode', key, value);
+                this.nodes('bindLogic', key, value);
+                this.nodes('bindOn', key, value, data, method);
+                this.nodes('bindActive');
+            }
         }
-      }
     }
-    
+
     parseNodes(data) {
-        this.nodes('bindActive');            
+        this.nodes('bindActive');
         this.nodes('bindToggle');
         this.nodes('bindMenu');
         this.nodes('bindVoid');
@@ -108,9 +109,9 @@ class UX {
         this.nodes('bindCascade');
         this.nodes('bindUri');
         this.nodes('bindHamburger');
-        this.nodes('bindFunctions', false, false, data);        
+        this.nodes('bindFunctions', false, false, data);
     }
-    
+
     getElements() {
         let docElements = UX.docElements;
         return docElements;
@@ -146,26 +147,26 @@ class UX {
 
     getAttCheck(node, part) {
         let check = (node.getAttribute('ux:' + part) !== null ||
-        node.getAttribute(':' + part) !== null) ? true : false;
+            node.getAttribute(':' + part) !== null) ? true : false;
         return check;
     }
 
     isInt(value) {
         return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
     }
-    
+
     dom(id, method, value = null) {
         if (id !== null) {
-            if(method == 'id') return document.getElementById(id);
-            if(method == 'get') return document.getElementById(id).value;
-            if(method == 'set') document.getElementById(id).value = value;    
-            if(method == 'none') document.getElementById(id).style.display = 'none';  
-            if(method == 'block') document.getElementById(id).style.display = 'block';  
-            if(method == 'sethtml') document.getElementById(id).innerHTML = value; 
-            if(method == 'gethtml') return document.getElementById(id).innerHTML; 
-            if(method == 'display') document.getElementById(id).style.display = value;  
-            if(method == 'parent') return document.getElementById(id).parentNode;  
-            if(method == 'children') return document.getElementById(id).children; 
+            if (method == 'id') return document.getElementById(id);
+            if (method == 'get') return document.getElementById(id).value;
+            if (method == 'set') document.getElementById(id).value = value;
+            if (method == 'none') document.getElementById(id).style.display = 'none';
+            if (method == 'block') document.getElementById(id).style.display = 'block';
+            if (method == 'sethtml') document.getElementById(id).innerHTML = value;
+            if (method == 'gethtml') return document.getElementById(id).innerHTML;
+            if (method == 'display') document.getElementById(id).style.display = value;
+            if (method == 'parent') return document.getElementById(id).parentNode;
+            if (method == 'children') return document.getElementById(id).children;
         }
     }
 
@@ -224,7 +225,7 @@ class UX {
             }
         }
     }
-    
+
     bindShow(node) {
         let att = this.getAtt(node, 'hidden');
         if (att !== null) {
@@ -283,14 +284,14 @@ class UX {
                 let flexbox = att.split(':');
                 let flex = 'display:flex;';
                 let flexdir = 'flex-direction:' + Reflect.get(flexbox, 1) + ';';
-                if(Reflect.get(flexbox, 0) == 'true' 
-                || Reflect.get(flexbox, 0) == '1' 
-                || Reflect.get(flexbox, 0) == 'start' 
-                || Reflect.get(flexbox, 0) == 'left') node.setAttribute("style", flex + flexdir);
-                if(Reflect.get(flexbox, 0) == 'end' 
-                || Reflect.get(flexbox, 0) == 'right') node.setAttribute("style", flex + 'justify-content: flex-end;' + flexdir);
-                if(Reflect.get(flexbox, 0) == 'center') node.setAttribute("style", flex + 'justify-content: center;' + flexdir);
-                if(Reflect.get(flexbox, 0) == 'bottom') node.setAttribute("style", flex + 'align-items: baseline;' + flexdir);
+                if (Reflect.get(flexbox, 0) == 'true' ||
+                    Reflect.get(flexbox, 0) == '1' ||
+                    Reflect.get(flexbox, 0) == 'start' ||
+                    Reflect.get(flexbox, 0) == 'left') node.setAttribute("style", flex + flexdir);
+                if (Reflect.get(flexbox, 0) == 'end' ||
+                    Reflect.get(flexbox, 0) == 'right') node.setAttribute("style", flex + 'justify-content: flex-end;' + flexdir);
+                if (Reflect.get(flexbox, 0) == 'center') node.setAttribute("style", flex + 'justify-content: center;' + flexdir);
+                if (Reflect.get(flexbox, 0) == 'bottom') node.setAttribute("style", flex + 'align-items: baseline;' + flexdir);
             }
         }
     }
@@ -301,16 +302,16 @@ class UX {
             if (att.indexOf(':') != -1) {
                 let f = att.split(':');
                 let keyframes = document.createElement("style");
-                keyframes.textContent = '@keyframes ' + Reflect.get(f, 0) 
-                + '{ from { ' + Reflect.get(f, 5).toString() 
-                + ': var(--from);} to {' + Reflect.get(f, 5).toString() 
-                + ':var(--to);}}';
+                keyframes.textContent = '@keyframes ' + Reflect.get(f, 0) +
+                    '{ from { ' + Reflect.get(f, 5).toString() +
+                    ': var(--from);} to {' + Reflect.get(f, 5).toString() +
+                    ':var(--to);}}';
                 document.body.appendChild(keyframes);
-                node.style = 'position: relative; --from:' 
-                + Reflect.get(f, 3) + 'px; --to:' + Reflect.get(f, 4) 
-                + 'px; animation: ' + Reflect.get(f, 0) + ' ' 
-                + Reflect.get(f, 2) + ' forwards; animation-timing-function: ' 
-                + Reflect.get(f, 1) + ';';
+                node.style = 'position: relative; --from:' +
+                    Reflect.get(f, 3) + 'px; --to:' + Reflect.get(f, 4) +
+                    'px; animation: ' + Reflect.get(f, 0) + ' ' +
+                    Reflect.get(f, 2) + ' forwards; animation-timing-function: ' +
+                    Reflect.get(f, 1) + ';';
             }
         }
     }
@@ -319,7 +320,7 @@ class UX {
         let att = this.getAtt(node, 'cascade');
         if (att !== null) {
             let a = att.split(':');
-            const [type,index,height1,height2] = a;
+            const [type, index, height1, height2] = a;
             let childs = node.children;
             for (let i = 0; i < childs.length; i++) {
                 if (type == 'menu') {
@@ -329,13 +330,13 @@ class UX {
                         styles += 'z-index:' + (childs.length + 1) + ';';
                         styles += 'height:' + height1 + 'px!important;';
                         styles += 'width:100%;';
-                        node.children[i].setAttribute("style",styles);
+                        node.children[i].setAttribute("style", styles);
                     } else {
                         let styles = '';
                         styles += 'position:relative!important;';
                         styles += 'z-index:' + (i + 2) + ';';
                         styles += 'top:' + height2 + 'px;';
-                        node.children[i].setAttribute("style",styles);
+                        node.children[i].setAttribute("style", styles);
                     }
                 } else {
                     if (i == index) {
@@ -343,13 +344,13 @@ class UX {
                         styles += 'position:fixed!important;';
                         styles += 'z-index:0;';
                         styles += 'width:100%;';
-                        node.children[i].setAttribute("style",styles);
+                        node.children[i].setAttribute("style", styles);
                     } else {
                         let styles = '';
                         styles += 'position:relative!important;';
                         styles += 'z-index:' + (i + 2) + ';';
                         styles += 'top:' + height2 + 'px;';
-                        node.children[i].setAttribute("style",styles);
+                        node.children[i].setAttribute("style", styles);
                     }
                 }
             }
@@ -360,11 +361,11 @@ class UX {
         let att = this.getAtt(node, 'lazy');
         if (att !== null) {
             let lazy = att.split(':');
-            node.setAttribute("loading","lazy");
+            node.setAttribute("loading", "lazy");
             let style = '';
             style += "background-color:" + Reflect.get(lazy, 1) + ";";
             style += "background-size: cover;";
-            node.setAttribute("style",style);
+            node.setAttribute("style", style);
         }
     }
 
@@ -377,54 +378,53 @@ class UX {
             });
         }
     }
-    
+
     bindHamburger(node) {
         let att = this.getAtt(node, 'hamburger');
         if (att !== null && att.indexOf(':') !== -1) {
             let pairs = att.split(':');
             let width = Reflect.get(pairs, 1);
-			let height = 10;
-			let spacing = Reflect.get(pairs, 2);
-			    let canvas = document.createElement('canvas');
-				node.append(canvas);
-				canvas.setAttribute('width',width);
-				canvas.setAttribute('height',width);
-                var c = canvas;
-                var ctx = c.getContext("2d");
-                ctx.strokeStyle = Reflect.get(pairs, 0);
-				if(!spacing) spacing = 0;
-                ctx.moveTo(width,spacing);
-                ctx.lineTo(0,spacing);
-                ctx.stroke();
-                ctx.moveTo(width,(spacing * 2));
-                ctx.lineTo(0,(spacing * 2));
-                ctx.stroke();
-                ctx.moveTo(width,(spacing * 3));
-                ctx.lineTo(0,(spacing * 3));
-                ctx.stroke(); 
-                ctx.moveTo(width,(spacing * 3));
-                ctx.lineTo(0,(spacing * 3));
-                ctx.stroke();  				
+            let height = 10;
+            let spacing = Reflect.get(pairs, 2);
+            let canvas = document.createElement('canvas');
+            node.append(canvas);
+            canvas.setAttribute('width', width);
+            canvas.setAttribute('height', width);
+            var c = canvas;
+            var ctx = c.getContext("2d");
+            ctx.strokeStyle = Reflect.get(pairs, 0);
+            if (!spacing) spacing = 0;
+			ctx.lineWidth = 2;
+            ctx.moveTo(width, spacing);
+            ctx.lineTo(0, spacing);
+            ctx.stroke();
+            ctx.moveTo(width, (spacing * 2));
+            ctx.lineTo(0, (spacing * 2));
+            ctx.stroke();
+            ctx.moveTo(width, (spacing * 3));
+            ctx.lineTo(0, (spacing * 3));
+            ctx.stroke();
+			
         }
     }
 
     bindToggle(node) {
         let att = this.getAtt(node, 'toggle');
         if (att !== null && att.indexOf(':') !== -1) {
-            let pairs = att.split(':');
             node.addEventListener('click', () => {
-                let docElements1 = document.getElementsByTagName("*");
+				let att = this.getAtt(node, 'toggle');
+				let pairs = att.split(':');
+                let docElements1 = document.all;
                 for (let i = 0; i < docElements1.length; i++) {
                     let att = docElements1[i].getAttribute(':toggle');
                     if (att !== null) {
-                        let pairs1 = att.split(':');
                         if (Reflect.get(pairs, 1) == 'in') {
-                            node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':close');
-                            if(Reflect.get(pairs, 2)) document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2));
+                            node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
+                            if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).className = Reflect.get(pairs, 2); }
                             document.getElementById(Reflect.get(pairs, 0)).style.display = 'block';
                         }
-                        if (Reflect.get(pairs, 1) == 'close') {
-                            node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in');
+                        if (Reflect.get(pairs, 1) == 'out') {
+                            node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in:' + Reflect.get(pairs, 2));
                             document.getElementById(Reflect.get(pairs, 0)).style.display = 'none';
                         }
                     }
@@ -450,7 +450,7 @@ class UX {
                 });
             }
             if (Reflect.get(pairs, 1) == 'out') {
-                node.addEventListener('mouseout', () =>  {
+                node.addEventListener('mouseout', () => {
                     let att = node.getAttribute(':menu');
                     if (att !== null && att.indexOf(':') !== -1) {
                         let pairs = att.split(':');
@@ -460,38 +460,38 @@ class UX {
             }
         }
     }
-        
+
     bindFunctions(node, data, find, value) {
-        
+
         let att = this.getAtt(node, 'click');
         let docElements = UX.docElements;
-        let countID, count, multiply, countdown, interval, clear, countvalue = 0; 
-        
-        for(const [key, value] of Object.entries(data)) { 
-            if(key == 'id') countID = value; 
-            if(key == 'count') count = value;  
-            if(key == 'countvalue') countvalue = value;
-            if(key == 'multiply') multiply = value; 
-            if(key == 'countdown') countdown = value; 
-            if(key == 'interval') interval = value; 
-            if(key == 'clear') clear = value; 
+        let countID, count, multiply, countdown, interval, clear, countvalue = 0;
+
+        for (const [key, value] of Object.entries(data)) {
+            if (key == 'id') countID = value;
+            if (key == 'count') count = value;
+            if (key == 'countvalue') countvalue = value;
+            if (key == 'multiply') multiply = value;
+            if (key == 'countdown') countdown = value;
+            if (key == 'interval') interval = value;
+            if (key == 'clear') clear = value;
         }
-        
-        if (att !== null) { 
+
+        if (att !== null) {
             let counterNode = document.getElementById(countID);
             node.addEventListener('click', () => {
                 var calc = Number(counterNode.innerText);
                 if (att == 'count++') counterNode.innerText = this.isInt((calc) + countvalue);
                 if (att == 'count--') counterNode.innerText = this.isInt((calc) - countvalue);
                 if (att == 'multiply') counterNode.innerText = this.isInt((calc) * multiply);
-                if (att == 'countdown') { 
-                let timer = setInterval(() =>{
-                    counterNode.innerText = this.isInt(Number(counterNode.innerText) - countvalue); 
-                    if(Number(counterNode.innerText)<=clear) clearInterval(timer); 
+                if (att == 'countdown') {
+                    let timer = setInterval(() => {
+                        counterNode.innerText = this.isInt(Number(counterNode.innerText) - countvalue);
+                        if (Number(counterNode.innerText) <= clear) clearInterval(timer);
                     }, interval);
                 }
             });
-           
+
         }
     }
 
@@ -508,7 +508,7 @@ class UX {
             });
         }
     }
-    
+
     bindOn(node, data, methods, find, value) {
         let att = this.getAtt(node, 'click');
         if (this.getAttCheck(node, 'click') == true) {
@@ -578,30 +578,34 @@ class UX {
     }
 
     loop(node, find, values) {
+		console.log(find);
         let att = this.getAtt(node, 'loop');
         let attclick = this.getAtt(node, 'click');
         let zebra = this.getAtt(node, 'zebra');
-        if (att !== null && att == find) {
-            let c = node.children[0];
-            let h = c.innerHTML;
+        if (att !== null && att == find) { 
+            var c = node.children[0];
+            var h = c.innerHTML;
             let object = Object.entries(values);
             let len = object.length;
             for (let i = 0; i < len; i++) {
                 let k = Object.keys(object[i][1]);
                 let v = Object.values(object[i][1]);
-                c.innerHTML = h.replace("UX1234", ""); // DOM bug
-                for (let j = 0; j < v.length; j++) {
-                    if (c.innerHTML) {
-                        c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
-                        if (c.innerHTML.indexOf("{{" + k[j] + "}}") != -1) {
-                            c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
-                        }
-                    }
-                    c.setAttribute('id', find + i);
-                }
-                node.append(c);
-                c = c.cloneNode(true);
-                if (zebra !== null && node.children[i]) {
+				c.innerHTML = h.replace("UX:" + Math.random(), ""); // DOM bug
+				if(c.getAttribute('id') != (find + i).toString) {
+					for (let j = 0; j < v.length; j++) { 
+						if (c.innerHTML !== null) {
+							c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
+							if (c.innerHTML.indexOf("{{" + k[j] + "}}") != -1) { 
+								c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
+							}
+						}
+						c.setAttribute('id', find + i);
+					}
+					
+					node.append(c);
+					c = c.cloneNode(true);
+				}
+                if (zebra !== null && node.children[i]) { 
                     let mod = 2;
                     let className = zebra;
                     if (zebra.indexOf(':') != -1) {
@@ -614,56 +618,57 @@ class UX {
             }
         }
     }
-    
-    render(node, data) {       
+
+    render(node, data) {
         let attribute = this.getAtt(node, 'render');
         let uri = UX.componentsDir + attribute;
-            if (attribute !== null) {
-                const options = new Headers();
-                options.append("Cache-Control", UX.cacheControl);
-                let promise = fetch(uri, options)
-                 .then(file => file.text())
-                 .then(response => node.setHTMLUnsafe(response))
-                 .then(() => this.renderHTML(node,data))
-                 .then(() => this.parseNodes(data));
+        if (attribute !== null) {
+            const options = new Headers();
+            options.append("Cache-Control", UX.cacheControl);
+            let promise = fetch(uri, options)
+                .then(file => file.text())
+                .then(response => node.setHTMLUnsafe(response))
+                .then(() => this.renderHTML(node, data))
+                .then(() => this.parseNodes(data))
         }
     }
-        
-    renderHTML(node,data) { 
-        for (const [key, value] of Object.entries(data)) { 
-        if(Array.isArray(value)) {
-            let j =0;
-            for (const [keys, values] of Object.entries(value)) { 
-                let array = Object.entries(value[j]);
-                node.innerHTML = node.innerHTML.replace('{{'+ array[0][0] +'}}', array[0][1]);
-            j++;
+
+    renderHTML(node, data) {
+
+        for (const [key, value] of Object.entries(data)) {
+            if (Array.isArray(value)) {
+                let j = 0;
+                for (const [keys, values] of Object.entries(value)) {
+                    let array = Object.entries(value[j]);
+                    node.innerHTML = node.innerHTML.replace('{{' + array[0][0] + '}}', array[0][1]);
+                    j++;
+                }
+            } else {
+                node.innerHTML = node.innerHTML.replace('{{' + key + '}}', value);
             }
-         } else {         
-         node.innerHTML = node.innerHTML.replace('{{'+ key +'}}', value);
         }
-      }
     }
-    
+
     fetch(obj) {
         if (Object(obj)) {
             let docElements = this.nodeParentList();
-              for (let i = 0; i < docElements.length; i++) {
+            for (let i = 0; i < docElements.length; i++) {
                 let docChildren = this.nodeChildren(docElements[i]);
-                  for (let j = 0; j < docChildren.length; j++) {
+                for (let j = 0; j < docChildren.length; j++) {
                     for (const [key, value] of Object.entries(obj)) {
-                      if (Object(value)) {
-                        for (const [key1, value1] of Object.entries(value)) {
-                         if (docChildren[j].nodeType === 3) {
-                           docChildren[j].nodeValue = docChildren[j].nodeValue.replace("{{"+key1+"}}", value1);
-                  }
+                        if (Object(value)) {
+                            for (const [key1, value1] of Object.entries(value)) {
+                                if (docChildren[j].nodeType === 3) {
+                                    docChildren[j].nodeValue = docChildren[j].nodeValue.replace("{{" + key1 + "}}", value1);
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
-        }    
-      }
+        }
     }
-    
+
     async (uri, method, callback) {
         let att = false;
         let docElements = this.nodeParentList();
@@ -689,7 +694,7 @@ class UX {
                             req.withCredentials = true;
                             req.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
                             req.setRequestHeader('Content-Type', UX.asyncType);
-                            req.onreadystatechange = () =>  {
+                            req.onreadystatechange = () => {
                                 if (req.readyState == 4 && req.status == 200) {
                                     if (req.responseText) {
                                         callback(req.responseText);
@@ -711,29 +716,29 @@ class UX {
         req.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
         req.setRequestHeader("Content-Type", UX.contentType);
         if (method == 'callback') {
-            req.onreadystatechange = () =>  {
+            req.onreadystatechange = () => {
                 if (req.readyState == 4 && req.status == 200) {
                     callback(req.responseText);
                 }
             }
             req.send();
         } else if (method == 'get') {
-            req.onreadystatechange = () =>  {
+            req.onreadystatechange = () => {
                 if (req.readyState == 4 && req.status == 200) {
                     return JSON.parse(req.responseText);
                 }
             }
             req.send();
-        } else if(method == 'render') {
-            req.onreadystatechange = () =>  {
+        } else if (method == 'render') {
+            req.onreadystatechange = () => {
                 if (req.readyState == 4 && req.status == 200) {
                     return req.responseText;
                 }
             }
-            req.send();    
+            req.send();
         }
-        
-    }    
+
+    }
 
     createElements(node, type, arr) {
         let opt = document.createElement(type);
@@ -781,20 +786,20 @@ class UX {
             parents.appendChild(options);
         }
     }
-    
+
     bindDevtool(node) {
         if (node.className !== '' && node.id !== '') {
             node.setAttribute('title', 'CLASS: ' + node.className + ', ID: ' + node.id);
             node.style = 'border: 1px dashed green;';
-            } else if (node.className !== '') {
+        } else if (node.className !== '') {
             node.setAttribute('title', 'CLASS: ' + node.className);
             node.style = 'border: 1px dashed black;';
-            } else if (node.id !== '') {
+        } else if (node.id !== '') {
             node.setAttribute('title', 'ID: ' + node.id);
             node.style = 'border: 1px dashed red;';
         }
     }
-    
+
     log(msg) {
         console.log(msg);
     }
@@ -804,4 +809,3 @@ class UX {
         enumerate: "ux: Could not enumerate global object."
     }
 }
-    
