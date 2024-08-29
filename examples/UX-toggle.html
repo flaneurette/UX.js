@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
   <title>UX Toggle</title>
-    <link rel="stylesheet" href="css/tokens.css">
+	<link rel="stylesheet" href="css/tokens.css">
 	<link rel="stylesheet" href="css/hamburger.css">
 <script src="../assets/UX.js"></script>
 </head>
 <body>
 
-		<div id="hamburger">
-			<div :hamburger="orange:40:10" :toggle="menuOut:in:menuShown"></div>
-		</div>
-		<ul id="menuOut" :loop="navigation">
-			<li>{{link}}</li>
-		</ul>
+	<div id="hamburger">
+		<div :hamburger="white:40:10" :toggle="menuOut:in:menuShown"></div>
+	</div>
+	<ul id="menuOut" :loop="navigation">
+		<li>{{link}}</li>
+	</ul>
 
 	<script>
 	
