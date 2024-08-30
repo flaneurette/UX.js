@@ -43,16 +43,13 @@
 
   .menuShown {
   /* place menu effects here */
-  transition: ease-in 0.3s;
-  background-color: #fff;
-  width: 200px;
-  height: 400px;
-  z-index: 2;
-  display:none;
-  float:right;
-  margin-top: 81px;
-  margin-right: 0px;
-  border: 1px dashed black;
+	transition: ease-in 0.3s !important;
+    height: 400px;
+    z-index: 2;
+    float: right;
+    margin-right: 0px;
+    border: 1px dashed black;
+    display: none;
   }
 
   a:link, a:visited, li {
