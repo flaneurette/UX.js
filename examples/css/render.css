@@ -1,114 +1,114 @@
    #navigation ul {
-	list-style: none;
-	display: block;
-	padding: 40px;
-	margin: 0px;
-	background-color: #fff;
-	color: #fff;
-	border: 1px dashed black;
-  }
-  
+   list-style: none;
+   display: block;
+   padding: 40px;
+   margin: 0px;
+   background-color: #fff;
+   color: #fff;
+   border: 1px dashed black;
+   }
+
    #navigation ul li {
-	float:left;
-	width: 20%;
-	padding:0px;
-	margin-top:-8px;
-  } 
-  
-  a:link, a:visited {
-	color:#000;
-	text-decoration: none;
-  }
-  
-  .login {
-	display: block;
-	margin: 39px;
-  }
+   float:left;
+   width: 20%;
+   padding:0px;
+   margin-top:-8px;
+   }
 
-  input, p, h1 {
-	padding: 10px;
-	margin: 10px;
-	display: block;
-  }
-  
-  h1 {
-	margin-left: 33px;
-  }
+   a:link, a:visited {
+   color:#000;
+   text-decoration: none;
+   }
 
-  #login {
-	height: 300px;
-  }
-  
-  #header {
-	  margin-top: 30px;
-  }
-  
-  #footer {
-	background-color: #fff;
-	height: 300px;
-	color: #000;
-	border: 1px dashed black;
-  }
-  
-  .test {
-	color: blue;
-	font-weight: bold;
-  }
-  
-  footer > div {
-	  margin-top:33px;
-  }
+   .login {
+   display: block;
+   margin: 39px;
+   }
 
-  ul {
-	  list-style:none;
-  }
+   input, p, h1 {
+   padding: 10px;
+   margin: 10px;
+   display: block;
+   }
 
-  li, ul {
-  padding: 0px;
-  margin-left: 0px;
-  }
+   h1 {
+   margin-left: 33px;
+   }
 
-  li {
-	 padding: 10px;  
-  }
+   #header {
+   margin-top: 30px;
+   }
 
- /* Hamburger CSS menu animation */
- 
-  #hamburger {
-	background-color: white;
-    padding: 0px;
-    float: right;
-    margin-top: 20px;
-    margin-right: 20px;
-    height: 40px;
-    width: 40px;
-    overflow: hidden;
-    position: absolute;
-    top: 0px;
-    right: 0;
-  }
-  
-  #menuOut {
-	width: 100px;
-	cursor: pointer;
-    transition: height 0.5s ease;
-    position: absolute;
-    overflow: hidden;
-    height: 0;
-  }
+   #footer {
+   background-color: #fff;
+   height: 300px;
+   color: #000;
+   border: 1px dashed black;
+   }
 
-  .menuShown {
-	height: 400px !important;
-    width: 200px !important;
-    top: 43px;
-    right: 0;
-	top: 65px;
-    z-index: 2;
-    float: right;
-    margin-right: 0px;
-    border: 1px dashed black;
-    display: block;
-  }
-  .menuShown li {
-  border-bottom: 1px solid #333;
-  }
+   #login {
+   height: 300px;
+   }
+
+   .test {
+   color: blue;
+   font-weight: bold;
+   }
+
+   footer > div {
+   margin-top:33px;
+   }
+
+   ul {
+   list-style:none;
+   }
+
+   li, ul {
+   padding: 0px;
+   margin-left: 0px;
+   }
+
+   li {
+   padding: 10px;
+   }
+
+   /* Hamburger CSS menu animation */
+
+   #hamburger {
+   background-color: white;
+   padding: 0px;
+   float: right;
+   margin-top: 20px;
+   margin-right: 20px;
+   height: 40px;
+   width: 40px;
+   overflow: hidden;
+   position: absolute;
+   top: 0px;
+   right: 0;
+   }
+
+   #menuOut {
+   width: 200px;
+   height: 0;
+   cursor: pointer;
+   transition: height 0.5s ease;
+   position: absolute;
+   overflow: hidden;
+   }
+
+   .menuShown {
+   height: 400px !important;
+   width: 200px !important;
+   top: 43px;
+   right: 0;
+   top: 65px;
+   z-index: 2;
+   float: right;
+   margin-right: 0px;
+   border: 1px dashed black;
+   display: block;
+   }
+   .menuShown li {
+   border-bottom: 1px solid #333;
+   }

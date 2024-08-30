@@ -34,14 +34,14 @@
   color: black;
   text-decoration: none;
   }
-  
+
   li {
   padding: 10px;
   margin-left: 0px;
   }
-  
+
   /* Hamburger CSS menu animation */
-  
+
   #hamburger {
   background-color: white;
   padding:0px;
@@ -50,33 +50,33 @@
   position: absolute;
   right: 0px;
   }
-  
+
   #hamburger > div {
-	float:right;
-	margin-right:20px;
+  float:right;
+  margin-right:20px;
   }
-  
+
   #menuOut {
-	cursor: pointer;
-    transition: height 0.5s ease;
-    position: absolute;
-    overflow: hidden;
-    height: 0;
-    width: 0;
+  cursor: pointer;
+  transition: height 0.5s ease;
+  position: absolute;
+  overflow: hidden;
+  height: 0;
+  width: 0;
   }
 
   .menuShown {
-	height: 400px !important;
-    width: 200px !important;
-    top: 43px;
-    right: 0;
-    z-index: 2;
-    float: right;
-    margin-right: 0px;
-    border: 1px dashed black;
-    display: block;
+  height: 400px !important;
+  width: 200px !important;
+  top: 43px;
+  right: 0;
+  z-index: 2;
+  float: right;
+  margin-right: 0px;
+  border: 1px dashed black;
+  display: block;
   }
-  
+
   .menuShown li {
   border-bottom: 1px solid #333;
   }
