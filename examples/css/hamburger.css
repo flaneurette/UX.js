@@ -30,26 +30,21 @@
   width: 100px;
   }
 
-  #menuOut {
-	background-color: #fff;
-    z-index: 2;
+  .menuOut {
     display: none;
-    border: 1px dashed black;
-    position: absolute;
-    right: 0;
-    top: 65px;
-    width: 200px;
   }
 
   .menuShown {
-  /* place menu effects here */
-	transition: ease-in 0.3s !important;
     height: 400px;
+    width: 200px;
+    position: absolute;
+    top: 43px;
+    right: 0;
     z-index: 2;
     float: right;
     margin-right: 0px;
     border: 1px dashed black;
-    display: none;
+    display: block;
   }
 
   a:link, a:visited, li {
