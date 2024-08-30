@@ -1,4 +1,4 @@
-	#navigation ul {
+   #navigation ul {
 	list-style: none;
 	display: block;
 	padding: 40px;
@@ -7,16 +7,19 @@
 	color: #fff;
 	border: 1px dashed black;
   }
+  
    #navigation ul li {
 	float:left;
 	width: 20%;
 	padding:0px;
 	margin-top:-8px;
   } 
+  
   a:link, a:visited {
 	color:#000;
 	text-decoration: none;
   }
+  
   .login {
 	display: block;
 	margin: 39px;
@@ -35,18 +38,21 @@
   #login {
 	height: 300px;
   }
+  
+  #header {
+	  margin-top: 30px;
+  }
+  
   #footer {
 	background-color: #fff;
 	height: 300px;
 	color: #000;
 	border: 1px dashed black;
   }
+  
   .test {
 	color: blue;
 	font-weight: bold;
-  }
-  #header {
-	  margin-top: 30px;
   }
   
   footer > div {
@@ -56,36 +62,18 @@
   ul {
 	  list-style:none;
   }
- #menuOut {
-
-    display: none;
-
-  }
-
-  .menuShown {
-	transition: ease-in 0.3s !important;
-    height: 400px;
-    width: 200px;
-    position: absolute;
-    top: 65px;
-    right: 0;
-    z-index: 2;
-    float: right;
-    margin-right: 0px;
-    border: 1px dashed black;
-    display: none;
-  }
 
   li, ul {
   padding: 0px;
   margin-left: 0px;
   }
+
   li {
 	 padding: 10px;  
   }
-  .menuShown li {
-  border-bottom: 1px solid #333;
-  }
+
+ /* Hamburger CSS menu animation */
+ 
   #hamburger {
 	background-color: white;
     padding: 0px;
@@ -98,4 +86,29 @@
     position: absolute;
     top: 0px;
     right: 0;
+  }
+  
+  #menuOut {
+	width: 100px;
+	cursor: pointer;
+    transition: height 1s ease;
+    position: absolute;
+    overflow: hidden;
+    height: 0;
+  }
+
+  .menuShown {
+	height: 400px !important;
+    width: 200px !important;
+    top: 43px;
+    right: 0;
+	top: 65px;
+    z-index: 2;
+    float: right;
+    margin-right: 0px;
+    border: 1px dashed black;
+    display: block;
+  }
+  .menuShown li {
+  border-bottom: 1px solid #333;
   }

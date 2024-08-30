@@ -424,13 +424,13 @@ class UX {
                     if (att !== null) {
                         if (Reflect.get(pairs, 1) == 'in') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
-                            document.getElementById(Reflect.get(pairs, 0)).style.display = 'block';
+                            //document.getElementById(Reflect.get(pairs, 0)).style.display = 'block';
 							if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
                         }
                         if (Reflect.get(pairs, 1) == 'out') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in:' + Reflect.get(pairs, 2));
 							if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
-                            document.getElementById(Reflect.get(pairs, 0)).style.display = 'none';
+                           // document.getElementById(Reflect.get(pairs, 0)).style.display = 'none';
                         }
                     }
 
