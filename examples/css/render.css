@@ -57,12 +57,15 @@
 	  list-style:none;
   }
   #menuOut {
-  background-color: #fff;
-  z-index: 2;
-  margin-top: 71px;
-  margin-right: -50px;
-  display:none;
-  border: 1px dashed black;
+	transition: ease-in 0.3s;
+	background-color: #fff;
+    z-index: 2;
+    display: none;
+    border: 1px dashed black;
+    position: absolute;
+    right: 0;
+    top: 65px;
+    width: 200px;
   }
 
   .menuShown {

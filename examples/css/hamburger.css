@@ -31,14 +31,14 @@
   }
 
   #menuOut {
-  background-color: white;
-  width: 200px;
-  height: 400px;
-  z-index: 2;
-  margin-top:0px;
-  margin-left:-10px;
-  display:none;
-  border: 1px dashed black;
+	background-color: #fff;
+    z-index: 2;
+    display: none;
+    border: 1px dashed black;
+    position: absolute;
+    right: 0;
+    top: 65px;
+    width: 200px;
   }
 
   .menuShown {
