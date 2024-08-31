@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>UX Grow</title>
+	<link rel="stylesheet" href="css/tokens.css">
+	<style>
+	.growclass {
+		transition: opacity .7s cubic-bezier(.18,1,.5,1), transform 2s cubic-bezier(.18,1,.5,1);
+		transform: scale(1.2);
+		width: 200px;
+		height: 200px;
+		padding: 30px;
+		margin: 60px;
+		color: white;
+		background-color: #999;
+	}
+	.text{
+		width: 200px;
+		height: 200px;
+		padding: 30px;
+		margin: 60px;
+		background-color: #f7f7f7;
+	}
+	</style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+	<!-- ids must be set! -->
+	<div class="text" :grow="growclass" id="a1">
+		{{text}}
+	</div>
+
+	<div class="text" :grow="growclass" id="a2">
+		{{text}}
+	</div>
+	
+	<div class="text" :grow="growclass" id="a3">
+		{{text}}
+	</div>
+	
+	<div class="text" :grow="growclass" id="a4">
+		{{text}}
+	</div>
+	
+	
+	<div class="text" :grow="growclass" id="a5">
+		{{text}}
+	</div>
+	
+	<div class="text" :grow="growclass" id="a6">
+		{{text}}
+	</div>
+
+	<script>
+	
+	let app = new UX();
+	app.load({
+		data: { 
+			text: "My div that grows",
+		}
+	});
+	</script>
+</body>
+</html>

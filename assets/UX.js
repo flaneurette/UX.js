@@ -60,6 +60,7 @@ class UX {
             if (method == 'bindLazyLoad') this.bindLazyLoad(docElements[i], find, value);
             if (method == 'bindUri') this.bindUri(docElements[i], find, value);
             if (method == 'bindHamburger') this.bindHamburger(docElements[i]);
+			if (method == 'bindIntoView') this.bindIntoView(docElements[i]);
             let docChildren = this.nodeChildren(docElements[i]);
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
@@ -73,7 +74,6 @@ class UX {
     }
 
     parseFunctions(data, method) {
-
         for (const [key, value] of Object.entries(data)) {
             if (Array.isArray(value)) {
                 this.nodes('bindLoop', key, value);
@@ -109,6 +109,7 @@ class UX {
         this.nodes('bindCascade');
         this.nodes('bindUri');
         this.nodes('bindHamburger');
+		this.nodes('bindIntoView');
         this.nodes('bindFunctions', false, false, data);
     }
 
@@ -316,6 +317,19 @@ class UX {
         }
     }
 
+	bindIntoView(node) {
+        let att = this.getAtt(node, 'grow');
+        if (att !== null) {
+			var ob = new IntersectionObserver(function(nodes) {
+				if(nodes[0].isIntersecting === true) {
+					node.setAttribute("class",att);
+				}
+			}, 
+			{ threshold: [1] });
+			ob.observe(document.querySelector('#'+node.id+''));
+		}
+	}
+	
     bindCascade(node, find) {
         let att = this.getAtt(node, 'cascade');
         if (att !== null) {
@@ -407,10 +421,16 @@ class UX {
             ctx.lineTo(0, (spacing * 3));
             ctx.stroke();
 			}
-			
         }
     }
 
+	bindCSS(node) {
+	let att = this.getAtt(node, 'css');
+        if (att !== null) {
+			node.style = att;
+		}		
+	}
+	
     bindToggle(node) {
         let att = this.getAtt(node, 'toggle');
         if (att !== null && att.indexOf(':') !== -1) {
@@ -424,13 +444,11 @@ class UX {
                     if (att !== null) {
                         if (Reflect.get(pairs, 1) == 'in') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
-                            //document.getElementById(Reflect.get(pairs, 0)).style.display = 'block';
 							if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
                         }
                         if (Reflect.get(pairs, 1) == 'out') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in:' + Reflect.get(pairs, 2));
 							if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
-                           // document.getElementById(Reflect.get(pairs, 0)).style.display = 'none';
                         }
                     }
 
