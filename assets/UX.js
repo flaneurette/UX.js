@@ -323,10 +323,12 @@ class UX {
             var ob = new IntersectionObserver(function(nodes) {
                 if(nodes[0].isIntersecting === true) {
                     node.setAttribute("class",att);
-                }    
+                }
             }, 
             { threshold: [1] });
+            if(node.id) {
             ob.observe(document.querySelector('#'+node.id+''));
+            }
         }
     }
     
