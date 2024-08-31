@@ -9,7 +9,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.144",
+        version: "1.145",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -327,7 +327,7 @@ class UX {
             }, 
             { threshold: [1] });
             if(node.id) {
-            ob.observe(document.querySelector('#'+node.id+''));
+                ob.observe(document.querySelector('#'+node.id+''));
             }
         }
     }
