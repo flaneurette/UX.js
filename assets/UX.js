@@ -60,7 +60,7 @@ class UX {
             if (method == 'bindLazyLoad') this.bindLazyLoad(docElements[i], find, value);
             if (method == 'bindUri') this.bindUri(docElements[i], find, value);
             if (method == 'bindHamburger') this.bindHamburger(docElements[i]);
-			if (method == 'bindIntoView') this.bindIntoView(docElements[i]);
+            if (method == 'bindIntoView') this.bindIntoView(docElements[i]);
             let docChildren = this.nodeChildren(docElements[i]);
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
@@ -109,7 +109,7 @@ class UX {
         this.nodes('bindCascade');
         this.nodes('bindUri');
         this.nodes('bindHamburger');
-		this.nodes('bindIntoView');
+        this.nodes('bindIntoView');
         this.nodes('bindFunctions', false, false, data);
     }
 
@@ -317,19 +317,19 @@ class UX {
         }
     }
 
-	bindIntoView(node) {
+    bindIntoView(node) {
         let att = this.getAtt(node, 'grow');
         if (att !== null) {
-			var ob = new IntersectionObserver(function(nodes) {
-				if(nodes[0].isIntersecting === true) {
-					node.setAttribute("class",att);
-				}
-			}, 
-			{ threshold: [1] });
-			ob.observe(document.querySelector('#'+node.id+''));
-		}
-	}
-	
+            var ob = new IntersectionObserver(function(nodes) {
+                if(nodes[0].isIntersecting === true) {
+                    node.setAttribute("class",att);
+                }    
+            }, 
+            { threshold: [1] });
+            ob.observe(document.querySelector('#'+node.id+''));
+        }
+    }
+    
     bindCascade(node, find) {
         let att = this.getAtt(node, 'cascade');
         if (att !== null) {
@@ -400,17 +400,17 @@ class UX {
             let width = Reflect.get(pairs, 1);
             let height = 10;
             let spacing = Reflect.get(pairs, 2);
-			if(document.getElementById('uxcanvas') == null) { 
+            if(document.getElementById('uxcanvas') == null) { 
             let canvas = document.createElement('canvas');
             node.append(canvas);
             canvas.setAttribute('width', width);
             canvas.setAttribute('height', width);
-			canvas.setAttribute('id', 'uxcanvas');
+            canvas.setAttribute('id', 'uxcanvas');
             var c = canvas;
             var ctx = c.getContext("2d");
             ctx.strokeStyle = Reflect.get(pairs, 0);
             if (!spacing) spacing = 0;
-			ctx.lineWidth = 2;
+            ctx.lineWidth = 2;
             ctx.moveTo(width, spacing);
             ctx.lineTo(0, spacing);
             ctx.stroke();
@@ -420,35 +420,35 @@ class UX {
             ctx.moveTo(width, (spacing * 3));
             ctx.lineTo(0, (spacing * 3));
             ctx.stroke();
-			}
+            }
         }
     }
 
-	bindCSS(node) {
-	let att = this.getAtt(node, 'css');
+    bindCSS(node) {
+    let att = this.getAtt(node, 'css');
         if (att !== null) {
-			node.style = att;
-		}		
-	}
-	
+            node.style = att;
+        }        
+    }
+    
     bindToggle(node) {
         let att = this.getAtt(node, 'toggle');
         if (att !== null && att.indexOf(':') !== -1) {
             node.addEventListener('click', () => {
-				let att = this.getAtt(node, 'toggle');
-				let pairs = att.split(':');
+                let att = this.getAtt(node, 'toggle');
+                let pairs = att.split(':');
                 let docElements1 = document.all;
                 for (let i = 0; i < docElements1.length; i++) {
                     let att = docElements1[i].getAttribute(':toggle');
-					let easing = docElements1[i].getAttribute(':ease');
+                    let easing = docElements1[i].getAttribute(':ease');
                     if (att !== null) {
                         if (Reflect.get(pairs, 1) == 'in') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
-							if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
+                            if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
                         }
                         if (Reflect.get(pairs, 1) == 'out') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in:' + Reflect.get(pairs, 2));
-							if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
+                            if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
                         }
                     }
 
@@ -612,21 +612,21 @@ class UX {
             for (let i = 0; i < len; i++) {
                 let k = Object.keys(object[i][1]);
                 let v = Object.values(object[i][1]);
-				c.innerHTML = h.replace("UX:" + Math.random(), ""); // DOM bug
-				if(c.getAttribute('id') != (find + i).toString) {
-					for (let j = 0; j < v.length; j++) { 
-						if (c.innerHTML !== null) {
-							c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
-							if (c.innerHTML.indexOf("{{" + k[j] + "}}") != -1) { 
-								c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
-							}
-						}
-						c.setAttribute('id', find + i);
-					}
-					
-					node.append(c);
-					c = c.cloneNode(true);
-				}
+                c.innerHTML = h.replace("UX:" + Math.random(), ""); // DOM bug
+                if(c.getAttribute('id') != (find + i).toString) {
+                    for (let j = 0; j < v.length; j++) { 
+                        if (c.innerHTML !== null) {
+                            c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
+                            if (c.innerHTML.indexOf("{{" + k[j] + "}}") != -1) { 
+                                c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
+                            }
+                        }
+                        c.setAttribute('id', find + i);
+                    }
+                    
+                    node.append(c);
+                    c = c.cloneNode(true);
+                }
                 if (zebra !== null && node.children[i]) { 
                     let mod = 2;
                     let className = zebra;
