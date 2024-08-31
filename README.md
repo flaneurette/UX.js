@@ -63,3 +63,6 @@ An example to trigger events
 An example of how methods in UX.js works (under development)
 #### UX-forms.html
 An example showing a form, dynamically generated with UX.js
+
+# Donate
+If you found this library useful, please consider donating to a charity of your choiche.
