@@ -320,15 +320,21 @@ class UX {
     bindIntoView(node) {
         let att = this.getAtt(node, 'grow');
         if (att !== null) {
-            var ob = new IntersectionObserver(function(nodes) {
-                if(nodes[0].isIntersecting === true) {
-                    node.setAttribute("class",att);
+			let options = {	
+			  threshold: 1.0,
+			};
+			let callback = (entries, observer) => {
+				entries.forEach((entry) => {
+                if(entry.isIntersecting === true) {
+                    entry.target.setAttribute("class",att);
                 }
-            }, 
-            { threshold: [1] });
-            if(node.id) {
-                ob.observe(document.querySelector('#'+node.id+''));
-            }
+			  });
+			};
+			let observer = new IntersectionObserver(callback, options);
+			if(node.id) {
+			let target = document.querySelector('#'+node.id+'');
+				observer.observe(target);
+			}
         }
     }
     
