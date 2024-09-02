@@ -454,6 +454,14 @@ class UX {
                         if (Reflect.get(pairs, 1) == 'in') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
                             if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
+							let nodeId = document.getElementById(Reflect.get(pairs, 0));
+							nodeId.addEventListener('mouseout', () => {
+								let att = node.getAttribute(':toggle');
+								if (att !== null && att.indexOf(':') !== -1) {
+									let pairs = att.split(':');
+									if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
+								}
+							});
                         }
                         if (Reflect.get(pairs, 1) == 'out') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in:' + Reflect.get(pairs, 2));
