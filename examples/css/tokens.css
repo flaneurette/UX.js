@@ -73,7 +73,7 @@ input {
 	border-radius: 0.3em;
 	width: var(--view-width-medium);
 	font-size: var(--font-medium);
-	box-shadow: var(--shadow-small);
+	border: 1px solid var(--lightgrey);
 	display: block;
 }
 
