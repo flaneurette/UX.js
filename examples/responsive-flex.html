@@ -3,56 +3,102 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-
 .header {
-	background-color: #e7e7e7;
-	padding: 10px;
-	margin-bottom:10px;
+background-color: #e7e7e7;
+padding: 10px;
+margin-bottom:10px;
 }
 
 .menu {
-	background-color: #e7e7e7;
-	padding: 10px;
-	margin-right: 10px;
+background-color: #e7e7e7;
+padding: 10px;
+margin-right: 10px;
 }
 
 #menu-display {
-    display:block;
-	background-color: black;
-	width: 200px;
-	margin-top:-5px;
-	display:none;
-	z-index: 1;
-	right:0;
-	position:absolute;
+display:block;
+background-color: black;
+width: 200px;
+margin-top:-5px;
+display:none;
+z-index: 1;
+right:0;
+position:absolute;
 }
 
 .mobile-menu {
-	float:right;
-	display:none;
+float:right;
+display:none;
 }
 
 ul {
-	list-style:none;
-    margin: 0px;
-    padding: 0px;
+list-style:none;
+margin: 0px;
+padding: 0px;
+}
+
+a:link, a:visited {
+color:#000;
+text-decoration: none;
 }
 
 .footer {
-	background-color: #e7e7e7;
-	padding: 10px;
-	margin-top:10px;
+background-color: #e7e7e7;
+padding: 10px;
+margin-top:10px;
+}
+
+/* Hamburger CSS menu animation */
+
+#hamburger {
+padding: 0px;
+float: right;
+width: 100%;
+position: absolute;
+top: 38px;
+right: 30px;
+}
+
+#hamburger > div {
+float:right;
+margin-right:20px;
+}
+
+#menuOut {
+cursor: pointer;
+transition: height 0.5s ease;
+position: absolute;
+overflow: hidden;
+height: 0;
+width: 0;
+}
+
+.menuShown {
+background-color: #e7e7e7;
+height: 400px !important;
+width: 200px !important;
+top: 107px;
+right: 9px;
+z-index: 2;
+float: right;
+margin-right: 0px;
+display: block;
+}
+
+.menuShown li {
+border-bottom: 1px solid #999;
+padding: 10px;
 }
 
 @media only screen and (max-width: 600px) {
-	
-	.menu {
-		display:none;
-	}
-	
-	.mobile-menu {
-		display: block;
-	}
+
+.menu {
+display:none;
+}
+
+.mobile-menu {
+display: block;
+}
 }
 </style>
 <script src="../assets/UX.js"></script>
@@ -66,14 +112,10 @@ ul {
 
 <div>
 	<div class="mobile-menu">
-		<ul>
-			<li>
-			<!-- toggle class menu-display -->
-			<img :toggle="menu-display:in" width="50" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAuCAMAAADp/0xsAAAAAXNSR0IB2cksfwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAD9QTFRFAAAAEBAQFRUVBgYGr6+v6urqREREv7+/////S0tLUFBQa2trHx8fWFhYdXV1IiIiICAgKysrDAwMODg4FhYWNuJ9tAAAAGtJREFUeJzt0mEGgEAUxPEeEZtYuv8NE5FiWTpCs+Nt8sz/Ar8PMzZ8kAkRIuTPiNG2VRgZeaTAyMQjt5A+SOKRE0acE+KAxLmwkCZk4ZEDRpyLjmR+kx1G4lxYSBOyXiwybzDinBAhQt57AMJjFS+zv0W1AAAAAElFTkSuQmCC">
-			</li>
-		<ul>
-		<!-- loop through navigation array -->
-		<ul :loop="navigation" class="menu" id="menu-display">
+		<div id="hamburger">
+			<div :hamburger="black:40:10" :toggle="menuOut:in:menuShown"></div>
+		</div>
+		<ul id="menuOut" :loop="navigation">
 			<li>{{link}}</li>
 		</ul>
 	</div>
