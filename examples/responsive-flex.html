@@ -90,15 +90,16 @@ border-bottom: 1px solid #999;
 padding: 10px;
 }
 
+/* mobile css */
+
 @media only screen and (max-width: 600px) {
+	.menu {
+	display:none;
+	}
 
-.menu {
-display:none;
-}
-
-.mobile-menu {
-display: block;
-}
+	.mobile-menu {
+	display: block;
+	}
 }
 </style>
 <script src="../assets/UX.js"></script>
@@ -112,9 +113,11 @@ display: block;
 
 <div>
 	<div class="mobile-menu">
+		<!-- hamburger -->
 		<div id="hamburger">
 			<div :hamburger="black:40:10" :toggle="menuOut:in:menuShown"></div>
 		</div>
+		<!-- menu -->
 		<ul id="menuOut" :loop="navigation">
 			<li>{{link}}</li>
 		</ul>
@@ -134,8 +137,9 @@ display: block;
 	</div>
 	</div>
 </div>
-
+<!-- process plaintext -->
 <div class="footer">{{footer}}</div>
+
 <script>
 let app = new UX();
 	app.load({
