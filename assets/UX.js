@@ -459,7 +459,7 @@ class UX {
 								let att = node.getAttribute(':toggle');
 								if (att !== null && att.indexOf(':') !== -1) {
 									let pairs = att.split(':');
-									if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
+									//if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
 								}
 							});
                         }
