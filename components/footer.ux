@@ -1,8 +1,29 @@
 <section>
 	<footer :flex="center:row">
-		<div>{{footer}}</div>
-		<div></div>
-		<div></div>
-		<div></div>
+		<div>
+			<ul>
+				<li>{{link1}}</li>
+				<li>{{link2}}</li>
+				<li>{{link3}}</li>
+				<li>{{link4}}</li>
+			</ul>
+		</div>
+		<div>
+			<ul>
+				<li>{{link1}}</li>
+				<li>{{link2}}</li>
+				<li>{{link3}}</li>
+				<li>{{link4}}</li>
+			</ul>
+		</div>
+		<div>
+				<ul>
+				<li>{{link1}}</li>
+				<li>{{link2}}</li>
+				<li>{{link3}}</li>
+				<li>{{link4}}</li>
+			</ul>
+		</div>
+		<div id="copyright">{{footer}}</div>
 	</footer>
 </section>
