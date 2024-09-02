@@ -57,8 +57,15 @@
 
    footer > div {
    margin-top:33px;
+   margin: 60px;
+   width: 30%;
    }
 
+   #copyright {
+   display:block;
+   clear:left;s
+   }
+   
    ul {
    list-style:none;
    }

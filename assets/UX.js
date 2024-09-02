@@ -66,7 +66,7 @@ class UX {
                 if (method == 'replaceNodeValue') {
                     if (docChildren[j].nodeType === 3) {
                         const regex = new RegExp("{{\\s*" + find + "[0-9]*\\s*}}", "gmi");
-                        docChildren[j].nodeValue = docChildren[j].nodeValue.replace(regex, value);
+                        docChildren[j].nodeValue = docChildren[j].nodeValue.replaceAll(regex, value);
                     }
                 }
             }
@@ -316,7 +316,7 @@ class UX {
             }
         }
     }
-
+	
     bindIntoView(node) {
         let att = this.getAtt(node, 'grow');
         if (att !== null) {
@@ -326,7 +326,8 @@ class UX {
 			let callback = (entries, observer) => {
 				entries.forEach((entry) => {
                 if(entry.isIntersecting === true) {
-                    entry.target.setAttribute("class",att);
+					let height = node.clientHeight;
+					entry.target.setAttribute("class",att);
                 }
 			  });
 			};
@@ -670,11 +671,11 @@ class UX {
                 let j = 0;
                 for (const [keys, values] of Object.entries(value)) {
                     let array = Object.entries(value[j]);
-                    node.innerHTML = node.innerHTML.replace('{{' + array[0][0] + '}}', array[0][1]);
+                    node.innerHTML = node.innerHTML.replaceAll('{{' + array[0][0] + '}}', array[0][1]);
                     j++;
                 }
             } else {
-                node.innerHTML = node.innerHTML.replace('{{' + key + '}}', value);
+                node.innerHTML = node.innerHTML.replaceAll('{{' + key + '}}', value);
             }
         }
     }
@@ -689,7 +690,7 @@ class UX {
                         if (Object(value)) {
                             for (const [key1, value1] of Object.entries(value)) {
                                 if (docChildren[j].nodeType === 3) {
-                                    docChildren[j].nodeValue = docChildren[j].nodeValue.replace("{{" + key1 + "}}", value1);
+                                    docChildren[j].nodeValue = docChildren[j].nodeValue.replaceAll("{{" + key1 + "}}", value1);
                                 }
                             }
                         }
