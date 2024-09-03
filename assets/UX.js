@@ -9,7 +9,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.146",
+        version: "1.147",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -165,18 +165,19 @@ class UX {
             if (method == 'block') document.getElementById(id).style.display = 'block';
             if (method == 'sethtml') document.getElementById(id).innerHTML = value;
             if (method == 'gethtml') return document.getElementById(id).innerHTML; 
-			if (method == 'innerHTML') return document.body.innerHTML;
+            if (method == 'innerHTML') return document.body.innerHTML;
             if (method == 'display') document.getElementById(id).style.display = value;
             if (method == 'parent') return document.getElementById(id).parentNode;
             if (method == 'children') return document.getElementById(id).children;
-			if (method == 'query') return document.querySelector(value);
-			if (method == 'elements') return document.getElementsByTagName(value);
-			if (method == 'create') return document.createElement(value);
+            if (method == 'query') return document.querySelector(value);
+            if (method == 'elements') return document.getElementsByTagName(value);
+            if (method == 'create') return document.createElement(value);
             if (method == 'document') return document.all;
-			if (method == 'location') return window.location.href;
-			if (method == 'innerheight') return window.innerHeight;
+            if (method == 'location') return window.location.href;
+            if (method == 'innerheight') return window.innerHeight;
+            if (method == 'innerwidth') return window.innerWidth;
         }
-    }
+    }    
 
     cloneNodes(list, id) {
         if (id === null) {
