@@ -164,11 +164,17 @@ class UX {
             if (method == 'none') document.getElementById(id).style.display = 'none';
             if (method == 'block') document.getElementById(id).style.display = 'block';
             if (method == 'sethtml') document.getElementById(id).innerHTML = value;
-            if (method == 'gethtml') return document.getElementById(id).innerHTML;
+            if (method == 'gethtml') return document.getElementById(id).innerHTML; 
+			if (method == 'innerHTML') return document.body.innerHTML;
             if (method == 'display') document.getElementById(id).style.display = value;
             if (method == 'parent') return document.getElementById(id).parentNode;
             if (method == 'children') return document.getElementById(id).children;
+			if (method == 'query') return document.querySelector(value);
+			if (method == 'elements') return document.getElementsByTagName(value);
+			if (method == 'create') return document.createElement(value);
             if (method == 'document') return document.all;
+			if (method == 'location') return window.location.href;
+			if (method == 'innerheight') return window.innerHeight;
         }
     }
 
@@ -253,15 +259,15 @@ class UX {
         let att = this.getAtt(node, 'scroll');
         if (att !== null) {
             node.setAttribute('href', 'javascript:void(0);');
-            node.addEventListener('click', function eventHandler() {
-                window.scrollTo = scrollTo(0, window.innerHeight);
+            node.addEventListener('click', () => {
+                window.scrollTo = scrollTo(0, this.dom('','innerheight'));
             });
         }
     }
 
     bindActive(node) {
         let att = this.getAtt(node, 'active');
-        let active = window.location.href;
+        let active = this.dom('','location');
         if (att !== null) {
             if (att.indexOf(':') != -1) {
                 let pieces = att.split(':');
@@ -303,7 +309,7 @@ class UX {
         if (att !== null) {
             if (att.indexOf(':') != -1) {
                 let f = att.split(':');
-                let keyframes = document.createElement("style");
+                let keyframes = this.dom('','create','style');
                 keyframes.textContent = '@keyframes ' + Reflect.get(f, 0) +
                     '{ from { ' + Reflect.get(f, 5).toString() +
                     ': var(--from);} to {' + Reflect.get(f, 5).toString() +
@@ -334,7 +340,7 @@ class UX {
             };
             let observer = new IntersectionObserver(callback, options);
             if(node.id) {
-            let target = document.querySelector('#'+node.id+'');
+            let target = this.dom('','query','#'+node.id);
                 observer.observe(target);
             }
         }
@@ -397,7 +403,7 @@ class UX {
         let att = this.getAtt(node, 'link');
         if (att !== null) {
             node.setAttribute('href', 'javascript:void(0);');
-            node.addEventListener('click', function eventHandler() {
+            node.addEventListener('click', () => {
                 document.location = att;
             });
         }
@@ -411,7 +417,7 @@ class UX {
             let height = 10;
             let spacing = Reflect.get(pairs, 2);
             if(this.dom('uxcanvas','id') == null) { 
-            let canvas = document.createElement('canvas');
+            let canvas = this.dom('','create','canvas');
             node.append(canvas);
             canvas.setAttribute('width', width);
             canvas.setAttribute('height', width);
@@ -556,7 +562,7 @@ class UX {
         if (this.getAttCheck(node, 'click') == true) {
             if (att !== null) {
                 node.addEventListener('click', () => {
-                    let statics = document.body.innerHTML;
+                    let statics = this.dom('','innerHTML');
                     let findMethod = node.getAttribute(':click');
                     if (findMethod !== null) {
                         if (methods && Object(methods)) {
@@ -719,7 +725,7 @@ class UX {
                 docElements[j].addEventListener('submit', event => {
                     event.preventDefault();
                     let parentList = [];
-                    let docElements1 = document.getElementsByTagName("*");
+                    let docElements1 = this.dom('','elements','*');
                     for (let i = 0; i < docElements1.length; i++) {
                         if (docElements1[i].getAttribute(':async') == 'true') {
                             let children = docElements1[i].children;
@@ -782,9 +788,9 @@ class UX {
     }
 
     createElements(node, type, arr) {
-        let opt = document.createElement(type);
+        let opt = this.dom('','create',type);
         if (arr.type == 'text') {
-            let opt = document.createElement('input');
+            let opt = this.dom('','create','input');
         }
         if (arr.name) opt.name = arr.name;
         if (arr.type && arr.type != 'textarea') opt.type = arr.type;
@@ -799,9 +805,9 @@ class UX {
     createForm(node, find, values) {
         let att = this.getAtt(node, 'form');
         if (att !== null) {
-            let parents = document.createElement('div');
+            let parents = this.dom('','create','div');
             node.appendChild(parents);
-            let options = document.createElement('form');
+            let options = this.dom('','create','form');
             for (let key in values) {
                 let arr = values[key];
                 if (arr.type == 'form') {
@@ -817,7 +823,7 @@ class UX {
                     this.createElements(options, 'label', arr);
                     this.createElements(options, 'textarea', arr);
                 } else if (arr.type == 'submit') {
-                    let opt = document.createElement('input');
+                    let opt = this.dom('','create','input');
                     opt.type = arr.type;
                     opt.name = arr.name;
                     opt.value = arr.value;
