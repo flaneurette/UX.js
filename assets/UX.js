@@ -583,7 +583,7 @@ class UX {
                                         if (ps[1].indexOf('.') !== -1) {
                                             // expressions
                                         } else {
-                                            // text processing
+                                            // variable text processing
 											let op = ps[0].split('.');
 											const spaces = this.regEx('spaces');
 											const punctuation = this.regEx('punctuation');
@@ -591,6 +591,8 @@ class UX {
                                             ps[1] = ps[1].toString().replaceAll(punctuation, '');
 											op[1] = op[1].toString().replaceAll(spaces, '');
                                             node.innerHTML = node.innerHTML.replace('{{'+op[1]+'}}', ps[1]);
+											// verbatim text replacement
+											node.innerHTML = node.innerHTML.replace(op[1], ps[1]);
                                         }
                                     }
                                 }

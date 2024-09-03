@@ -6,6 +6,7 @@
 #text {
 	background-color: #ded;
 	padding: 10px;
+	margin: 10px;
 }
 </style>
 <script src="../assets/UX.js"></script>
@@ -16,6 +17,10 @@
   <p>Click on the box below:</p>
   <div :method="textChange" id="text">
     {{text}}, {{hello}} {{world}}
+  </div>
+ <p>Click on the box below:</p>
+  <div :method="textChange" id="text">
+    Test1, Test2
   </div>
 </div>
 
@@ -29,9 +34,13 @@
 		},
 		methods: {
           textChange() {
+		  // Variable text replacement
           this.hello = 'Hello World!',
-		  this.world = 'Hello Earth!'
-		  log(this.hello,this.world) // applied functions
+		  this.world = 'Hello Earth!',
+		  // Verbatim text replacement
+          this.Test1 = 'Hello World!',
+		  this.Test2 = 'Hello Earth!',
+		  log(this.hello,this.world) // Applied functions
         }
 	  }
 	});
