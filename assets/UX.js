@@ -9,7 +9,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.145",
+        version: "1.146",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -409,7 +409,7 @@ class UX {
             let width = Reflect.get(pairs, 1);
             let height = 10;
             let spacing = Reflect.get(pairs, 2);
-            if(document.getElementById('uxcanvas') == null) { 
+            if(this.dom('uxcanvas','id') == null) { 
             let canvas = document.createElement('canvas');
             node.append(canvas);
             canvas.setAttribute('width', width);
@@ -445,13 +445,13 @@ class UX {
         if (att !== null && att.indexOf(':') !== -1) {
             let att = this.getAtt(node, 'toggle');
             let pairs = att.split(':');
-            let nodeId = document.getElementById(Reflect.get(pairs, 0));
+            let nodeId = this.dom(Reflect.get(pairs, 0),'id');
             if(nodeId) { 
                 nodeId.addEventListener('mouseleave', () => {
                     let att = node.getAttribute(':toggle');
                     if (att !== null && att.indexOf(':') !== -1) {
                         let pairs = att.split(':');
-                        if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
+                        if (Reflect.get(pairs, 2)) { this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2)); }
                     }
                 });
             }    
@@ -461,21 +461,19 @@ class UX {
                 let docElements1 = document.all;
                 for (let i = 0; i < docElements1.length; i++) {
                     let att = docElements1[i].getAttribute(':toggle');
-                    let easing = docElements1[i].getAttribute(':ease');
+					let easing = docElements1[i].getAttribute(':ease');
                     if (att !== null) {
                         if (Reflect.get(pairs, 1) == 'in') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
-                            if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
+                            if (Reflect.get(pairs, 2)) { this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2)); }
                         }
                         if (Reflect.get(pairs, 1) == 'out') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in:' + Reflect.get(pairs, 2));
-                            if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
+                            if (Reflect.get(pairs, 2)) { this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2)); }
                         }
                     }
-
                 }
             });
-
         }
     }
 
@@ -484,13 +482,13 @@ class UX {
         if (att !== null && att.indexOf(':') !== -1) {
             let pairs = att.split(':');
             if (Reflect.get(pairs, 1) == 'in') {
-                let list = document.getElementById(Reflect.get(pairs, 0)).children;
+                let list = this.dom(Reflect.get(pairs, 0),'id').children;
                 for (let i = 0; i < list.length; i++) {
                     list[i].setAttribute(':menu', att);
                 }
-                document.getElementById(Reflect.get(pairs, 0)).hidden = true;
+                this.dom(Reflect.get(pairs, 0),'id').hidden = true;
                 node.addEventListener('mouseover', () => {
-                    document.getElementById(Reflect.get(pairs, 0)).hidden = false;
+                    this.dom(Reflect.get(pairs, 0),'id').hidden = false;
                 });
             }
             if (Reflect.get(pairs, 1) == 'out') {
@@ -498,7 +496,7 @@ class UX {
                     let att = node.getAttribute(':menu');
                     if (att !== null && att.indexOf(':') !== -1) {
                         let pairs = att.split(':');
-                        document.getElementById(Reflect.get(pairs, 0)).hidden = true;
+                        this.dom(Reflect.get(pairs, 0),'id').hidden = true;
                     }
                 });
             }
@@ -522,7 +520,7 @@ class UX {
         }
 
         if (att !== null) {
-            let counterNode = document.getElementById(countID);
+            let counterNode = this.dom(countID,'id');
             node.addEventListener('click', () => {
                 var calc = Number(counterNode.innerText);
                 if (att == 'count++') counterNode.innerText = this.isInt((calc) + countvalue);
@@ -535,7 +533,6 @@ class UX {
                     }, interval);
                 }
             });
-
         }
     }
 
