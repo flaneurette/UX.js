@@ -1,4 +1,9 @@
-   #navigation ul {
+  html, body {
+   margin:0px;
+   padding:0px;	
+  }
+
+  #navigation ul {
    list-style: none;
    display: block;
    padding: 40px;
@@ -118,4 +123,11 @@
    }
    .menuShown li {
    border-bottom: 1px solid #333;
+   }
+   
+   #close {
+    cursor:pointer;
+	width:30px;
+	height: 30px;
+	font-size:38px;
    }

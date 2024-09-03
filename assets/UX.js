@@ -61,6 +61,7 @@ class UX {
             if (method == 'bindUri') this.bindUri(docElements[i], find, value);
             if (method == 'bindHamburger') this.bindHamburger(docElements[i]);
             if (method == 'bindIntoView') this.bindIntoView(docElements[i]);
+			if (method == 'bindClose') this.bindClose(docElements[i]);
             let docChildren = this.nodeChildren(docElements[i]);
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
@@ -110,6 +111,7 @@ class UX {
         this.nodes('bindUri');
         this.nodes('bindHamburger');
         this.nodes('bindIntoView');
+		this.nodes('bindClose');
         this.nodes('bindFunctions', false, false, data);
     }
 
@@ -563,6 +565,15 @@ class UX {
         }
     }
 
+    bindClose(node) {
+        let att = this.getAtt(node, ':close');
+        if (att !== null) {
+            node.addEventListener('onclick', () => {
+                this.dom(att,'id').hidden = true;
+            });
+        }
+	}
+	
     bindOn(node, data, methods, find, value) {
         let att = this.getAtt(node, 'method');
         if (this.getAttCheck(node, 'method') == true) {
