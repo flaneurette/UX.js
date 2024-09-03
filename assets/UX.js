@@ -316,26 +316,26 @@ class UX {
             }
         }
     }
-	
+    
     bindIntoView(node) {
         let att = this.getAtt(node, 'grow');
         if (att !== null) {
-			let options = {	
-			  threshold: 1.0,
-			};
-			let callback = (entries, observer) => {
-				entries.forEach((entry) => {
+            let options = {    
+              threshold: 1.0,
+            };
+            let callback = (entries, observer) => {
+                entries.forEach((entry) => {
                 if(entry.isIntersecting === true) {
-					let height = node.clientHeight;
-					entry.target.setAttribute("class",att);
+                    let height = node.clientHeight;
+                    entry.target.setAttribute("class",att);
                 }
-			  });
-			};
-			let observer = new IntersectionObserver(callback, options);
-			if(node.id) {
-			let target = document.querySelector('#'+node.id+'');
-				observer.observe(target);
-			}
+              });
+            };
+            let observer = new IntersectionObserver(callback, options);
+            if(node.id) {
+            let target = document.querySelector('#'+node.id+'');
+                observer.observe(target);
+            }
         }
     }
     
@@ -443,6 +443,18 @@ class UX {
     bindToggle(node) {
         let att = this.getAtt(node, 'toggle');
         if (att !== null && att.indexOf(':') !== -1) {
+            let att = this.getAtt(node, 'toggle');
+            let pairs = att.split(':');
+            let nodeId = document.getElementById(Reflect.get(pairs, 0));
+            if(nodeId) { 
+                nodeId.addEventListener('mouseleave', () => {
+                    let att = node.getAttribute(':toggle');
+                    if (att !== null && att.indexOf(':') !== -1) {
+                        let pairs = att.split(':');
+                        if (Reflect.get(pairs, 2)) { document.getElementById(Reflect.get(pairs, 0)).classList.toggle(Reflect.get(pairs, 2)); }
+                    }
+                });
+            }    
             node.addEventListener('click', () => {
                 let att = this.getAtt(node, 'toggle');
                 let pairs = att.split(':');
