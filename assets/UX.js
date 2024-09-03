@@ -168,6 +168,7 @@ class UX {
             if (method == 'display') document.getElementById(id).style.display = value;
             if (method == 'parent') return document.getElementById(id).parentNode;
             if (method == 'children') return document.getElementById(id).children;
+            if (method == 'document') return document.all;
         }
     }
 
@@ -458,10 +459,10 @@ class UX {
             node.addEventListener('click', () => {
                 let att = this.getAtt(node, 'toggle');
                 let pairs = att.split(':');
-                let docElements1 = document.all;
+                let docElements1 = this.dom('','document');
                 for (let i = 0; i < docElements1.length; i++) {
                     let att = docElements1[i].getAttribute(':toggle');
-					let easing = docElements1[i].getAttribute(':ease');
+                    let easing = docElements1[i].getAttribute(':ease');
                     if (att !== null) {
                         if (Reflect.get(pairs, 1) == 'in') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
