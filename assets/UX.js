@@ -151,11 +151,12 @@ class UX {
             node.getAttribute(':' + part) !== null) ? true : false;
         return check;
     }
-
-    isInt(value) {
-        return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
-    }
-
+	
+	regEx(type) {
+        if (type == 'spaces') return /\s+|\t+/gim;
+        if (type == 'punctuation') return /,|'|"|\{|\}|\[|\]|\-|\+|\=/gim;
+	}
+	
     dom(id, method, value = null) {
         if (id !== null) {
             if (method == 'id') return document.getElementById(id);
@@ -178,6 +179,10 @@ class UX {
             if (method == 'innerwidth') return window.innerWidth;
         }
     }    
+
+    isInt(value) {
+        return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
+    }
 
     cloneNodes(list, id) {
         if (id === null) {
@@ -526,7 +531,7 @@ class UX {
             if (key == 'interval') interval = value;
             if (key == 'clear') clear = value;
         }
-
+		
         if (att !== null) {
             let counterNode = this.dom(countID,'id');
             node.addEventListener('click', () => {
@@ -559,12 +564,12 @@ class UX {
     }
 
     bindOn(node, data, methods, find, value) {
-        let att = this.getAtt(node, 'click');
-        if (this.getAttCheck(node, 'click') == true) {
+        let att = this.getAtt(node, 'method');
+        if (this.getAttCheck(node, 'method') == true) {
             if (att !== null) {
                 node.addEventListener('click', () => {
                     let statics = this.dom('','innerHTML');
-                    let findMethod = node.getAttribute(':click');
+                    let findMethod = node.getAttribute(':method');
                     if (findMethod !== null) {
                         if (methods && Object(methods)) {
                             for (let key in methods) {
@@ -579,11 +584,13 @@ class UX {
                                             // expressions
                                         } else {
                                             // text processing
-                                            ps[0] = ps[0].toString().replace(/^\s+|\t+/gm, '');
-                                            ps[1] = ps[1].toString().replace(/,|'|"|/gm, '');
-                                            let op = ps[0].split('.');
-                                            const regex = new RegExp("{{\\s*" + op[1] + "[0-9]*\\s*}}", "gmi");
-                                            node.innerHTML = node.innerHTML.replace(regex, ps[1]);
+											let op = ps[0].split('.');
+											const spaces = this.regEx('spaces');
+											const punctuation = this.regEx('punctuation');
+                                            ps[0] = ps[0].toString().replaceAll(spaces, '');
+                                            ps[1] = ps[1].toString().replaceAll(punctuation, '');
+											op[1] = op[1].toString().replaceAll(spaces, '');
+                                            node.innerHTML = node.innerHTML.replace('{{'+op[1]+'}}', ps[1]);
                                         }
                                     }
                                 }

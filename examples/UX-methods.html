@@ -14,7 +14,7 @@
 
 <div id="app">
   <p>Click on the box below:</p>
-  <div :click="textChange" id="text">
+  <div :method="textChange" id="text">
     {{text}}, {{hello}} {{world}}
   </div>
 </div>
@@ -30,7 +30,7 @@
 		methods: {
           textChange() {
           this.hello = 'Hello World!',
-		  this.world = 'Hello Earth!',
+		  this.world = 'Hello Earth!'
 		  alerter(this.hello)
         }
 	  }

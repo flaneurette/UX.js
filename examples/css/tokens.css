@@ -46,8 +46,8 @@
 }
 
 html, body {
-	margin: var(--spacing-reset);
-	padding: var(--spacing-reset);
+	margin: var(--spacing-xlarge);
+	padding: var(--spacing-xlarge);
 }
 
 fieldset {
