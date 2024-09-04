@@ -18,9 +18,11 @@ An example of rendering reusable UX components from the /components/ directory.
 #### UX-hamburger.html
 An example showing the :hamburger attribute, same as ux-toggle.
 #### UX-toggle.html
-An example showing the :toggle attribute, to switch a menu on/off
+An example showing the :toggle attribute, to switch a menu on/off.
+#### UX-gallery.html
+An example creating a gallery through methods.
 #### UX-grow.html
-An example showing the :grow attribute, to grow elements dynamically on scroll into view
+An example showing the :grow attribute, to grow elements dynamically on scroll into view.
 #### UX-animate.html
 An example showing the :animate attribute, to dynamically animate objects.
 #### UX-cascade.html
