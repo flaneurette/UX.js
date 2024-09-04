@@ -6,6 +6,7 @@ class UX {
     static componentsDir = "../components/";
     static cacheControl = "no-cache";
     static allowOrigin = '*';
+    static counter = 0;
 
     init = {
         name: "UX.js",
@@ -61,7 +62,7 @@ class UX {
             if (method == 'bindUri') this.bindUri(docElements[i], find, value);
             if (method == 'bindHamburger') this.bindHamburger(docElements[i]);
             if (method == 'bindIntoView') this.bindIntoView(docElements[i]);
-			if (method == 'bindClose') this.bindClose(docElements[i]);
+            if (method == 'bindClose') this.bindClose(docElements[i]);
             let docChildren = this.nodeChildren(docElements[i]);
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
@@ -111,7 +112,7 @@ class UX {
         this.nodes('bindUri');
         this.nodes('bindHamburger');
         this.nodes('bindIntoView');
-		this.nodes('bindClose');
+        this.nodes('bindClose');
         this.nodes('bindFunctions', false, false, data);
     }
 
@@ -153,12 +154,12 @@ class UX {
             node.getAttribute(':' + part) !== null) ? true : false;
         return check;
     }
-	
-	regEx(type) {
+    
+    regEx(type) {
         if (type == 'spaces') return /\s+|\t+/gim;
-        if (type == 'punctuation') return /,|'|"|\{|\}|\[|\]|\-|\+|\=/gim;
-	}
-	
+        if (type == 'punctuation') return /,|'|"|\{|\}|\[|\]|\+|\=/gim;
+    }
+    
     dom(id, method, value = null) {
         if (id !== null) {
             if (method == 'id') return document.getElementById(id);
@@ -401,7 +402,7 @@ class UX {
             let lazy = att.split(':');
             node.setAttribute("loading", "lazy");
             let style = '';
-            style += "background-color:" + Reflect.get(lazy, 1) + ";";
+            style += "background-color:" + Reflect.get(lazy, 0) + ";";
             style += "background-size: cover;";
             node.setAttribute("style", style);
         }
@@ -533,7 +534,7 @@ class UX {
             if (key == 'interval') interval = value;
             if (key == 'clear') clear = value;
         }
-		
+        
         if (att !== null) {
             let counterNode = this.dom(countID,'id');
             node.addEventListener('click', () => {
@@ -572,12 +573,85 @@ class UX {
                 this.dom(att,'id').hidden = true;
             });
         }
-	}
-	
+    }
+    
+    onImg(node,array) {
+       const spaces = this.regEx('spaces');
+       const punctuation = this.regEx('punctuation');
+       let findMethod = node.getAttribute(':method');
+       let current = findMethod[2];
+       if(current !== null) { 
+       for(let i=0;i<array.length;i++) { 
+       if(array[i][1].indexOf('img') !== -1 || array[i][1].indexOf('image') !== -1) {
+            let img = findMethod.split(':');
+            let imageDOM = this.dom(Reflect.get(img,1),'id');
+            if(node.src) { 
+                imageDOM.setAttribute("src",node.src);
+            }
+          }
+        }
+      }
+    }
+    
+    onImgFill(node,operators) {
+       if(UX.counter <=1 && operators.length >=1) {
+           const spaces = this.regEx('spaces');
+           const punctuation = this.regEx('punctuation');
+           let doc = this.dom('','document');
+           let j=0;
+           for(let i=0; i< doc.length;i++) {
+               let findMethod = doc[i].getAttribute(':method');
+               if(findMethod !== null) {
+                   let methods = findMethod.split(':');
+                   if(findMethod !== null) { 
+                      let current = methods[2];
+                      let thumbs = this.dom(current,'id');
+                      if(current !== null) {
+                         doc[i].setAttribute("src",operators[j][1].toString()
+                         .replaceAll(spaces, '').replaceAll(punctuation, ''));
+                      j++;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    onText(node,operators) {
+        const spaces = this.regEx('spaces');
+        const punctuation = this.regEx('punctuation');
+        let op = operators[0].split('.');
+        operators[0] = operators[0].toString().replaceAll(spaces, '');
+        operators[1] = operators[1].toString().replaceAll(punctuation, '');
+        op[1] = op[1].toString().replaceAll(spaces, '');
+        node.innerHTML = node.innerHTML.replace('{{'+op[1]+'}}', operators[1]);
+        node.innerHTML = node.innerHTML.replace(op[1], operators[1]);
+    }
+    
+    
     bindOn(node, data, methods, find, value) {
         let att = this.getAtt(node, 'method');
+        let array = [];
         if (this.getAttCheck(node, 'method') == true) {
             if (att !== null) {
+                if (methods && Object(methods)) {
+                    for (let key in methods) {
+                        let funcs = methods[key];
+                        let pairs = funcs.toString();
+                        let lines = pairs.split("\n");
+                        for (let i = 0; i < lines.length; i++) {        
+                            if (lines[i].indexOf('this.') !== -1 && lines[i].indexOf('=') !== -1 && (lines[i].indexOf('img') !== -1 
+                            || lines[i].indexOf('image') !== -1)) {
+                                let operators = lines[i].split('=');
+                                array.push(operators);
+                            }
+                        }
+                    }
+                    UX.counter++;
+                    // images
+                    this.onImgFill(node, array);
+                }
+                // click event methods
                 node.addEventListener('click', () => {
                     let statics = this.dom('','innerHTML');
                     let findMethod = node.getAttribute(':method');
@@ -586,27 +660,22 @@ class UX {
                             for (let key in methods) {
                                 let funcs = methods[key];
                                 let pairs = funcs.toString();
-                                let fp = pairs.split("\n");
-                                for (let i = 0; i < fp.length; i++) {
+                                let lines = pairs.split("\n");
+                                for (let i = 0; i < lines.length; i++) {
                                     // operators
-                                    if (fp[i].indexOf('this.') !== -1 && fp[i].indexOf('=') !== -1) {
-                                        let ps = fp[i].split('=');
-                                        if (ps[1].indexOf('.') !== -1) {
-                                            // expressions
+                                    if (lines[i].indexOf('this.') !== -1 && lines[i].indexOf('=') !== -1) {
+                                        let operators = lines[i].split('=');
+                                        if (operators[1].indexOf('.') !== -1) {
+                                            // expressions 
+                                          array.push(operators);
                                         } else {
-                                            // variable text processing
-											let op = ps[0].split('.');
-											const spaces = this.regEx('spaces');
-											const punctuation = this.regEx('punctuation');
-                                            ps[0] = ps[0].toString().replaceAll(spaces, '');
-                                            ps[1] = ps[1].toString().replaceAll(punctuation, '');
-											op[1] = op[1].toString().replaceAll(spaces, '');
-                                            node.innerHTML = node.innerHTML.replace('{{'+op[1]+'}}', ps[1]);
-											// verbatim text replacement
-											node.innerHTML = node.innerHTML.replace(op[1], ps[1]);
+                                          // text processing
+                                          this.onText(node, operators);
                                         }
                                     }
                                 }
+                                // images
+                                this.onImg(node,array);
                                 // method functions
                                 funcs.apply();
                             }

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{text}}</title>
+<style>
+#image {
+	background-color: #ded;
+	padding: 10px;
+	margin: 10px;
+	width:250px;
+	height: 150px;
+	border: 1px dashed black;
+}
+#image img {
+	background-color: #fff;
+	border: 1px dashed black;
+	width: 150px;
+	min-height: 150px;
+}
+#thumbs {
+	background-color: #ded;
+	padding: 10px;
+	margin: 10px;
+	width:250px;
+	height: 50px;
+	border: 1px dashed black;
+}
+#thumbs img {
+	background-color: #fff;
+	border: 1px solid black;
+	min-height: 50px;
+	width: 50px;
+}
+
+</style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+
+<div id="app">
+  <p>Click on a thumb below:</p>
+  <div id="image">
+    <!-- id is required -->
+    <img id="main" />
+  </div>
+ 
+  <div id="thumbs">
+  <!-- method: function, id of main image, image -->
+    <img width="50" :method="imageChange:main:img1" />
+	<img width="50" :method="imageChange:main:img2" />
+	<img width="50" :method="imageChange:main:img3" />
+  </div>
+   
+</div>
+
+<script>
+
+	let app = new UX();
+	
+	app.load({
+		data: {
+          text: 'UX Gallery (Through Methods)'
+		},
+		methods: {
+          imageChange() {
+          this.img1 = 'https://fakeimg.pl/250x250/ffff00',
+		  this.img2 = 'https://fakeimg.pl/250x250/336600',
+		  this.img3 = 'https://fakeimg.pl/250x250/ff3300'
+        }
+	  }
+	});
+ 
+</script>
+
+</body>
+</html>
