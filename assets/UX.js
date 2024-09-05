@@ -47,7 +47,7 @@ class UX {
             if (method == 'bindLoop') this.loop(docElements[i], find, value);
             if (method == 'bindFunctions') this.bindFunctions(docElements[i], data, find, value);
             if (method == 'bindLogic') this.bindIf(docElements[i], find, value);
-            if (method == 'bindOn') this.bindOn(docElements[i], data, methods, find, value);
+            if (method == 'bindMethods') this.bindMethods(docElements[i], data, methods, find, value);
             if (method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
             if (method == 'bindFlex') this.bindFlex(docElements[i], find, value);
             if (method == 'bindMenu') this.bindMenu(docElements[i], find, value);
@@ -83,13 +83,13 @@ class UX {
                 this.nodes('replaceNodeValue', key, value);
                 this.nodes('bindAttributesNode', key, value);
                 this.nodes('bindLogic', key, value);
-                this.nodes('bindOn', key, value, data, method);
+                this.nodes('bindMethods', key, value, data, method);
                 this.nodes('bindActive');
             } else {
                 this.nodes('replaceNodeValue', key, value);
                 this.nodes('bindAttributesNode', key, value);
                 this.nodes('bindLogic', key, value);
-                this.nodes('bindOn', key, value, data, method);
+                this.nodes('bindMethods', key, value, data, method);
                 this.nodes('bindActive');
             }
         }
@@ -628,7 +628,7 @@ class UX {
         node.innerHTML = node.innerHTML.replace(op[1], operators[1]);
     }
     
-    bindOn(node, data, methods, find, value) {
+    bindMethods(node, data, methods, find, value) {
         let att = this.getAtt(node, 'method');
         let array = [];
         if (this.getAttCheck(node, 'method') == true) {
@@ -649,7 +649,7 @@ class UX {
                         }
                     }
                     UX.counter++;
-                    // images
+                    // autofill any images
                     if(array.length >=1) {
                         this.onImgFill(node, array);
                     }
