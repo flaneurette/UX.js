@@ -7,6 +7,7 @@ class UX {
     static cacheControl = "no-cache";
     static allowOrigin = '*';
     static counter = 0;
+    static temp = [];
 
     init = {
         name: "UX.js",
@@ -25,6 +26,7 @@ class UX {
             Reflect.preventExtensions(data);
             if (data) {
                 this.nodes('render', data);
+                this.nodes('bindRoute', data);
                 this.parseFunctions(data, method);
                 if (Reflect.has(data, "devtools")) this.nodes('devtools', data);
             }
@@ -64,6 +66,7 @@ class UX {
             if (method == 'bindIntoView') this.bindIntoView(docElements[i]);
             if (method == 'bindClose') this.bindClose(docElements[i]);
             if (method == 'bindHandler') this.bindHandler(docElements[i], data, methods, find, value);
+            if (method == 'bindRoute') this.bindRoute(docElements[i], find, value);
             let docChildren = this.nodeChildren(docElements[i]);
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
@@ -160,7 +163,7 @@ class UX {
     
     regEx(type) {
         if (type == 'spaces') return /\s+|\t+/gim;
-        if (type == 'punctuation') return /,|'|"|\{|\}|\[|\]|\+|\=/gim;
+        if (type == 'punctuation') return /,|'|"|\{|\}|\[|\]/gim;
     }
     
     dom(id, method, value = null) {
@@ -780,6 +783,32 @@ class UX {
             }
         }
     }
+    
+    bindRoute(node, data) {
+        let attribute = this.getAtt(node, 'route');
+        if (attribute !== null) {
+            let router = attribute.split(':');
+            UX.temp.push(Reflect.get(router,0));
+            node.addEventListener('click', ()=> { 
+                let router = attribute.split(':');
+                let uri = UX.componentsDir + Reflect.get(router,1);
+                let routeNode = this.dom(Reflect.get(router,0),'id');
+                for(let i=0; i< UX.temp.length; i++) {
+                    this.dom(Reflect.get(UX.temp,i),'id').hidden = true;
+                }
+                routeNode.hidden = false;
+                const options = new Headers();
+                options.append("Cache-Control", UX.cacheControl);
+                let promise = fetch(uri, options)
+                    .then(file => file.text())
+                    .then(response => routeNode.setHTMLUnsafe(response))
+                    .then(() => this.renderHTML(routeNode, data))
+                    .then(() => this.parseNodes(data))
+                }
+            );
+        }
+        
+    }
 
     render(node, data) {
         let attribute = this.getAtt(node, 'render');
@@ -796,7 +825,7 @@ class UX {
     }
 
     renderHTML(node, data) {
-
+        
         for (const [key, value] of Object.entries(data)) {
             if (Array.isArray(value)) {
                 let j = 0;

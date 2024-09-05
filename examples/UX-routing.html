@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<head>
+  <title>UX-Routing</title>
+  <script src="../assets/UX.js"></script>
+  <style>
+  section {
+  border: 1px dashed black;
+  padding: 30px;
+  }
+  </style>
+</head>
+<body>
+	<h1>UX Routing</h1>
+	<p>Click a button to route.</p>
+	<div>
+	<input type="button" value="Card" :route="div1:card.ux" />
+	<input type="button" value="Article" :route="div2:article.ux" />
+	</div>
+	<section id="div1" hidden></section>
+	<section id="div2" hidden></section>
+	
+	<script>
+	let app = new UX();
+	app.load({
+		data: { 
+			articleTitle: "Article",
+			articleText: "text",
+			cardTitle: "Card",
+			cardText: "Text"
+		}
+	});
+	
+	</script>
+</body>
+</html>
