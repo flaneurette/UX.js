@@ -584,7 +584,7 @@ class UX {
        for(let i=0;i<array.length;i++) { 
        if(array[i][1].indexOf('img') !== -1 || array[i][1].indexOf('image') !== -1) {
             let img = findMethod.split(':');
-            let imageDOM = this.dom(Reflect.get(img,1),'id');
+            let imageDOM = this.dom(Reflect.get(img,2),'id');
             if(node.src) { 
                 imageDOM.setAttribute("src",node.src);
             }
@@ -604,7 +604,7 @@ class UX {
                if(findMethod !== null) {
                    let methods = findMethod.split(':');
                    if(findMethod !== null) { 
-                      let current = methods[2];
+                      let current = Reflect.get(methods,2);
                       let thumbs = this.dom(current,'id');
                       if(current !== null) {
                          doc[i].setAttribute("src",operators[j][1].toString()
@@ -628,12 +628,12 @@ class UX {
         node.innerHTML = node.innerHTML.replace(op[1], operators[1]);
     }
     
-    
     bindOn(node, data, methods, find, value) {
         let att = this.getAtt(node, 'method');
         let array = [];
         if (this.getAttCheck(node, 'method') == true) {
             if (att !== null) {
+				let methodhandler = att.split(":");
                 if (methods && Object(methods)) {
                     for (let key in methods) {
                         let funcs = methods[key];
@@ -642,6 +642,7 @@ class UX {
                         for (let i = 0; i < lines.length; i++) {        
                             if (lines[i].indexOf('this.') !== -1 && lines[i].indexOf('=') !== -1 && (lines[i].indexOf('img') !== -1 
                             || lines[i].indexOf('image') !== -1)) {
+								// image operation
                                 let operators = lines[i].split('=');
                                 array.push(operators);
                             }
@@ -652,36 +653,38 @@ class UX {
                     this.onImgFill(node, array);
                 }
                 // click event methods
-                node.addEventListener('click', () => {
-                    let statics = this.dom('','innerHTML');
-                    let findMethod = node.getAttribute(':method');
-                    if (findMethod !== null) {
-                        if (methods && Object(methods)) {
-                            for (let key in methods) {
-                                let funcs = methods[key];
-                                let pairs = funcs.toString();
-                                let lines = pairs.split("\n");
-                                for (let i = 0; i < lines.length; i++) {
-                                    // operators
-                                    if (lines[i].indexOf('this.') !== -1 && lines[i].indexOf('=') !== -1) {
-                                        let operators = lines[i].split('=');
-                                        if (operators[1].indexOf('.') !== -1) {
-                                            // expressions 
-                                          array.push(operators);
-                                        } else {
-                                          // text processing
-                                          this.onText(node, operators);
-                                        }
-                                    }
-                                }
-                                // images
-                                this.onImg(node,array);
-                                // method functions
-                                funcs.apply();
-                            }
-                        }
-                    }
-                });
+				if(methodhandler [0] == 'click') {
+					node.addEventListener('click', () => {
+						let statics = this.dom('','innerHTML');
+						let findMethod = node.getAttribute(':method');
+						if (findMethod !== null) {
+							if (methods && Object(methods)) {
+								for (let key in methods) {
+									let funcs = methods[key];
+									let pairs = funcs.toString();
+									let lines = pairs.split("\n");
+									for (let i = 0; i < lines.length; i++) {
+										// operators
+										if (lines[i].indexOf('this.') !== -1 && lines[i].indexOf('=') !== -1) {
+											let operators = lines[i].split('=');
+											if (operators[1].indexOf('.') !== -1) {
+												// expressions 
+											  array.push(operators);
+											} else {
+											  // text processing
+											  this.onText(node, operators);
+											}
+										}
+									}
+									// images
+									this.onImg(node,array);
+									// method functions
+									funcs.apply();
+								}
+							}
+						}
+					});
+				}
             }
         }
     }
