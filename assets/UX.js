@@ -633,7 +633,7 @@ class UX {
         let array = [];
         if (this.getAttCheck(node, 'method') == true) {
             if (att !== null) {
-				let methodhandler = att.split(":");
+                let methodhandler = att.split(":");
                 if (methods && Object(methods)) {
                     for (let key in methods) {
                         let funcs = methods[key];
@@ -642,7 +642,7 @@ class UX {
                         for (let i = 0; i < lines.length; i++) {        
                             if (lines[i].indexOf('this.') !== -1 && lines[i].indexOf('=') !== -1 && (lines[i].indexOf('img') !== -1 
                             || lines[i].indexOf('image') !== -1)) {
-								// image operation
+                                // image operation
                                 let operators = lines[i].split('=');
                                 array.push(operators);
                             }
@@ -650,41 +650,43 @@ class UX {
                     }
                     UX.counter++;
                     // images
-                    this.onImgFill(node, array);
+                    if(array.length >=1) {
+                        this.onImgFill(node, array);
+                    }
                 }
                 // click event methods
-				if(methodhandler [0] == 'click') {
-					node.addEventListener('click', () => {
-						let statics = this.dom('','innerHTML');
-						let findMethod = node.getAttribute(':method');
-						if (findMethod !== null) {
-							if (methods && Object(methods)) {
-								for (let key in methods) {
-									let funcs = methods[key];
-									let pairs = funcs.toString();
-									let lines = pairs.split("\n");
-									for (let i = 0; i < lines.length; i++) {
-										// operators
-										if (lines[i].indexOf('this.') !== -1 && lines[i].indexOf('=') !== -1) {
-											let operators = lines[i].split('=');
-											if (operators[1].indexOf('.') !== -1) {
-												// expressions 
-											  array.push(operators);
-											} else {
-											  // text processing
-											  this.onText(node, operators);
-											}
-										}
-									}
-									// images
-									this.onImg(node,array);
-									// method functions
-									funcs.apply();
-								}
-							}
-						}
-					});
-				}
+                if(methodhandler[0] == 'mouseover' || methodhandler[0] == 'click') {
+                    node.addEventListener(methodhandler[0], () => {
+                        let statics = this.dom('','innerHTML');
+                        let findMethod = node.getAttribute(':method');
+                        if (findMethod !== null) {
+                            if (methods && Object(methods)) {
+                                for (let key in methods) {
+                                    let funcs = methods[key];
+                                    let pairs = funcs.toString();
+                                    let lines = pairs.split("\n");
+                                    for (let i = 0; i < lines.length; i++) {
+                                        // operators
+                                        if (lines[i].indexOf('this.') !== -1 && lines[i].indexOf('=') !== -1) {
+                                            let operators = lines[i].split('=');
+                                            if (operators[1].indexOf('.') !== -1) {
+                                                // expressions 
+                                              array.push(operators);
+                                            } else {
+                                              // text processing
+                                              this.onText(node, operators);
+                                            }
+                                        }
+                                    }
+                                    // images
+                                    this.onImg(node,array);
+                                    // method functions
+                                    funcs.apply();
+                                }
+                            }
+                        }
+                    });
+                }
             }
         }
     }
