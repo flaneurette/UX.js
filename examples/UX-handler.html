@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{text}}</title>
+<style>
+.fire {
+	background-color: #ded;
+	padding: 10px;
+	margin: 10px;
+	width:250px;
+	height: 150px;
+	border: 1px dashed black;
+}
+
+</style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+
+<div id="app">
+
+  <div class="fire">
+	<input type="button" value="Click" :handler="click" />
+  </div>
+  <div class="fire">
+	<input type="button" value="Mouse" :handler="mouseover" />
+  </div>  
+</div>
+
+<script>
+
+	let app = new UX();
+	
+	app.load({
+		data: {
+          text: 'UX handlers'
+		},
+		methods: {
+			 handlers() {
+				this.hello = 'true',
+				callback(this.hello)
+			}
+		}
+	});
+ 
+	function callback(a) {
+		alert(a);
+	}
+	
+</script>
+
+</body>
+</html>

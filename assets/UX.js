@@ -10,7 +10,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.147",
+        version: "1.148",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -63,6 +63,7 @@ class UX {
             if (method == 'bindHamburger') this.bindHamburger(docElements[i]);
             if (method == 'bindIntoView') this.bindIntoView(docElements[i]);
             if (method == 'bindClose') this.bindClose(docElements[i]);
+            if (method == 'bindHandler') this.bindHandler(docElements[i], data, methods, find, value);
             let docChildren = this.nodeChildren(docElements[i]);
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
@@ -84,12 +85,14 @@ class UX {
                 this.nodes('bindAttributesNode', key, value);
                 this.nodes('bindLogic', key, value);
                 this.nodes('bindMethods', key, value, data, method);
+                this.nodes('bindHandler', key, value, data, method);
                 this.nodes('bindActive');
             } else {
                 this.nodes('replaceNodeValue', key, value);
                 this.nodes('bindAttributesNode', key, value);
                 this.nodes('bindLogic', key, value);
                 this.nodes('bindMethods', key, value, data, method);
+                this.nodes('bindHandler', key, value, data, method);
                 this.nodes('bindActive');
             }
         }
@@ -626,6 +629,23 @@ class UX {
         op[1] = op[1].toString().replaceAll(spaces, '');
         node.innerHTML = node.innerHTML.replace('{{'+op[1]+'}}', operators[1]);
         node.innerHTML = node.innerHTML.replace(op[1], operators[1]);
+    }
+    
+    bindHandler(node, data, methods, find, value) {
+        let att = this.getAtt(node, 'handler');
+        if(att !== null) { 
+            let handlers = att.split(':');
+            if (methods && Object(methods)) {
+                for (let key in methods) {
+                        let funcs = methods[key];
+                        let pairs = funcs.toString();
+                        if(UX.counter <= 1) { 
+                            node.addEventListener(Reflect.get(handlers,0),()=> { funcs.apply(); } );
+                        }
+                        UX.counter++;
+                }
+            }
+        }
     }
     
     bindMethods(node, data, methods, find, value) {
