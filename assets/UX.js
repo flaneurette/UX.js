@@ -26,7 +26,7 @@ class UX {
             Reflect.preventExtensions(data);
             if (data) {
                 this.nodes('render', data);
-                this.nodes('bindRoute', data);
+                this.nodes('router', data);
                 this.parseFunctions(data, method);
                 if (Reflect.has(data, "devtools")) this.nodes('devtools', data);
             }
@@ -66,7 +66,7 @@ class UX {
             if (method == 'bindIntoView') this.bindIntoView(docElements[i]);
             if (method == 'bindClose') this.bindClose(docElements[i]);
             if (method == 'bindHandler') this.bindHandler(docElements[i], data, methods, find, value);
-            if (method == 'bindRoute') this.bindRoute(docElements[i], find, value);
+            if (method == 'router') this.router(docElements[i], find, value);
             let docChildren = this.nodeChildren(docElements[i]);
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
@@ -784,7 +784,7 @@ class UX {
         }
     }
     
-    bindRoute(node, data) {
+    router(node, data) {
         let attribute = this.getAtt(node, 'route');
         if (attribute !== null) {
             let router = attribute.split(':');
@@ -825,7 +825,6 @@ class UX {
     }
 
     renderHTML(node, data) {
-        
         for (const [key, value] of Object.entries(data)) {
             if (Array.isArray(value)) {
                 let j = 0;
