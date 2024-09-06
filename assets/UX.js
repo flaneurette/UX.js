@@ -406,11 +406,11 @@ class UX {
         let att = this.getAtt(node, 'lazy');
         if (att !== null) {
             let lazy = att.split(':');
-            node.setAttribute("loading", "lazy");
             let style = '';
             style += "background-color:" + Reflect.get(lazy, 0) + ";";
             style += "background-size: cover;";
             node.setAttribute("style", style);
+			node.setAttribute("loading", "lazy");
         }
     }
 
