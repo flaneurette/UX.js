@@ -9,6 +9,9 @@
   border: 1px dashed black;
   padding: 30px;
   }
+  div a {
+  margin-right:10px;
+  }
   h1 {
   font-size: 28px;
   margin-top: 0px;
@@ -17,10 +20,10 @@
 </head>
 <body>
 	<h1>UX Routing</h1>
-	<p>Click a button to route.</p>
+	<p>Click a link to route.</p>
 	<div>
-	<input type="button" value="Card" :route="div1:card.ux" />
-	<input type="button" value="Article" :route="div2:article.ux" />
+	<a :void="true" :route="div1:card.ux" />Card</a> 
+	<a :void="true" :route="div2:article.ux" />Article</a>
 	</div>
 	<section id="div1" hidden></section>
 	<section id="div2" hidden></section>
