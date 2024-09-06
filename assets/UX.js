@@ -6,12 +6,12 @@ class UX {
     static componentsDir = "../components/";
     static cacheControl = "no-cache";
     static allowOrigin = '*';
-    static counter = 0;
-    static temp = [];
+    static thread = 0;
+    static array = [];
 
     init = {
         name: "UX.js",
-        version: "1.148",
+        version: "1.150",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -600,7 +600,7 @@ class UX {
     }
     
     onImgFill(node,operators) {
-       if(UX.counter <=1 && operators.length >=1) {
+       if(UX.thread <=1 && operators.length >=1) {
            const spaces = this.regEx('spaces');
            const punctuation = this.regEx('punctuation');
            let doc = this.dom('','document');
@@ -642,10 +642,10 @@ class UX {
                 for (let key in methods) {
                         let funcs = methods[key];
                         let pairs = funcs.toString();
-                        if(UX.counter <= 1) { 
+                        if(UX.thread <= 1) { 
                             node.addEventListener(Reflect.get(handlers,0),()=> { funcs.apply(); } );
                         }
-                        UX.counter++;
+                        UX.thread++;
                 }
             }
         }
@@ -788,13 +788,13 @@ class UX {
         let attribute = this.getAtt(node, 'route');
         if (attribute !== null) {
             let router = attribute.split(':');
-            UX.temp.push(Reflect.get(router,0));
+            UX.array.push(Reflect.get(router,0));
             node.addEventListener('click', ()=> { 
                 let router = attribute.split(':');
                 let uri = UX.componentsDir + Reflect.get(router,1);
                 let routeNode = this.dom(Reflect.get(router,0),'id');
-                for(let i=0; i< UX.temp.length; i++) {
-                    this.dom(Reflect.get(UX.temp,i),'id').hidden = true;
+                for(let i=0; i< UX.array.length; i++) {
+                    this.dom(Reflect.get(UX.array,i),'id').hidden = true;
                 }
                 routeNode.hidden = false;
                 const options = new Headers();
