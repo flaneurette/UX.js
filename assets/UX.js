@@ -11,7 +11,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.150",
+        version: "1.151",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -40,6 +40,7 @@ class UX {
         let docElements = this.nodeParentList();
         for (let i = 0; i < docElements.length; i++) {
             if (method == 'render') this.render(docElements[i], find, value);
+            if (method == 'router') this.router(docElements[i], find, value);
             if (method == 'bindActive') this.bindActive(docElements[i], find, value);
             if (method == 'bindSelect') this.bindSelect(docElements[i], find, value);
             if (method == 'bindShow') this.bindShow(docElements[i], find, value);
@@ -66,7 +67,6 @@ class UX {
             if (method == 'bindIntoView') this.bindIntoView(docElements[i]);
             if (method == 'bindClose') this.bindClose(docElements[i]);
             if (method == 'bindHandler') this.bindHandler(docElements[i], data, methods, find, value);
-            if (method == 'router') this.router(docElements[i], find, value);
             let docChildren = this.nodeChildren(docElements[i]);
             for (let j = 0; j < docChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
@@ -807,7 +807,6 @@ class UX {
                 }
             );
         }
-        
     }
 
     render(node, data) {
