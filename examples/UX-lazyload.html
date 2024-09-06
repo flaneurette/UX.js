@@ -18,11 +18,11 @@ ul, li {
 
 <div id="app">
 <h1>UX Lazyload</h1>
- <p>{{MyText}}</p>
+ <p>{{text}}</p>
   <div :class="myClass">
     <ul>
-	 <li><img :lazy="#f2f2f2" src="https://fakeimg.pl/2250x2250/ffff00" width="500"/></li>
-	 <li><img :lazy="#f2f2f2" src="https://fakeimg.pl/2250x2250/ffff00" width="500"/></li>
+	 <li><img :lazy="#f2f2f2" src="https://fakeimg.pl/3250x3250/ffff00" width="500"/></li>
+	 <li><img :lazy="#f2f2f2" src="https://fakeimg.pl/3250x3250/ffff00" width="500"/></li>
 	 <li><img :lazy="#f2f2f2" src="https://fakeimg.pl/2250x2250/ffff00" width="500"/></li>
 	 <li><img :lazy="#f2f2f2" src="https://fakeimg.pl/2250x2250/ffff00" width="500"/></li>
     </ul>
@@ -35,7 +35,7 @@ ul, li {
 	app.load({
 		data: {
 			myClass: "text",
-			MyText: 'Lazyload'
+			text: 'Lazyload'
 		}
 	});
   
