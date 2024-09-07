@@ -50,7 +50,7 @@ ul.products {
 			<div class="itemImage"><img width="150" src="{{image}}" /></div>
 			<span class="itemName">{{name}}</span> 
 			<span class="itemPrice">${{price}}</span>
-			<input type="button" value="+" class="btn" :method="click:addItem:cart:{{id}}:{{name}}" />
+			<input type="button" value="+" class="btn" :method="click:addItem:cart:{{id}}:{{name}}:{{price}}" />
 		  </div>
       </div>
     </ul>
@@ -65,9 +65,9 @@ ul.products {
 		data: {
 		text: 'UX-Cart',
 			productList: [
-			  {id: 1,name: 'Apple',type: 'Fruit',price: '2.00',image: 'https://fakeimg.pl/250x250/24ff00' },
-			  {id: 2,name: 'Banana',type: 'Fruit',price: '1.00',image: 'https://fakeimg.pl/250x250/eaff00' },
-			  {id: 3,name: 'Orange',type: 'Fruit',price: '2.50',image: 'https://fakeimg.pl/250x250/ffba00' }
+			  {id: 110,name: 'Apple',type: 'Fruit',price: '2.00',image: 'https://fakeimg.pl/250x250/24ff00' },
+			  {id: 220,name: 'Banana',type: 'Fruit',price: '1.00',image: 'https://fakeimg.pl/250x250/eaff00' },
+			  {id: 330,name: 'Orange',type: 'Fruit',price: '2.50',image: 'https://fakeimg.pl/250x250/ffba00' }
 			  ]
 		},
 		methods: {
