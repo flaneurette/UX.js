@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{{text}}</title>
+<script src="../assets/UX.js"></script>
+<style>
+form {
+    display:block;
+	background-color: #ded;
+	padding: 10px;
+	margin: 10px;
+	border: 1px dashed black;
+	clear:both;
+	height:250px;
+}
+input {
+	padding:10px;
+}
+p {
+	display:block;
+}
+.btn {
+	margin-left: 26px;
+}
+	
+ul.products {
+	padding:0px;
+	margin:0px;
+	list-style: none;
+	list-style-type: none;
+}
+
+.product {
+	padding: 20px;
+	height: 100px;
+	border-radius: 10px;
+	display:block;
+	float:left;
+}
+</style>
+</head>
+<body>
+<h1>{{text}}</h1>
+<p>Click items to put inside the cart</p>
+<div class="div1" :flex="left:row">
+<form :async="true">
+     <ul class="products">
+      <div :loop="productList" class="products">
+		  <div class="product">
+			<div class="itemImage"><img width="150" src="{{image}}" /></div>
+			<span class="itemName">{{name}}</span> 
+			<span class="itemPrice">${{price}}</span>
+			<input type="button" value="+" class="btn" :method="click:addItem:cart:{{id}}:{{name}}" />
+		  </div>
+      </div>
+    </ul>
+</form>
+</div>
+
+	<script>
+	
+	let app = new UX();
+	
+	app.load({
+		data: {
+		text: 'UX-Cart',
+			productList: [
+			  {id: 1,name: 'Apple',type: 'Fruit',price: '2.00',image: 'https://fakeimg.pl/250x250/24ff00' },
+			  {id: 2,name: 'Banana',type: 'Fruit',price: '1.00',image: 'https://fakeimg.pl/250x250/eaff00' },
+			  {id: 3,name: 'Orange',type: 'Fruit',price: '2.50',image: 'https://fakeimg.pl/250x250/ffba00' }
+			  ]
+		},
+		methods: {
+		    addItem(a) {
+				this.elements = true; // must be set
+				this.cart = UX.array;
+				for(i in this.cart) {
+					let entry = Object.entries(this.cart[i])
+					for(j in entry ) {
+						console.log(entry[j]);
+						alert(entry[j])
+					}
+				}
+		    }
+		}
+	});
+
+	</script>
+</body>
+</html>

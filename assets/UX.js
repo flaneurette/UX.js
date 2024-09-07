@@ -11,7 +11,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.151",
+        version: "1.152",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -669,6 +669,19 @@ class UX {
                                 let operators = lines[i].split('=');
                                 array.push(operators);
                             }
+							// array elements
+                            if (lines[i].indexOf('this.elements') !== -1) {
+								if(att.indexOf('{{') == -1) {
+									node.addEventListener('click', ()=> { 
+										let obj = Object.assign({}, methodhandler.splice(3,methodhandler.length)); 
+										if(obj !='') { 
+											UX.array.push(obj);
+											}
+										} 
+									);
+								}
+							}
+							
                         }
                     }
                     UX.counter++;
@@ -875,7 +888,7 @@ class UX {
                             let data = [];
                             data.push('UXAsync=true');
                             for (let i = 0; i < children.length; i++) {
-                                if (children[i].value != '') {
+                                if (children[i].value != '' && children[i].name !== null && children[i].value) {
                                     data.push('&' + children[i].name + '=' + encodeURIComponent(children[i].value.toString()));
                                 }
                             }
