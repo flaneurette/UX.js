@@ -410,7 +410,7 @@ class UX {
             style += "background-color:" + Reflect.get(lazy, 0) + ";";
             style += "background-size: cover;";
             node.setAttribute("style", style);
-			node.setAttribute("loading", "lazy");
+            node.setAttribute("loading", "lazy");
         }
     }
 
@@ -669,19 +669,18 @@ class UX {
                                 let operators = lines[i].split('=');
                                 array.push(operators);
                             }
-							// array elements
+                            // array elements
                             if (lines[i].indexOf('this.elements') !== -1) {
-								if(att.indexOf('{{') == -1) {
-									node.addEventListener('click', ()=> { 
-										let obj = Object.assign({}, methodhandler.splice(3,methodhandler.length)); 
-										if(obj !='') { 
-											UX.array.push(obj);
-											}
-										} 
-									);
-								}
-							}
-							
+                                if(att.indexOf('{{') == -1) {
+                                    node.addEventListener('click', ()=> { 
+                                        let obj = Object.assign({}, methodhandler.splice(3,methodhandler.length)); 
+                                        if(obj !='') { 
+                                                UX.array.push(obj);
+                                            }
+                                        } 
+                                    );
+                                }
+                            }
                         }
                     }
                     UX.counter++;
