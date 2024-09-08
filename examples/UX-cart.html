@@ -101,22 +101,29 @@ ul.products {
 		},
 		methods: {
 		    addItem(a) {
+			
 				this.cart = UX.array; // Must be set, UX.array holds the objects.
 				this.products = [];
+				
 				for (let i=0; i<this.cart.length;i++) {
 					this.products.push(JSON.stringify(Object.values(this.cart[i])));
 				}
+				
 				let node = document.getElementById('cart');
 				let food = document.getElementById('food');
 				let crumb = document.getElementById('cartcrumb');
+				
 				// create cart list
 				let opt = app.dom('','create','li');
 				opt.innerHTML = this.products;
 				node.appendChild(opt);
+				
 				// store in session storage
 				sessionStorage.cart = this.products;
+				
 				// update async input
 				food.value = sessionStorage.cart;
+				
 				// update cartcrumb
 				crumb.innerText = Number(this.cart.length);
 		    }
