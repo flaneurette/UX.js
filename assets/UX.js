@@ -670,11 +670,11 @@ class UX {
                                 array.push(operators);
                             }
                             // array elements
-                            if (lines[i].indexOf('this.elements') !== -1) {
+                            if (lines[i].indexOf('UX.array') !== -1) {
                                 if(att.indexOf('{{') == -1) {
                                     node.addEventListener('click', ()=> { 
                                         let obj = Object.assign({}, methodhandler.splice(3,methodhandler.length)); 
-                                        if(obj !='') { 
+                                        if(obj !='' && Object.keys(obj).length >=1) { 
                                                 UX.array.push(obj);
                                             }
                                         } 

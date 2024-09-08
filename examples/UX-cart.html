@@ -20,7 +20,11 @@ p {
 	display:block;
 }
 .btn {
-	margin-left: 26px;
+	margin-left: 25px;
+    z-index: 2;
+    position: absolute;
+    top: 261px;
+    padding: 11px;
 }
 	
 ul.products {
@@ -47,7 +51,7 @@ ul.products {
      <ul class="products">
       <div :loop="productList" class="products">
 		  <div class="product">
-			<div class="itemImage"><img width="150" src="{{image}}" /></div>
+			<div class="itemImage"><img width="150" :lazy="#333333" src="{{image}}" /></div>
 			<span class="itemName">{{name}}</span> 
 			<span class="itemPrice">${{price}}</span>
 			<input type="button" value="+" class="btn" :method="click:addItem:cart:{{id}}:{{name}}:{{price}}" />
@@ -56,8 +60,9 @@ ul.products {
     </ul>
 </form>
 </div>
-
-	<script>
+<h2>Cart</h2>
+<ul id="cart"></ul>
+<script>
 	
 	let app = new UX();
 	
@@ -72,19 +77,18 @@ ul.products {
 		},
 		methods: {
 		    addItem(a) {
-				this.elements = true; // must be set
-				this.cart = UX.array;
-				for(i in this.cart) {
-					let entry = Object.entries(this.cart[i])
-					for(j in entry ) {
-						console.log(entry[j]);
-						alert(entry[j])
-					}
+				this.cart = UX.array; // Must be set, UX.array holds the objects.
+				this.products = [];
+				for (let i=0; i<this.cart.length;i++) {
+					this.products.push(JSON.stringify(this.cart[i]));
 				}
+				let node = document.getElementById('cart');
+				let opt = app.dom('','create','li');
+				opt.innerHTML = this.products;
+				node.appendChild(opt);
 		    }
 		}
 	});
-
 	</script>
 </body>
 </html>
