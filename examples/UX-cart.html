@@ -89,7 +89,7 @@ ul.products {
 <script>
 	
 	let app = new UX();
-	app.async('server-side/blog-xhr/response.php', 'callback', mycall);
+	
 	app.load({
 		data: {
 		text: 'UX-Cart',
@@ -129,6 +129,9 @@ ul.products {
 		    }
 		}
 	});
+	
+	// async form processing
+	app.async('server-side/blog-xhr/response.php', 'callback', mycall);
 	
 	function mycall(response) {
 		alert(response);
