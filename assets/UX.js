@@ -180,6 +180,7 @@ class UX {
             if (method == 'parent') return document.getElementById(id).parentNode;
             if (method == 'children') return document.getElementById(id).children;
             if (method == 'query') return document.querySelector(value);
+            if (method == 'queryall') return document.querySelectorAll(value);
             if (method == 'elements') return document.getElementsByTagName(value);
             if (method == 'create') return document.createElement(value);
             if (method == 'document') return document.all;
@@ -674,7 +675,7 @@ class UX {
                                 if(att.indexOf('{{') == -1) {
                                     node.addEventListener('click', ()=> { 
                                         let obj = Object.assign({}, methodhandler.splice(3,methodhandler.length)); 
-                                        if(obj !='' && Object.keys(obj).length >=1) { 
+                                            if(obj !='' && Object.keys(obj).length > 1) { 
                                                 UX.array.push(obj);
                                             }
                                         } 
@@ -761,6 +762,7 @@ class UX {
         let zebra = this.getAtt(node, 'zebra');
         if (att !== null && att == find) { 
             var c = node.children[0];
+            var d = c.childNodes;
             var h = c.innerHTML;
             let object = Object.entries(values);
             let len = object.length;
@@ -778,10 +780,20 @@ class UX {
                         }
                         c.setAttribute('id', find + i);
                     }
-                    
                     node.append(c);
                     c = c.cloneNode(true);
                 }
+                let doc = this.dom('','queryall','img');
+                if(doc) {
+                    for(let k=0; k<doc.length+1;k++) {
+                        if(doc[k] !== undefined) { 
+                        let img = doc[k].attributes[':image'].nodeValue;
+                        if(img !== null) {
+                            doc[k].setAttribute('src', img);
+                            }
+                        }
+                    }
+                }     
                 if (zebra !== null && node.children[i]) { 
                     let mod = 2;
                     let className = zebra;

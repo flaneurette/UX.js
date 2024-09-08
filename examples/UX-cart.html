@@ -23,10 +23,12 @@ p {
 	margin-left: 25px;
     z-index: 2;
     position: absolute;
-    top: 261px;
+    top: 260px;
     padding: 11px;
 }
-	
+.buy {
+	margin-top: 210px;
+}
 ul.products {
 	padding:0px;
 	margin:0px;
@@ -48,14 +50,16 @@ ul.products {
 <p>Click items to put inside the cart</p>
 <div class="div1" :flex="left:row">
 <form :async="true">
+<input type="hidden" name="food" id="food" value="" />
      <ul class="products">
       <div :loop="productList" class="products">
 		  <div class="product">
-			<div class="itemImage"><img width="150" :lazy="#333333" src="{{image}}" /></div>
+			<div class="itemImage"><img width="150" :lazy="#333333" :image="{{image}}" /></div>
 			<span class="itemName">{{name}}</span> 
 			<span class="itemPrice">${{price}}</span>
 			<input type="button" value="+" class="btn" :method="click:addItem:cart:{{id}}:{{name}}:{{price}}" />
 		  </div>
+		  <input type="submit" value="Buy" class="buy" />
       </div>
     </ul>
 </form>
@@ -65,14 +69,14 @@ ul.products {
 <script>
 	
 	let app = new UX();
-	
+	app.async('server-side/blog-xhr/response.php', 'callback', mycall);
 	app.load({
 		data: {
 		text: 'UX-Cart',
 			productList: [
 			  {id: 110,name: 'Apple',type: 'Fruit',price: '2.00',image: 'https://fakeimg.pl/250x250/24ff00' },
 			  {id: 220,name: 'Banana',type: 'Fruit',price: '1.00',image: 'https://fakeimg.pl/250x250/eaff00' },
-			  {id: 330,name: 'Orange',type: 'Fruit',price: '2.50',image: 'https://fakeimg.pl/250x250/ffba00' }
+			  {id: 330,name: 'Orange',type: 'Fruit',price: '2.50',image: 'https://fakeimg.pl/250x250/ffba00' },
 			  ]
 		},
 		methods: {
@@ -80,15 +84,21 @@ ul.products {
 				this.cart = UX.array; // Must be set, UX.array holds the objects.
 				this.products = [];
 				for (let i=0; i<this.cart.length;i++) {
-					this.products.push(JSON.stringify(this.cart[i]));
+					this.products.push(JSON.stringify(Object.values(this.cart[i])));
 				}
 				let node = document.getElementById('cart');
+				let food = document.getElementById('food');
 				let opt = app.dom('','create','li');
 				opt.innerHTML = this.products;
 				node.appendChild(opt);
+				food.value = this.products;
 		    }
 		}
 	});
+	
+	function mycall(response) {
+		alert(response);
+	}
 	</script>
 </body>
 </html>
