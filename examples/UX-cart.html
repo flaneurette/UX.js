@@ -20,7 +20,7 @@ p {
 	display:block;
 }
 .btn {
-	margin-left: 25px;
+	margin-left: 111px;
     z-index: 2;
     position: absolute;
     top: 260px;
@@ -43,20 +43,40 @@ ul.products {
 	display:block;
 	float:left;
 }
+.desc {
+	text-align:center;
+}
+#cartcrumb {
+	border-radius:50px;
+	background-color: blue;
+	color: white;
+	height:15px;
+	width: 15px;
+	padding: 10px;
+	line-height:15px;
+	text-align:center;
+	font-weight:bold;
+	position:absolute;
+	right: 30px;
+	top:30px;
+}
 </style>
 </head>
 <body>
 <h1>{{text}}</h1>
 <p>Click items to put inside the cart</p>
 <div class="div1" :flex="left:row">
+<div id="cartcrumb">0</div>
 <form :async="true">
 <input type="hidden" name="food" id="food" value="" />
      <ul class="products">
       <div :loop="productList" class="products">
 		  <div class="product">
 			<div class="itemImage"><img width="150" :lazy="#333333" :image="{{image}}" /></div>
-			<span class="itemName">{{name}}</span> 
-			<span class="itemPrice">${{price}}</span>
+				<div class="desc">
+					<span class="itemName">{{name}}</span> 
+					<span class="itemPrice">${{price}}</span>
+				</div>
 			<input type="button" value="+" class="btn" :method="click:addItem:cart:{{id}}:{{name}}:{{price}}" />
 		  </div>
 		  <input type="submit" value="Buy" class="buy" />
@@ -88,10 +108,17 @@ ul.products {
 				}
 				let node = document.getElementById('cart');
 				let food = document.getElementById('food');
+				let crumb = document.getElementById('cartcrumb');
+				// create cart list
 				let opt = app.dom('','create','li');
 				opt.innerHTML = this.products;
 				node.appendChild(opt);
-				food.value = this.products;
+				// store in session storage
+				sessionStorage.cart = this.products;
+				// update async input
+				food.value = sessionStorage.cart;
+				// update cartcrumb
+				crumb.innerText = Number(this.cart.length);
 		    }
 		}
 	});
