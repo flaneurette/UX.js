@@ -105,13 +105,13 @@ ul.products {
 				this.cart = UX.array; // Must be set, UX.array holds the objects.
 				this.products = [];
 				
-				for (let i=0; i<this.cart.length;i++) {
-					this.products.push(JSON.stringify(Object.values(this.cart[i])));
-				}
-				
 				let node = document.getElementById('cart');
 				let food = document.getElementById('food');
 				let crumb = document.getElementById('cartcrumb');
+				
+				for (let i=0; i<this.cart.length;i++) {
+					this.products.push(JSON.stringify(Object.values(this.cart[i])));
+				}
 				
 				// create cart list
 				let opt = app.dom('','create','li');
