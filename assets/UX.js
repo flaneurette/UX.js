@@ -673,10 +673,13 @@ class UX {
                             // array elements
                             if (lines[i].indexOf('UX.array') !== -1) {
                                 if(att.indexOf('{{') == -1) {
+									let clicks = 0;
                                     node.addEventListener('click', ()=> { 
-                                        let obj = Object.assign({}, methodhandler.splice(3,methodhandler.length)); 
-                                            if(obj !='' && Object.keys(obj).length > 1) { 
-                                                UX.array.push(obj);
+									let att = this.getAtt(node, 'method');
+									let methodhandler = att.split(":");
+                                        let obj = Object.assign({}, methodhandler.splice(3,methodhandler.length));										
+                                            if(Object.keys(obj).length > 1) { 
+												UX.array.push(obj);
                                             }
                                         } 
                                     );
