@@ -85,7 +85,7 @@ ul.products {
 </form>
 </div>
 <h2>Cart</h2>
-<ul id="cart"></ul>
+<div id="cart"></div>
 <script>
 	
 	let app = new UX();
@@ -114,9 +114,7 @@ ul.products {
 				}
 				
 				// create cart list
-				let opt = app.dom('','create','li');
-				opt.innerHTML = this.products;
-				node.appendChild(opt);
+				node.innerHTML = this.products;
 				
 				// store in session storage
 				sessionStorage.cart = this.products;
