@@ -11,7 +11,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.152",
+        version: "1.154",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -39,6 +39,7 @@ class UX {
     nodes(method, find, value, data = null, methods = null, callback = null) {
         let docElements = this.nodeParentList();
         for (let i = 0; i < docElements.length; i++) {
+            if (method == 'progress') this.progress(docElements[i], data, methods, find, value);
             if (method == 'render') this.render(docElements[i], find, value);
             if (method == 'router') this.router(docElements[i], find, value);
             if (method == 'bindActive') this.bindActive(docElements[i], find, value);
@@ -119,6 +120,7 @@ class UX {
         this.nodes('bindHamburger');
         this.nodes('bindIntoView');
         this.nodes('bindClose');
+        this.nodes('progress');
         this.nodes('bindFunctions', false, false, data);
     }
 
@@ -673,13 +675,13 @@ class UX {
                             // array elements
                             if (lines[i].indexOf('UX.array') !== -1) {
                                 if(att.indexOf('{{') == -1) {
-									let clicks = 0;
+                                    let clicks = 0;
                                     node.addEventListener('click', ()=> { 
-									let att = this.getAtt(node, 'method');
-									let methodhandler = att.split(":");
-                                        let obj = Object.assign({}, methodhandler.splice(3,methodhandler.length));										
+                                    let att = this.getAtt(node, 'method');
+                                    let methodhandler = att.split(":");
+                                        let obj = Object.assign({}, methodhandler.splice(3,methodhandler.length));                                        
                                             if(Object.keys(obj).length > 1) { 
-												UX.array.push(obj);
+                                                UX.array.push(obj);
                                             }
                                         } 
                                     );
@@ -885,6 +887,27 @@ class UX {
         }
     }
 
+    progress(node) {
+        let attribute = this.getAtt(node, 'progress');
+        if (attribute !== null) {
+            const observer = new PerformanceObserver(increment);
+            let load = 0;
+            let att = attribute.split(':');
+            let bar = this.dom('','query','#'+ Reflect.get(att,1));
+            function increment() {
+              let progress = Math.floor(Math.round((load / (Reflect.get(att,0) * 10)) * 100 * 10));
+              bar.style.width = progress + '%';
+              if(progress > 1) {
+                setTimeout(()=> {
+                    bar.style.width = 0;
+                }, 1000);
+              }
+              load++;
+            }
+            observer.observe({type:'resource'});
+        }
+    }
+    
     async (uri, method, callback) {
         let att = false;
         let docElements = this.nodeParentList();
