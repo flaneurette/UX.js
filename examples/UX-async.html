@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>UX Async</title>
-<script src="../assets/UX.js"></script>
-<style>
+	<head>
+		<title>UX Async</title>
+		<script src="../assets/UX.js"/>
+		<style>
 form {
 	background-color: #ded;
 	padding: 10px;
@@ -15,18 +15,17 @@ input {
 	padding:10px;
 }
 </style>
-</head>
-<body>
-<h1>UX Async</h1>
-<div class="div1" :flex="end:row">
-<form :async="true">
-	<input type="text" name="name" />
-	<input type="text" name="email" />
-	<input type="submit" value="submit" />
-</form>
-</div>
-	
-	<script>
+	</head>
+	<body>
+		<h1>UX Async</h1>
+		<div class="div1" :flex="end:row">
+			<form :async="true">
+				<input type="text" name="name"/>
+				<input type="text" name="email"/>
+				<input type="submit" value="submit"/>
+			</form>
+		</div>
+		<script>
 	
 	let app = new UX();
 	
@@ -36,5 +35,5 @@ input {
 		alert(response);
 	}
 	</script>
-</body>
+	</body>
 </html>

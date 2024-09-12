@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>{{text}}</title>
-<style>
+	<head>
+		<title>{{text}}</title>
+		<style>
 #image {
 	background-color: #ded;
 	padding: 10px;
@@ -34,27 +34,23 @@
 }
 
 </style>
-<script src="../assets/UX.js"></script>
-</head>
-<body>
-
-<div id="app">
-  <p>Click on a thumb below:</p>
-  <div id="image">
-    <!-- id is required -->
-    <img id="main" />
-  </div>
- 
-  <div id="thumbs">
-  <!-- method, function, id of main image, image -->
-    <img width="50" :method="mouseover:imageChange:main:img1" />
-	<img width="50" :method="click:imageChange:main:img2" />
-	<img width="50" :method="click:imageChange:main:img3" />
-  </div>
-   
-</div>
-
-<script>
+		<script src="../assets/UX.js"/>
+	</head>
+	<body>
+		<div id="app">
+			<p>Click on a thumb below:</p>
+			<div id="image">
+				<!-- id is required -->
+				<img id="main"/>
+			</div>
+			<div id="thumbs">
+				<!-- method, function, id of main image, image -->
+				<img width="50" :method="mouseover:imageChange:main:img1"/>
+				<img width="50" :method="click:imageChange:main:img2"/>
+				<img width="50" :method="click:imageChange:main:img3"/>
+			</div>
+		</div>
+		<script>
 
 	let app = new UX();
 	
@@ -72,6 +68,5 @@
 	});
 
 </script>
-
-</body>
+	</body>
 </html>
