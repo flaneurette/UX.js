@@ -1,6 +1,5 @@
 class UX {
 
-    static docElements = document.getElementsByTagName("*");
     static contentType = "application/json;charset=UTF-8";
     static asyncType = "application/x-www-form-urlencoded; charset=UTF-8";
     static componentsDir = "../components/";
@@ -11,7 +10,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.154",
+        version: "1.155",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -125,7 +124,7 @@ class UX {
     }
 
     getElements() {
-        let docElements = UX.docElements;
+        let docElements = this.dom('','elements','*');
         return docElements;
     }
 
@@ -224,7 +223,7 @@ class UX {
     }
 
     drawCurtains() {
-        let docElements = UX.docElements;
+        let docElements = this.dom('','elements','*');
         for (let i = 0; i < docElements.length; i++) {
             if (docElements[i].getAttribute(':curtain') !== null) {
                 docElements[i].hidden = false;
@@ -239,7 +238,15 @@ class UX {
             if (this.getAttCheck(docElements[i], 'curtain') == true) docElements[i].hidden = true;
         }
         if (att !== null && this.getAttCheck(node, 'curtain') !== null) {
-            node.addEventListener('click', this.drawCurtains, false);
+            node.addEventListener('click', ()=> {
+                let docElements = this.dom('','elements','*');
+                for (let i = 0; i < docElements.length; i++) {
+                    if (docElements[i].getAttribute(':curtain') !== null) {
+                        docElements[i].hidden = false;
+                    }
+                }
+            }
+            , false);
         }
     }
 
@@ -531,7 +538,7 @@ class UX {
     bindFunctions(node, data, find, value) {
 
         let att = this.getAtt(node, 'click');
-        let docElements = UX.docElements;
+        let docElements = this.dom('','elements','*');
         let countID, count, multiply, countdown, interval, clear, countvalue = 0;
 
         for (const [key, value] of Object.entries(data)) {
@@ -546,6 +553,7 @@ class UX {
         
         if (att !== null) {
             let counterNode = this.dom(countID,'id');
+            if(counterNode) { 
             node.addEventListener('click', () => {
                 var calc = Number(counterNode.innerText);
                 if (att == 'count++') counterNode.innerText = this.isInt((calc) + countvalue);
@@ -558,6 +566,7 @@ class UX {
                     }, interval);
                 }
             });
+            }
         }
     }
 
