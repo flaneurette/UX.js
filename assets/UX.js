@@ -2,7 +2,7 @@ class UX {
 
     static contentType = "application/json;charset=UTF-8";
     static asyncType = "application/x-www-form-urlencoded; charset=UTF-8";
-    static componentsDir = "../components/";
+    static componentsDirectory = "../components/";
     static cacheControl = "no-cache";
     static allowOrigin = '*';
     static thread = 0;
@@ -24,50 +24,50 @@ class UX {
             this.parseNodes(data);
             Reflect.preventExtensions(data);
             if (data) {
-                this.nodes('render', data);
-                this.nodes('router', data);
+                this.nodes('renderComponents', data);
+                this.nodes('routeComponents', data);
                 this.parseFunctions(data, method);
                 if (Reflect.has(data, "devtools")) this.nodes('devtools', data);
             }
         } else {
-            this.log(this.msg['initialize']);
+            this.log(this.Message['initialize']);
             return false;    
         }
     }
 
     nodes(method, find, value, data = null, methods = null, callback = null) {
-        let docElements = this.nodeParentList();
-        for (let i = 0; i < docElements.length; i++) {
-            if (method == 'progress') this.progress(docElements[i], data, methods, find, value);
-            if (method == 'render') this.render(docElements[i], find, value);
-            if (method == 'router') this.router(docElements[i], find, value);
-            if (method == 'bindActive') this.bindActive(docElements[i], find, value);
-            if (method == 'bindSelect') this.bindSelect(docElements[i], find, value);
-            if (method == 'bindShow') this.bindShow(docElements[i], find, value);
-            if (method == 'bindHide') this.bindHide(docElements[i], find, value);
-            if (method == 'createForm') this.createForm(docElements[i], find, value);
-            if (method == 'bindCurtains') this.bindCurtains(docElements[i], find, value);
-            if (method == 'bindLoop') this.loop(docElements[i], find, value);
-            if (method == 'bindFunctions') this.bindFunctions(docElements[i], data, find, value);
-            if (method == 'bindLogic') this.bindIf(docElements[i], find, value);
-            if (method == 'bindMethods') this.bindMethods(docElements[i], data, methods, find, value);
-            if (method == 'bindAttributesNode') this.bindClass(docElements[i], find, value);
-            if (method == 'bindFlex') this.bindFlex(docElements[i], find, value);
-            if (method == 'bindMenu') this.bindMenu(docElements[i], find, value);
-            if (method == 'bindToggle') this.bindToggle(docElements[i], find, value);
-            if (method == 'bindVoid') this.bindVoid(docElements[i], find, value);
-            if (method == 'bindPrevent') this.bindPrevent(docElements[i], find, value);
-            if (method == 'bindAsync') this.bindAsync(docElements[i], find, value);
-            if (method == 'devtools') this.bindDevtool(docElements[i], find, value);
-            if (method == 'bindAnimate') this.bindAnimate(docElements[i], find, value);
-            if (method == 'bindCascade') this.bindCascade(docElements[i], find, value);
-            if (method == 'bindLazyLoad') this.bindLazyLoad(docElements[i], find, value);
-            if (method == 'bindUri') this.bindUri(docElements[i], find, value);
-            if (method == 'bindHamburger') this.bindHamburger(docElements[i]);
-            if (method == 'bindIntoView') this.bindIntoView(docElements[i]);
-            if (method == 'bindClose') this.bindClose(docElements[i]);
-            if (method == 'bindHandler') this.bindHandler(docElements[i], data, methods, find, value);
-            let documentChildren = this.nodeChildren(docElements[i]);
+        let documentElements = this.nodeParentList();
+        for (let index = 0; index  < documentElements.length; index ++) {
+            if (method == 'progress') this.progress(documentElements[index], data, methods, find, value);
+            if (method == 'renderComponents') this.renderComponents(documentElements[index], find, value);
+            if (method == 'routeComponents') this.routeComponents(documentElements[index], find, value);
+            if (method == 'bindActive') this.bindActive(documentElements[index], find, value);
+            if (method == 'bindSelect') this.bindSelect(documentElements[index], find, value);
+            if (method == 'bindShow') this.bindShow(documentElements[index], find, value);
+            if (method == 'bindHide') this.bindHide(documentElements[index], find, value);
+            if (method == 'createForm') this.createForm(documentElements[index], find, value);
+            if (method == 'bindCurtains') this.bindCurtains(documentElements[index], find, value);
+            if (method == 'bindLoop') this.loop(documentElements[index], find, value);
+            if (method == 'bindFunctions') this.bindFunctions(documentElements[index], data, find, value);
+            if (method == 'bindLogic') this.bindIf(documentElements[index], find, value);
+            if (method == 'bindMethods') this.bindMethods(documentElements[index], data, methods, find, value);
+            if (method == 'bindAttributesNode') this.bindClass(documentElements[index], find, value);
+            if (method == 'bindFlex') this.bindFlex(documentElements[index], find, value);
+            if (method == 'bindMenu') this.bindMenu(documentElements[index], find, value);
+            if (method == 'bindToggle') this.bindToggle(documentElements[index], find, value);
+            if (method == 'bindVoid') this.bindVoid(documentElements[index], find, value);
+            if (method == 'bindPrevent') this.bindPrevent(documentElements[index], find, value);
+            if (method == 'bindAsync') this.bindAsync(documentElements[index], find, value);
+            if (method == 'devtools') this.bindDevtool(documentElements[index], find, value);
+            if (method == 'bindAnimate') this.bindAnimate(documentElements[index], find, value);
+            if (method == 'bindCascade') this.bindCascade(documentElements[index], find, value);
+            if (method == 'bindLazyLoad') this.bindLazyLoad(documentElements[index], find, value);
+            if (method == 'bindUri') this.bindUri(documentElements[index], find, value);
+            if (method == 'bindHamburger') this.bindHamburger(documentElements[index]);
+            if (method == 'bindIntoView') this.bindIntoView(documentElements[index]);
+            if (method == 'bindClose') this.bindClose(documentElements[index]);
+            if (method == 'bindHandler') this.bindHandler(documentElements[index], data, methods, find, value);
+            let documentChildren = this.nodeChildren(documentElements[index]);
             for (let j = 0; j < documentChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
                     if (documentChildren[j].nodeType === 3) {
@@ -124,15 +124,15 @@ class UX {
     }
 
     getElements() {
-        let docElements = this.dom('','elements','*');
-        return docElements;
+        let documentElements = this.dom('','elements','*');
+        return documentElements;
     }
 
     nodeParentList() {
         let parentList = [];
-        let docElements = this.getElements();
-        for (let i = 0; i < docElements.length; i++) {
-            parentList.push(docElements[i]);
+        let documentElements = this.getElements();
+        for (let i = 0; i < documentElements.length; i++) {
+            parentList.push(documentElements[i]);
         }
         return parentList;
     }
@@ -223,26 +223,26 @@ class UX {
     }
 
     drawCurtains() {
-        let docElements = this.dom('','elements','*');
-        for (let i = 0; i < docElements.length; i++) {
-            if (docElements[i].getAttribute(':curtain') !== null) {
-                docElements[i].hidden = false;
+        let documentElements = this.dom('','elements','*');
+        for (let i = 0; i < documentElements.length; i++) {
+            if (documentElements[i].getAttribute(':curtain') !== null) {
+                documentElements[i].hidden = false;
             }
         }
     }
 
     bindCurtains(node, find, value) {
         let nodeAtrribute = this.getAtt(node, 'click');
-        let docElements = this.nodeParentList();
-        for (let i = 0; i < docElements.length; i++) {
-            if (this.getAttCheck(docElements[i], 'curtain') == true) docElements[i].hidden = true;
+        let documentElements = this.nodeParentList();
+        for (let i = 0; i < documentElements.length; i++) {
+            if (this.getAttCheck(documentElements[i], 'curtain') == true) documentElements[i].hidden = true;
         }
         if (nodeAtrribute !== null && this.getAttCheck(node, 'curtain') !== null) {
             node.addEventListener('click', ()=> {
-                let docElements = this.dom('','elements','*');
-                for (let i = 0; i < docElements.length; i++) {
-                    if (docElements[i].getAttribute(':curtain') !== null) {
-                        docElements[i].hidden = false;
+                let documentElements = this.dom('','elements','*');
+                for (let i = 0; i < documentElements.length; i++) {
+                    if (documentElements[i].getAttribute(':curtain') !== null) {
+                        documentElements[i].hidden = false;
                     }
                 }
             }
@@ -490,10 +490,10 @@ class UX {
             node.addEventListener('click', () => {
                 let nodeAtrribute = this.getAtt(node, 'toggle');
                 let pairs = nodeAtrribute.split(':');
-                let docElements1 = this.dom('','document');
-                for (let i = 0; i < docElements1.length; i++) {
-                    let nodeAtrribute = docElements1[i].getAttribute(':toggle');
-                    let easing = docElements1[i].getAttribute(':ease');
+                let documentElements1 = this.dom('','document');
+                for (let i = 0; i < documentElements1.length; i++) {
+                    let nodeAtrribute = documentElements1[i].getAttribute(':toggle');
+                    let easing = documentElements1[i].getAttribute(':ease');
                     if (nodeAtrribute !== null) {
                         if (Reflect.get(pairs, 1) == 'in') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
@@ -538,7 +538,7 @@ class UX {
     bindFunctions(node, data, find, value) {
 
         let nodeAtrribute = this.getAtt(node, 'click');
-        let docElements = this.dom('','elements','*');
+        let documentElements = this.dom('','elements','*');
         let countID, count, multiply, countdown, interval, clear, countvalue = 0;
 
         for (const [key, value] of Object.entries(data)) {
@@ -578,7 +578,7 @@ class UX {
     bindPrevent(node, find, value) {
         let nodeAtrribute = this.getAtt(node, 'prevent');
         if (nodeAtrribute !== null) {
-            docElements[j].addEventListener('submit', event => {
+            documentElements[j].addEventListener('submit', event => {
                 event.preventDefault();
             });
         }
@@ -775,65 +775,64 @@ class UX {
         let attclick = this.getAtt(node, 'click');
         let zebra = this.getAtt(node, 'zebra');
         if (nodeAtrribute !== null && nodeAtrribute == find) { 
-            var c = node.children[0];
-            var d = c.childNodes;
-            var h = c.innerHTML;
-            let object = Object.entries(values);
-            let len = object.length;
+            var nodeChildren = node.children[0];
+            var nodeHTML = nodeChildren.innerHTML;
+            let loopObject = Object.entries(values);
+            let len = loopObject.length;
             for (let i = 0; i < len; i++) {
-                let k = Object.keys(object[i][1]);
-                let v = Object.values(object[i][1]);
-                c.innerHTML = h.replace("UX:" + Math.random(), ""); // DOM bug
-                if(c.getAttribute('id') != (find + i).toString) {
+                let k = Object.keys(loopObject[i][1]);
+                let v = Object.values(loopObject[i][1]);
+                nodeChildren.innerHTML = nodeHTML.replace("UX:" + Math.random(), ""); // DOM bug
+                if(nodeChildren.getAttribute('id') != (find + i).toString) {
                     for (let j = 0; j < v.length; j++) { 
-                        if (c.innerHTML !== null) {
-                            c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
-                            if (c.innerHTML.indexOf("{{" + k[j] + "}}") != -1) { 
-                                c.innerHTML = c.innerHTML.replace("{{" + k[j] + "}}", v[j]);
+                        if (nodeChildren.innerHTML !== null) {
+                            nodeChildren.innerHTML = nodeChildren.innerHTML.replace("{{" + k[j] + "}}", v[j]);
+                            if (nodeChildren.innerHTML.indexOf("{{" + k[j] + "}}") != -1) { 
+                                nodeChildren.innerHTML = nodeChildren.innerHTML.replace("{{" + k[j] + "}}", v[j]);
                             }
                         }
-                        c.setAttribute('id', find + i);
+                        nodeChildren.setAttribute('id', find + i);
                     }
-                    node.append(c);
-                    c = c.cloneNode(true);
+                    node.append(nodeChildren);
+                    nodeChildren = nodeChildren.cloneNode(true);
                 }
-                let doc = this.dom('','queryall','img');
-                if(doc) {
-                    let img = null;
-                    for(let k=0; k<doc.length+1;k++) {
-                        if(doc[k] !== undefined) { 
-                        if(doc[k].attributes[':image']) { 
-                            img = doc[k].attributes[':image'].nodeValue;
+                let documentImageDOM = this.dom('','queryall','img');
+                if(documentImageDOM) {
+                    let documentImages = null;
+                    for(let k=0; k<documentImageDOM.length+1;k++) {
+                        if(documentImageDOM[k] !== undefined) { 
+                        if(documentImageDOM[k].attributes[':image']) { 
+                            documentImages = documentImageDOM[k].attributes[':image'].nodeValue;
                         }
-                        if(img !== null) {
-                            doc[k].setAttribute('src', img);
+                        if(documentImages !== null) {
+                            documentImageDOM[k].setAttribute('src', documentImages);
                             }
                         }
                     }
                 }     
                 if (zebra !== null && node.children[i]) { 
-                    let mod = 2;
+                    let modulo = 2;
                     let className = zebra;
                     if (zebra.indexOf(':') != -1) {
                         let parts = zebra.split(':');
                         className = parts[0];
-                        mod = parts[1];
+                        modulo = parts[1];
                     }
-                    if (i % mod !== 0) node.children[i].classList.toggle(className);
+                    if (i % modulo !== 0) node.children[i].classList.toggle(className);
                 }
             }
         }
     }
     
-    router(node, data) {
+    routeComponents(node, data) {
         let attribute = this.getAtt(node, 'route');
         if (attribute !== null) {
-            let router = attribute.split(':');
-            UX.array.push(Reflect.get(router,0));
+            let routerAddress = attribute.split(':');
+            UX.array.push(Reflect.get(routerAddress,0));
             node.addEventListener('click', ()=> { 
-                let router = attribute.split(':');
-                let requestUri = UX.componentsDir + Reflect.get(router,1);
-                let routeNode = this.dom(Reflect.get(router,0),'id');
+                let routerAddress  = attribute.split(':');
+                let requestUri = UX.componentsDirectory + Reflect.get(routerAddress,1);
+                let routeNode = this.dom(Reflect.get(routerAddress,0),'id');
                 for(let i=0; i< UX.array.length; i++) {
                     this.dom(Reflect.get(UX.array,i),'id').hidden = true;
                 }
@@ -850,9 +849,9 @@ class UX {
         }
     }
 
-    render(node, data) {
+    renderComponents(node, data) {
         let attribute = this.getAtt(node, 'render');
-        let requestUri = UX.componentsDir + attribute;
+        let requestUri = UX.componentsDirectory + attribute;
         if (attribute !== null) {
             const options = new Headers();
             options.append("Cache-Control", UX.cacheControl);
@@ -881,9 +880,9 @@ class UX {
 
     fetch(obj) {
         if (Object(obj)) {
-            let docElements = this.nodeParentList();
-            for (let i = 0; i < docElements.length; i++) {
-                let documentChildren = this.nodeChildren(docElements[i]);
+            let documentElements = this.nodeParentList();
+            for (let i = 0; i < documentElements.length; i++) {
+                let documentChildren = this.nodeChildren(documentElements[i]);
                 for (let j = 0; j < documentChildren.length; j++) {
                     for (const [key, value] of Object.entries(obj)) {
                         if (Object(value)) {
@@ -922,17 +921,17 @@ class UX {
     
     async (requestUri, method, callback) {
         let nodeAtrribute = false;
-        let docElements = this.nodeParentList();
-        for (let j = 0; j < docElements.length; j++) {
-            nodeAtrribute = this.getAtt(docElements[j], 'async');
+        let documentElements = this.nodeParentList();
+        for (let j = 0; j < documentElements.length; j++) {
+            nodeAtrribute = this.getAtt(documentElements[j], 'async');
             if (nodeAtrribute !== null) {
-                docElements[j].addEventListener('submit', event => {
+                documentElements[j].addEventListener('submit', event => {
                     event.preventDefault();
                     let parentList = [];
-                    let docElements1 = this.dom('','elements','*');
-                    for (let i = 0; i < docElements1.length; i++) {
-                        if (docElements1[i].getAttribute(':async') == 'true') {
-                            let children = docElements1[i].children;
+                    let documentElements1 = this.dom('','elements','*');
+                    for (let i = 0; i < documentElements1.length; i++) {
+                        if (documentElements1[i].getAttribute(':async') == 'true') {
+                            let children = documentElements1[i].children;
                             let req = new XMLHttpRequest();
                             let data = [];
                             data.push('UXAsync=true');
@@ -1051,11 +1050,11 @@ class UX {
         }
     }
 
-    log(msg) {
-        console.log(msg);
+    log(Message) {
+        console.log(Message);
     }
 
-    msg = {
+    Message = {
         initialize: "ux: Cannot initialize a non-object.",
         enumerate: "ux: Could not enumerate global object."
     }
