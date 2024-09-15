@@ -67,12 +67,12 @@ class UX {
             if (method == 'bindIntoView') this.bindIntoView(docElements[i]);
             if (method == 'bindClose') this.bindClose(docElements[i]);
             if (method == 'bindHandler') this.bindHandler(docElements[i], data, methods, find, value);
-            let docChildren = this.nodeChildren(docElements[i]);
-            for (let j = 0; j < docChildren.length; j++) {
+            let documentChildren = this.nodeChildren(docElements[i]);
+            for (let j = 0; j < documentChildren.length; j++) {
                 if (method == 'replaceNodeValue') {
-                    if (docChildren[j].nodeType === 3) {
+                    if (documentChildren[j].nodeType === 3) {
                         const regex = new RegExp("{{\\s*" + find + "[0-9]*\\s*}}", "gmi");
-                        docChildren[j].nodeValue = docChildren[j].nodeValue.replaceAll(regex, value);
+                        documentChildren[j].nodeValue = documentChildren[j].nodeValue.replaceAll(regex, value);
                     }
                 }
             }
@@ -146,13 +146,13 @@ class UX {
     }
 
     getAtt(node, part) {
-        let att = null;
+        let nodeAtrribute = null;
         if (node.getAttribute('ux:' + part) !== null) {
             return node.getAttribute('ux:' + part);
         } else if (node.getAttribute(':' + part) !== null) {
             return node.getAttribute(':' + part);
         } else {
-            return att;
+            return nodeAtrribute;
         }
     }
 
@@ -209,16 +209,16 @@ class UX {
     }
 
     bindClass(node, find, value) {
-        let att = this.getAtt(node, 'class');
-        if (att !== null) {
-            if (att.toString() === find.toString()) node.classList.toggle(value);
+        let nodeAtrribute = this.getAtt(node, 'class');
+        if (nodeAtrribute !== null) {
+            if (nodeAtrribute.toString() === find.toString()) node.classList.toggle(value);
         }
     }
 
     bindId(node, find, value) {
-        let att = this.getAtt(node, 'id');
-        if (att !== null) {
-            if (att.toString() === find.toString()) node.id = value;
+        let nodeAtrribute = this.getAtt(node, 'id');
+        if (nodeAtrribute !== null) {
+            if (nodeAtrribute.toString() === find.toString()) node.id = value;
         }
     }
 
@@ -232,12 +232,12 @@ class UX {
     }
 
     bindCurtains(node, find, value) {
-        let att = this.getAtt(node, 'click');
+        let nodeAtrribute = this.getAtt(node, 'click');
         let docElements = this.nodeParentList();
         for (let i = 0; i < docElements.length; i++) {
             if (this.getAttCheck(docElements[i], 'curtain') == true) docElements[i].hidden = true;
         }
-        if (att !== null && this.getAttCheck(node, 'curtain') !== null) {
+        if (nodeAtrribute !== null && this.getAttCheck(node, 'curtain') !== null) {
             node.addEventListener('click', ()=> {
                 let docElements = this.dom('','elements','*');
                 for (let i = 0; i < docElements.length; i++) {
@@ -260,29 +260,29 @@ class UX {
     }
 
     bindShow(node) {
-        let att = this.getAtt(node, 'hidden');
-        if (att !== null) {
+        let nodeAtrribute = this.getAtt(node, 'hidden');
+        if (nodeAtrribute !== null) {
             node.hidden = false;
         }
     }
 
     bindHide(node) {
-        let att = this.getAtt(node, 'hidden');
-        if (att !== null && att == 'true') {
+        let nodeAtrribute = this.getAtt(node, 'hidden');
+        if (nodeAtrribute !== null && nodeAtrribute == 'true') {
             node.hidden = true;
         }
     }
 
     bindVoid(node) {
-        let att = this.getAtt(node, 'void');
-        if (att !== null) {
+        let nodeAtrribute = this.getAtt(node, 'void');
+        if (nodeAtrribute !== null) {
             node.setAttribute('href', 'javascript:void(0);');
         }
     }
 
     bindScroll(node) {
-        let att = this.getAtt(node, 'scroll');
-        if (att !== null) {
+        let nodeAtrribute = this.getAtt(node, 'scroll');
+        if (nodeAtrribute !== null) {
             node.setAttribute('href', 'javascript:void(0);');
             node.addEventListener('click', () => {
                 window.scrollTo = scrollTo(0, this.dom('','innerheight'));
@@ -291,11 +291,11 @@ class UX {
     }
 
     bindActive(node) {
-        let att = this.getAtt(node, 'active');
+        let nodeAtrribute = this.getAtt(node, 'active');
         let active = this.dom('','location');
-        if (att !== null) {
-            if (att.indexOf(':') != -1) {
-                let pieces = att.split(':');
+        if (nodeAtrribute !== null) {
+            if (nodeAtrribute.indexOf(':') != -1) {
+                let pieces = nodeAtrribute.split(':');
                 if (active.match(Reflect.get(pieces, 0))) {
                     node.className = Reflect.get(pieces, 1).toString();
                 }
@@ -304,17 +304,17 @@ class UX {
     }
 
     bindSelect(node) {
-        let att = this.getAtt(node, 'select');
-        if (att !== null) {
-            node.className = att.toString();
+        let nodeAtrribute = this.getAtt(node, 'select');
+        if (nodeAtrribute !== null) {
+            node.className = nodeAtrribute.toString();
         }
     }
 
     bindFlex(node) {
-        let att = this.getAtt(node, 'flex');
-        if (att !== null) {
-            if (att.indexOf(':') != -1) {
-                let flexbox = att.split(':');
+        let nodeAtrribute = this.getAtt(node, 'flex');
+        if (nodeAtrribute !== null) {
+            if (nodeAtrribute.indexOf(':') != -1) {
+                let flexbox = nodeAtrribute.split(':');
                 let flex = 'display:flex;';
                 let flexdir = 'flex-direction:' + Reflect.get(flexbox, 1) + ';';
                 if (Reflect.get(flexbox, 0) == 'true' ||
@@ -330,10 +330,10 @@ class UX {
     }
 
     bindAnimate(node) {
-        let att = this.getAtt(node, 'animate');
-        if (att !== null) {
-            if (att.indexOf(':') != -1) {
-                let f = att.split(':');
+        let nodeAtrribute = this.getAtt(node, 'animate');
+        if (nodeAtrribute !== null) {
+            if (nodeAtrribute.indexOf(':') != -1) {
+                let f = nodeAtrribute.split(':');
                 let keyframes = this.dom('','create','style');
                 keyframes.textContent = '@keyframes ' + Reflect.get(f, 0) +
                     '{ from { ' + Reflect.get(f, 5).toString() +
@@ -350,8 +350,8 @@ class UX {
     }
     
     bindIntoView(node) {
-        let att = this.getAtt(node, 'grow');
-        if (att !== null) {
+        let nodeAtrribute = this.getAtt(node, 'grow');
+        if (nodeAtrribute !== null) {
             let options = {    
               threshold: 1.0,
             };
@@ -359,7 +359,7 @@ class UX {
                 entries.forEach((entry) => {
                 if(entry.isIntersecting === true) {
                     let height = node.clientHeight;
-                    entry.target.setAttribute("class",att);
+                    entry.target.setAttribute("class",nodeAtrribute);
                 }
               });
             };
@@ -372,9 +372,9 @@ class UX {
     }
     
     bindCascade(node, find) {
-        let att = this.getAtt(node, 'cascade');
-        if (att !== null) {
-            let a = att.split(':');
+        let nodeAtrribute = this.getAtt(node, 'cascade');
+        if (nodeAtrribute !== null) {
+            let a = nodeAtrribute.split(':');
             const [type, index, height1, height2] = a;
             let childs = node.children;
             for (let i = 0; i < childs.length; i++) {
@@ -413,9 +413,9 @@ class UX {
     }
 
     bindLazyLoad(node, find) {
-        let att = this.getAtt(node, 'lazy');
-        if (att !== null) {
-            let lazy = att.split(':');
+        let nodeAtrribute = this.getAtt(node, 'lazy');
+        if (nodeAtrribute !== null) {
+            let lazy = nodeAtrribute.split(':');
             let style = '';
             style += "background-color:" + Reflect.get(lazy, 0) + ";";
             style += "background-size: cover;";
@@ -425,19 +425,19 @@ class UX {
     }
 
     bindUri(node) {
-        let att = this.getAtt(node, 'link');
-        if (att !== null) {
+        let nodeAtrribute = this.getAtt(node, 'link');
+        if (nodeAtrribute !== null) {
             node.setAttribute('href', 'javascript:void(0);');
             node.addEventListener('click', () => {
-                document.location = att;
+                document.location = nodeAtrribute;
             });
         }
     }
 
     bindHamburger(node) {
-        let att = this.getAtt(node, 'hamburger');
-        if (att !== null && att.indexOf(':') !== -1) {
-            let pairs = att.split(':');
+        let nodeAtrribute = this.getAtt(node, 'hamburger');
+        if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
+            let pairs = nodeAtrribute.split(':');
             let width = Reflect.get(pairs, 1);
             let height = 10;
             let spacing = Reflect.get(pairs, 2);
@@ -466,35 +466,35 @@ class UX {
     }
 
     bindCSS(node) {
-    let att = this.getAtt(node, 'css');
-        if (att !== null) {
-            node.style = att;
+    let nodeAtrribute = this.getAtt(node, 'css');
+        if (nodeAtrribute !== null) {
+            node.style = nodeAtrribute;
         }        
     }
     
     bindToggle(node) {
-        let att = this.getAtt(node, 'toggle');
-        if (att !== null && att.indexOf(':') !== -1) {
-            let att = this.getAtt(node, 'toggle');
-            let pairs = att.split(':');
+        let nodeAtrribute = this.getAtt(node, 'toggle');
+        if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
+            let nodeAtrribute = this.getAtt(node, 'toggle');
+            let pairs = nodeAtrribute.split(':');
             let nodeId = this.dom(Reflect.get(pairs, 0),'id');
             if(nodeId) { 
                 nodeId.addEventListener('mouseleave', () => {
-                    let att = node.getAttribute(':toggle');
-                    if (att !== null && att.indexOf(':') !== -1) {
-                        let pairs = att.split(':');
+                    let nodeAtrribute = node.getAttribute(':toggle');
+                    if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
+                        let pairs = nodeAtrribute.split(':');
                         if (Reflect.get(pairs, 2)) { this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2)); }
                     }
                 });
             }    
             node.addEventListener('click', () => {
-                let att = this.getAtt(node, 'toggle');
-                let pairs = att.split(':');
+                let nodeAtrribute = this.getAtt(node, 'toggle');
+                let pairs = nodeAtrribute.split(':');
                 let docElements1 = this.dom('','document');
                 for (let i = 0; i < docElements1.length; i++) {
-                    let att = docElements1[i].getAttribute(':toggle');
+                    let nodeAtrribute = docElements1[i].getAttribute(':toggle');
                     let easing = docElements1[i].getAttribute(':ease');
-                    if (att !== null) {
+                    if (nodeAtrribute !== null) {
                         if (Reflect.get(pairs, 1) == 'in') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
                             if (Reflect.get(pairs, 2)) { this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2)); }
@@ -510,13 +510,13 @@ class UX {
     }
 
     bindMenu(node) {
-        let att = this.getAtt(node, 'menu');
-        if (att !== null && att.indexOf(':') !== -1) {
-            let pairs = att.split(':');
+        let nodeAtrribute = this.getAtt(node, 'menu');
+        if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
+            let pairs = nodeAtrribute.split(':');
             if (Reflect.get(pairs, 1) == 'in') {
                 let list = this.dom(Reflect.get(pairs, 0),'id').children;
                 for (let i = 0; i < list.length; i++) {
-                    list[i].setAttribute(':menu', att);
+                    list[i].setAttribute(':menu', nodeAtrribute);
                 }
                 this.dom(Reflect.get(pairs, 0),'id').hidden = true;
                 node.addEventListener('mouseover', () => {
@@ -525,9 +525,9 @@ class UX {
             }
             if (Reflect.get(pairs, 1) == 'out') {
                 node.addEventListener('mouseout', () => {
-                    let att = node.getAttribute(':menu');
-                    if (att !== null && att.indexOf(':') !== -1) {
-                        let pairs = att.split(':');
+                    let nodeAtrribute = node.getAttribute(':menu');
+                    if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
+                        let pairs = nodeAtrribute.split(':');
                         this.dom(Reflect.get(pairs, 0),'id').hidden = true;
                     }
                 });
@@ -537,7 +537,7 @@ class UX {
 
     bindFunctions(node, data, find, value) {
 
-        let att = this.getAtt(node, 'click');
+        let nodeAtrribute = this.getAtt(node, 'click');
         let docElements = this.dom('','elements','*');
         let countID, count, multiply, countdown, interval, clear, countvalue = 0;
 
@@ -551,15 +551,15 @@ class UX {
             if (key == 'clear') clear = value;
         }
         
-        if (att !== null) {
+        if (nodeAtrribute !== null) {
             let counterNode = this.dom(countID,'id');
             if(counterNode) { 
             node.addEventListener('click', () => {
                 var calc = Number(counterNode.innerText);
-                if (att == 'count++') counterNode.innerText = this.isInt((calc) + countvalue);
-                if (att == 'count--') counterNode.innerText = this.isInt((calc) - countvalue);
-                if (att == 'multiply') counterNode.innerText = this.isInt((calc) * multiply);
-                if (att == 'countdown') {
+                if (nodeAtrribute == 'count++') counterNode.innerText = this.isInt((calc) + countvalue);
+                if (nodeAtrribute == 'count--') counterNode.innerText = this.isInt((calc) - countvalue);
+                if (nodeAtrribute == 'multiply') counterNode.innerText = this.isInt((calc) * multiply);
+                if (nodeAtrribute == 'countdown') {
                     let timer = setInterval(() => {
                         counterNode.innerText = this.isInt(Number(counterNode.innerText) - countvalue);
                         if (Number(counterNode.innerText) <= clear) clearInterval(timer);
@@ -576,8 +576,8 @@ class UX {
     }
 
     bindPrevent(node, find, value) {
-        let att = this.getAtt(node, 'prevent');
-        if (att !== null) {
+        let nodeAtrribute = this.getAtt(node, 'prevent');
+        if (nodeAtrribute !== null) {
             docElements[j].addEventListener('submit', event => {
                 event.preventDefault();
             });
@@ -585,10 +585,10 @@ class UX {
     }
 
     bindClose(node) {
-        let att = this.getAtt(node, ':close');
-        if (att !== null) {
+        let nodeAtrribute = this.getAtt(node, ':close');
+        if (nodeAtrribute !== null) {
             node.addEventListener('onclick', () => {
-                this.dom(att,'id').hidden = true;
+                this.dom(nodeAtrribute,'id').hidden = true;
             });
         }
     }
@@ -647,9 +647,9 @@ class UX {
     }
     
     bindHandler(node, data, methods, find, value) {
-        let att = this.getAtt(node, 'handler');
-        if(att !== null) { 
-            let handlers = att.split(':');
+        let nodeAtrribute = this.getAtt(node, 'handler');
+        if(nodeAtrribute !== null) { 
+            let handlers = nodeAtrribute.split(':');
             if (methods && Object(methods)) {
                 for (let key in methods) {
                         let funcs = methods[key];
@@ -664,11 +664,11 @@ class UX {
     }
     
     bindMethods(node, data, methods, find, value) {
-        let att = this.getAtt(node, 'method');
+        let nodeAtrribute = this.getAtt(node, 'method');
         let array = [];
         if (this.getAttCheck(node, 'method') == true) {
-            if (att !== null) {
-                let methodhandler = att.split(":");
+            if (nodeAtrribute !== null) {
+                let methodhandler = nodeAtrribute.split(":");
                 if (methods && Object(methods)) {
                     for (let key in methods) {
                         let funcs = methods[key];
@@ -683,11 +683,11 @@ class UX {
                             }
                             // array elements
                             if (lines[i].indexOf('UX.array') !== -1) {
-                                if(att.indexOf('{{') == -1) {
+                                if(nodeAtrribute.indexOf('{{') == -1) {
                                     let clicks = 0;
                                     node.addEventListener('click', ()=> { 
-                                    let att = this.getAtt(node, 'method');
-                                    let methodhandler = att.split(":");
+                                    let nodeAtrribute = this.getAtt(node, 'method');
+                                    let methodhandler = nodeAtrribute.split(":");
                                         let obj = Object.assign({}, methodhandler.splice(3,methodhandler.length));                                        
                                             if(Object.keys(obj).length > 1) { 
                                                 UX.array.push(obj);
@@ -742,23 +742,23 @@ class UX {
     }
 
     bindIf(node, find, value) {
-        let att = this.getAtt(node, 'if');
-        if (att !== null) {
+        let nodeAtrribute = this.getAtt(node, 'if');
+        if (nodeAtrribute !== null) {
             // functions
-            if (att.indexOf('.') != -1) {
-                let pieces = att.split('.');
+            if (nodeAtrribute.indexOf('.') != -1) {
+                let pieces = nodeAtrribute.split('.');
                 if (pieces.length > 0) {
                     if (pieces.indexOf('has')) {
                         let key = this.has(Reflect.get(pieces, 1)).toString();
                         node.hidden = (value.indexOf(key) != -1) ? false : true;
                     }
                 }
-            } else if (att.search("/\s/")) {
+            } else if (nodeAtrribute.search("/\s/")) {
                 // operators
                 let toEval = null,
                     key = null,
                     opp = '';
-                let pieces = att.split("\s");
+                let pieces = nodeAtrribute.split("\s");
                 node.hidden = true;
                 for (let i = 0; i < pieces.length; i++) {
                     if (find == pieces[i]) {
@@ -771,10 +771,10 @@ class UX {
     }
 
     loop(node, find, values) {
-        let att = this.getAtt(node, 'loop');
+        let nodeAtrribute = this.getAtt(node, 'loop');
         let attclick = this.getAtt(node, 'click');
         let zebra = this.getAtt(node, 'zebra');
-        if (att !== null && att == find) { 
+        if (nodeAtrribute !== null && nodeAtrribute == find) { 
             var c = node.children[0];
             var d = c.childNodes;
             var h = c.innerHTML;
@@ -799,9 +799,12 @@ class UX {
                 }
                 let doc = this.dom('','queryall','img');
                 if(doc) {
+					let img = null;
                     for(let k=0; k<doc.length+1;k++) {
                         if(doc[k] !== undefined) { 
-                        let img = doc[k].attributes[':image'].nodeValue;
+						if(doc[k].attributes[':image']) { 
+							img = doc[k].attributes[':image'].nodeValue;
+						}
                         if(img !== null) {
                             doc[k].setAttribute('src', img);
                             }
@@ -829,7 +832,7 @@ class UX {
             UX.array.push(Reflect.get(router,0));
             node.addEventListener('click', ()=> { 
                 let router = attribute.split(':');
-                let uri = UX.componentsDir + Reflect.get(router,1);
+                let requestUri = UX.componentsDir + Reflect.get(router,1);
                 let routeNode = this.dom(Reflect.get(router,0),'id');
                 for(let i=0; i< UX.array.length; i++) {
                     this.dom(Reflect.get(UX.array,i),'id').hidden = true;
@@ -837,7 +840,7 @@ class UX {
                 routeNode.hidden = false;
                 const options = new Headers();
                 options.append("Cache-Control", UX.cacheControl);
-                let promise = fetch(uri, options)
+                let promise = fetch(requestUri, options)
                     .then(file => file.text())
                     .then(response => routeNode.setHTMLUnsafe(response))
                     .then(() => this.renderHTML(routeNode, data))
@@ -849,11 +852,11 @@ class UX {
 
     render(node, data) {
         let attribute = this.getAtt(node, 'render');
-        let uri = UX.componentsDir + attribute;
+        let requestUri = UX.componentsDir + attribute;
         if (attribute !== null) {
             const options = new Headers();
             options.append("Cache-Control", UX.cacheControl);
-            let promise = fetch(uri, options)
+            let promise = fetch(requestUri, options)
                 .then(file => file.text())
                 .then(response => node.setHTMLUnsafe(response))
                 .then(() => this.renderHTML(node, data))
@@ -880,13 +883,13 @@ class UX {
         if (Object(obj)) {
             let docElements = this.nodeParentList();
             for (let i = 0; i < docElements.length; i++) {
-                let docChildren = this.nodeChildren(docElements[i]);
-                for (let j = 0; j < docChildren.length; j++) {
+                let documentChildren = this.nodeChildren(docElements[i]);
+                for (let j = 0; j < documentChildren.length; j++) {
                     for (const [key, value] of Object.entries(obj)) {
                         if (Object(value)) {
                             for (const [key1, value1] of Object.entries(value)) {
-                                if (docChildren[j].nodeType === 3) {
-                                    docChildren[j].nodeValue = docChildren[j].nodeValue.replaceAll("{{" + key1 + "}}", value1);
+                                if (documentChildren[j].nodeType === 3) {
+                                    documentChildren[j].nodeValue = documentChildren[j].nodeValue.replaceAll("{{" + key1 + "}}", value1);
                                 }
                             }
                         }
@@ -901,10 +904,10 @@ class UX {
         if (attribute !== null) {
             const observer = new PerformanceObserver(increment);
             let load = 0;
-            let att = attribute.split(':');
-            let bar = this.dom('','query','#'+ Reflect.get(att,1));
+            let nodeAtrribute = attribute.split(':');
+            let bar = this.dom('','query','#'+ Reflect.get(nodeAtrribute,1));
             function increment() {
-              let progress = Math.floor(Math.round((load / (Reflect.get(att,0) * 10)) * 100 * 10));
+              let progress = Math.floor(Math.round((load / (Reflect.get(nodeAtrribute,0) * 10)) * 100 * 10));
               bar.style.width = progress + '%';
               if(progress > 1) {
                 setTimeout(()=> {
@@ -917,12 +920,12 @@ class UX {
         }
     }
     
-    async (uri, method, callback) {
-        let att = false;
+    async (requestUri, method, callback) {
+        let nodeAtrribute = false;
         let docElements = this.nodeParentList();
         for (let j = 0; j < docElements.length; j++) {
-            att = this.getAtt(docElements[j], 'async');
-            if (att !== null) {
+            nodeAtrribute = this.getAtt(docElements[j], 'async');
+            if (nodeAtrribute !== null) {
                 docElements[j].addEventListener('submit', event => {
                     event.preventDefault();
                     let parentList = [];
@@ -938,7 +941,7 @@ class UX {
                                     data.push('&' + children[i].name + '=' + encodeURIComponent(children[i].value.toString()));
                                 }
                             }
-                            req.open("POST", uri, true);
+                            req.open("POST", requestUri, true);
                             req.withCredentials = true;
                             req.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
                             req.setRequestHeader('Content-Type', UX.asyncType);
@@ -957,9 +960,9 @@ class UX {
         }
     }
 
-    http(uri, method, callback) {
+    http(requestUri, method, callback) {
         let req = new XMLHttpRequest();
-        req.open("GET", uri, true);
+        req.open("GET", requestUri, true);
         req.withCredentials = true;
         req.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
         req.setRequestHeader("Content-Type", UX.contentType);
@@ -1004,8 +1007,8 @@ class UX {
     }
 
     createForm(node, find, values) {
-        let att = this.getAtt(node, 'form');
-        if (att !== null) {
+        let nodeAtrribute = this.getAtt(node, 'form');
+        if (nodeAtrribute !== null) {
             let parents = this.dom('','create','div');
             node.appendChild(parents);
             let options = this.dom('','create','form');
