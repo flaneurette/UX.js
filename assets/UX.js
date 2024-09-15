@@ -31,7 +31,7 @@ class UX {
             }
         } else {
             this.log(this.msg['initialize']);
-            return false;
+            return false;    
         }
     }
 
@@ -799,12 +799,12 @@ class UX {
                 }
                 let doc = this.dom('','queryall','img');
                 if(doc) {
-					let img = null;
+                    let img = null;
                     for(let k=0; k<doc.length+1;k++) {
                         if(doc[k] !== undefined) { 
-						if(doc[k].attributes[':image']) { 
-							img = doc[k].attributes[':image'].nodeValue;
-						}
+                        if(doc[k].attributes[':image']) { 
+                            img = doc[k].attributes[':image'].nodeValue;
+                        }
                         if(img !== null) {
                             doc[k].setAttribute('src', img);
                             }
