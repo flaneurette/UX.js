@@ -8,9 +8,9 @@ class UX {
     static thread = 0;
     static array = [];
 
-    init = {
+    initiate = {
         name: "UX.js",
-        version: "1.155",
+        version: "1.156",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -33,94 +33,6 @@ class UX {
             this.log(this.Message['initialize']);
             return false;    
         }
-    }
-
-    nodes(method, find, value, data = null, methods = null, callback = null) {
-        let documentElements = this.nodeParentList();
-        for (let index = 0; index  < documentElements.length; index ++) {
-            if (method == 'progress') this.progress(documentElements[index], data, methods, find, value);
-            if (method == 'renderComponents') this.renderComponents(documentElements[index], find, value);
-            if (method == 'routeComponents') this.routeComponents(documentElements[index], find, value);
-            if (method == 'bindActive') this.bindActive(documentElements[index], find, value);
-            if (method == 'bindSelect') this.bindSelect(documentElements[index], find, value);
-            if (method == 'bindShow') this.bindShow(documentElements[index], find, value);
-            if (method == 'bindHide') this.bindHide(documentElements[index], find, value);
-            if (method == 'createForm') this.createForm(documentElements[index], find, value);
-            if (method == 'bindCurtains') this.bindCurtains(documentElements[index], find, value);
-            if (method == 'bindLoop') this.loop(documentElements[index], find, value);
-            if (method == 'bindFunctions') this.bindFunctions(documentElements[index], data, find, value);
-            if (method == 'bindLogic') this.bindIf(documentElements[index], find, value);
-            if (method == 'bindMethods') this.bindMethods(documentElements[index], data, methods, find, value);
-            if (method == 'bindAttributesNode') this.bindClass(documentElements[index], find, value);
-            if (method == 'bindFlex') this.bindFlex(documentElements[index], find, value);
-            if (method == 'bindMenu') this.bindMenu(documentElements[index], find, value);
-            if (method == 'bindToggle') this.bindToggle(documentElements[index], find, value);
-            if (method == 'bindVoid') this.bindVoid(documentElements[index], find, value);
-            if (method == 'bindPrevent') this.bindPrevent(documentElements[index], find, value);
-            if (method == 'bindAsync') this.bindAsync(documentElements[index], find, value);
-            if (method == 'devtools') this.bindDevtool(documentElements[index], find, value);
-            if (method == 'bindAnimate') this.bindAnimate(documentElements[index], find, value);
-            if (method == 'bindCascade') this.bindCascade(documentElements[index], find, value);
-            if (method == 'bindLazyLoad') this.bindLazyLoad(documentElements[index], find, value);
-            if (method == 'bindUri') this.bindUri(documentElements[index], find, value);
-            if (method == 'bindHamburger') this.bindHamburger(documentElements[index]);
-            if (method == 'bindIntoView') this.bindIntoView(documentElements[index]);
-            if (method == 'bindClose') this.bindClose(documentElements[index]);
-            if (method == 'bindHandler') this.bindHandler(documentElements[index], data, methods, find, value);
-            let documentChildren = this.nodeChildren(documentElements[index]);
-            for (let j = 0; j < documentChildren.length; j++) {
-                if (method == 'replaceNodeValue') {
-                    if (documentChildren[j].nodeType === 3) {
-                        const regex = new RegExp("{{\\s*" + find + "[0-9]*\\s*}}", "gmi");
-                        documentChildren[j].nodeValue = documentChildren[j].nodeValue.replaceAll(regex, value);
-                    }
-                }
-            }
-        }
-    }
-
-    parseFunctions(data, method) {
-        for (const [key, value] of Object.entries(data)) {
-            if (Array.isArray(value)) {
-                this.nodes('bindLoop', key, value);
-                this.nodes('createForm', key, value);
-                this.nodes('replaceNodeValue', key, value);
-                this.nodes('bindAttributesNode', key, value);
-                this.nodes('bindLogic', key, value);
-                this.nodes('bindMethods', key, value, data, method);
-                this.nodes('bindHandler', key, value, data, method);
-                this.nodes('bindActive');
-            } else {
-                this.nodes('replaceNodeValue', key, value);
-                this.nodes('bindAttributesNode', key, value);
-                this.nodes('bindLogic', key, value);
-                this.nodes('bindMethods', key, value, data, method);
-                this.nodes('bindHandler', key, value, data, method);
-                this.nodes('bindActive');
-            }
-        }
-    }
-
-    parseNodes(data) {
-        this.nodes('bindActive');
-        this.nodes('bindToggle');
-        this.nodes('bindMenu');
-        this.nodes('bindVoid');
-        this.nodes('bindPrevent');
-        this.nodes('bindSelect');
-        this.nodes('bindFlex');
-        this.nodes('bindShow');
-        this.nodes('bindHide');
-        this.nodes('bindCurtains');
-        this.nodes('bindAnimate');
-        this.nodes('bindLazyLoad');
-        this.nodes('bindCascade');
-        this.nodes('bindUri');
-        this.nodes('bindHamburger');
-        this.nodes('bindIntoView');
-        this.nodes('bindClose');
-        this.nodes('progress');
-        this.nodes('bindFunctions', false, false, data);
     }
 
     getElements() {
@@ -156,43 +68,23 @@ class UX {
         }
     }
 
-    getAttCheck(node, part) {
-        let check = (node.getAttribute('ux:' + part) !== null ||
+    attributeCheck(node, part) {
+        let isAtrribute = (node.getAttribute('ux:' + part) !== null ||
             node.getAttribute(':' + part) !== null) ? true : false;
-        return check;
-    }
+        return isAtrribute;    
+    }    
     
     regEx(type) {
         if (type == 'spaces') return /\s+|\t+/gim;
         if (type == 'punctuation') return /,|'|"|\{|\}|\[|\]/gim;
-    }
-    
-    dom(id, method, value = null) {
-        if (id !== null) {
-            if (method == 'id') return document.getElementById(id);
-            if (method == 'get') return document.getElementById(id).value;
-            if (method == 'set') document.getElementById(id).value = value;
-            if (method == 'none') document.getElementById(id).style.display = 'none';
-            if (method == 'block') document.getElementById(id).style.display = 'block';
-            if (method == 'sethtml') document.getElementById(id).innerHTML = value;
-            if (method == 'gethtml') return document.getElementById(id).innerHTML; 
-            if (method == 'innerHTML') return document.body.innerHTML;
-            if (method == 'display') document.getElementById(id).style.display = value;
-            if (method == 'parent') return document.getElementById(id).parentNode;
-            if (method == 'children') return document.getElementById(id).children;
-            if (method == 'query') return document.querySelector(value);
-            if (method == 'queryall') return document.querySelectorAll(value);
-            if (method == 'elements') return document.getElementsByTagName(value);
-            if (method == 'create') return document.createElement(value);
-            if (method == 'document') return document.all;
-            if (method == 'location') return window.location.href;
-            if (method == 'innerheight') return window.innerHeight;
-            if (method == 'innerwidth') return window.innerWidth;
-        }
-    }    
+    }   
 
     isInt(value) {
-        return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
+        if(value === parseInt(value)) {
+            parseInt(value).toFixed(2) 
+            } else {
+            parseFloat(value).toFixed(2);
+        }
     }
 
     cloneNodes(list, id) {
@@ -219,34 +111,6 @@ class UX {
         let nodeAtrribute = this.getAtt(node, 'id');
         if (nodeAtrribute !== null) {
             if (nodeAtrribute.toString() === find.toString()) node.id = value;
-        }
-    }
-
-    drawCurtains() {
-        let documentElements = this.dom('','elements','*');
-        for (let i = 0; i < documentElements.length; i++) {
-            if (documentElements[i].getAttribute(':curtain') !== null) {
-                documentElements[i].hidden = false;
-            }
-        }
-    }
-
-    bindCurtains(node, find, value) {
-        let nodeAtrribute = this.getAtt(node, 'click');
-        let documentElements = this.nodeParentList();
-        for (let i = 0; i < documentElements.length; i++) {
-            if (this.getAttCheck(documentElements[i], 'curtain') == true) documentElements[i].hidden = true;
-        }
-        if (nodeAtrribute !== null && this.getAttCheck(node, 'curtain') !== null) {
-            node.addEventListener('click', ()=> {
-                let documentElements = this.dom('','elements','*');
-                for (let i = 0; i < documentElements.length; i++) {
-                    if (documentElements[i].getAttribute(':curtain') !== null) {
-                        documentElements[i].hidden = false;
-                    }
-                }
-            }
-            , false);
         }
     }
 
@@ -310,6 +174,172 @@ class UX {
         }
     }
 
+    routeComponents(node, data) {
+        let attribute = this.getAtt(node, 'route');
+        if (attribute !== null) {
+            let routerAddress = attribute.split(':');
+            UX.array.push(Reflect.get(routerAddress,0));
+            node.addEventListener('click', ()=> { 
+                let routerAddress  = attribute.split(':');
+                let requestUri = UX.componentsDirectory + Reflect.get(routerAddress,1);
+                let routeNode = this.dom(Reflect.get(routerAddress,0),'id');
+                for(let i=0; i< UX.array.length; i++) {
+                    this.dom(Reflect.get(UX.array,i),'id').hidden = true;
+                }
+                routeNode.hidden = false;
+                const options = new Headers();
+                options.append("Cache-Control", UX.cacheControl);
+                let promise = fetch(requestUri, options)
+                    .then(file => file.text())
+                    .then(response => routeNode.setHTMLUnsafe(response))
+                    .then(() => this.renderHTML(routeNode, data))
+                    .then(() => this.parseNodes(data))
+                }
+            );
+        }
+    }
+
+    renderComponents(node, data) {
+        let attribute = this.getAtt(node, 'render');
+        let requestUri = UX.componentsDirectory + attribute;
+        if (attribute !== null) {
+            const options = new Headers();
+            options.append("Cache-Control", UX.cacheControl);
+            let promise = fetch(requestUri, options)
+                .then(file => file.text())
+                .then(response => node.setHTMLUnsafe(response))
+                .then(() => this.renderHTML(node, data))
+                .then(() => this.parseNodes(data))
+        }
+    }
+
+    renderHTML(node, data) {
+        for (const [key, value] of Object.entries(data)) {
+            if (Array.isArray(value)) {
+                let j = 0;
+                for (const [keys, values] of Object.entries(value)) {
+                    let array = Object.entries(value[j]);
+                    node.innerHTML = node.innerHTML.replaceAll('{{' + array[0][0] + '}}', array[0][1]);
+                    j++;
+                }
+            } else {
+                node.innerHTML = node.innerHTML.replaceAll('{{' + key + '}}', value);
+            }
+        }
+    }
+
+    fetch(obj) {
+        if (Object(obj)) {
+            let documentElements = this.nodeParentList();
+            for (let i = 0; i < documentElements.length; i++) {
+                let documentChildren = this.nodeChildren(documentElements[i]);
+                for (let j = 0; j < documentChildren.length; j++) {
+                    for (const [key, value] of Object.entries(obj)) {
+                        if (Object(value)) {
+                            for (const [key1, value1] of Object.entries(value)) {
+                                if (documentChildren[j].nodeType === 3) {
+                                    documentChildren[j].nodeValue = documentChildren[j].nodeValue.replaceAll("{{" + key1 + "}}", value1);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    progress(node) {
+        let attribute = this.getAtt(node, 'progress');
+        if (attribute !== null) {
+            const observer = new PerformanceObserver(increment);
+            let loadProgress = 0;
+            let nodeAtrribute = attribute.split(':');
+            let progressBar = this.dom('','query','#'+ Reflect.get(nodeAtrribute,1));
+            function increment() {
+              let progress = Math.floor(Math.round((loadProgress / (Reflect.get(nodeAtrribute,0) * 10)) * 100 * 10));
+              progressBar.style.width = progress + '%';
+              if(progress > 1) {
+                setTimeout(()=> {
+                    progressBar.style.width = 0;
+                }, 1000);
+              }
+              loadProgress++;
+            }
+            observer.observe({type:'resource'});
+        }
+    }
+    
+    async (requestUri, method, callback) {
+        let nodeAtrribute = false;
+        let documentElements = this.nodeParentList();
+        for (let j = 0; j < documentElements.length; j++) {
+            nodeAtrribute = this.getAtt(documentElements[j], 'async');
+            if (nodeAtrribute !== null) {
+                documentElements[j].addEventListener('submit', event => {
+                    event.preventDefault();
+                    let parentList = [];
+                    let documentElements1 = this.dom('','elements','*');
+                    for (let i = 0; i < documentElements1.length; i++) {
+                        if (documentElements1[i].getAttribute(':async') == 'true') {
+                            let children = documentElements1[i].children;
+                            let requestDocument = new XMLHttpRequest();
+                            let data = [];
+                            data.push('UXAsync=true');
+                            for (let i = 0; i < children.length; i++) {
+                                if (children[i].value != '' && children[i].name !== null && children[i].value) {
+                                    data.push('&' + children[i].name + '=' + encodeURIComponent(children[i].value.toString()));
+                                }
+                            }
+                            requestDocument.open("POST", requestUri, true);
+                            requestDocument.withCredentials = true;
+                            requestDocument.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
+                            requestDocument.setRequestHeader('Content-Type', UX.asyncType);
+                            requestDocument.onreadystatechange = () => {
+                                if (requestDocument.readyState == 4 && requestDocument.status == 200) {
+                                    if (requestDocument.responseText) {
+                                        callback(requestDocument.responseText);
+                                    }
+                                }
+                            }
+                            requestDocument.send(data);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    http(requestUri, method, callback) {
+        let requestDocument = new XMLHttpRequest();
+        requestDocument.open("GET", requestUri, true);
+        requestDocument.withCredentials = true;
+        requestDocument.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
+        requestDocument.setRequestHeader("Content-Type", UX.contentType);
+        if (method == 'callback') {
+            requestDocument.onreadystatechange = () => {
+                if (requestDocument.readyState == 4 && requestDocument.status == 200) {
+                    callback(requestDocument.responseText);
+                }
+            }
+            requestDocument.send();
+        } else if (method == 'get') {
+            requestDocument.onreadystatechange = () => {
+                if (requestDocument.readyState == 4 && requestDocument.status == 200) {
+                    return JSON.parse(requestDocument.responseText);
+                }
+            }
+            requestDocument.send();
+        } else if (method == 'render') {
+            requestDocument.onreadystatechange = () => {
+                if (requestDocument.readyState == 4 && requestDocument.status == 200) {
+                    return requestDocument.responseText;
+                }
+            }
+            requestDocument.send();
+        }
+
+    }
+    
     bindFlex(node) {
         let nodeAtrribute = this.getAtt(node, 'flex');
         if (nodeAtrribute !== null) {
@@ -535,6 +565,34 @@ class UX {
         }
     }
 
+    drawCurtains() {
+        let documentElements = this.dom('','elements','*');
+        for (let i = 0; i < documentElements.length; i++) {
+            if (documentElements[i].getAttribute(':curtain') !== null) {
+                documentElements[i].hidden = false;
+            }
+        }
+    }
+
+    bindCurtains(node, find, value) {
+        let nodeAtrribute = this.getAtt(node, 'click');
+        let documentElements = this.nodeParentList();
+        for (let i = 0; i < documentElements.length; i++) {
+            if (this.attributeCheck(documentElements[i], 'curtain') == true) documentElements[i].hidden = true;
+        }
+        if (nodeAtrribute !== null && this.attributeCheck(node, 'curtain') !== null) {
+            node.addEventListener('click', ()=> {
+                let documentElements = this.dom('','elements','*');
+                for (let i = 0; i < documentElements.length; i++) {
+                    if (documentElements[i].getAttribute(':curtain') !== null) {
+                        documentElements[i].hidden = false;
+                    }
+                }
+            }
+            , false);
+        }
+    }
+	
     bindFunctions(node, data, find, value) {
 
         let nodeAtrribute = this.getAtt(node, 'click');
@@ -666,7 +724,7 @@ class UX {
     bindMethods(node, data, methods, find, value) {
         let nodeAtrribute = this.getAtt(node, 'method');
         let array = [];
-        if (this.getAttCheck(node, 'method') == true) {
+        if (this.attributeCheck(node, 'method') == true) {
             if (nodeAtrribute !== null) {
                 let methodhandler = nodeAtrribute.split(":");
                 if (methods && Object(methods)) {
@@ -823,185 +881,19 @@ class UX {
             }
         }
     }
-    
-    routeComponents(node, data) {
-        let attribute = this.getAtt(node, 'route');
-        if (attribute !== null) {
-            let routerAddress = attribute.split(':');
-            UX.array.push(Reflect.get(routerAddress,0));
-            node.addEventListener('click', ()=> { 
-                let routerAddress  = attribute.split(':');
-                let requestUri = UX.componentsDirectory + Reflect.get(routerAddress,1);
-                let routeNode = this.dom(Reflect.get(routerAddress,0),'id');
-                for(let i=0; i< UX.array.length; i++) {
-                    this.dom(Reflect.get(UX.array,i),'id').hidden = true;
-                }
-                routeNode.hidden = false;
-                const options = new Headers();
-                options.append("Cache-Control", UX.cacheControl);
-                let promise = fetch(requestUri, options)
-                    .then(file => file.text())
-                    .then(response => routeNode.setHTMLUnsafe(response))
-                    .then(() => this.renderHTML(routeNode, data))
-                    .then(() => this.parseNodes(data))
-                }
-            );
-        }
-    }
 
-    renderComponents(node, data) {
-        let attribute = this.getAtt(node, 'render');
-        let requestUri = UX.componentsDirectory + attribute;
-        if (attribute !== null) {
-            const options = new Headers();
-            options.append("Cache-Control", UX.cacheControl);
-            let promise = fetch(requestUri, options)
-                .then(file => file.text())
-                .then(response => node.setHTMLUnsafe(response))
-                .then(() => this.renderHTML(node, data))
-                .then(() => this.parseNodes(data))
-        }
-    }
-
-    renderHTML(node, data) {
-        for (const [key, value] of Object.entries(data)) {
-            if (Array.isArray(value)) {
-                let j = 0;
-                for (const [keys, values] of Object.entries(value)) {
-                    let array = Object.entries(value[j]);
-                    node.innerHTML = node.innerHTML.replaceAll('{{' + array[0][0] + '}}', array[0][1]);
-                    j++;
-                }
-            } else {
-                node.innerHTML = node.innerHTML.replaceAll('{{' + key + '}}', value);
-            }
-        }
-    }
-
-    fetch(obj) {
-        if (Object(obj)) {
-            let documentElements = this.nodeParentList();
-            for (let i = 0; i < documentElements.length; i++) {
-                let documentChildren = this.nodeChildren(documentElements[i]);
-                for (let j = 0; j < documentChildren.length; j++) {
-                    for (const [key, value] of Object.entries(obj)) {
-                        if (Object(value)) {
-                            for (const [key1, value1] of Object.entries(value)) {
-                                if (documentChildren[j].nodeType === 3) {
-                                    documentChildren[j].nodeValue = documentChildren[j].nodeValue.replaceAll("{{" + key1 + "}}", value1);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    progress(node) {
-        let attribute = this.getAtt(node, 'progress');
-        if (attribute !== null) {
-            const observer = new PerformanceObserver(increment);
-            let load = 0;
-            let nodeAtrribute = attribute.split(':');
-            let bar = this.dom('','query','#'+ Reflect.get(nodeAtrribute,1));
-            function increment() {
-              let progress = Math.floor(Math.round((load / (Reflect.get(nodeAtrribute,0) * 10)) * 100 * 10));
-              bar.style.width = progress + '%';
-              if(progress > 1) {
-                setTimeout(()=> {
-                    bar.style.width = 0;
-                }, 1000);
-              }
-              load++;
-            }
-            observer.observe({type:'resource'});
-        }
-    }
-    
-    async (requestUri, method, callback) {
-        let nodeAtrribute = false;
-        let documentElements = this.nodeParentList();
-        for (let j = 0; j < documentElements.length; j++) {
-            nodeAtrribute = this.getAtt(documentElements[j], 'async');
-            if (nodeAtrribute !== null) {
-                documentElements[j].addEventListener('submit', event => {
-                    event.preventDefault();
-                    let parentList = [];
-                    let documentElements1 = this.dom('','elements','*');
-                    for (let i = 0; i < documentElements1.length; i++) {
-                        if (documentElements1[i].getAttribute(':async') == 'true') {
-                            let children = documentElements1[i].children;
-                            let req = new XMLHttpRequest();
-                            let data = [];
-                            data.push('UXAsync=true');
-                            for (let i = 0; i < children.length; i++) {
-                                if (children[i].value != '' && children[i].name !== null && children[i].value) {
-                                    data.push('&' + children[i].name + '=' + encodeURIComponent(children[i].value.toString()));
-                                }
-                            }
-                            req.open("POST", requestUri, true);
-                            req.withCredentials = true;
-                            req.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
-                            req.setRequestHeader('Content-Type', UX.asyncType);
-                            req.onreadystatechange = () => {
-                                if (req.readyState == 4 && req.status == 200) {
-                                    if (req.responseText) {
-                                        callback(req.responseText);
-                                    }
-                                }
-                            }
-                            req.send(data);
-                        }
-                    }
-                });
-            }
-        }
-    }
-
-    http(requestUri, method, callback) {
-        let req = new XMLHttpRequest();
-        req.open("GET", requestUri, true);
-        req.withCredentials = true;
-        req.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
-        req.setRequestHeader("Content-Type", UX.contentType);
-        if (method == 'callback') {
-            req.onreadystatechange = () => {
-                if (req.readyState == 4 && req.status == 200) {
-                    callback(req.responseText);
-                }
-            }
-            req.send();
-        } else if (method == 'get') {
-            req.onreadystatechange = () => {
-                if (req.readyState == 4 && req.status == 200) {
-                    return JSON.parse(req.responseText);
-                }
-            }
-            req.send();
-        } else if (method == 'render') {
-            req.onreadystatechange = () => {
-                if (req.readyState == 4 && req.status == 200) {
-                    return req.responseText;
-                }
-            }
-            req.send();
-        }
-
-    }
-
-    createElements(node, type, arr) {
+    createElements(node, type, elementOption) {
         let opt = this.dom('','create',type);
-        if (arr.type == 'text') {
+        if (elementOption.type == 'text') {
             let opt = this.dom('','create','input');
         }
-        if (arr.name) opt.name = arr.name;
-        if (arr.type && arr.type != 'textarea') opt.type = arr.type;
-        if (arr.value) opt.value = arr.value;
-        if (arr.label) opt.innerHTML = arr.label;
-        if (arr.placeholder) opt.placeholder = arr.placeholder;
-        if (arr.required) opt.required = arr.required;
-        if (arr.checked) opt.checked = arr.checked;
+        if (elementOption.name) opt.name = elementOption.name;
+        if (elementOption.type && elementOption.type != 'textarea') opt.type = elementOption.type;
+        if (elementOption.value) opt.value = elementOption.value;
+        if (elementOption.label) opt.innerHTML = elementOption.label;
+        if (elementOption.placeholder) opt.placeholder = elementOption.placeholder;
+        if (elementOption.required) opt.required = elementOption.required;
+        if (elementOption.checked) opt.checked = elementOption.checked;
         node.appendChild(opt);
     }
 
@@ -1012,24 +904,24 @@ class UX {
             node.appendChild(parents);
             let options = this.dom('','create','form');
             for (let key in values) {
-                let arr = values[key];
-                if (arr.type == 'form') {
-                    options.name = arr.name;
-                    options.action = arr.action;
-                    options.method = arr.method;
-                    if (arr.enctype) options.enctype = arr.enctype;
+                let elementOption = values[key];
+                if (elementOption.type == 'form') {
+                    options.name = elementOption.name;
+                    options.action = elementOption.action;
+                    options.method = elementOption.method;
+                    if (elementOption.enctype) options.enctype = elementOption.enctype;
                 }
-                if (arr.type != 'textarea' && arr.type != 'submit') {
-                    this.createElements(options, 'label', arr);
-                    this.createElements(options, 'input', arr);
-                } else if (arr.type == 'textarea') {
-                    this.createElements(options, 'label', arr);
-                    this.createElements(options, 'textarea', arr);
-                } else if (arr.type == 'submit') {
+                if (elementOption.type != 'textarea' && elementOption.type != 'submit') {
+                    this.createElements(options, 'label', elementOption);
+                    this.createElements(options, 'input', elementOption);
+                } else if (elementOption.type == 'textarea') {
+                    this.createElements(options, 'label', elementOption);
+                    this.createElements(options, 'textarea', elementOption);
+                } else if (elementOption.type == 'submit') {
                     let opt = this.dom('','create','input');
-                    opt.type = arr.type;
-                    opt.name = arr.name;
-                    opt.value = arr.value;
+                    opt.type = elementOption.type;
+                    opt.name = elementOption.name;
+                    opt.value = elementOption.value;
                     options.appendChild(opt);
                 }
             }
@@ -1050,12 +942,124 @@ class UX {
         }
     }
 
-    log(Message) {
-        console.log(Message);
+    dom(id, method, value = null) {
+        if (id !== null) {
+            if (method == 'id') return document.getElementById(id);
+            if (method == 'get') return document.getElementById(id).value;
+            if (method == 'set') document.getElementById(id).value = value;
+            if (method == 'none') document.getElementById(id).style.display = 'none';
+            if (method == 'block') document.getElementById(id).style.display = 'block';
+            if (method == 'sethtml') document.getElementById(id).innerHTML = value;
+            if (method == 'gethtml') return document.getElementById(id).innerHTML; 
+            if (method == 'innerHTML') return document.body.innerHTML;
+            if (method == 'display') document.getElementById(id).style.display = value;
+            if (method == 'parent') return document.getElementById(id).parentNode;
+            if (method == 'children') return document.getElementById(id).children;
+            if (method == 'query') return document.querySelector(value);
+            if (method == 'queryall') return document.querySelectorAll(value);
+            if (method == 'elements') return document.getElementsByTagName(value);
+            if (method == 'create') return document.createElement(value);
+            if (method == 'document') return document.all;
+            if (method == 'location') return window.location.href;
+            if (method == 'innerheight') return window.innerHeight;
+            if (method == 'innerwidth') return window.innerWidth;
+        }
+    } 
+    
+    nodes(method, find, value, data = null, methods = null, callback = null) {
+        let documentElements = this.nodeParentList();
+        for (let index = 0; index  < documentElements.length; index ++) {
+            if (method == 'progress') this.progress(documentElements[index], data, methods, find, value);
+            if (method == 'renderComponents') this.renderComponents(documentElements[index], find, value);
+            if (method == 'routeComponents') this.routeComponents(documentElements[index], find, value);
+            if (method == 'bindActive') this.bindActive(documentElements[index], find, value);
+            if (method == 'bindSelect') this.bindSelect(documentElements[index], find, value);
+            if (method == 'bindShow') this.bindShow(documentElements[index], find, value);
+            if (method == 'bindHide') this.bindHide(documentElements[index], find, value);
+            if (method == 'createForm') this.createForm(documentElements[index], find, value);
+            if (method == 'bindCurtains') this.bindCurtains(documentElements[index], find, value);
+            if (method == 'bindLoop') this.loop(documentElements[index], find, value);
+            if (method == 'bindFunctions') this.bindFunctions(documentElements[index], data, find, value);
+            if (method == 'bindLogic') this.bindIf(documentElements[index], find, value);
+            if (method == 'bindMethods') this.bindMethods(documentElements[index], data, methods, find, value);
+            if (method == 'bindAttributesNode') this.bindClass(documentElements[index], find, value);
+            if (method == 'bindFlex') this.bindFlex(documentElements[index], find, value);
+            if (method == 'bindMenu') this.bindMenu(documentElements[index], find, value);
+            if (method == 'bindToggle') this.bindToggle(documentElements[index], find, value);
+            if (method == 'bindVoid') this.bindVoid(documentElements[index], find, value);
+            if (method == 'bindPrevent') this.bindPrevent(documentElements[index], find, value);
+            if (method == 'bindAsync') this.bindAsync(documentElements[index], find, value);
+            if (method == 'devtools') this.bindDevtool(documentElements[index], find, value);
+            if (method == 'bindAnimate') this.bindAnimate(documentElements[index], find, value);
+            if (method == 'bindCascade') this.bindCascade(documentElements[index], find, value);
+            if (method == 'bindLazyLoad') this.bindLazyLoad(documentElements[index], find, value);
+            if (method == 'bindUri') this.bindUri(documentElements[index], find, value);
+            if (method == 'bindHamburger') this.bindHamburger(documentElements[index]);
+            if (method == 'bindIntoView') this.bindIntoView(documentElements[index]);
+            if (method == 'bindClose') this.bindClose(documentElements[index]);
+            if (method == 'bindHandler') this.bindHandler(documentElements[index], data, methods, find, value);
+            let documentChildren = this.nodeChildren(documentElements[index]);
+            for (let j = 0; j < documentChildren.length; j++) {
+                if (method == 'replaceNodeValue') {
+                    if (documentChildren[j].nodeType === 3) {
+                        const regex = new RegExp("{{\\s*" + find + "[0-9]*\\s*}}", "gmi");
+                        documentChildren[j].nodeValue = documentChildren[j].nodeValue.replaceAll(regex, value);
+                    }
+                }
+            }
+        }
+    }
+
+    parseFunctions(data, method) {
+        for (const [key, value] of Object.entries(data)) {
+            if (Array.isArray(value)) {
+                this.nodes('bindLoop', key, value);
+                this.nodes('createForm', key, value);
+                this.nodes('replaceNodeValue', key, value);
+                this.nodes('bindAttributesNode', key, value);
+                this.nodes('bindLogic', key, value);
+                this.nodes('bindMethods', key, value, data, method);
+                this.nodes('bindHandler', key, value, data, method);
+                this.nodes('bindActive');
+            } else {
+                this.nodes('replaceNodeValue', key, value);
+                this.nodes('bindAttributesNode', key, value);
+                this.nodes('bindLogic', key, value);
+                this.nodes('bindMethods', key, value, data, method);
+                this.nodes('bindHandler', key, value, data, method);
+                this.nodes('bindActive');
+            }
+        }
+    }
+
+    parseNodes(data) {
+        this.nodes('bindHamburger');
+        this.nodes('bindActive');
+        this.nodes('bindToggle');
+        this.nodes('bindMenu');
+        this.nodes('bindVoid');
+        this.nodes('bindPrevent');
+        this.nodes('bindSelect');
+        this.nodes('bindFlex');
+        this.nodes('bindShow');
+        this.nodes('bindHide');
+        this.nodes('bindCurtains');
+        this.nodes('bindAnimate');
+        this.nodes('bindLazyLoad');
+        this.nodes('bindCascade');
+        this.nodes('bindUri');
+        this.nodes('bindIntoView');
+        this.nodes('bindClose');
+        this.nodes('progress');
+        this.nodes('bindFunctions', false, false, data);
+    }
+    
+    log(message) {
+        console.log(message);
     }
 
     Message = {
-        initialize: "ux: Cannot initialize a non-object.",
-        enumerate: "ux: Could not enumerate global object."
+        initialize: "UX: Cannot initialize a non-object.",
+        enumerate: "UX: Could not enumerate global object."
     }
 }
