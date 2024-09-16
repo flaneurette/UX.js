@@ -90,7 +90,7 @@
    background-color: white;
    padding: 0px;
    float: right;
-   margin-top: 20px;
+   margin-top: 26px;
    margin-right: 20px;
    height: 40px;
    width: 40px;
@@ -100,7 +100,7 @@
    right: 0;
    }
 
-   #menuOut {
+   #menu-out {
    width: 200px;
    height: 0;
    cursor: pointer;
@@ -109,7 +109,7 @@
    overflow: hidden;
    }
 
-   .menuShown {
+   .menu-shown {
    height: 400px !important;
    width: 200px !important;
    top: 43px;
@@ -121,7 +121,7 @@
    border: 1px dashed black;
    display: block;
    }
-   .menuShown li {
+   .menu-shown li {
    border-bottom: 1px solid #333;
    }
    
