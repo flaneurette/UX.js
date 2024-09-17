@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<head>
+  <title>UX-Render</title>
+    <link rel="stylesheet" href="examples/css/tokens.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="examples/css/demo.css">
+  <script src="UX.min.js"></script>
+</head>
+<body :progress="4:progress">
+
+<div id="progress"></div>
+
+<div :cascade="menu:0:100:100">
+	<div>
+		<section id="navigation" :render="navigation.ux"></section>
+		<div>
+			<div id="hamburger">
+				<div :hamburger="white:30:7" :toggle="menu-out:in:menu-shown"></div>
+			</div>
+			<ul id="menu-out" :loop="hamburger">
+				<li>{{link}}</li>
+			</ul>
+		</div>
+	</div>
+	<div>
+		<section id="header" :render="header.ux"></section>
+	</div>
+	<div>
+		<section id="login" :render="card.ux"></section>
+	</div>
+	<div>
+		<section id="footer" :render="footer.ux"></section>
+	</div>
+</div>
+
+	
+	<script>
+	let app = new UX();
+	app.load({
+		data: { 
+			navigation: [
+				{link1: '<a href="#">Index</a>'},
+				{link2: '<a href="#">About</a>'},
+				{link3: '<a href="#">Contact</a>'},
+				{link4: '<a href="#">Links</a>'},
+			],
+			hamburger: [
+			{name: 'Index', link: '<a href="#">Index</a>'},
+			{name: 'About', link: '<a href="#">About</a>'},
+			{name: 'Projects', link: '<a href="#">Projects</a>'},
+			{name: 'Media', link: '<a href="#">Media</a>'},
+			{name: 'Contact', link: '<a href="#">Contact</a>'},
+			],
+			header: "Lorem ipsum dolor sit amet",
+			cardTitle: "Welcome",
+			cardText: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum",
+			footer: "Copyright (c)",
+		}
+	});
+	
+	</script>
+</body>
+</html>

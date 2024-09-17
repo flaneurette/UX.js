@@ -493,8 +493,9 @@ class UX {
                 let documentElements1 = this.dom('','document');
                 for (let i = 0; i < documentElements1.length; i++) {
                     let nodeAtrribute = documentElements1[i].getAttribute(':toggle');
-                    let easing = documentElements1[i].getAttribute(':ease');
+                    let easing = documentElements1[i].getAttribute(':ease'); 
                     if (nodeAtrribute !== null) {
+						
                         if (Reflect.get(pairs, 1) == 'in') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
                             if (Reflect.get(pairs, 2)) { this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2)); }
