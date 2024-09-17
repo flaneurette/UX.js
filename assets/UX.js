@@ -2,7 +2,7 @@ class UX {
 
     static contentType = "application/json;charset=UTF-8";
     static asyncType = "application/x-www-form-urlencoded; charset=UTF-8";
-    static componentsDirectory = "../components/";
+    static componentsDirectory = "";
     static cacheControl = "no-cache";
     static allowOrigin = '*';
     static thread = 0;

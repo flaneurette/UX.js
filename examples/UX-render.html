@@ -9,10 +9,10 @@
 </head>
 <body>
 
-	<section id="navigation" :render="navigation.ux"></section>
-	<section id="header" :render="header.ux"></section>
-	<section id="login" :render="login.ux"></section>
-	<section id="footer" :render="footer.ux"></section>
+	<section id="navigation" :render="../components/navigation.ux"></section>
+	<section id="header" :render="../components/header.ux"></section>
+	<section id="login" :render="../components/login.ux"></section>
+	<section id="footer" :render="../components/footer.ux"></section>
 
 	<div id="hamburger">
 		<div :hamburger="black:30:7" :toggle="menu-out:in:menu-shown"></div>

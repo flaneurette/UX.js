@@ -17,7 +17,7 @@
 
 <div :cascade="menu:0:100:100">
 	<div>
-		<section id="navigation" :render="navigation.ux"></section>
+		<section id="navigation" :render="components/navigation.ux"></section>
 		<div>
 			<div id="hamburger">
 				<div :hamburger="white:30:7" :toggle="menu-out:in:menu-shown"></div>
@@ -28,13 +28,13 @@
 		</div>
 	</div>
 	<div>
-		<section id="header" :render="header.ux"></section>
+		<section id="header" :render="components/header.ux"></section>
 	</div>
 	<div>
-		<section id="login" :render="card.ux"></section>
+		<section id="login" :render="components/card.ux"></section>
 	</div>
 	<div>
-		<section id="footer" :render="footer.ux"></section>
+		<section id="footer" :render="components/footer.ux"></section>
 	</div>
 </div>
 
