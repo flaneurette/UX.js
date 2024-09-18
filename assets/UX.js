@@ -10,7 +10,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.155",
+        version: "1.156",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -66,6 +66,7 @@ class UX {
             if (method == 'bindHamburger') this.bindHamburger(documentElements[index]);
             if (method == 'bindIntoView') this.bindIntoView(documentElements[index]);
             if (method == 'bindClose') this.bindClose(documentElements[index]);
+            if (method == 'bindView') this.bindView(documentElements[index]);
             if (method == 'bindHandler') this.bindHandler(documentElements[index], data, methods, find, value);
             let documentChildren = this.nodeChildren(documentElements[index]);
             for (let j = 0; j < documentChildren.length; j++) {
@@ -119,6 +120,7 @@ class UX {
         this.nodes('bindUri');
         this.nodes('bindIntoView');
         this.nodes('bindClose');
+        this.nodes('bindView');
         this.nodes('progress');
         this.nodes('bindFunctions', false, false, data);
     }
@@ -280,12 +282,22 @@ class UX {
         }
     }
 
+    bindView(node) {
+        let nodeAtrribute = this.getAtt(node, 'view');
+        if (nodeAtrribute !== null) {
+            node.addEventListener('click', () => {
+                let documentElement = this.dom(nodeAtrribute,'id');
+                documentElement.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+            });
+        }
+    }
+    
     bindScroll(node) {
         let nodeAtrribute = this.getAtt(node, 'scroll');
         if (nodeAtrribute !== null) {
             node.setAttribute('href', 'javascript:void(0);');
             node.addEventListener('click', () => {
-                window.scrollTo = scrollTo(0, this.dom('','innerheight'));
+                 window.scrollTo({ top: 0, behavior: 'smooth' })
             });
         }
     }
@@ -495,7 +507,7 @@ class UX {
                     let nodeAtrribute = documentElements1[i].getAttribute(':toggle');
                     let easing = documentElements1[i].getAttribute(':ease'); 
                     if (nodeAtrribute !== null) {
-						
+                        
                         if (Reflect.get(pairs, 1) == 'in') {
                             node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
                             if (Reflect.get(pairs, 2)) { this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2)); }
