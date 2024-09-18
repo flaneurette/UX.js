@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <head>
-	<title>UX-Demo</title>
-	<link rel="stylesheet" href="examples/css/tokens.css">
+  <title>UX-Demo</title>
+    <link rel="stylesheet" href="examples/css/tokens.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="examples/css/demo.css">
-	<script src="assets/UX.min.js"></script>
+  <script src="assets/UX.min.js"></script>
 </head>
 
 <body :progress="2:progress">
@@ -63,6 +63,10 @@
 		}
 	});
 	
+	if (location.hostname !== "") {
+		} else {
+		alert("This UX.js demo page can only be run on a local server.");
+	}
 	</script>
 </body>
 </html>
