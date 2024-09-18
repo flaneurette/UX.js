@@ -2,7 +2,6 @@ class UX {
 
     static contentType = "application/json;charset=UTF-8";
     static asyncType = "application/x-www-form-urlencoded; charset=UTF-8";
-    static componentsDirectory = "";
     static cacheControl = "no-cache";
     static allowOrigin = '*';
     static thread = 0;
@@ -65,6 +64,7 @@ class UX {
             if (method == 'bindUri') this.bindUri(documentElements[index], find, value);
             if (method == 'bindHamburger') this.bindHamburger(documentElements[index]);
             if (method == 'bindIntoView') this.bindIntoView(documentElements[index]);
+			if (method == 'bindFade') this.bindFade(documentElements[index]);
             if (method == 'bindClose') this.bindClose(documentElements[index]);
             if (method == 'bindView') this.bindView(documentElements[index]);
             if (method == 'bindHandler') this.bindHandler(documentElements[index], data, methods, find, value);
@@ -119,6 +119,7 @@ class UX {
         this.nodes('bindCascade');
         this.nodes('bindUri');
         this.nodes('bindIntoView');
+		this.nodes('bindFade');
         this.nodes('bindClose');
         this.nodes('bindView');
         this.nodes('progress');
@@ -297,7 +298,7 @@ class UX {
         if (nodeAtrribute !== null) {
             node.setAttribute('href', 'javascript:void(0);');
             node.addEventListener('click', () => {
-                 window.scrollTo({ top: 0, behavior: 'smooth' })
+                 window.scroll({ top: 0, left: 0, behavior: 'smooth' });
             });
         }
     }
@@ -360,7 +361,29 @@ class UX {
             }
         }
     }
-    
+ 
+    bindFade(node) {
+        let nodeAtrribute = this.getAtt(node, 'fade');
+        if (nodeAtrribute !== null) {
+            let options = {    
+              threshold: 1.0,
+            };
+            let callback = (entries, observer) => {
+                entries.forEach((entry) => {
+                if(entry.isIntersecting === true) {
+                    let height = node.clientHeight;
+                    entry.target.setAttribute("class",nodeAtrribute);
+                }
+              });
+            };
+            let observer = new IntersectionObserver(callback, options);
+            if(node.id) {
+            let target = this.dom('','query','#'+node.id);
+                observer.observe(target);
+            }
+        }
+    }
+	
     bindIntoView(node) {
         let nodeAtrribute = this.getAtt(node, 'grow');
         if (nodeAtrribute !== null) {
@@ -844,7 +867,7 @@ class UX {
             UX.array.push(Reflect.get(routerAddress,0));
             node.addEventListener('click', ()=> { 
                 let routerAddress  = attribute.split(':');
-                let requestUri = UX.componentsDirectory + Reflect.get(routerAddress,1);
+                let requestUri = Reflect.get(routerAddress,1);
                 let routeNode = this.dom(Reflect.get(routerAddress,0),'id');
                 for(let i=0; i< UX.array.length; i++) {
                     this.dom(Reflect.get(UX.array,i),'id').hidden = true;
@@ -864,7 +887,7 @@ class UX {
 
     renderComponents(node, data) {
         let attribute = this.getAtt(node, 'render');
-        let requestUri = UX.componentsDirectory + attribute;
+        let requestUri = attribute;
         if (attribute !== null) {
             const options = new Headers();
             options.append("Cache-Control", UX.cacheControl);

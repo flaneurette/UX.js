@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>UX Fade</title>
+	<link rel="stylesheet" href="css/tokens.css">
+	<style>
+	html,body {
+		padding:0px;
+		margin: 10px;
+	}
+	.myclass {
+		opacity: 1;
+		width: 600px;
+		height: 200px;
+		padding: 30px;
+		margin: 60px;
+		background-color: #ded;
+		transition: opacity 2s ease;
+	}
+	.text{
+		opacity: 0;
+		width: 600px;
+		height: 200px;
+		padding: 30px;
+		margin: 60px;
+		background-color: #ded;
+	}
+	</style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+	<!-- an id must be set. -->
+	<div class="text" :fade="myclass" id="a1">
+		{{text}}
+	</div>
+
+	<div class="text" :fade="myclass" id="a2">
+		{{text}}
+	</div>
+	
+	<div class="text" :fade="myclass" id="a3">
+		{{text}}
+	</div>
+	
+	<div class="text" :fade="myclass" id="a4">
+		{{text}}
+	</div>
+	
+	<div class="text" :fade="myclass" id="a5">
+		{{text}}
+	</div>
+	
+	<div class="text" :fade="myclass" id="a6">
+		{{text}}
+	</div>
+
+	<script>
+	
+	let app = new UX();
+	app.load({
+		data: { 
+			text: "My div that fades in",
+		}
+	});
+	</script>
+</body>
+</html>
