@@ -59,7 +59,7 @@ An example showing the :active URL attribute, to switch css classes dynamically
 #### UX-select.html
 An example showing the :select attribute, to switch css classes dynamically
 #### UX-flex.html
-An example showing the :flexbox attribute, dynamically generated with UX.js (no CSS)
+An example showing the :flex attribute, dynamically generated with UX.js (no CSS)
 #### UX-scroll.html
 An example showing the :scroll attribute
 #### UX-void.html
