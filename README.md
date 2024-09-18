@@ -26,6 +26,8 @@ An example showing the :hamburger attribute, same as ux-toggle.
 An example showing the :toggle attribute, to switch a menu on/off.
 #### UX-cart.html
 An example creating a shopping cart with UX.js.
+#### UX-view.html
+An example showing the :view attribute to scroll items into view.
 #### UX-progress.html
 An example with a progressmeter, to pseudo measure page loading with the :progress attribute
 #### UX-gallery.html
