@@ -4,13 +4,13 @@
 
 UX.js is a Javascript framework for rapid frontend development and user experience.
 
-# Requirements
-A local or live webserver.
-
 # What is new
 Version 1.4 introduces components. Components are reusable HTML fragments with a .ux extension. UX.js renders these components within a HTML page, asynchronously, with the :render or :route attribute. Components can have data placeholders to be parsed by UX.js. In this way, a website can be completely build from reusable components, making it easy to reuse components across a website or other websites. For a demo, see UX-render.html in the examples folder.
 
 <img src="https://github.com/flaneurette/UX.js/blob/main/assets/images/render_flowchart.png" />
+
+# Requirements
+A local or live webserver.
 
 # Examples
 
