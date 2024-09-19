@@ -20,6 +20,8 @@ A simple example of how UX.js works.
 An example of rendering reusable UX components from the /components/ directory.
 #### UX-route.html
 An example of asynchronous component routing, using the :route attribute.
+#### UX-switch.html
+An example of event binding to trigger CSS transformations, using the :switch attribute.
 #### UX-hamburger.html
 An example showing the :hamburger attribute, same as ux-toggle.
 #### UX-toggle.html
