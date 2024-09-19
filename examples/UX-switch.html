@@ -4,7 +4,7 @@
     <style>
     #scrollbox {
       width: 90%;
-      height: 140px;
+      height: 240px;
       display: block;
       padding: 30px;
     }
@@ -41,7 +41,30 @@
 		{{text}}
       </div>
     </div>
-	
+    <div id="scrollbox">
+		<!-- switch: event, id to trigger -->
+      <div id="scroll" :switch="wheel:trigger">
+        {{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}}
+      </div>
+    </div>
+    <div id="scrollbox">
+		<!-- switch: event, id to trigger -->
+      <div id="scroll" :switch="wheel:trigger">
+        {{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}}
+      </div>
+    </div>	
     <script>
     let app = new UX();
     app.load({
