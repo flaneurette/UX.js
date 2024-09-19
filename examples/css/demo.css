@@ -159,3 +159,6 @@ li {
 	background-color: #9999ff;
 	z-index: 7;
 }
+.card {
+	height: 600px;
+}

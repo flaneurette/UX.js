@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+    #scrollbox {
+      width: 90%;
+      height: 140px;
+      display: block;
+      padding: 30px;
+    }
+
+    #scroll {
+      width: 800px;
+      height: 110px;
+      background: #ded;
+      display: block;
+      overflow: hidden;
+    }
+
+    #trigger {
+      transition: height 1s ease;
+      width: 100%;
+      height: 250px;
+      background: #ded;
+    }
+    </style>
+    <script src="../assets/UX.js"></script>
+  </head>
+  <body>
+    <h1>UX-Switch</h1>
+    <p>Hoover over the text and move the mosuehweel to trigger a CSS switch.</p>
+    <div id="scrollbox">
+		<!-- switch: event, id to trigger -->
+      <div id="scroll" :switch="wheel:trigger">
+        {{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}} 
+		{{text}}
+      </div>
+    </div>
+	
+    <script>
+    let app = new UX();
+    app.load({
+      data: {
+        text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eu luctus eros. Aliquam facilisis posuere purus laoreet vulputate. Cras lectus ligula, mattis ut lobortis ac, dignissim nec mauris. Etiam vitae elementum ipsum. Curabitur at justo at diam viverra fermentum. Morbi finibus, enim sit amet commodo aliquet, nisl tellus pretium justo.",
+      }
+    });
+    </script>
+  </body>
+</html>

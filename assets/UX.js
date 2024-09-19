@@ -64,9 +64,10 @@ class UX {
             if (method == 'bindUri') this.bindUri(documentElements[index], find, value);
             if (method == 'bindHamburger') this.bindHamburger(documentElements[index]);
             if (method == 'bindIntoView') this.bindIntoView(documentElements[index]);
-			if (method == 'bindFade') this.bindFade(documentElements[index]);
+            if (method == 'bindFade') this.bindFade(documentElements[index]);
             if (method == 'bindClose') this.bindClose(documentElements[index]);
             if (method == 'bindView') this.bindView(documentElements[index]);
+            if (method == 'bindSwitch') this.bindSwitch(documentElements[index]);
             if (method == 'bindHandler') this.bindHandler(documentElements[index], data, methods, find, value);
             let documentChildren = this.nodeChildren(documentElements[index]);
             for (let j = 0; j < documentChildren.length; j++) {
@@ -119,9 +120,10 @@ class UX {
         this.nodes('bindCascade');
         this.nodes('bindUri');
         this.nodes('bindIntoView');
-		this.nodes('bindFade');
+        this.nodes('bindFade');
         this.nodes('bindClose');
         this.nodes('bindView');
+        this.nodes('bindSwitch');
         this.nodes('progress');
         this.nodes('bindFunctions', false, false, data);
     }
@@ -303,6 +305,17 @@ class UX {
         }
     }
 
+    bindSwitch(node) {
+        let nodeAttribute = this.getAtt(node, 'switch');
+        if (nodeAttribute !== null) {
+        let switchWhat = nodeAttribute.split(':');
+            node.addEventListener(Reflect.get(switchWhat,0), () => {
+                let switchId = Reflect.get(switchWhat,1);
+                 node.setAttribute('id',switchId);
+            });
+        }
+    }
+    
     bindActive(node) {
         let nodeAtrribute = this.getAtt(node, 'active');
         let active = this.dom('','location');
@@ -383,7 +396,7 @@ class UX {
             }
         }
     }
-	
+    
     bindIntoView(node) {
         let nodeAtrribute = this.getAtt(node, 'grow');
         if (nodeAtrribute !== null) {
