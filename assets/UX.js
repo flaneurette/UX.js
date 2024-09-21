@@ -311,7 +311,7 @@ class UX {
         let nodeAttribute = this.getAtt(node, 'slide');
         if (nodeAttribute !== null) {
             let slideWhat = nodeAttribute.split(':');
-            window.addEventListener(Reflect.get(slideWhat,0), () => { 
+            node.addEventListener(Reflect.get(slideWhat,0), () => { 
              let delta = event.deltaY;
              if(delta >=1) {
                   if(Reflect.get(slideWhat,2) == 'height') {
