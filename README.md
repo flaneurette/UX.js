@@ -22,6 +22,8 @@ An example of rendering reusable UX components from the /components/ directory.
 An example of asynchronous component routing, using the :route attribute.
 #### UX-switch.html
 An example of event binding to trigger CSS transformations, using the :switch attribute.
+#### UX-slide.html
+An example to trigger a slide, using the :slide attribute.
 #### UX-hamburger.html
 An example showing the :hamburger attribute, same as ux-toggle.
 #### UX-toggle.html
