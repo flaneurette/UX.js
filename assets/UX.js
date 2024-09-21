@@ -9,7 +9,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.156",
+        version: "1.157",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -68,6 +68,7 @@ class UX {
             if (method == 'bindClose') this.bindClose(documentElements[index]);
             if (method == 'bindView') this.bindView(documentElements[index]);
             if (method == 'bindSwitch') this.bindSwitch(documentElements[index]);
+            if (method == 'bindSlide') this.bindSlide(documentElements[index]);
             if (method == 'bindHandler') this.bindHandler(documentElements[index], data, methods, find, value);
             let documentChildren = this.nodeChildren(documentElements[index]);
             for (let j = 0; j < documentChildren.length; j++) {
@@ -124,6 +125,7 @@ class UX {
         this.nodes('bindClose');
         this.nodes('bindView');
         this.nodes('bindSwitch');
+        this.nodes('bindSlide');
         this.nodes('progress');
         this.nodes('bindFunctions', false, false, data);
     }
@@ -304,7 +306,30 @@ class UX {
             });
         }
     }
-
+    
+    bindSlide(node) {
+        let nodeAttribute = this.getAtt(node, 'slide');
+        if (nodeAttribute !== null) {
+            let slideWhat = nodeAttribute.split(':');
+            window.addEventListener(Reflect.get(slideWhat,0), () => { 
+             let delta = event.deltaY;
+             if(delta >=1) {
+                  if(Reflect.get(slideWhat,2) == 'height') {
+                     this.dom(Reflect.get(slideWhat,1),'id').style.height = 0; 
+                    } else {
+                    this.dom(Reflect.get(slideWhat,1),'id').style.width = 0;
+                  }
+            } else {
+                  if(Reflect.get(slideWhat,2) == 'height') {
+                    this.dom(Reflect.get(slideWhat,1),'id').style.height = Reflect.get(slideWhat,3);
+                    } else {
+                     this.dom(Reflect.get(slideWhat,1),'id').style.width = Reflect.get(slideWhat,3);
+                  }
+              }
+            });
+        }
+    }
+    
     bindSwitch(node) {
         let nodeAttribute = this.getAtt(node, 'switch');
         if (nodeAttribute !== null) {
