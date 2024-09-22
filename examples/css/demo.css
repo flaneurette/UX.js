@@ -166,7 +166,12 @@ li {
 }
 
 #card {
-	height: 600px;
+	height: 3800px;
+}
+
+#card a:link, #card a:visited {
+	color: #000!important;
+	display:block;
 }
 
 .link {
