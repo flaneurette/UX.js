@@ -161,6 +161,7 @@ li {
 }
 .card {
 	height: 600px;
+	line-height: 33px;
 }
 
 .link {
