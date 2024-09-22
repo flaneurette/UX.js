@@ -160,8 +160,13 @@ li {
 	z-index: 7;
 }
 .card {
-	height: 600px;
+	width:80%!important;
 	line-height: 33px;
+	background-color: #ded;
+}
+
+#card {
+	height: 600px;
 }
 
 .link {
