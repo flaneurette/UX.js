@@ -31,7 +31,7 @@
 		<section id="header" :render="components/header.ux"></section>
 	</div>
 	<div>
-		<section :render="components/card.ux"></section>
+		<section id="card" :render="components/card.ux"></section>
 	</div>
 	<div>
 		<section id="footer" :render="components/footer.ux"></section>
@@ -58,7 +58,7 @@
 			],
 			header: "This page was written with UX.js",
 			cardTitle: "Welcome",
-			cardText: "This is a substantiation of UX.js, a Javascript framework for rapid frontend development.",
+			cardText: "This is a substantiation of UX.js, a Javascript framework for rapid frontend development. <hr /> Visit: <a href=\"examples\" class=\"link\">/examples/</a> for all UX examples",
 			footer: "Copyright (c)",
 		}
 	});

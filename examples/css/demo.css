@@ -160,5 +160,9 @@ li {
 	z-index: 7;
 }
 .card {
-	height: 600px;
+	height: 200px;
+}
+
+.link {
+	color: #000!important;
 }
