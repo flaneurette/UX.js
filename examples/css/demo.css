@@ -162,6 +162,7 @@ li {
 	height: 5px;
 	background-color: #9999ff;
 	z-index: 7;
+	transition: width 0.3s ease-in;
 }
 .card {
 	width:80%!important;

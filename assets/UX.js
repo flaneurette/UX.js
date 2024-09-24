@@ -985,6 +985,7 @@ class UX {
               if(progress > 1) {
                 setTimeout(()=> {
                     progressBar.style.width = 0;
+					progressBar.hidden = true;
                 }, 1000);
               }
               loadProgress++;
