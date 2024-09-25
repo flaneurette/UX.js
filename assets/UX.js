@@ -68,7 +68,7 @@ class UX {
             if (method == 'bindClose') this.bindClose(documentElements[index]);
             if (method == 'bindView') this.bindView(documentElements[index]);
             if (method == 'bindSwitch') this.bindSwitch(documentElements[index]);
-            if (method == 'bindSlide') this.bindSlide(documentElements[index]);
+            if (method == 'bindWheel') this.bindWheel(documentElements[index]);
             if (method == 'bindHandler') this.bindHandler(documentElements[index], data, methods, find, value);
             let documentChildren = this.nodeChildren(documentElements[index]);
             for (let j = 0; j < documentChildren.length; j++) {
@@ -125,7 +125,7 @@ class UX {
         this.nodes('bindClose');
         this.nodes('bindView');
         this.nodes('bindSwitch');
-        this.nodes('bindSlide');
+        this.nodes('bindWheel');
         this.nodes('progress');
         this.nodes('bindFunctions', false, false, data);
     }
@@ -307,25 +307,29 @@ class UX {
         }
     }
     
-    bindSlide(node) {
-        let nodeAttribute = this.getAtt(node, 'slide');
+    bindWheel(node) {
+        let nodeAttribute = this.getAtt(node, 'wheel');
         if (nodeAttribute !== null) {
-            let slideWhat = nodeAttribute.split(':');
-            node.addEventListener(Reflect.get(slideWhat,0), () => { 
-             let delta = event.deltaY;
-             if(delta >=1) {
-                  if(Reflect.get(slideWhat,2) == 'height') {
-                     this.dom(Reflect.get(slideWhat,1),'id').style.height = 0; 
-                    } else {
-                    this.dom(Reflect.get(slideWhat,1),'id').style.width = 0;
+            let slideWhat = nodeAttribute.split(':'); 
+            node.addEventListener('wheel', () => {    
+                let delta = 0;
+                delta = event.deltaY;
+                if(delta >=1) {
+                      if(Reflect.get(slideWhat,0) == 'height') {
+                         node.style.height = 0; 
+                        } else {
+                        node.style.width = 0;
+                      }
+                } else {
+                      if(Reflect.get(slideWhat,0) == 'height') {
+                        node.style.height = Reflect.get(slideWhat,1);
+                        } else {
+                         node.style.width = Reflect.get(slideWhat,1);
+                      }
                   }
-            } else {
-                  if(Reflect.get(slideWhat,2) == 'height') {
-                    this.dom(Reflect.get(slideWhat,1),'id').style.height = Reflect.get(slideWhat,3);
-                    } else {
-                     this.dom(Reflect.get(slideWhat,1),'id').style.width = Reflect.get(slideWhat,3);
-                  }
-              }
+                  setTimeout(()=> { 
+                    node.hidden = true;
+                  }, 500);
             });
         }
     }
@@ -985,7 +989,7 @@ class UX {
               if(progress > 1) {
                 setTimeout(()=> {
                     progressBar.style.width = 0;
-					progressBar.hidden = true;
+                    progressBar.hidden = true;
                 }, 1000);
               }
               loadProgress++;

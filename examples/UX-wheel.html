@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UX Wheel</title>
+  <style>
+  
+	html, body {
+		margin:0px;
+		padding:0px;
+	}
+	
+	.text {
+		padding:30px;
+		background-color: red;
+		height: 1200px;
+		color: white;
+	}
+	#first-slide {
+		transition: all 0.5s ease 0s;
+		background-color: blue;
+		z-index: 2;
+		position: absolute;
+		height: 1200px;
+		width: 100%;
+		top: 0px;
+		left: 0px;
+		padding:30px;
+		color: white;
+		z-index:0;
+		box-sizing: border-box;
+	}
+	#second-slide {
+		transition: all 0.5s ease 0s;
+		background-color: green;
+		position: absolute;
+		height: 1200px;
+		width: 100%;
+		top: 0px;
+		left: 0px;
+		padding:30px;
+		color: white;
+		z-index: 1;
+		box-sizing: border-box;
+	}
+</style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+	<!-- height, maximum percentage -->
+	<div id="first-slide" :wheel="height:100%"><h1>Use mousewheel to slide.</h1></div>
+	<div id="second-slide" :wheel="height:100%"><h1>Use mousewheel to slide.</h1></div>
+	<div class="text">
+	<h1>{{text}}</h1>
+	</div>
+<script>
+
+	let app = new UX();
+	
+	app.load({
+		data: {
+          text: 'Slide seen'
+		  }
+	});
+</script>
