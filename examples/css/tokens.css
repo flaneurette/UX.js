@@ -137,7 +137,6 @@ hr {
 	width: var(--view-width-large);
 	padding: var(--spacing-large);
 	margin: var(--spacing-large);
-	box-shadow: var(--shadow-small);
 }
 
 .table {
