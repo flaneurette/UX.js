@@ -9,7 +9,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.157",
+        version: "1.158",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -128,6 +128,7 @@ class UX {
         this.nodes('bindWheel');
         this.nodes('progress');
         this.nodes('bindFunctions', false, false, data);
+		this.parseFunctions(data);
     }
     
     getElements() {
