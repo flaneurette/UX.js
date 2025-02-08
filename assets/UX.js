@@ -105,7 +105,7 @@ class UX {
     }
 
     parseNodes(data) {
-	this.parseFunctions(data);
+	//this.parseFunctions(data);
         this.nodes('bindHamburger');
         this.nodes('bindActive');
         this.nodes('bindToggle');
