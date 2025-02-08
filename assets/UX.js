@@ -105,6 +105,7 @@ class UX {
     }
 
     parseNodes(data) {
+	this.parseFunctions(data);
         this.nodes('bindHamburger');
         this.nodes('bindActive');
         this.nodes('bindToggle');
@@ -128,7 +129,6 @@ class UX {
         this.nodes('bindWheel');
         this.nodes('progress');
         this.nodes('bindFunctions', false, false, data);
-		this.parseFunctions(data);
     }
     
     getElements() {
