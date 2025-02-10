@@ -931,6 +931,7 @@ class UX {
                 .then(response => node.setHTMLUnsafe(response))
                 .then(() => this.renderHTML(node, data))
                 .then(() => this.parseNodes(data))
+				.then(() => UX.thread = 0)
         }
     }
 
