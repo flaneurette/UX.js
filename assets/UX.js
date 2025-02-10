@@ -551,40 +551,32 @@ class UX {
     }
     
     bindToggle(node) {
+		
         let nodeAtrribute = this.getAtt(node, 'toggle');
         if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
             let nodeAtrribute = this.getAtt(node, 'toggle');
             let pairs = nodeAtrribute.split(':');
             let nodeId = this.dom(Reflect.get(pairs, 0),'id');
-            if(nodeId) { 
-                nodeId.addEventListener('mouseleave', () => {
-                    let nodeAtrribute = node.getAttribute(':toggle');
-                    if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
-                        let pairs = nodeAtrribute.split(':');
-                        if (Reflect.get(pairs, 2)) { this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2)); }
-                    }
-                });
-            }    
-            node.addEventListener('click', () => {
-                let nodeAtrribute = this.getAtt(node, 'toggle');
-                let pairs = nodeAtrribute.split(':');
-                let documentElements1 = this.dom('','document');
-                for (let i = 0; i < documentElements1.length; i++) {
-                    let nodeAtrribute = documentElements1[i].getAttribute(':toggle');
-                    let easing = documentElements1[i].getAttribute(':ease'); 
-                    if (nodeAtrribute !== null) {
-                        
-                        if (Reflect.get(pairs, 1) == 'in') {
-                            node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
-                            if (Reflect.get(pairs, 2)) { this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2)); }
-                        }
-                        if (Reflect.get(pairs, 1) == 'out') {
-                            node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in:' + Reflect.get(pairs, 2));
-                            if (Reflect.get(pairs, 2)) { this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2)); }
-                        }
-                    }
-                }
-            });
+            if (nodeAtrribute !== null && UX.thread ==0) {	
+				node.addEventListener('click', () => {
+					    let nodeAtrribute = node.getAttribute(':toggle');
+						let pairs = nodeAtrribute.split(':');
+						if (Reflect.get(pairs, 1) == 'in') {
+							node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
+							if (Reflect.get(pairs, 2)) { 
+								this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2));
+								
+							}
+						}
+						if (Reflect.get(pairs, 1) == 'out') {
+							node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in:' + Reflect.get(pairs, 2));
+							if (Reflect.get(pairs, 2)) { 
+								this.dom(Reflect.get(pairs, 0),'id').classList.toggle(Reflect.get(pairs, 2)); 
+						}
+					}
+				});
+			}
+			UX.thread++;
         }
     }
 
