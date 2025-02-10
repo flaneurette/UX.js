@@ -9,7 +9,7 @@ class UX {
 
     init = {
         name: "UX.js",
-        version: "1.157",
+        version: "1.158",
         copyright: "(c) 2024 flaneurette",
         license: "GNU",
         instanceid: 1e5
@@ -105,6 +105,7 @@ class UX {
     }
 
     parseNodes(data) {
+	//this.parseFunctions(data);
         this.nodes('bindHamburger');
         this.nodes('bindActive');
         this.nodes('bindToggle');

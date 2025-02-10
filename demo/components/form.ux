@@ -1,0 +1,14 @@
+<section>
+	<h1>Contact us</h1>
+</section>
+<section>
+		<form name="form" autocomplete="off" name="lastpass-disable-search" action="" method="post" enctype="multipart/form-data">
+		<label for="firstName">Your name</label>
+		<input name="firstName" id="firstName" type="text" data-lpignore="true" required/>
+		<label for="email">Your email address</label>
+		<input name="email" id="email" type="email" autocomplete="email" data-lpignore="true" required/>
+		<label for="message">Message</label>
+		<textarea id="message" name="message" data-lpignore="true" required></textarea>
+		<input type="submit" value="Send message" />
+		</form>
+</section>

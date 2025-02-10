@@ -1,0 +1,4 @@
+<section>
+	<h1>{{splash}}</h1>
+	<a :void="true" :view="contact"><div class="content-button">{{splashButton}}</div></a>
+</section>
