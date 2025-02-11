@@ -11,6 +11,21 @@
 	  margin: 10px;
     }
 
+	#scroll {
+		position: fixed;
+		bottom: 0px;
+		right: 0;
+		background-color: lightblue;
+		border-radius: 200px;
+		height: 100px;
+		width: 100px;
+		line-height: 6em;
+		text-align: center;
+		padding: 30px;
+		margin: 30px;
+		cursor:pointer;
+	}
+	
   </style>
 <script src="../assets/UX.js"></script>
 </head>
@@ -45,8 +60,8 @@
 		 <p>{{text}}</p>
 	 </div>
 
-	<div>
-		 <a :void="true" :scroll="true">Scroll to top</a>
+	<div id="scroll">
+		 <span :scroll="true">Scroll to top</span>
 	 </div>	
 	 
   </div>

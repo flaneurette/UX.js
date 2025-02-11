@@ -78,6 +78,7 @@ class UX {
 				case 'bindView': this.bindView(element); break;
 				case 'bindSwitch': this.bindSwitch(element); break;
 				case 'bindWheel': this.bindWheel(element); break;
+				case 'bindScroll': this.bindScroll(element); break;
 				case 'bindHandler': this.bindHandler(element, data, methods, find, value); break;
 			}
 			
@@ -1172,6 +1173,7 @@ class UX {
         this.nodes('bindView');
         this.nodes('bindSwitch');
         this.nodes('bindWheel');
+		this.nodes('bindScroll');
         this.nodes('progress');
         this.nodes('bindFunctions', false, false, data);
     }
