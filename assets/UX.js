@@ -137,7 +137,7 @@ class UX {
     dom(id, method, value = null) {
         if (id !== null) {
 			
-			let element = document.getElementById(id);
+	let element = document.getElementById(id);
 			
             if (method == 'id') return element;
             if (method == 'get') return element.value;
