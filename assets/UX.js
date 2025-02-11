@@ -71,6 +71,7 @@ class UX {
 				case 'bindLazyLoad': this.bindLazyLoad(element, find, value); break;
 				case 'bindUri': this.bindUri(element, find, value); break;
 				case 'bindHamburger': this.bindHamburger(element); break;
+				case 'bindDarkMode': this.bindDarkMode(element, find, value); break;
 				case 'bindIntoView': this.bindIntoView(element); break;
 				case 'bindFade': this.bindFade(element); break;
 				case 'bindClose': this.bindClose(element); break;
@@ -177,7 +178,7 @@ class UX {
             }
         }
     }
-
+	
     bindClass(node, find, value) {
         let nodeAtrribute = this.getAtt(node, 'class');
         if (nodeAtrribute !== null) {
@@ -217,6 +218,23 @@ class UX {
                 }
             }
             , false);
+        }
+    }
+
+    bindDarkMode(node, find, value) {
+        let nodeAtrribute = this.getAtt(node, 'darkmode');
+        if (nodeAtrribute !== null) {
+			if (localStorage.getItem("dark-mode") === "enabled") {
+				document.body.classList.add("dark-mode");
+			}
+			node.addEventListener("click", () => {
+				document.body.classList.toggle("dark-mode");
+				if (document.body.classList.contains("dark-mode")) {
+					localStorage.setItem("dark-mode", "enabled");
+				} else {
+					localStorage.setItem("dark-mode", "disabled");
+				}
+			});
         }
     }
 
@@ -1135,6 +1153,7 @@ class UX {
         this.nodes('bindHamburger');
         this.nodes('bindActive');
         this.nodes('bindToggle');
+		this.nodes('bindDarkMode');
         this.nodes('bindMenu');
         this.nodes('bindVoid');
         this.nodes('bindPrevent');

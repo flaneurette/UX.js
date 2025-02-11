@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>UX DarkMode</title>
+  <style>
+	body {
+	  background-color: white;
+	  color: black;
+	}
+	.dark-mode {
+	  background-color: black;
+	  color: white;
+	}
+  </style>
+  <script src="../assets/UX.js"></script>
+</head>
+<body>
+
+    <header>
+        <h1>DarkMode</h1>
+        <button :darkmode="true">Click to switch mode</button>
+    </header>
+
+    <section>
+        <p>{{message}}</p>
+    </section>
+	
+	<script>
+	
+	let app = new UX();
+
+	app.load({
+		data: {
+			message: "Hello World!" 
+		}
+	});
+  
+	</script>
+</body>
+</html>
