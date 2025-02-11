@@ -1,13 +1,10 @@
 <section>
 		<nav>
-		<ul>
-			<li>{{link1}}</li>
-			<li>{{link2}}</li>
-			<li>{{link3}}</li>
-			<li>{{link4}}</li>
-			<li>{{link5}}</li>
-			<li>{{link6}}</li>
-			<li>{{link7}}</li>
-		</ul>
+			<ul>
+				<li>{{link1}}</li>
+				<li>{{link2}}</li>
+				<li>{{link3}}</li>
+				<li>{{link4}}</li>
+			</ul>
 		</nav>
 </section>
