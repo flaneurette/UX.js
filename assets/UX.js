@@ -53,39 +53,39 @@ class UX {
 	nodes(method, find, value, data = null, methods = null, callback = null) {
 		const documentElements = this.nodeParentList();
 		const methodMap = {
-				renderComponents: this.renderComponents,
-				routeComponents: this.routeComponents,
-				bindSpinner: this.bindSpinner,
-				bindFlip: this.bindFlip,
-				bindActive: this.bindActive,
-				bindSelect: this.bindSelect,
-				bindShow: this.bindShow,
-				bindHide: this.bindHide,
-				createForm: this.createForm,
-				bindCurtains: this.bindCurtains,
-				bindLoop: this.loop,
-				bindAttributesNode: this.bindClass,
-				bindFlex: this.bindFlex,
-				bindMenu: this.bindMenu,
-				bindToggle: this.bindToggle,
-				bindVoid: this.bindVoid,
-				bindPrevent: this.bindPrevent,
-				bindAsync: this.bindAsync,
-				devtools: this.bindDevtool,
-				bindAnimate: this.bindAnimate,
-				bindCascade: this.bindCascade,
-				bindLazyImg: this.bindLazyImg,
-				bindLazyLoad: this.bindLazyLoad,
-				bindUri: this.bindUri,
-				bindHamburger: this.bindHamburger,
-				bindDarkMode: this.bindDarkMode,
-				bindIntoView: this.bindIntoView,
-				bindFade: this.bindFade,
-				bindClose: this.bindClose,
-				bindView: this.bindView,
-				bindSwitch: this.bindSwitch,
-				bindWheel: this.bindWheel,
-				bindScroll: this.bindScroll
+		renderComponents: this.renderComponents,
+		routeComponents: this.routeComponents,
+		bindSpinner: this.bindSpinner,
+		bindFlip: this.bindFlip,
+		bindActive: this.bindActive,
+		bindSelect: this.bindSelect,
+		bindShow: this.bindShow,
+		bindHide: this.bindHide,
+		createForm: this.createForm,
+		bindCurtains: this.bindCurtains,
+		bindLoop: this.loop,
+		bindAttributesNode: this.bindClass,
+		bindFlex: this.bindFlex,
+		bindMenu: this.bindMenu,
+		bindToggle: this.bindToggle,
+		bindVoid: this.bindVoid,
+		bindPrevent: this.bindPrevent,
+		bindAsync: this.bindAsync,
+		devtools: this.bindDevtool,
+		bindAnimate: this.bindAnimate,
+		bindCascade: this.bindCascade,
+		bindLazyImg: this.bindLazyImg,
+		bindLazyLoad: this.bindLazyLoad,
+		bindUri: this.bindUri,
+		bindHamburger: this.bindHamburger,
+		bindDarkMode: this.bindDarkMode,
+		bindIntoView: this.bindIntoView,
+		bindFade: this.bindFade,
+		bindClose: this.bindClose,
+		bindView: this.bindView,
+		bindSwitch: this.bindSwitch,
+		bindWheel: this.bindWheel,
+		bindScroll: this.bindScroll
 		};
 		for (let index = 0; index < documentElements.length; index++) {
 			const element = documentElements[index];
@@ -172,20 +172,11 @@ class UX {
 	}
 
 	nodeParentList() {
-		let parentList = [];
-		let documentElements = this.getElements();
-		for (let i = 0; i < documentElements.length; i++) {
-			parentList.push(documentElements[i]);
-		}
-		return parentList;
+		return [...this.getElements()];
 	}
 
 	nodeChildren(parents) {
-		let childList = [];
-		for (let i = 0; i < parents.childNodes.length; i++) {
-			childList.push(parents.childNodes[i]);
-		}
-		return childList;
+		return [...parents.childNodes];
 	}
 
 	getAtt(node, part) {
