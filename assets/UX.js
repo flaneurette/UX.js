@@ -497,7 +497,7 @@ class UX {
 
 	bindFlip(node) {
         let nodeAtrribute = this.getAtt(node, 'flip');
-        if (nodeAtrribute !== null && nodeAtrribute.indexOf('true') !== -1) {
+        if (nodeAtrribute !== null) {
 			node.addEventListener("mouseover", ()=> {
 				node.style.transform = "scaleX(-1)";
 			});
