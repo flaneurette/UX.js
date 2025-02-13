@@ -64,6 +64,7 @@ class UX {
 				devtools: this.bindDevtool,
 				bindAnimate: this.bindAnimate,
 				bindCascade: this.bindCascade,
+				bindLazyImg: this.bindLazyImg,
 				bindLazyLoad: this.bindLazyLoad,
 				bindUri: this.bindUri,
 				bindHamburger: this.bindHamburger,
@@ -483,8 +484,35 @@ class UX {
 		}
 	}
 
-	bindLazyLoad(node, find) {
-		let nodeAtrribute = this.getAtt(node, 'lazy');
+	bindLazyLoad(node) {
+		
+		let nodeAtrribute = this.getAtt(node, 'lazyload');
+		if (nodeAtrribute !== null) {
+			
+			let lazy = nodeAtrribute.split(':');
+			
+			node.style.opacity = "0"; 
+			node.style.transform = "translateY(-10px)";
+			node.style.transition = "opacity " + Reflect.get(lazy, 0) + " " + Reflect.get(lazy, 1), "transform "+ Reflect.get(lazy, 0) + " " +  Reflect.get(lazy, 1);
+		   
+			const observer = new IntersectionObserver((entries, observer) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						entry.target.style.opacity = "1"; 
+						entry.target.style.transform = "translateY(0)"; 
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.2 });
+			if (node.id) {
+				let target = this.dom('', 'query', '#' + node.id);
+				observer.observe(target);
+			}
+		}
+	}
+			
+	bindLazyImg(node, find) {
+		let nodeAtrribute = this.getAtt(node, 'lazyimg');
 		if (nodeAtrribute !== null) {
 			let lazy = nodeAtrribute.split(':');
 			let style = '';
@@ -1217,6 +1245,7 @@ class UX {
 		this.nodes('bindHide');
 		this.nodes('bindCurtains');
 		this.nodes('bindAnimate');
+		this.nodes('bindLazyImg');
 		this.nodes('bindLazyLoad');
 		this.nodes('bindCascade');
 		this.nodes('bindUri');

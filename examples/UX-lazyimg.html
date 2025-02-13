@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>UX Lazyload</title>
+<style>
+.text {
+      display: inline-block;
+      padding: 10px;
+      width: 300px;
+}
+ul, li {
+     list-style: none;
+}	
+</style>
+<script src="../assets/UX.js"></script>
+</head>
+<body>
+
+<div id="app">
+<h1>UX Image Lazy load</h1>
+ <p>{{text}}</p>
+  <div :class="myClass">
+    <ul>
+	 <li><img :lazyimg="#f2f2f2" src="https://fakeimg.pl/3250x3250/ffff00" width="500"/></li>
+	 <li><img :lazyimg="#f2f2f2" src="https://fakeimg.pl/3250x3250/ffff00" width="500"/></li>
+	 <li><img :lazyimg="#f2f2f2" src="https://fakeimg.pl/2250x2250/ffff00" width="500"/></li>
+	 <li><img :lazyimg="#f2f2f2" src="https://fakeimg.pl/2250x2250/ffff00" width="500"/></li>
+    </ul>
+  </div>
+</div>
+	<script>
+	
+	let app = new UX();
+	
+	app.load({
+		data: {
+			myClass: "text"
+		}
+	});
+  
+	</script>
+</body>
+</html>

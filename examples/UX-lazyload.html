@@ -1,40 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>UX Lazyload</title>
-<style>
-.text {
-      display: inline-block;
-      padding: 10px;
-      width: 300px;
-}
-ul, li {
-     list-style: none;
-}	
-</style>
-<script src="../assets/UX.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lazy Load Animation</title>
+	<style>
+	.section {
+        margin: 50px auto;
+        padding: 100px;
+        max-width: 900px;
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+	}
+	</style>
+	<script src="../assets/UX.js"></script>
 </head>
 <body>
 
-<div id="app">
-<h1>UX Lazyload</h1>
- <p>{{text}}</p>
-  <div :class="myClass">
-    <ul>
-	 <li><img :lazy="#f2f2f2" src="https://fakeimg.pl/3250x3250/ffff00" width="500"/></li>
-	 <li><img :lazy="#f2f2f2" src="https://fakeimg.pl/3250x3250/ffff00" width="500"/></li>
-	 <li><img :lazy="#f2f2f2" src="https://fakeimg.pl/2250x2250/ffff00" width="500"/></li>
-	 <li><img :lazy="#f2f2f2" src="https://fakeimg.pl/2250x2250/ffff00" width="500"/></li>
-    </ul>
-  </div>
-</div>
+    <h1>UX-Lazyload</h1>
+
+    <div class="section" id="a1" :lazyload="0.8s:ease-in">Section 1</div>
+    <div class="section" id="a2" :lazyload="0.8s:ease-in">Section 2</div>
+    <div class="section" id="a3" :lazyload="0.8s:ease-in">Section 3</div>
+    <div class="section" id="a4" :lazyload="0.8s:ease-in">Section 4</div>
+    <div class="section" id="a5" :lazyload="0.8s:ease-in">Section 5</div>
+	
 	<script>
 	
 	let app = new UX();
 	
 	app.load({
 		data: {
-			myClass: "text",
 			text: 'Lazyload'
 		}
 	});
