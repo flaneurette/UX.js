@@ -6,7 +6,7 @@
 <style>
 form {
     display:block;
-	background-color: rgb(238,174,202);
+	background-color: #f7f7f7;
 	padding: 10px;
 	margin: 10px;
 	border: 1px dashed black;
@@ -63,16 +63,20 @@ ul.products {
 </style>
 </head>
 <body>
+
 <h1>{{text}}</h1>
 <p>Click items to put inside the cart</p>
+
 <div class="div1" :flex="left:row">
+
 <div id="cartcrumb">0</div>
+
 <form :async="true">
 <input type="hidden" name="food" id="food" value="" />
      <ul class="products">
       <div :loop="productList" class="products">
 		  <div class="product">
-			<div class="itemImage"><img width="150" :lazy="#333333" :image="{{image}}" /></div>
+			<div class="itemImage"><img width="150" :lazyimg="#333333" :image="{{image}}" /></div>
 				<div class="desc">
 					<span class="itemName">{{name}}</span> 
 					<span class="itemPrice">${{price}}</span>
@@ -83,7 +87,9 @@ ul.products {
       </div>
     </ul>
 </form>
+
 </div>
+
 <h2>Cart</h2>
 <div id="cart"></div>
 <script>
@@ -113,17 +119,19 @@ ul.products {
 					this.products.push(JSON.stringify(Object.values(this.cart[i])));
 				}
 				
+				const uniqueArr = [...new Set(this.products.map(JSON.stringify))].map(JSON.parse);
+				
 				// create cart list
-				node.innerHTML = this.products;
+				node.innerHTML = uniqueArr;
 				
 				// store in session storage
-				sessionStorage.cart = this.products;
+				sessionStorage.cart = uniqueArr;
 				
 				// update async input
 				food.value = sessionStorage.cart;
 				
 				// update cartcrumb
-				crumb.innerText = Number(this.cart.length);
+				crumb.innerText = Number(uniqueArr.length);
 		    }
 		}
 	});

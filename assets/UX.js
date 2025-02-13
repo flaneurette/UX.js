@@ -16,24 +16,37 @@ class UX {
 		homepage: "https://github.com/flaneurette/UX.js",
 		instanceid: Date.now()
 	}
-
-	load(list) {
-		if (typeof list === 'object' && list !== null) {
-			let {data,methods,events} = list;
-			if (data) {
-				this.parseNodes(data);
-				Reflect.preventExtensions(data);
-				this.nodes('renderComponents', data);
-				this.nodes('routeComponents', data);
-				this.parseFunctions(data, methods);
-
-				if (Reflect.has(data, "devtools")) {
-					this.nodes('devtools', data);
-				}
-			}
-		} else {
+	
+	load(config) {
+		
+		if (!this.isValidObject(config)) {
 			this.log(this.Message['initialize']);
 			return false;
+		}
+
+		const { data, methods, events } = config;
+
+		if (data) {
+			this.initializeData(data,methods);
+			this.initializeComponents(data);
+			this.initializeDevTools(data);
+		}
+		Reflect.preventExtensions(data);
+	}
+
+	initializeData(data,methods) {
+		this.parseNodes(data);
+		this.parseFunctions(data, methods);
+	}
+
+	initializeComponents(data) {
+		this.nodes('renderComponents', data);
+		this.nodes('routeComponents', data);
+	}
+
+	initializeDevTools(data) {
+		if (Reflect.has(data, "devtools")) {
+			this.nodes('devtools', data);
 		}
 	}
 
@@ -81,27 +94,78 @@ class UX {
 				methodMap[method].call(this, element, find, value);
 				} else {
 				switch(method) { 
-				case 'progress': this.progress(element, data, methods, find, value); break;
-				case 'bindFunctions': this.bindFunctions(element, data, find, value); break;
-				case 'bindLogic': this.bindIf(element, find, value); break;
-				case 'bindMethods': this.bindMethods(element, data, methods, find, value); break;
-				case 'bindHandler': this.bindHandler(element, data, methods, find, value); break;
+					case 'progress': 
+					this.progress(element, data, methods, find, value); 
+					break;
+					case 'bindFunctions': 
+					this.bindFunctions(element, data, find, value); 
+					break;
+					case 'bindLogic': 
+					this.bindIf(element, find, value); 
+					break;
+					case 'bindMethods': 
+					this.bindMethods(element, data, methods, find, value); 
+					break;
+					case 'bindHandler': 
+					this.bindHandler(element, data, methods, find, value); 
+					break;
 				}
 			}
 			
-			if (method === 'replaceNodeValue') {
-				const documentChildren = this.nodeChildren(element);
-				for (let j = 0; j < documentChildren.length; j++) {
-					const child = documentChildren[j];
-					if (child.nodeType === 3) {
-						const regex = new RegExp(`{{\\s*${find}[0-9]*\\s*}}`, "gmi");
-						child.nodeValue = child.nodeValue.replaceAll(regex, value);
+			if (method === "replaceNodeValue") {
+				this.nodeChildren(element).forEach(child => {
+					if (child.nodeType === Node.TEXT_NODE) {
+						child.nodeValue = child.nodeValue.replace(new RegExp(`{{\\s*${find}[0-9]*\\s*}}`, "gi"), value);
 					}
-				}
+				});
 			}
 		}
 	}
 
+	dom(id, method, value = null) {
+
+		const globalActions = {
+			query: () => document.querySelector(value),
+			queryall: () => document.querySelectorAll(value),
+			elements: () => document.getElementsByTagName(value),
+			create: () => document.createElement(value),
+			document: () => document.all,
+			location: () => window.location.href,
+			innerheight: () => window.innerHeight,
+			innerwidth: () => window.innerWidth
+		};
+
+		if (method in globalActions) return globalActions[method]();
+
+		if (!id) return null;
+		let element = document.getElementById(id);
+		if (!element) return null;
+
+		const actions = {
+			id: () => element,
+			get: () => element.value,
+			set: () => (element.value = value),
+			none: () => (element.style.display = "none"),
+			block: () => (element.style.display = "block"),
+			sethtml: () => (element.innerHTML = value),
+			gethtml: () => element.innerHTML,
+			innerHTML: () => document.body.innerHTML,
+			display: () => (element.style.display = value),
+			parent: () => element.parentNode,
+			children: () => element.children
+		};
+
+		return actions[method] ? actions[method]() : null;
+	}
+
+	isValidObject(obj) {
+		return typeof obj === 'object' && obj !== null;
+	}
+	
+	isInt(value) {
+		return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
+	}
+	
 	getElements() {
 		let documentElements = this.dom('', 'elements', '*');
 		return documentElements;
@@ -125,10 +189,11 @@ class UX {
 	}
 
 	getAtt(node, part) {
-		let attr = node.getAttribute('ux:' + part);
-		if (attr !== null) return attr;
-		attr = node.getAttribute(':' + part);
-		if (attr !== null) return attr;
+		const prefixes = ['ux:', ':'];
+		for (const prefix of prefixes) {
+			const attr = node.getAttribute(prefix + part);
+			if (attr !== null) return attr;
+		}
 		return null;
 	}
 
@@ -141,35 +206,6 @@ class UX {
 	regEx(type) {
 		if (type == 'spaces') return /\s+|\t+/gim;
 		if (type == 'punctuation') return /,|'|"|\{|\}|\[|\]/gim;
-	}
-
-	dom(id, method, value = null) {
-		if (id !== null) {
-			let element = document.getElementById(id);
-			if (method == 'id') return element;
-			if (method == 'get') return element.value;
-			if (method == 'set') element.value = value;
-			if (method == 'none') element.style.display = 'none';
-			if (method == 'block') element.style.display = 'block';
-			if (method == 'sethtml') element.innerHTML = value;
-			if (method == 'gethtml') return element.innerHTML;
-			if (method == 'innerHTML') return document.body.innerHTML;
-			if (method == 'display') element.style.display = value;
-			if (method == 'parent') return element.parentNode;
-			if (method == 'children') return element.children;
-			if (method == 'query') return document.querySelector(value);
-			if (method == 'queryall') return document.querySelectorAll(value);
-			if (method == 'elements') return document.getElementsByTagName(value);
-			if (method == 'create') return document.createElement(value);
-			if (method == 'document') return document.all;
-			if (method == 'location') return window.location.href;
-			if (method == 'innerheight') return window.innerHeight;
-			if (method == 'innerwidth') return window.innerWidth;
-		}
-	}
-
-	isInt(value) {
-		return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
 	}
 
 	cloneNodes(list, id) {
