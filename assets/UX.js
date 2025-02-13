@@ -49,6 +49,7 @@ class UX {
 				case 'renderComponents': this.renderComponents(element, find, value); break;
 				case 'routeComponents': this.routeComponents(element, find, value); break;
 				case 'bindSpinner': this.bindSpinner(element, find, value); break;
+				case 'bindFlip': this.bindFlip(element, find, value); break;
 				case 'bindActive': this.bindActive(element, find, value); break;
 				case 'bindSelect': this.bindSelect(element, find, value); break;
 				case 'bindShow': this.bindShow(element, find, value); break;
@@ -494,6 +495,18 @@ class UX {
         }
     }
 
+	bindFlip(node) {
+        let nodeAtrribute = this.getAtt(node, 'flip');
+        if (nodeAtrribute !== null && nodeAtrribute.indexOf('true') !== -1) {
+			node.addEventListener("mouseover", ()=> {
+				node.style.transform = "scaleX(-1)";
+			});
+			node.addEventListener("mouseleave", ()=> {
+				node.style.transform = "scaleX(1)";
+			});
+		}
+	}
+	
     bindHamburger(node) {
         let nodeAtrribute = this.getAtt(node, 'hamburger');
         if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
@@ -553,11 +566,10 @@ class UX {
 				}
 				drawSpinner();
 			}
+			window.addEventListener("load", () => {
+				setTimeout(() => this.dom('uxspinner','none'), 200);
+			});
 		}
-		
-		window.addEventListener("load", () => {
-			setTimeout(() => this.dom('uxspinner','none'), 200);
-		});
 	}
 
     bindCSS(node) {
@@ -1201,6 +1213,7 @@ class UX {
         this.nodes('bindWheel');
 		this.nodes('bindScroll');
 		this.nodes('bindSpinner');
+		this.nodes('bindFlip');
         this.nodes('progress');
         this.nodes('bindFunctions', false, false, data);
     }

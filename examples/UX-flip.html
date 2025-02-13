@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip</title>
+    <style>
+        #card {
+            width: 900px;
+            height: 300px;
+            background: blue;
+            color: white;
+            text-align: center;
+            transition: transform 1s ease-in-out;
+        }
+    </style>
+	<script src="../assets/UX.js"></script>
+</head>
+<body>
+	<h1>UX-flip</h1>
+    <div id="card" :flip="true"><h1>{{text}}</h1></div>
+
+<script>
+	
+	let app = new UX();
+	
+	app.load({
+		data: {
+			text: 'Flip me!'
+		}
+	});
+
+</script>
+
+</body>
+</html>
