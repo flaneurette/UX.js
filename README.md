@@ -53,7 +53,9 @@ An example showing the :cascade attribute, to dynamically layer objects.
 #### UX-fetch.html
 An example fetching unique JSON and displaying it.
 #### UX-lazyload.html
-An example lazyloading images with :lazy attribute
+An example lazyloading objects with :lazyload attribute
+#### UX-lazyimg.html
+An example lazyloading images with :lazyimg attribute
 #### UX-handler.html
 An example creating evenlisteners through the :handler attribute.
 #### UX-bind.html
