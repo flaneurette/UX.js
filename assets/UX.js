@@ -19,12 +19,7 @@ class UX {
 
 	load(list) {
 		if (typeof list === 'object' && list !== null) {
-			let {
-				data,
-				methods,
-				events
-			} = list;
-
+			let {data,methods,events} = list;
 			if (data) {
 				this.parseNodes(data);
 				Reflect.preventExtensions(data);
@@ -47,121 +42,53 @@ class UX {
 
 		for (let index = 0; index < documentElements.length; index++) {
 			const element = documentElements[index];
+			const methodMap = {
+				renderComponents: this.renderComponents,
+				routeComponents: this.routeComponents,
+				bindSpinner: this.bindSpinner,
+				bindFlip: this.bindFlip,
+				bindActive: this.bindActive,
+				bindSelect: this.bindSelect,
+				bindShow: this.bindShow,
+				bindHide: this.bindHide,
+				createForm: this.createForm,
+				bindCurtains: this.bindCurtains,
+				bindLoop: this.loop,
+				bindAttributesNode: this.bindClass,
+				bindFlex: this.bindFlex,
+				bindMenu: this.bindMenu,
+				bindToggle: this.bindToggle,
+				bindVoid: this.bindVoid,
+				bindPrevent: this.bindPrevent,
+				bindAsync: this.bindAsync,
+				devtools: this.bindDevtool,
+				bindAnimate: this.bindAnimate,
+				bindCascade: this.bindCascade,
+				bindLazyLoad: this.bindLazyLoad,
+				bindUri: this.bindUri,
+				bindHamburger: this.bindHamburger,
+				bindDarkMode: this.bindDarkMode,
+				bindIntoView: this.bindIntoView,
+				bindFade: this.bindFade,
+				bindClose: this.bindClose,
+				bindView: this.bindView,
+				bindSwitch: this.bindSwitch,
+				bindWheel: this.bindWheel,
+				bindScroll: this.bindScroll
+			};
 
-			switch (method) {
-				case 'progress':
-					this.progress(element, data, methods, find, value);
-					break;
-				case 'renderComponents':
-					this.renderComponents(element, find, value);
-					break;
-				case 'routeComponents':
-					this.routeComponents(element, find, value);
-					break;
-				case 'bindSpinner':
-					this.bindSpinner(element, find, value);
-					break;
-				case 'bindFlip':
-					this.bindFlip(element, find, value);
-					break;
-				case 'bindActive':
-					this.bindActive(element, find, value);
-					break;
-				case 'bindSelect':
-					this.bindSelect(element, find, value);
-					break;
-				case 'bindShow':
-					this.bindShow(element, find, value);
-					break;
-				case 'bindHide':
-					this.bindHide(element, find, value);
-					break;
-				case 'createForm':
-					this.createForm(element, find, value);
-					break;
-				case 'bindCurtains':
-					this.bindCurtains(element, find, value);
-					break;
-				case 'bindLoop':
-					this.loop(element, find, value);
-					break;
-				case 'bindFunctions':
-					this.bindFunctions(element, data, find, value);
-					break;
-				case 'bindLogic':
-					this.bindIf(element, find, value);
-					break;
-				case 'bindMethods':
-					this.bindMethods(element, data, methods, find, value);
-					break;
-				case 'bindAttributesNode':
-					this.bindClass(element, find, value);
-					break;
-				case 'bindFlex':
-					this.bindFlex(element, find, value);
-					break;
-				case 'bindMenu':
-					this.bindMenu(element, find, value);
-					break;
-				case 'bindToggle':
-					this.bindToggle(element, find, value);
-					break;
-				case 'bindVoid':
-					this.bindVoid(element, find, value);
-					break;
-				case 'bindPrevent':
-					this.bindPrevent(element, find, value);
-					break;
-				case 'bindAsync':
-					this.bindAsync(element, find, value);
-					break;
-				case 'devtools':
-					this.bindDevtool(element, find, value);
-					break;
-				case 'bindAnimate':
-					this.bindAnimate(element, find, value);
-					break;
-				case 'bindCascade':
-					this.bindCascade(element, find, value);
-					break;
-				case 'bindLazyLoad':
-					this.bindLazyLoad(element, find, value);
-					break;
-				case 'bindUri':
-					this.bindUri(element, find, value);
-					break;
-				case 'bindHamburger':
-					this.bindHamburger(element);
-					break;
-				case 'bindDarkMode':
-					this.bindDarkMode(element, find, value);
-					break;
-				case 'bindIntoView':
-					this.bindIntoView(element);
-					break;
-				case 'bindFade':
-					this.bindFade(element);
-					break;
-				case 'bindClose':
-					this.bindClose(element);
-					break;
-				case 'bindView':
-					this.bindView(element);
-					break;
-				case 'bindSwitch':
-					this.bindSwitch(element);
-					break;
-				case 'bindWheel':
-					this.bindWheel(element);
-					break;
-				case 'bindScroll':
-					this.bindScroll(element);
-					break;
-				case 'bindHandler':
-					this.bindHandler(element, data, methods, find, value);
-					break;
+			if (methodMap[method]) {
+				methodMap[method].call(this, element, find, value);
+				} else {
+				switch(method) { 
+				case 'progress': this.progress(element, data, methods, find, value); break;
+				case 'bindFunctions': this.bindFunctions(element, data, find, value); break;
+				case 'bindLogic': this.bindIf(element, find, value); break;
+				case 'bindMethods': this.bindMethods(element, data, methods, find, value); break;
+				case 'bindHandler': this.bindHandler(element, data, methods, find, value); break;
+				}
 			}
-
+			
 			if (method === 'replaceNodeValue') {
 				const documentChildren = this.nodeChildren(element);
 				for (let j = 0; j < documentChildren.length; j++) {
@@ -218,9 +145,7 @@ class UX {
 
 	dom(id, method, value = null) {
 		if (id !== null) {
-
 			let element = document.getElementById(id);
-
 			if (method == 'id') return element;
 			if (method == 'get') return element.value;
 			if (method == 'set') element.value = value;
