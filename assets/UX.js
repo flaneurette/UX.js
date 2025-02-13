@@ -39,10 +39,7 @@ class UX {
 
 	nodes(method, find, value, data = null, methods = null, callback = null) {
 		const documentElements = this.nodeParentList();
-
-		for (let index = 0; index < documentElements.length; index++) {
-			const element = documentElements[index];
-			const methodMap = {
+		const methodMap = {
 				renderComponents: this.renderComponents,
 				routeComponents: this.routeComponents,
 				bindSpinner: this.bindSpinner,
@@ -76,7 +73,9 @@ class UX {
 				bindSwitch: this.bindSwitch,
 				bindWheel: this.bindWheel,
 				bindScroll: this.bindScroll
-			};
+		};
+		for (let index = 0; index < documentElements.length; index++) {
+			const element = documentElements[index];
 
 			if (methodMap[method]) {
 				methodMap[method].call(this, element, find, value);
