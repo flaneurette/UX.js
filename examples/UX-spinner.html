@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spinner</title>
+	<script src="../assets/UX.js"></script>
+</head>
+<body>
+    
+    <h1>{{title}}</h1>
+    <p>{{message}}</p>
+	
+	<div :spinner="50:black"></div>
+		
+	<iframe src="https://example.com" width="100%" height="500" /></iframe>
+	<iframe src="https://example.com" width="100%" height="500" /></iframe>
+	<iframe src="https://example.com" width="100%" height="500" /></iframe>
+	<iframe src="https://example.com" width="100%" height="500" /></iframe>
+
+	<script>
+	
+	let app = new UX();
+
+	app.load({
+		data: { 
+			title: "Page Content",
+			message: "The page has loaded successfully!"
+		}
+	});
+  
+	</script>
+</body>
+</html>

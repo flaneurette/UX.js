@@ -48,6 +48,7 @@ class UX {
 				case 'progress': this.progress(element, data, methods, find, value); break;
 				case 'renderComponents': this.renderComponents(element, find, value); break;
 				case 'routeComponents': this.routeComponents(element, find, value); break;
+				case 'bindSpinner': this.bindSpinner(element, find, value); break;
 				case 'bindActive': this.bindActive(element, find, value); break;
 				case 'bindSelect': this.bindSelect(element, find, value); break;
 				case 'bindShow': this.bindShow(element, find, value); break;
@@ -523,6 +524,41 @@ class UX {
             }
         }
     }
+	
+	bindSpinner(node) {
+		let nodeAtrribute = this.getAtt(node, 'spinner');
+        if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
+			if(this.dom('uxspinner','id') == null) { 
+			let pairs = nodeAtrribute.split(':');
+            let width = Reflect.get(pairs, 0);
+            let color = Reflect.get(pairs, 1);
+			let canvas = this.dom('','create','canvas');
+			node.append(canvas);
+			canvas.setAttribute('width', width);
+            canvas.setAttribute('height', width);
+            canvas.setAttribute('id', 'uxspinner');
+			const ctx = canvas.getContext("2d");
+			let angle = 0;
+				function drawSpinner() {
+					ctx.clearRect(0, 0, canvas.width, canvas.height);
+					ctx.beginPath();
+					ctx.arc(width/2, width/2, width/3, angle, angle + Math.PI * 1.5);
+					ctx.lineWidth = 6;
+					ctx.strokeStyle = color;
+					ctx.lineCap = "round";
+					ctx.stroke();
+
+					angle += 0.1;
+					requestAnimationFrame(drawSpinner);
+				}
+				drawSpinner();
+			}
+		}
+		
+		window.addEventListener("load", () => {
+			setTimeout(() => this.dom('uxspinner','none'), 200);
+		});
+	}
 
     bindCSS(node) {
     let nodeAtrribute = this.getAtt(node, 'css');
@@ -846,7 +882,7 @@ class UX {
 			}
 
 			node.removeChild(node.children[0]);
-			// Handle images with :image attribute
+			
 			let imageElements = this.dom('', 'queryall', 'img');
 			if (imageElements) {
 				imageElements.forEach(img => {
@@ -855,7 +891,6 @@ class UX {
 				});
 			}
 
-			// Apply zebra striping if required
 			if (zebra) {
 				let [className, mod] = zebra.split(':');
 				mod = parseInt(mod, 10) || 2;
@@ -870,13 +905,10 @@ class UX {
 	routeComponents(node, data) {
 		let attribute = this.getAtt(node, 'route');
 		if (!attribute) return;
-
 		let [routeId, requestUri] = attribute.split(':');
-		
 		if (!UX.array.includes(routeId)) {
 			UX.array.push(routeId);
 		}
-
 		node.addEventListener('click', async () => {
 		
 			let routeNode = this.dom(routeId, 'id');
@@ -982,29 +1014,23 @@ class UX {
 		if (attribute !== null) {
 			let [totalLoad, progressBarId] = attribute.split(':');
 			let progressBar = this.dom('', 'query', '#' + progressBarId);
-			let loadProgress = 0;
-
-			function increment(list) {
-				loadProgress++;
-				let progress = Math.round((loadProgress / (totalLoad * 0.5)) * 100);
-				progressBar.style.width = progress + '%';
-
-				if (progress >= 10) {
-					setTimeout(() => {
-						progressBar.style.width = '0%';
-						progressBar.hidden = true;
-					}, 1000);
-				}
+			function updateProgress() {
+				let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+				let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+				let progress = (scrollTop / scrollHeight) * 100;
+				progressBar.style.width = progress + "%";
 			}
-
-			const observer = new PerformanceObserver((list) => {
-				increment(list);
+			window.addEventListener("scroll", updateProgress);
+			document.addEventListener("DOMContentLoaded", function () {
+				progressBar.style.width = "50%";
 			});
 
-			observer.observe({ type: 'resource', buffered: true });
+			window.addEventListener("load", function () {
+				progressBar.style.width = "100%";
+				setTimeout(() => progressBar.style.display = "none", 500);
+			});
 		}
 	}
-
     
     async (requestUri, method, callback) {
         let nodeAtrribute = false;
@@ -1174,6 +1200,7 @@ class UX {
         this.nodes('bindSwitch');
         this.nodes('bindWheel');
 		this.nodes('bindScroll');
+		this.nodes('bindSpinner');
         this.nodes('progress');
         this.nodes('bindFunctions', false, false, data);
     }
