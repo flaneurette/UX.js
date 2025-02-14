@@ -217,6 +217,7 @@ class UX {
 
 	bindClass(node, find, value) {
 		let nodeAttribute = this.getAtt(node, 'class');
+		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			if (nodeAttribute.toString() === find.toString()) node.classList.toggle(value);
 		}
@@ -224,6 +225,7 @@ class UX {
 
 	bindId(node, find, value) {
 		let nodeAttribute = this.getAtt(node, 'id');
+		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			if (nodeAttribute.toString() === find.toString()) node.id = value;
 		}
@@ -240,6 +242,7 @@ class UX {
 
 	bindCurtains(node, find, value) {
 		let nodeAttribute = this.getAtt(node, 'click');
+		if (!nodeAttribute) return;
 		let documentElements = this.nodeParentList();
 		for (let i = 0; i < documentElements.length; i++) {
 			if (this.attributeCheck(documentElements[i], 'curtain') == true) documentElements[i].hidden = true;
@@ -258,6 +261,7 @@ class UX {
 
 	bindDarkMode(node, find, value) {
 		let nodeAttribute = this.getAtt(node, 'darkmode');
+		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			if (localStorage.getItem("dark-mode") === "enabled") {
 				document.body.classList.add("dark-mode");
@@ -284,6 +288,7 @@ class UX {
 
 	bindShow(node) {
 		let nodeAttribute = this.getAtt(node, 'hidden');
+		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			node.hidden = false;
 		}
@@ -291,6 +296,7 @@ class UX {
 
 	bindHide(node) {
 		let nodeAttribute = this.getAtt(node, 'hidden');
+		if (!nodeAttribute) return;
 		if (nodeAttribute !== null && nodeAttribute == 'true') {
 			node.hidden = true;
 		}
@@ -298,6 +304,7 @@ class UX {
 
 	bindVoid(node) {
 		let nodeAttribute = this.getAtt(node, 'void');
+		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			node.setAttribute('href', 'javascript:void(0);');
 		}
@@ -305,6 +312,7 @@ class UX {
 
 	bindView(node) {
 		let nodeAttribute = this.getAtt(node, 'view');
+		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			node.addEventListener('click', () => {
 				let documentElement = this.dom(nodeAttribute, 'id');
@@ -319,6 +327,7 @@ class UX {
 
 	bindScroll(node) {
 		let nodeAttribute = this.getAtt(node, 'scroll');
+		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			node.setAttribute('href', 'javascript:void(0);');
 			node.addEventListener('click', () => {
