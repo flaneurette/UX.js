@@ -87,6 +87,7 @@ class UX {
 			bindView: this.bindView,
 			bindSwitch: this.bindSwitch,
 			bindWheel: this.bindWheel,
+			bindSlide: this.bindSlide,
 			bindScroll: this.bindScroll
 		};
 		
@@ -340,9 +341,29 @@ class UX {
 		}
 	}
 
-	bindWheel(node) {
+	bindSlide(node) {
 
 		const nodeAttribute = this.getAtt(node, 'slide');
+		if (!nodeAttribute) return;
+
+		const [dimension, value] = nodeAttribute.split(':');
+		if (!dimension || !value) return;
+
+		node.addEventListener('wheel', (event) => {
+			event.preventDefault();
+			const delta = event.deltaY;
+			const targetProperty = dimension === 'height' ? 'height' : 'width';
+			const newValue = delta > 0 ? '0px' : value;
+			node.style[targetProperty] = newValue; 
+			setTimeout(() => {
+				node.style.display = 'none';
+			}, 500);
+		});
+	}
+	
+	bindWheel(node) {
+
+		const nodeAttribute = this.getAtt(node, 'wheel');
 		if (!nodeAttribute) return;
 
 		const [dimension, value] = nodeAttribute.split(':');
@@ -454,7 +475,7 @@ class UX {
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			let options = {
-				threshold: 1.0,
+				threshold: 0.8,
 			};
 			let callback = (entries, observer) => {
 				entries.forEach((entry) => {
@@ -1365,6 +1386,7 @@ class UX {
 		this.nodes('bindView');
 		this.nodes('bindSwitch');
 		this.nodes('bindWheel');
+		this.nodes('bindSlide');
 		this.nodes('bindScroll');
 		this.nodes('bindSpinner');
 		this.nodes('bindFlip');
