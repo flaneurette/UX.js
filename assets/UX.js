@@ -440,8 +440,6 @@ class UX {
 		node.style.animationTimingFunction = timingFunction;
 	}
 
-
-
 	bindFade(node) {
 		let nodeAttribute = this.getAtt(node, 'fade');
 		if (!nodeAttribute) return;
@@ -606,7 +604,6 @@ class UX {
 		}
 	}
 
-
 	bindUri(node) {
 		let nodeAttribute = this.getAtt(node, 'link');
 		if (!nodeAttribute) return;
@@ -769,7 +766,6 @@ class UX {
 			});
 		}
 	}
-
 
 	bindFunctions(node, data, find, value) {
 
