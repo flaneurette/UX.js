@@ -30,8 +30,8 @@ class UX {
 			this.initializeData(data,methods);
 			this.initializeComponents(data);
 			this.initializeDevTools(data);
+			Reflect.preventExtensions(data);
 		}
-		Reflect.preventExtensions(data);
 	}
 
 	initializeData(data,methods) {
@@ -51,42 +51,45 @@ class UX {
 	}
 
 	nodes(method, find, value, data = null, methods = null, callback = null) {
+		
 		const documentElements = this.nodeParentList();
+		
 		const methodMap = {
-		renderComponents: this.renderComponents,
-		routeComponents: this.routeComponents,
-		bindSpinner: this.bindSpinner,
-		bindFlip: this.bindFlip,
-		bindActive: this.bindActive,
-		bindSelect: this.bindSelect,
-		bindShow: this.bindShow,
-		bindHide: this.bindHide,
-		createForm: this.createForm,
-		bindCurtains: this.bindCurtains,
-		bindLoop: this.loop,
-		bindAttributesNode: this.bindClass,
-		bindFlex: this.bindFlex,
-		bindMenu: this.bindMenu,
-		bindToggle: this.bindToggle,
-		bindVoid: this.bindVoid,
-		bindPrevent: this.bindPrevent,
-		bindAsync: this.bindAsync,
-		devtools: this.bindDevtool,
-		bindAnimate: this.bindAnimate,
-		bindCascade: this.bindCascade,
-		bindLazyImg: this.bindLazyImg,
-		bindLazyLoad: this.bindLazyLoad,
-		bindUri: this.bindUri,
-		bindHamburger: this.bindHamburger,
-		bindDarkMode: this.bindDarkMode,
-		bindIntoView: this.bindIntoView,
-		bindFade: this.bindFade,
-		bindClose: this.bindClose,
-		bindView: this.bindView,
-		bindSwitch: this.bindSwitch,
-		bindWheel: this.bindWheel,
-		bindScroll: this.bindScroll
+			renderComponents: this.renderComponents,
+			routeComponents: this.routeComponents,
+			bindSpinner: this.bindSpinner,
+			bindFlip: this.bindFlip,
+			bindActive: this.bindActive,
+			bindSelect: this.bindSelect,
+			bindShow: this.bindShow,
+			bindHide: this.bindHide,
+			createForm: this.createForm,
+			bindCurtains: this.bindCurtains,
+			bindLoop: this.loop,
+			bindAttributesNode: this.bindClass,
+			bindFlex: this.bindFlex,
+			bindMenu: this.bindMenu,
+			bindToggle: this.bindToggle,
+			bindVoid: this.bindVoid,
+			bindPrevent: this.bindPrevent,
+			bindAsync: this.bindAsync,
+			devtools: this.bindDevtool,
+			bindAnimate: this.bindAnimate,
+			bindCascade: this.bindCascade,
+			bindLazyImg: this.bindLazyImg,
+			bindLazyLoad: this.bindLazyLoad,
+			bindUri: this.bindUri,
+			bindHamburger: this.bindHamburger,
+			bindDarkMode: this.bindDarkMode,
+			bindIntoView: this.bindIntoView,
+			bindFade: this.bindFade,
+			bindClose: this.bindClose,
+			bindView: this.bindView,
+			bindSwitch: this.bindSwitch,
+			bindWheel: this.bindWheel,
+			bindScroll: this.bindScroll
 		};
+		
 		for (let index = 0; index < documentElements.length; index++) {
 			const element = documentElements[index];
 
@@ -213,16 +216,16 @@ class UX {
 	}
 
 	bindClass(node, find, value) {
-		let nodeAtrribute = this.getAtt(node, 'class');
-		if (nodeAtrribute !== null) {
-			if (nodeAtrribute.toString() === find.toString()) node.classList.toggle(value);
+		let nodeAttribute = this.getAtt(node, 'class');
+		if (nodeAttribute !== null) {
+			if (nodeAttribute.toString() === find.toString()) node.classList.toggle(value);
 		}
 	}
 
 	bindId(node, find, value) {
-		let nodeAtrribute = this.getAtt(node, 'id');
-		if (nodeAtrribute !== null) {
-			if (nodeAtrribute.toString() === find.toString()) node.id = value;
+		let nodeAttribute = this.getAtt(node, 'id');
+		if (nodeAttribute !== null) {
+			if (nodeAttribute.toString() === find.toString()) node.id = value;
 		}
 	}
 
@@ -236,12 +239,12 @@ class UX {
 	}
 
 	bindCurtains(node, find, value) {
-		let nodeAtrribute = this.getAtt(node, 'click');
+		let nodeAttribute = this.getAtt(node, 'click');
 		let documentElements = this.nodeParentList();
 		for (let i = 0; i < documentElements.length; i++) {
 			if (this.attributeCheck(documentElements[i], 'curtain') == true) documentElements[i].hidden = true;
 		}
-		if (nodeAtrribute !== null && this.attributeCheck(node, 'curtain') !== null) {
+		if (nodeAttribute !== null && this.attributeCheck(node, 'curtain') !== null) {
 			node.addEventListener('click', () => {
 				let documentElements = this.dom('', 'elements', '*');
 				for (let i = 0; i < documentElements.length; i++) {
@@ -254,8 +257,8 @@ class UX {
 	}
 
 	bindDarkMode(node, find, value) {
-		let nodeAtrribute = this.getAtt(node, 'darkmode');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'darkmode');
+		if (nodeAttribute !== null) {
 			if (localStorage.getItem("dark-mode") === "enabled") {
 				document.body.classList.add("dark-mode");
 			}
@@ -280,31 +283,31 @@ class UX {
 	}
 
 	bindShow(node) {
-		let nodeAtrribute = this.getAtt(node, 'hidden');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'hidden');
+		if (nodeAttribute !== null) {
 			node.hidden = false;
 		}
 	}
 
 	bindHide(node) {
-		let nodeAtrribute = this.getAtt(node, 'hidden');
-		if (nodeAtrribute !== null && nodeAtrribute == 'true') {
+		let nodeAttribute = this.getAtt(node, 'hidden');
+		if (nodeAttribute !== null && nodeAttribute == 'true') {
 			node.hidden = true;
 		}
 	}
 
 	bindVoid(node) {
-		let nodeAtrribute = this.getAtt(node, 'void');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'void');
+		if (nodeAttribute !== null) {
 			node.setAttribute('href', 'javascript:void(0);');
 		}
 	}
 
 	bindView(node) {
-		let nodeAtrribute = this.getAtt(node, 'view');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'view');
+		if (nodeAttribute !== null) {
 			node.addEventListener('click', () => {
-				let documentElement = this.dom(nodeAtrribute, 'id');
+				let documentElement = this.dom(nodeAttribute, 'id');
 				documentElement.scrollIntoView({
 					behavior: "smooth",
 					block: "start",
@@ -315,8 +318,8 @@ class UX {
 	}
 
 	bindScroll(node) {
-		let nodeAtrribute = this.getAtt(node, 'scroll');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'scroll');
+		if (nodeAttribute !== null) {
 			node.setAttribute('href', 'javascript:void(0);');
 			node.addEventListener('click', () => {
 				window.scroll({
@@ -329,34 +332,28 @@ class UX {
 	}
 
 	bindWheel(node) {
-		let nodeAttribute = this.getAtt(node, 'wheel');
-		if (nodeAttribute !== null) {
-			let slideWhat = nodeAttribute.split(':');
-			node.addEventListener('wheel', () => {
-				let delta = 0;
-				delta = event.deltaY;
-				if (delta >= 1) {
-					if (Reflect.get(slideWhat, 0) == 'height') {
-						node.style.height = 0;
-					} else {
-						node.style.width = 0;
-					}
-				} else {
-					if (Reflect.get(slideWhat, 0) == 'height') {
-						node.style.height = Reflect.get(slideWhat, 1);
-					} else {
-						node.style.width = Reflect.get(slideWhat, 1);
-					}
-				}
-				setTimeout(() => {
-					node.hidden = true;
-				}, 500);
-			});
-		}
+
+		const nodeAttribute = this.getAtt(node, 'slide');
+		if (!nodeAttribute) return;
+
+		const [dimension, value] = nodeAttribute.split(':');
+		if (!dimension || !value) return;
+
+		node.addEventListener('wheel', (event) => {
+			event.preventDefault();
+			const delta = event.deltaY;
+			const targetProperty = dimension === 'height' ? 'height' : 'width';
+			const newValue = delta > 0 ? '0px' : value;
+			node.style[targetProperty] = newValue; 
+			setTimeout(() => {
+				node.style.display = 'none';
+			}, 500);
+		});
 	}
 
 	bindSwitch(node) {
 		let nodeAttribute = this.getAtt(node, 'switch');
+		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			let switchWhat = nodeAttribute.split(':');
 			node.addEventListener(Reflect.get(switchWhat, 0), () => {
@@ -367,11 +364,12 @@ class UX {
 	}
 
 	bindActive(node) {
-		let nodeAtrribute = this.getAtt(node, 'active');
+		let nodeAttribute = this.getAtt(node, 'active');
+		if (!nodeAttribute) return;
 		let active = this.dom('', 'location');
-		if (nodeAtrribute !== null) {
-			if (nodeAtrribute.indexOf(':') != -1) {
-				let pieces = nodeAtrribute.split(':');
+		if (nodeAttribute !== null) {
+			if (nodeAttribute.indexOf(':') != -1) {
+				let pieces = nodeAttribute.split(':');
 				if (active.match(Reflect.get(pieces, 0))) {
 					node.className = Reflect.get(pieces, 1).toString();
 				}
@@ -380,54 +378,74 @@ class UX {
 	}
 
 	bindSelect(node) {
-		let nodeAtrribute = this.getAtt(node, 'select');
-		if (nodeAtrribute !== null) {
-			node.className = nodeAtrribute.toString();
+		let nodeAttribute = this.getAtt(node, 'select');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null) {
+			node.className = nodeAttribute.toString();
 		}
 	}
 
 	bindFlex(node) {
-		let nodeAtrribute = this.getAtt(node, 'flex');
-		if (nodeAtrribute !== null) {
-			if (nodeAtrribute.indexOf(':') != -1) {
-				let flexbox = nodeAtrribute.split(':');
-				let flex = 'display:flex;';
-				let flexdir = 'flex-direction:' + Reflect.get(flexbox, 1) + ';';
-				if (Reflect.get(flexbox, 0) == 'true' ||
-					Reflect.get(flexbox, 0) == '1' ||
-					Reflect.get(flexbox, 0) == 'start' ||
-					Reflect.get(flexbox, 0) == 'left') node.setAttribute("style", flex + flexdir);
-				if (Reflect.get(flexbox, 0) == 'end' ||
-					Reflect.get(flexbox, 0) == 'right') node.setAttribute("style", flex + 'justify-content: flex-end;' + flexdir);
-				if (Reflect.get(flexbox, 0) == 'center') node.setAttribute("style", flex + 'justify-content: center;' + flexdir);
-				if (Reflect.get(flexbox, 0) == 'bottom') node.setAttribute("style", flex + 'align-items: baseline;' + flexdir);
-			}
+		const nodeAttribute = this.getAtt(node, 'flex');
+		if (!nodeAttribute) return;
+
+		const [alignment = 'start', flexDirection = 'row'] = nodeAttribute.split(':');
+
+		const justifyMap = {
+			'true': 'flex-start',
+			'1': 'flex-start',
+			'start': 'flex-start',
+			'left': 'flex-start',
+			'end': 'flex-end',
+			'right': 'flex-end',
+			'center': 'center',
+			'bottom': 'baseline',
+		};
+
+		node.style.setProperty('display', 'flex', 'important');
+		node.style.setProperty('flex-direction', flexDirection, 'important');
+
+		if (alignment === 'bottom') {
+			node.style.setProperty('align-items', 'baseline', 'important');
+		} else {
+			node.style.setProperty('justify-content', justifyMap[alignment] || 'flex-start', 'important');
 		}
 	}
 
 	bindAnimate(node) {
-		let nodeAtrribute = this.getAtt(node, 'animate');
-		if (nodeAtrribute !== null) {
-			if (nodeAtrribute.indexOf(':') != -1) {
-				let f = nodeAtrribute.split(':');
-				let keyframes = this.dom('', 'create', 'style');
-				keyframes.textContent = '@keyframes ' + Reflect.get(f, 0) +
-					'{ from { ' + Reflect.get(f, 5).toString() +
-					': var(--from);} to {' + Reflect.get(f, 5).toString() +
-					':var(--to);}}';
-				document.body.appendChild(keyframes);
-				node.style = 'position: relative; --from:' +
-					Reflect.get(f, 3) + 'px; --to:' + Reflect.get(f, 4) +
-					'px; animation: ' + Reflect.get(f, 0) + ' ' +
-					Reflect.get(f, 2) + ' forwards; animation-timing-function: ' +
-					Reflect.get(f, 1) + ';';
-			}
+		const nodeAttribute = this.getAtt(node, 'animate');
+		if (!nodeAttribute) return;
+
+		const [animationName, timingFunction, duration, from, to, property] = nodeAttribute.split(':');
+
+		if (!animationName || !timingFunction || !duration || !from || !to || !property) {
+			return;
 		}
+
+		let styleId = `keyframes-${animationName}`;
+		if (!document.getElementById(styleId)) {
+			const keyframes = document.createElement('style');
+			keyframes.id = styleId;
+			keyframes.textContent = `
+				@keyframes ${animationName} {
+					from { ${property}: ${from}px; }
+					to { ${property}: ${to}px; }
+				}
+			`;
+			document.head.appendChild(keyframes);
+		}
+		
+		node.style.position = 'relative';
+		node.style.animation = `${animationName} ${duration} forwards`;
+		node.style.animationTimingFunction = timingFunction;
 	}
 
+
+
 	bindFade(node) {
-		let nodeAtrribute = this.getAtt(node, 'fade');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'fade');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null) {
 			let options = {
 				threshold: 1.0,
 			};
@@ -435,7 +453,7 @@ class UX {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting === true) {
 						let height = node.clientHeight;
-						entry.target.setAttribute("class", nodeAtrribute);
+						entry.target.setAttribute("class", nodeAttribute);
 					}
 				});
 			};
@@ -448,8 +466,9 @@ class UX {
 	}
 
 	bindIntoView(node) {
-		let nodeAtrribute = this.getAtt(node, 'grow');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'grow');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null) {
 			let options = {
 				threshold: 1.0,
 			};
@@ -457,7 +476,7 @@ class UX {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting === true) {
 						let height = node.clientHeight;
-						entry.target.setAttribute("class", nodeAtrribute);
+						entry.target.setAttribute("class", nodeAttribute);
 					}
 				});
 			};
@@ -470,52 +489,68 @@ class UX {
 	}
 
 	bindCascade(node, find) {
-		let nodeAtrribute = this.getAtt(node, 'cascade');
-		if (nodeAtrribute !== null) {
-			let a = nodeAtrribute.split(':');
-			const [type, index, height1, height2] = a;
-			let childs = node.children;
-			for (let i = 0; i < childs.length; i++) {
-				if (type == 'menu') {
-					if (i == index) {
-						let styles = '';
-						styles += 'position:fixed!important;';
-						styles += 'z-index:' + (childs.length + 1) + ';';
-						styles += 'height:' + height1 + 'px!important;';
-						styles += 'width:100%;';
-						node.children[i].setAttribute("style", styles);
-					} else {
-						let styles = '';
-						styles += 'position:relative!important;';
-						styles += 'z-index:' + (i + 2) + ';';
-						styles += 'top:' + height2 + 'px;';
-						node.children[i].setAttribute("style", styles);
-					}
+		
+		let nodeAttribute = this.getAtt(node, 'cascade');
+		if (!nodeAttribute) return;
+		let [type, index, height1, height2] = nodeAttribute.split(':');
+		
+		index = parseInt(index, 10);
+		height1 = parseInt(height1, 10);
+		height2 = parseInt(height2, 10);
+
+		if (isNaN(index) || isNaN(height1) || isNaN(height2)) {
+			return;
+		}
+
+		let children = Array.from(node.children);
+
+		children.forEach((child, i) => {
+			let styles = {};
+			
+			if (type === 'menu') {
+				if (i === index) {
+					styles = {
+						position: 'fixed',
+						zIndex: children.length + 1,
+						height: `${height1}px`,
+						width: '100%'
+					};
 				} else {
-					if (i == index) {
-						let styles = '';
-						styles += 'position:fixed!important;';
-						styles += 'z-index:0;';
-						styles += 'width:100%;';
-						node.children[i].setAttribute("style", styles);
-					} else {
-						let styles = '';
-						styles += 'position:relative!important;';
-						styles += 'z-index:' + (i + 2) + ';';
-						styles += 'top:' + height2 + 'px;';
-						node.children[i].setAttribute("style", styles);
-					}
+					styles = {
+						position: 'relative',
+						zIndex: i + 2,
+						top: `${height2}px`
+					};
+				}
+			} else {
+				if (i === index) {
+					styles = {
+						position: 'fixed',
+						zIndex: 0,
+						width: '100%'
+					};
+				} else {
+					styles = {
+						position: 'relative',
+						zIndex: i + 2,
+						top: `${height2}px`
+					};
 				}
 			}
-		}
+			
+			Object.entries(styles).forEach(([key, value]) => {
+				child.style.setProperty(key, value, 'important');
+			});
+		});
 	}
 
 	bindLazyLoad(node) {
 		
-		let nodeAtrribute = this.getAtt(node, 'lazyload');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'lazyload');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null) {
 			
-			let lazy = nodeAtrribute.split(':');
+			let lazy = nodeAttribute.split(':');
 			
 			node.style.opacity = "0"; 
 			node.style.transform = "translateY(-10px)";
@@ -529,7 +564,7 @@ class UX {
 						observer.unobserve(entry.target);
 					}
 				});
-			}, { threshold: 0.2 });
+			}, { threshold: 0.8 });
 			if (node.id) {
 				let target = this.dom('', 'query', '#' + node.id);
 				observer.observe(target);
@@ -537,31 +572,56 @@ class UX {
 		}
 	}
 			
-	bindLazyImg(node, find) {
-		let nodeAtrribute = this.getAtt(node, 'lazyimg');
-		if (nodeAtrribute !== null) {
-			let lazy = nodeAtrribute.split(':');
-			let style = '';
-			style += "background-color:" + Reflect.get(lazy, 0) + ";";
-			style += "background-size: cover;";
-			node.setAttribute("style", style);
+	bindLazyImg(node) {
+		
+		const nodeAttribute = this.getAtt(node, 'lazyimg');
+		if (!nodeAttribute) return;
+
+		const [color, imageUrl] = nodeAttribute.split(':');
+
+		if (!imageUrl) {
+			return;
+		}
+
+		if (node.tagName.toLowerCase() === 'img') {
+			node.src = imageUrl;
 			node.setAttribute("loading", "lazy");
+			node.addEventListener("load", () => {
+				node.src = imageUrl;
+			});
+		} else {
+			const observer = new IntersectionObserver((entries, observer) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						node.style.backgroundImage = `url('${imageUrl}')`;
+						node.style.backgroundColor = color;
+						node.style.backgroundSize = "cover";
+						node.style.backgroundPosition = "center";
+						observer.unobserve(node);
+					}
+				});
+			}, { threshold: 0.8 });
+
+			observer.observe(node);
 		}
 	}
 
+
 	bindUri(node) {
-		let nodeAtrribute = this.getAtt(node, 'link');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'link');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null) {
 			node.setAttribute('href', 'javascript:void(0);');
 			node.addEventListener('click', () => {
-				document.location = nodeAtrribute;
+				document.location = nodeAttribute;
 			});
 		}
 	}
 
 	bindFlip(node) {
-		let nodeAtrribute = this.getAtt(node, 'flip');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'flip');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null) {
 			node.addEventListener("mouseover", () => {
 				node.style.transform = "scaleX(-1)";
 			});
@@ -572,9 +632,10 @@ class UX {
 	}
 
 	bindHamburger(node) {
-		let nodeAtrribute = this.getAtt(node, 'hamburger');
-		if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
-			let pairs = nodeAtrribute.split(':');
+		let nodeAttribute = this.getAtt(node, 'hamburger');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null && nodeAttribute.indexOf(':') !== -1) {
+			let pairs = nodeAttribute.split(':');
 			let width = Reflect.get(pairs, 1);
 			let height = 10;
 			let spacing = Reflect.get(pairs, 2);
@@ -603,10 +664,11 @@ class UX {
 	}
 
 	bindSpinner(node) {
-		let nodeAtrribute = this.getAtt(node, 'spinner');
-		if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
+		let nodeAttribute = this.getAtt(node, 'spinner');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null && nodeAttribute.indexOf(':') !== -1) {
 			if (this.dom('uxspinner', 'id') == null) {
-				let pairs = nodeAtrribute.split(':');
+				let pairs = nodeAttribute.split(':');
 				let width = Reflect.get(pairs, 0);
 				let color = Reflect.get(pairs, 1);
 				let canvas = this.dom('', 'create', 'canvas');
@@ -638,70 +700,81 @@ class UX {
 	}
 
 	bindCSS(node) {
-		let nodeAtrribute = this.getAtt(node, 'css');
-		if (nodeAtrribute !== null) {
-			node.style = nodeAtrribute;
+		let nodeAttribute = this.getAtt(node, 'css');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null) {
+			node.style = nodeAttribute;
 		}
 	}
 
 	bindToggle(node) {
-		let nodeAtrribute = this.getAtt(node, 'toggle');
-		if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
-			let nodeAtrribute = this.getAtt(node, 'toggle');
-			let pairs = nodeAtrribute.split(':');
-			let nodeId = this.dom(Reflect.get(pairs, 0), 'id');
-			if (nodeAtrribute !== null && UX.thread == 0) {
-				node.addEventListener('click', () => {
-					let nodeAtrribute = node.getAttribute(':toggle');
-					let pairs = nodeAtrribute.split(':');
-					if (Reflect.get(pairs, 1) == 'in') {
-						node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':out:' + Reflect.get(pairs, 2));
-						if (Reflect.get(pairs, 2)) {
-							this.dom(Reflect.get(pairs, 0), 'id').classList.toggle(Reflect.get(pairs, 2));
-						}
-					}
-					if (Reflect.get(pairs, 1) == 'out') {
-						node.setAttribute(':toggle', Reflect.get(pairs, 0) + ':in:' + Reflect.get(pairs, 2));
-						if (Reflect.get(pairs, 2)) {
-							this.dom(Reflect.get(pairs, 0), 'id').classList.toggle(Reflect.get(pairs, 2));
-						}
-					}
-				});
-			}
-			UX.thread++;
+
+		const nodeAttribute = this.getAtt(node, 'toggle');
+		if (!nodeAttribute || !nodeAttribute.includes(':')) {
+			return false;
 		}
+
+		let [targetId, state, toggleClass] = nodeAttribute.split(':');
+
+		const targetElement = document.getElementById(targetId);
+		if (!targetElement) {
+			return false;
+		}
+
+		node.addEventListener('click', () => {
+			let currentAttribute = node.getAttribute(':toggle');
+			if (!currentAttribute) return;
+
+			let [currentTargetId, currentState, currentClass] = currentAttribute.split(':');
+
+			if (currentState === 'in') {
+				node.setAttribute('toggle', `${currentTargetId}:out:${currentClass}`);
+			} else {
+				node.setAttribute('toggle', `${currentTargetId}:in:${currentClass}`);
+			}
+
+			if (currentClass) {
+				targetElement.classList.toggle(currentClass);
+			}
+		});
+
 		return true;
 	}
 
+
 	bindMenu(node) {
-		let nodeAtrribute = this.getAtt(node, 'menu');
-		if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
-			let pairs = nodeAtrribute.split(':');
-			if (Reflect.get(pairs, 1) == 'in') {
-				let list = this.dom(Reflect.get(pairs, 0), 'id').children;
-				for (let i = 0; i < list.length; i++) {
-					list[i].setAttribute(':menu', nodeAtrribute);
+		const nodeAttribute = this.getAtt(node, 'menu');
+		if (!nodeAttribute || !nodeAttribute.includes(':')) return;
+
+		const [menuId, state] = nodeAttribute.split(':');
+		const menuElement = document.getElementById(menuId);
+
+		if (!menuElement) {
+			return;
+		}
+		
+		if (state === 'in') {
+			menuElement.style.display = "none";
+
+			node.addEventListener('mouseover', () => {
+				console.log(`Showing menu: #${menuId}`);
+				menuElement.style.display = "block";
+			});
+
+			node.addEventListener('mouseout', (event) => {
+				if (!node.contains(event.relatedTarget) && !menuElement.contains(event.relatedTarget)) {
+					console.log(`Hiding menu: #${menuId}`);
+					menuElement.style.display = "none";
 				}
-				this.dom(Reflect.get(pairs, 0), 'id').hidden = true;
-				node.addEventListener('mouseover', () => {
-					this.dom(Reflect.get(pairs, 0), 'id').hidden = false;
-				});
-			}
-			if (Reflect.get(pairs, 1) == 'out') {
-				node.addEventListener('mouseout', () => {
-					let nodeAtrribute = node.getAttribute(':menu');
-					if (nodeAtrribute !== null && nodeAtrribute.indexOf(':') !== -1) {
-						let pairs = nodeAtrribute.split(':');
-						this.dom(Reflect.get(pairs, 0), 'id').hidden = true;
-					}
-				});
-			}
+			});
 		}
 	}
 
+
 	bindFunctions(node, data, find, value) {
 
-		let nodeAtrribute = this.getAtt(node, 'click');
+		let nodeAttribute = this.getAtt(node, 'click');
+		if (!nodeAttribute) return;
 		let documentElements = this.dom('', 'elements', '*');
 		let countID, count, multiply, countdown, interval, clear, countvalue = 0;
 
@@ -715,15 +788,15 @@ class UX {
 			if (key == 'clear') clear = value;
 		}
 
-		if (nodeAtrribute !== null) {
+		if (nodeAttribute !== null) {
 			let counterNode = this.dom(countID, 'id');
 			if (counterNode) {
 				node.addEventListener('click', () => {
 					var calc = Number(counterNode.innerText);
-					if (nodeAtrribute == 'count++') counterNode.innerText = this.isInt((calc) + countvalue);
-					if (nodeAtrribute == 'count--') counterNode.innerText = this.isInt((calc) - countvalue);
-					if (nodeAtrribute == 'multiply') counterNode.innerText = this.isInt((calc) * multiply);
-					if (nodeAtrribute == 'countdown') {
+					if (nodeAttribute == 'count++') counterNode.innerText = this.isInt((calc) + countvalue);
+					if (nodeAttribute == 'count--') counterNode.innerText = this.isInt((calc) - countvalue);
+					if (nodeAttribute == 'multiply') counterNode.innerText = this.isInt((calc) * multiply);
+					if (nodeAttribute == 'countdown') {
 						let timer = setInterval(() => {
 							counterNode.innerText = this.isInt(Number(counterNode.innerText) - countvalue);
 							if (Number(counterNode.innerText) <= clear) clearInterval(timer);
@@ -740,8 +813,9 @@ class UX {
 	}
 
 	bindPrevent(node, find, value) {
-		let nodeAtrribute = this.getAtt(node, 'prevent');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'prevent');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null) {
 			documentElements[j].addEventListener('submit', event => {
 				event.preventDefault();
 			});
@@ -750,10 +824,11 @@ class UX {
 
 	bindClose(node) {
 
-		let nodeAtrribute = this.getAtt(node, ':close');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, ':close');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null) {
 			node.addEventListener('onclick', () => {
-				this.dom(nodeAtrribute, 'id').hidden = true;
+				this.dom(nodeAttribute, 'id').hidden = true;
 			});
 		}
 	}
@@ -812,9 +887,10 @@ class UX {
 	}
 
 	bindHandler(node, data, methods, find, value) {
-		let nodeAtrribute = this.getAtt(node, 'handler');
-		if (nodeAtrribute !== null) {
-			let handlers = nodeAtrribute.split(':');
+		let nodeAttribute = this.getAtt(node, 'handler');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null) {
+			let handlers = nodeAttribute.split(':');
 			if (methods && Object(methods)) {
 				for (let key in methods) {
 					let funcs = methods[key];
@@ -831,11 +907,12 @@ class UX {
 	}
 
 	bindMethods(node, data, methods, find, value) {
-		let nodeAtrribute = this.getAtt(node, 'method');
+		let nodeAttribute = this.getAtt(node, 'method');
+		if (!nodeAttribute) return;
 		let array = [];
 		if (this.attributeCheck(node, 'method') == true) {
-			if (nodeAtrribute !== null) {
-				let methodhandler = nodeAtrribute.split(":");
+			if (nodeAttribute !== null) {
+				let methodhandler = nodeAttribute.split(":");
 				if (methods && Object(methods)) {
 					for (let key in methods) {
 						let funcs = methods[key];
@@ -850,11 +927,11 @@ class UX {
 							}
 							// array elements
 							if (lines[i].indexOf('UX.array') !== -1) {
-								if (nodeAtrribute.indexOf('{{') == -1) {
+								if (nodeAttribute.indexOf('{{') == -1) {
 									let clicks = 0;
 									node.addEventListener('click', () => {
-										let nodeAtrribute = this.getAtt(node, 'method');
-										let methodhandler = nodeAtrribute.split(":");
+										let nodeAttribute = this.getAtt(node, 'method');
+										let methodhandler = nodeAttribute.split(":");
 										let obj = Object.assign({}, methodhandler.splice(3, methodhandler.length));
 										if (Object.keys(obj).length > 1) {
 											UX.array.push(obj);
@@ -908,23 +985,24 @@ class UX {
 	}
 
 	bindIf(node, find, value) {
-		let nodeAtrribute = this.getAtt(node, 'if');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'if');
+		if (!nodeAttribute) return;
+		if (nodeAttribute !== null) {
 			// functions
-			if (nodeAtrribute.indexOf('.') != -1) {
-				let pieces = nodeAtrribute.split('.');
+			if (nodeAttribute.indexOf('.') != -1) {
+				let pieces = nodeAttribute.split('.');
 				if (pieces.length > 0) {
 					if (pieces.indexOf('has')) {
 						let key = this.has(Reflect.get(pieces, 1)).toString();
 						node.hidden = (value.indexOf(key) != -1) ? false : true;
 					}
 				}
-			} else if (nodeAtrribute.search("/\s/")) {
+			} else if (nodeAttribute.search("/\s/")) {
 				// operators
 				let toEval = null,
 					key = null,
 					opp = '';
-				let pieces = nodeAtrribute.split("\s");
+				let pieces = nodeAttribute.split("\s");
 				node.hidden = true;
 				for (let i = 0; i < pieces.length; i++) {
 					if (find == pieces[i]) {
@@ -938,6 +1016,7 @@ class UX {
 
 	loop(node, find, values) {
 		let nodeAttribute = this.getAtt(node, 'loop');
+		if (!nodeAttribute) return;
 		let zebra = this.getAtt(node, 'zebra');
 
 		if (nodeAttribute !== null && nodeAttribute === find) {
@@ -979,7 +1058,6 @@ class UX {
 		}
 	}
 
-
 	routeComponents(node, data) {
 		let attribute = this.getAtt(node, 'route');
 		if (!attribute) return;
@@ -1019,10 +1097,10 @@ class UX {
 		});
 	}
 
-
 	renderComponents(node, data) {
 		UX.thread = 0;
 		let attribute = this.getAtt(node, 'render');
+		if (!attribute) return;
 		let requestUri = attribute;
 		if (requestUri !== null && requestUri.trim() !== '') {
 			let options = {
@@ -1091,6 +1169,7 @@ class UX {
 
 	progress(node) {
 		let attribute = this.getAtt(node, 'progress');
+		if (!attribute) return;
 		if (attribute !== null) {
 			let [totalLoad, progressBarId] = attribute.split(':');
 			let progressBar = this.dom('', 'query', '#' + progressBarId);
@@ -1114,11 +1193,11 @@ class UX {
 	}
 
 	async (requestUri, method, callback) {
-		let nodeAtrribute = false;
+		let nodeAttribute = false;
 		let documentElements = this.nodeParentList();
 		for (let j = 0; j < documentElements.length; j++) {
-			nodeAtrribute = this.getAtt(documentElements[j], 'async');
-			if (nodeAtrribute !== null) {
+			nodeAttribute = this.getAtt(documentElements[j], 'async');
+			if (nodeAttribute !== null) {
 				documentElements[j].addEventListener('submit', event => {
 					event.preventDefault();
 					let parentList = [];
@@ -1205,8 +1284,8 @@ class UX {
 	}
 
 	createForm(node, find, values) {
-		let nodeAtrribute = this.getAtt(node, 'form');
-		if (nodeAtrribute !== null) {
+		let nodeAttribute = this.getAtt(node, 'form');
+		if (nodeAttribute !== null) {
 			let parents = this.dom('', 'create', 'div');
 			node.appendChild(parents);
 			let options = this.dom('', 'create', 'form');

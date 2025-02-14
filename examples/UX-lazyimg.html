@@ -11,6 +11,13 @@
 ul, li {
      list-style: none;
 }	
+
+.div {
+	width: 400px;
+	height: 400px;
+	border: 1px solid #ddd;
+}
+
 </style>
 <script src="../assets/UX.js"></script>
 </head>
@@ -21,10 +28,14 @@ ul, li {
  <p>{{text}}</p>
   <div :class="myClass">
     <ul>
-	 <li><img :lazyimg="#f2f2f2" src="https://fakeimg.pl/3250x3250/ffff00" width="500"/></li>
-	 <li><img :lazyimg="#f2f2f2" src="https://fakeimg.pl/3250x3250/ffff00" width="500"/></li>
-	 <li><img :lazyimg="#f2f2f2" src="https://fakeimg.pl/2250x2250/ffff00" width="500"/></li>
-	 <li><img :lazyimg="#f2f2f2" src="https://fakeimg.pl/2250x2250/ffff00" width="500"/></li>
+	 <li><div :lazyimg="#ff0000:../demo/assets/images/bg2.png" class="div"></div></li>
+	 <li><div :lazyimg="#ff0000:../demo/assets/images/bg2.png" class="div"></div></li>
+	 <li><div :lazyimg="#ff0000:../demo/assets/images/bg2.png" class="div"></div></li>
+	 <li><div :lazyimg="#ff0000:../demo/assets/images/bg2.png" class="div"></div></li>
+	 <li><div :lazyimg="#ff0000:../demo/assets/images/bg2.png" class="div"></div></li>
+	 <li><div :lazyimg="#ff0000:../demo/assets/images/bg2.png" class="div"></div></li>
+	 <li><div :lazyimg="#ff0000:../demo/assets/images/bg2.png" class="div"></div></li>
+	 <li><div :lazyimg="#ff0000:../demo/assets/images/bg2.png" class="div"></div></li>
     </ul>
   </div>
 </div>
@@ -34,7 +45,8 @@ ul, li {
 	
 	app.load({
 		data: {
-			myClass: "text"
+			myClass: "text",
+			text: "Loading lazy..."
 		}
 	});
   
