@@ -5,12 +5,12 @@ class UX {
 	static cacheControl = "no-cache";
 	static allowOrigin = '*';
 
-    constructor() {
-        this.state = {};
-        this.listeners = [];
+	constructor() {
+		this.state = {};
+		this.listeners = [];
 		this.thread = 0;
 		this.array = [];
-    }
+	}
 	
 	init = {
 		name: "UX.js",
