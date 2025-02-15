@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spinner</title>
+    <title>UX Spinner</title>
 	<script src="../assets/UX.js"></script>
 </head>
 <body>
@@ -12,11 +12,11 @@
     <p>{{message}}</p>
 	
 	<div :spinner="50:black"></div>
-		
-	<iframe src="https://example.com" width="100%" height="500" /></iframe>
-	<iframe src="https://example.com" width="100%" height="500" /></iframe>
-	<iframe src="https://example.com" width="100%" height="500" /></iframe>
-	<iframe src="https://example.com" width="100%" height="500" /></iframe>
+	
+	<iframe src="https://example.com" width="100%" height="500" hidden /></iframe>
+	<iframe src="https://example.com" width="100%" height="500" hidden /></iframe>
+	<iframe src="https://example.com" width="100%" height="500" hidden /></iframe>
+	<iframe src="https://example.com" width="100%" height="500" hidden /></iframe>
 
 	<script>
 	
@@ -24,7 +24,7 @@
 
 	app.load({
 		data: { 
-			title: "Page Content",
+			title: "UX Spinner",
 			message: "The page has loaded successfully!"
 		}
 	});

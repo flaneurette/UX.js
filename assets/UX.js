@@ -147,21 +147,21 @@ class UX {
 		if (method in globalActions) return globalActions[method]();
 
 		if (!id) return null;
-		let element = document.getElementById(id);
-		if (!element) return null;
+		let elem = document.getElementById(id);
+		if (!elem) return null;
 
 		const actions = {
-			id: () => element,
-			get: () => element.value,
-			set: () => (element.value = value),
-			none: () => (element.style.display = "none"),
-			block: () => (element.style.display = "block"),
-			sethtml: () => (element.innerHTML = value),
-			gethtml: () => element.innerHTML,
+			id: () => elem,
+			get: () => elem.value,
+			set: () => (elem.value = value),
+			none: () => (elem.style.display = "none"),
+			block: () => (elem.style.display = "block"),
+			sethtml: () => (elem.innerHTML = value),
+			gethtml: () => elem.innerHTML,
 			innerHTML: () => document.body.innerHTML,
-			display: () => (element.style.display = value),
-			parent: () => element.parentNode,
-			children: () => element.children
+			display: () => (elem.style.display = value),
+			parent: () => elem.parentNode,
+			children: () => elem.children
 		};
 
 		return actions[method] ? actions[method]() : null;

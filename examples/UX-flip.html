@@ -6,10 +6,14 @@
     <title>Flip</title>
     <style>
         #card {
+			display: flex;
+			align-items:center;
+			justify-content: center;
             width: 900px;
             height: 300px;
-            background: blue;
-            color: white;
+            background: #f7f7f7;
+			border: 1px dashed #ddd;
+            color: black;
             text-align: center;
             transition: transform 1s ease-in-out;
         }
@@ -17,7 +21,7 @@
 	<script src="../assets/UX.js"></script>
 </head>
 <body>
-	<h1>UX-flip</h1>
+	<h1>UX Flip</h1>
     <div id="card" :flip="true"><h1>{{text}}</h1></div>
 
 <script>
@@ -26,7 +30,7 @@
 	
 	app.load({
 		data: {
-			text: 'Flip me!'
+			text: 'Flip'
 		}
 	});
 
