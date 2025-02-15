@@ -15,12 +15,12 @@ class UX {
 	init = {
 		name: "UX.js",
 		version: "1.170",
-		description: "A lightweight JavaScript framework",
+		description: "UX.JS | JavaScript framework",
 		copyright: "(c) 2024 flaneurette",
 		license: "GNU",
 		homepage: "https://github.com/flaneurette/UX.js",
 		instanceid: Date.now()
-	}
+	};
 	
 	load(config) {
 		
