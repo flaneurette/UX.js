@@ -6,25 +6,24 @@
 	.text {
 		padding:30px;
 		margin: 30px;
-		background-color: #f7f7f7;
 		width: 80%;
 	}
 	#mySlideId {
 		transition: all 0.5s ease 0s;
 		background-color: #000;
-		width: 86%;
+		width: 100%;
+		height: 80vh;
 		z-index: 2;
 		position: absolute;
-		height: 53%;
 		top: 130px;
-		left: 38px;
+		left: 0px;
 	}
 </style>
 <script src="../src/UX.js"></script>
 </head>
 <body>
 <h1>UX Slide</h1>
-<p>Use mousewheel to slide.</p>
+<p>Hoover over the black box and use mousewheel to slide.</p>
 	<!-- event, id, width or height, maximum percentage -->
 	<div id="mySlideId" :slide="wheel:mySlideId:width:86%"></div>
 	<div class="text">
