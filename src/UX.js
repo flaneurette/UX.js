@@ -1,20 +1,21 @@
 class UX {
 
 	static contentType = "application/json;charset=UTF-8";
-	static asyncType = "application/x-www-form-urlencoded; charset=UTF-8";
 	static cacheControl = "no-cache";
 	static allowOrigin = '*';
 
 	constructor() {
-		this.state = {};
+		this.state = this.initializeState();
 		this.listeners = [];
 		this.thread = 0;
+		this.counter = 0;
 		this.array = [];
+		this.parseNodes();
 	}
 	
 	init = {
 		name: "UX.js",
-		version: "1.170",
+		version: "1.80",
 		description: "UX.JS | JavaScript framework",
 		copyright: "(c) 2024 flaneurette",
 		license: "GNU",
@@ -38,10 +39,14 @@ class UX {
 			Reflect.preventExtensions(data);
 		}
 	}
-
+	
+	initializeState() {
+		return {};
+	}
+	
 	initializeData(data,methods) {
-		this.parseNodes(data);
 		this.parseFunctions(data, methods);
+		this.nodes('bindFunctions',false,false,data);
 	}
 
 	initializeComponents(data) {
@@ -129,43 +134,43 @@ class UX {
 			}
 			
 		});
+		return;
 	}
-
+	
 	dom(id, method, value = null) {
+	  const globalActions = {
+		query: () => document.querySelector(value),
+		queryall: () => document.querySelectorAll(value),
+		elements: () => document.getElementsByTagName(value),
+		create: () => document.createElement(value),
+		document: () => document.all,
+		location: () => window.location.href,
+		innerheight: () => window.innerHeight,
+		innerwidth: () => window.innerWidth,
+	  };
 
-		const globalActions = {
-			query: () => document.querySelector(value),
-			queryall: () => document.querySelectorAll(value),
-			elements: () => document.getElementsByTagName(value),
-			create: () => document.createElement(value),
-			document: () => document.all,
-			location: () => window.location.href,
-			innerheight: () => window.innerHeight,
-			innerwidth: () => window.innerWidth
-		};
+	  if (method in globalActions) return globalActions[method]();
 
-		if (method in globalActions) return globalActions[method]();
+	  const elem = id ? document.getElementById(id) : null;
+	  if (!elem) return null; 
 
-		if (!id) return null;
-		let elem = document.getElementById(id);
-		if (!elem) return null;
+	  const actions = {
+		id: () => elem,
+		get: () => elem.value,
+		set: () => { elem.value = value; },
+		none: () => { elem.style.display = 'none'; },
+		block: () => { elem.style.display = 'block'; },
+		sethtml: () => { elem.innerHTML = value; },
+		gethtml: () => elem.innerHTML,
+		innerHTML: () => document.body.innerHTML,
+		display: () => { elem.style.display = value; },
+		parent: () => elem.parentNode,
+		children: () => elem.children,
+	  };
 
-		const actions = {
-			id: () => elem,
-			get: () => elem.value,
-			set: () => (elem.value = value),
-			none: () => (elem.style.display = "none"),
-			block: () => (elem.style.display = "block"),
-			sethtml: () => (elem.innerHTML = value),
-			gethtml: () => elem.innerHTML,
-			innerHTML: () => document.body.innerHTML,
-			display: () => (elem.style.display = value),
-			parent: () => elem.parentNode,
-			children: () => elem.children
-		};
-
-		return actions[method] ? actions[method]() : null;
+	  return actions[method] ? actions[method]() : null;
 	}
+
 
 	isValidObject(obj) {
 		return typeof obj === 'object' && obj !== null;
@@ -205,6 +210,7 @@ class UX {
 	regEx(type) {
 		if (type == 'spaces') return /\s+|\t+/gim;
 		if (type == 'punctuation') return /,|'|"|\{|\}|\[|\]/gim;
+		return;
 	}
 
 	cloneNodes(list, id) {
@@ -218,6 +224,7 @@ class UX {
 				parentItem.appendChild(docClone);
 			});
 		}
+		return;
 	}
 
 	bindClass(node, find, value) {
@@ -226,6 +233,7 @@ class UX {
 		if (nodeAttribute !== null) {
 			if (nodeAttribute.toString() === find.toString()) node.classList.toggle(value);
 		}
+		return;
 	}
 
 	bindId(node, find, value) {
@@ -234,6 +242,7 @@ class UX {
 		if (nodeAttribute !== null) {
 			if (nodeAttribute.toString() === find.toString()) node.id = value;
 		}
+		return;
 	}
 
 	bindCurtains(node, find, value) {
@@ -253,6 +262,7 @@ class UX {
 				}
 			}, false);
 		}
+		return;
 	}
 
 	bindDarkMode(node, find, value) {
@@ -271,6 +281,7 @@ class UX {
 				}
 			});
 		}
+		return;
 	}
 
 	has(value) {
@@ -280,6 +291,7 @@ class UX {
 				return Reflect.get(pieces, 1);
 			}
 		}
+		return;
 	}
 
 	bindShow(node) {
@@ -288,6 +300,7 @@ class UX {
 		if (nodeAttribute !== null) {
 			node.hidden = false;
 		}
+		return;
 	}
 
 	bindHide(node) {
@@ -296,6 +309,7 @@ class UX {
 		if (nodeAttribute !== null && nodeAttribute == 'true') {
 			node.hidden = true;
 		}
+		return;
 	}
 
 	bindVoid(node) {
@@ -304,6 +318,7 @@ class UX {
 		if (nodeAttribute !== null) {
 			node.setAttribute('href', 'javascript:void(0);');
 		}
+		return;
 	}
 
 	bindView(node) {
@@ -319,6 +334,7 @@ class UX {
 				});
 			});
 		}
+		return;
 	}
 
 	bindScroll(node) {
@@ -334,6 +350,7 @@ class UX {
 				});
 			});
 		}
+		return;
 	}
 
 	bindSlide(node) {
@@ -354,6 +371,7 @@ class UX {
 				node.style.display = 'none';
 			}, 500);
 		});
+		return;
 	}
 	
 	bindWheel(node) {
@@ -374,6 +392,7 @@ class UX {
 				node.style.display = 'none';
 			}, 500);
 		});
+		return;
 	}
 
 	bindSwitch(node) {
@@ -386,6 +405,7 @@ class UX {
 				node.setAttribute('id', switchId);
 			});
 		}
+		return;
 	}
 
 	bindActive(node) {
@@ -400,6 +420,7 @@ class UX {
 				}
 			}
 		}
+		return;
 	}
 
 	bindSelect(node) {
@@ -408,6 +429,7 @@ class UX {
 		if (nodeAttribute !== null) {
 			node.className = nodeAttribute.toString();
 		}
+		return;
 	}
 
 	bindFlex(node) {
@@ -435,6 +457,7 @@ class UX {
 		} else {
 			node.style.setProperty('justify-content', justifyMap[alignment] || 'flex-start', 'important');
 		}
+		return;
 	}
 
 	bindAnimate(node) {
@@ -463,6 +486,7 @@ class UX {
 		node.style.position = 'relative';
 		node.style.animation = `${animationName} ${duration} forwards`;
 		node.style.animationTimingFunction = timingFunction;
+		return;
 	}
 
 	bindFade(node) {
@@ -486,6 +510,7 @@ class UX {
 				observer.observe(target);
 			}
 		}
+		return;
 	}
 
 	bindIntoView(node) {
@@ -509,6 +534,7 @@ class UX {
 				observer.observe(target);
 			}
 		}
+		return;
 	}
 
 	bindCascade(node, find) {
@@ -565,6 +591,7 @@ class UX {
 				child.style.setProperty(key, value, 'important');
 			});
 		});
+		return;
 	}
 
 	bindLazyLoad(node) {
@@ -593,6 +620,7 @@ class UX {
 				observer.observe(target);
 			}
 		}
+		return;
 	}
 			
 	bindLazyImg(node) {
@@ -627,6 +655,7 @@ class UX {
 
 			observer.observe(node);
 		}
+		return;
 	}
 
 	bindUri(node) {
@@ -638,6 +667,7 @@ class UX {
 				document.location = nodeAttribute;
 			});
 		}
+		return;
 	}
 
 	bindFlip(node) {
@@ -651,6 +681,7 @@ class UX {
 				node.style.transform = "scaleX(1)";
 			});
 		}
+		return;
 	}
 
 	bindHamburger(node) {
@@ -683,6 +714,7 @@ class UX {
 				ctx.stroke();
 			}
 		}
+		return;
 	}
 
 	bindSpinner(node) {
@@ -719,6 +751,7 @@ class UX {
 				setTimeout(() => this.dom('uxspinner', 'none'), 200);
 			});
 		}
+		return;
 	}
 
 	bindCSS(node) {
@@ -727,6 +760,7 @@ class UX {
 		if (nodeAttribute !== null) {
 			node.style = nodeAttribute;
 		}
+		return;
 	}
 
 	bindToggle(node) {
@@ -760,7 +794,7 @@ class UX {
 			}
 		});
 
-		return true;
+		return;
 	}
 
 
@@ -790,6 +824,7 @@ class UX {
 				}
 			});
 		}
+		return;
 	}
 
 	bindFunctions(node, data, find, value) {
@@ -826,11 +861,13 @@ class UX {
 				});
 			}
 		}
+		return;
 	}
 
 	bindMethods(node, data, methods, find, value) {
 		let process = new Function(methods);
 		process.apply();
+		return;
 	}
 
 	bindPrevent(node, find, value) {
@@ -841,10 +878,10 @@ class UX {
 				event.preventDefault();
 			});
 		}
+		return;
 	}
 
 	bindClose(node) {
-
 		let nodeAttribute = this.getAtt(node, ':close');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
@@ -852,27 +889,33 @@ class UX {
 				this.dom(nodeAttribute, 'id').hidden = true;
 			});
 		}
+		return;
 	}
 
 	onImg(node, array) {
-		const spaces = this.regEx('spaces');
-		const punctuation = this.regEx('punctuation');
+		
+		if (!node || !array?.length) return;
+
 		let findMethod = node.getAttribute(':method');
-		let current = findMethod[2];
-		if (current !== null) {
-			for (let i = 0; i < array.length; i++) {
-				if (array[i][1].indexOf('img') !== -1 || array[i][1].indexOf('image') !== -1) {
-					let img = findMethod.split(':');
-					let imageDOM = this.dom(Reflect.get(img, 2), 'id');
-					if (node.src) {
-						imageDOM.setAttribute("src", node.src);
-					}
-				}
+		if (!findMethod) return;
+		
+		let [, , imageId] = findMethod.split(':');
+		if (!imageId) return;
+		
+		let imageDOM = this.dom(imageId, 'id');
+		if (!imageDOM || !node.src) return;
+
+		array.forEach(([_, value]) => {
+			if (typeof value === 'string' && (value.includes('img') || value.includes('image'))) {
+				imageDOM.setAttribute("src", node.src);
 			}
-		}
+		});
+		
+		return;
 	}
 
 	onImgFill(node, operators) {
+
 		if (this.thread <= 1 && operators.length >= 1) {
 			const spaces = this.regEx('spaces');
 			const punctuation = this.regEx('punctuation');
@@ -880,129 +923,156 @@ class UX {
 			let j = 0;
 			for (let i = 0; i < doc.length; i++) {
 				let findMethod = doc[i].getAttribute(':method');
-				if (findMethod !== null) {
+				if (findMethod) {
 					let methods = findMethod.split(':');
-					if (findMethod !== null) {
-						let current = Reflect.get(methods, 2);
+					let current = methods[2];
+					if (current) {
 						let thumbs = this.dom(current, 'id');
-						if (current !== null) {
-							doc[i].setAttribute("src", operators[j][1].toString()
-								.replaceAll(spaces, '').replaceAll(punctuation, ''));
+						if (thumbs) {
+							let newSrc = operators[j] && operators[j][1] ? operators[j][1].toString().replaceAll(spaces, '').replaceAll(punctuation, '') : ''; 
+							doc[i].setAttribute("src", newSrc);
 							j++;
 						}
 					}
 				}
 			}
 		}
+		return;
 	}
 
 	onText(node, operators) {
+		
+		if (!node || !operators || operators.length < 2) return;
+
 		const spaces = this.regEx('spaces');
 		const punctuation = this.regEx('punctuation');
-		let op = operators[0].split('.');
-		operators[0] = operators[0].toString().replaceAll(spaces, '');
-		operators[1] = operators[1].toString().replaceAll(punctuation, '');
-		op[1] = op[1].toString().replaceAll(spaces, '');
-		node.innerHTML = node.innerHTML.replace('{{' + op[1] + '}}', operators[1]);
-		node.innerHTML = node.innerHTML.replace(op[1], operators[1]);
+
+		let key = operators[0]?.toString().replace(spaces, '').split('.');
+		let value = operators[1]?.toString().replace(punctuation, '');
+
+		if (!key || key.length < 2) return;
+
+		let placeholder = `{{${key[1]}}}`;
+
+		node.innerHTML = node.innerHTML
+			.replaceAll(placeholder, value)
+			.replaceAll(key[1], value);
+		return;
 	}
 
 	bindHandler(node, data, methods, find, value) {
 		let nodeAttribute = this.getAtt(node, 'handler');
 		if (!nodeAttribute) return;
-		if (nodeAttribute !== null) {
-			let handlers = nodeAttribute.split(':');
-			if (methods && Object(methods)) {
-				for (let key in methods) {
-					let funcs = methods[key];
-					let pairs = funcs.toString();
-					if (this.thread <= 1) {
-						node.addEventListener(Reflect.get(handlers, 0), () => {
-							funcs.apply();
-						});
-					}
-					this.thread++;
-				}
+
+		let handlers = nodeAttribute.split(':');
+		let eventType = handlers[0];
+
+		if (!eventType || !methods || typeof methods !== 'object') return;
+
+		for (let key in methods) {
+			let func = methods[key];
+
+			if (typeof func !== 'function') continue;
+
+			if (this.thread <= 1) {
+				node.addEventListener(eventType, func.bind(this));
 			}
+			this.thread++;
 		}
+		return;
 	}
 
 	bindMethods(node, data, methods, find, value) {
 		let nodeAttribute = this.getAtt(node, 'method');
-		if (!nodeAttribute) return;
-		let array = [];
-		if (this.attributeCheck(node, 'method') == true) {
-			if (nodeAttribute !== null) {
-				let methodhandler = nodeAttribute.split(":");
-				if (methods && Object(methods)) {
-					for (let key in methods) {
-						let funcs = methods[key];
-						let pairs = funcs.toString();
-						let lines = pairs.split("\n");
-						for (let i = 0; i < lines.length; i++) {
-							if (lines[i].indexOf('this.') !== -1 && lines[i].indexOf('=') !== -1 && (lines[i].indexOf('img') !== -1 ||
-									lines[i].indexOf('image') !== -1)) {
-								// image operation
-								let operators = lines[i].split('=');
-								array.push(operators);
-							}
-							// array elements
-							if (lines[i].indexOf('this.array') !== -1) {
-								if (nodeAttribute.indexOf('{{') == -1) {
-									let clicks = 0;
-									node.addEventListener('click', () => {
-										let nodeAttribute = this.getAtt(node, 'method');
-										let methodhandler = nodeAttribute.split(":");
-										let obj = Object.assign({}, methodhandler.splice(3, methodhandler.length));
-										if (Object.keys(obj).length > 1) {
-											this.array.push(obj);
-										}
-									});
-								}
-							}
-						}
-					}
-					UX.counter++;
-					// autofill any images
-					if (array.length >= 1) {
-						this.onImgFill(node, array);
-					}
-				}
-				// click event methods
-				if (methodhandler[0] == 'mouseover' || methodhandler[0] == 'click') {
-					node.addEventListener(methodhandler[0], () => {
-						let statics = this.dom('', 'innerHTML');
-						let findMethod = node.getAttribute(':method');
-						if (findMethod !== null) {
-							if (methods && Object(methods)) {
-								for (let key in methods) {
-									let funcs = methods[key];
-									let pairs = funcs.toString();
-									let lines = pairs.split("\n");
-									for (let i = 0; i < lines.length; i++) {
-										// operators
-										if (lines[i].indexOf('this.') !== -1 && lines[i].indexOf('=') !== -1) {
-											let operators = lines[i].split('=');
-											if (operators[1].indexOf('.') !== -1) {
-												// expressions 
-												array.push(operators);
-											} else {
-												// text processing
-												this.onText(node, operators);
-											}
-										}
-									}
-									// images
-									this.onImg(node, array);
-									// method functions
-									funcs.apply();
-								}
-							}
-						}
-					});
-				}
-			}
+		if (!nodeAttribute || !this.attributeCheck(node, 'method')) return;
+
+		let methodParts = nodeAttribute.split(":");
+		let imageAssignments = [];
+
+		if (methods && typeof methods === "object") {
+			this.processMethods(node, methods, imageAssignments);
 		}
+
+		if (imageAssignments.length > 0) {
+			this.onImgFill(node, imageAssignments);
+		}
+
+		if (["mouseover", "click"].includes(methodParts[0])) {
+			this.addEventListeners(node, methods);
+		}
+		return;
+	}
+
+	processMethods(node, methods, imageAssignments) {
+		for (let key in methods) {
+			let method = methods[key];
+
+			if (typeof method !== "function") continue;
+
+			let methodLines = method.toString().split("\n");
+
+			methodLines.forEach(line => {
+				if (this.isImageAssignment(line)) {
+					imageAssignments.push(line.split("="));
+				}
+
+				if (line.includes('.array')) {
+					this.handleArrayClick(node);
+				}
+			});
+		}
+		this.counter++;
+		return;
+	}
+
+	isImageAssignment(line) {
+		return line.includes('this.') && line.includes('=') && 
+			   (line.includes('img') || line.includes('image'));
+	}
+
+	handleArrayClick(node) {
+		if (this.getAtt(node, 'method').includes('{{')) return;
+
+		node.addEventListener('click', () => {
+			let methodParts = this.getAtt(node, 'method').split(":");
+			let obj = Object.assign({}, methodParts.slice(3));
+
+			if (Object.keys(obj).length > 1) {
+				this.array.push(obj);
+			}
+		});
+	return;
+	}
+
+	addEventListeners(node, methods) {
+		let eventType = this.getAtt(node, 'method').split(":")[0];
+
+		node.addEventListener(eventType, () => {
+			let findMethod = node.getAttribute(':method');
+			if (!findMethod || !methods || typeof methods !== "object") return;
+
+			let imageAssignments = [];
+
+			for (let key in methods) {
+				let method = methods[key];
+
+				if (typeof method !== "function") continue;
+
+				let methodLines = method.toString().split("\n");
+
+				methodLines.forEach(line => {
+					if (this.isImageAssignment(line)) {
+						imageAssignments.push(line.split("="));
+					} else if (line.includes('this.') && line.includes('=')) {
+						this.onText(node, line.split("="));
+					}
+				});
+
+				this.onImg(node, imageAssignments);
+				method(); 
+			}
+		});
+	return;
 	}
 
 	bindIf(node, find, value) {
@@ -1020,17 +1090,15 @@ class UX {
 				}
 			} else if (nodeAttribute.search("/\s/")) {
 				// operators
-				let toEval = null,
-					key = null,
-					opp = '';
+				let toEval = null, key = null, opp = '';
 				let pieces = nodeAttribute.split("\s");
 				node.hidden = true;
-				for (let i = 0; i < pieces.length; i++) {
-					if (find == pieces[i]) {
-						opp += pieces[i];
+				pieces.forEach(piece => {
+					if (find == piece) {
+						opp += piece;
 					}
-				}
-			} else {}
+				});
+			} 
 		}
 		return;
 	}
@@ -1077,6 +1145,7 @@ class UX {
 				});
 			}
 		}
+		return;
 	}
 
 	routeComponents(node, data) {
@@ -1116,6 +1185,7 @@ class UX {
 				}
 			}
 		});
+		return;
 	}
 
 	renderComponents(node, data) {
@@ -1145,6 +1215,7 @@ class UX {
 				this.thread = 0;
 			});
 		}
+		return;
 	}
 
 	renderHTML(node, data) {
@@ -1161,6 +1232,7 @@ class UX {
 			}
 		}
 		node.innerHTML = content;
+		return;
 	}
 
 	fetch(obj) {
@@ -1185,6 +1257,7 @@ class UX {
 				}
 			});
 		});
+		return;
 	}
 
 	progress(node) {
@@ -1210,82 +1283,87 @@ class UX {
 				setTimeout(() => progressBar.style.display = "none", 500);
 			});
 		}
+		return;
 	}
 
 	async (requestUri, method, callback) {
-		let nodeAttribute = false;
-		let documentElements = this.nodeParentList();
-		for (let j = 0; j < documentElements.length; j++) {
-			nodeAttribute = this.getAtt(documentElements[j], 'async');
-			if (nodeAttribute !== null) {
-				documentElements[j].addEventListener('submit', event => {
-					event.preventDefault();
-					let parentList = [];
-					let documentElements1 = this.dom('', 'elements', '*');
-					for (let i = 0; i < documentElements1.length; i++) {
-						if (documentElements1[i].getAttribute(':async') == 'true') {
-							let children = documentElements1[i].children;
-							let requestDocument = new XMLHttpRequest();
-							let data = [];
-							data.push('UXAsync=true');
-							for (let i = 0; i < children.length; i++) {
-								if (children[i].value != '' && children[i].name !== null && children[i].value) {
-									data.push('&' + children[i].name + '=' + encodeURIComponent(children[i].value.toString()));
-								}
-							}
-							requestDocument.open("POST", requestUri, true);
-							requestDocument.withCredentials = true;
-							requestDocument.setRequestHeader('Access-Control-Allow-Origin', UX.allowOrigin);
-							requestDocument.setRequestHeader('Content-Type', UX.asyncType);
-							requestDocument.onreadystatechange = () => {
-								if (requestDocument.readyState == 4 && requestDocument.status == 200) {
-									if (requestDocument.responseText) {
-										callback(requestDocument.responseText);
-									}
-								}
-							}
-							requestDocument.send(data);
-						}
-					}
+
+	  const documentElements = this.nodeParentList();
+	  
+	  for (const element of documentElements) {
+		  
+		if (this.getAtt(element, 'async') !== null) {
+			
+		  element.addEventListener('submit', async event => {
+			event.preventDefault();
+			const forms = this.dom('', 'elements', '*');
+			
+			for (const form of forms) {
+			  if (form.getAttribute(':async') === 'true') {
+				const formData = new FormData();
+				formData.append('UXAsync', 'true');
+
+				Array.from(form.elements).forEach(input => {
+				  if (input.name && input.value) formData.append(input.name, input.value);
 				});
+
+				try {
+				  const response = await fetch(requestUri, {
+					method: 'POST',
+					headers: {
+					  'Access-Control-Allow-Origin': UX.allowOrigin,
+					},
+					body: formData,
+					credentials: 'include',
+				  });
+
+				  if (response.ok) {
+					const responseText = await response.text();
+					callback(responseText);
+				  } else {
+					console.error('Request failed with status:', response.status);
+				  }
+				} catch (error) {
+				  console.error('Error in async request:', error);
+				}
+			  }
 			}
+		  });
 		}
+	  }
 	}
 
-	http(requestUri, method, callback) {
-		let requestDocument = new XMLHttpRequest();
-		requestDocument.open("GET", requestUri, true);
-		requestDocument.withCredentials = true;
-		if (typeof UX !== "undefined") {
-			if (UX.contentType) {
-				requestDocument.setRequestHeader("Content-Type", UX.contentType);
-			}
-		}
-		requestDocument.setRequestHeader("Content-Type", UX.contentType);
-		if (method == 'callback') {
-			requestDocument.onreadystatechange = () => {
-				if (requestDocument.readyState == 4 && requestDocument.status == 200) {
-					callback(requestDocument.responseText);
-				}
-			}
-			requestDocument.send();
-		} else if (method == 'get') {
-			requestDocument.onreadystatechange = () => {
-				if (requestDocument.readyState == 4 && requestDocument.status == 200) {
-					return JSON.parse(requestDocument.responseText);
-				}
-			}
-			requestDocument.send();
-		} else if (method == 'render') {
-			requestDocument.onreadystatechange = () => {
-				if (requestDocument.readyState == 4 && requestDocument.status == 200) {
-					return requestDocument.responseText;
-				}
-			}
-			requestDocument.onerror = () => reject(new Error("Network Error"));
-			requestDocument.send();
+	async http(requestUri, method, callback) {
+	  const headers = new Headers();
+	  if (typeof UX !== "undefined" && UX.contentType) {
+		headers.append("Content-Type", UX.contentType);
+	  }
+
+	  try {
+		const response = await fetch(requestUri, {
+		  method: 'GET',
+		  headers: headers,
+		  credentials: 'include',
+		});
+
+		if (!response.ok) {
+		  throw new Error(`Request failed with status: ${response.status}`);
 		}
 
+		const responseText = await response.text();
+
+		if (method === 'callback') {
+		  callback(responseText);
+		} else if (method === 'get') {
+		  return JSON.parse(responseText);
+		} else if (method === 'render') {
+		  return responseText;
+		}
+
+	  } catch (error) {
+		console.error('Network Error:', error);
+		throw error;
+	  }
 	}
 
 	createElements(node, type, elementOption) {
@@ -1301,6 +1379,7 @@ class UX {
 		if (elementOption.required) opt.required = elementOption.required;
 		if (elementOption.checked) opt.checked = elementOption.checked;
 		node.appendChild(opt);
+		return;
 	}
 
 	createForm(node, find, values) {
@@ -1333,6 +1412,7 @@ class UX {
 			}
 			parents.appendChild(options);
 		}
+		return;
 	}
 
 	parseFunctions(data, method) {
@@ -1354,6 +1434,7 @@ class UX {
 				this.nodes('bindHandler', key, value, data, method);
 			}
 		}
+		return;
 	}
 
 	parseNodes(data) {
@@ -1385,7 +1466,7 @@ class UX {
 		this.nodes('bindSpinner');
 		this.nodes('bindFlip');
 		this.nodes('progress');
-		this.nodes('bindFunctions', false, false, data);
+		return;
 	}
 
 	bindDevtool(node) {
@@ -1404,10 +1485,12 @@ class UX {
 			node.setAttribute('title', 'No ID or CLASS');
 			node.style.border = '1px dashed gray';
 		}
+		return;
 	}
 
 	log(message) {
 		console.log(message);
+		return;
 	}
 
 	Message = {

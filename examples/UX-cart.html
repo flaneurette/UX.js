@@ -100,25 +100,26 @@ ul.products {
 		data: {
 		text: 'UX-Cart',
 			productList: [
-			  {id: 110,name: 'Apple',type: 'Fruit',price: '2.00',image: 'https://fakeimg.pl/250x250/24ff00' },
-			  {id: 220,name: 'Banana',type: 'Fruit',price: '1.00',image: 'https://fakeimg.pl/250x250/eaff00' },
-			  {id: 330,name: 'Orange',type: 'Fruit',price: '2.50',image: 'https://fakeimg.pl/250x250/ffba00' },
+			  {id: 110, name: 'Apple', type: 'Fruit', price: '2.00', image: 'https://fakeimg.pl/250x250/24ff00' },
+			  {id: 220, name: 'Banana', type: 'Fruit', price: '1.00', image: 'https://fakeimg.pl/250x250/eaff00' },
+			  {id: 330, name: 'Orange', type: 'Fruit', price: '2.50', image: 'https://fakeimg.pl/250x250/ffba00' },
 			  ]
 		},
 		methods: {
+		
 		    addItem(a) {
 			
-				this.cart = UX.array; // Must be set, UX.array holds the objects.
+				this.cart = app.array; // Must be set, app.array holds the objects.
 				this.products = [];
 				
 				let node = document.getElementById('cart');
 				let food = document.getElementById('food');
 				let crumb = document.getElementById('cartcrumb');
 				
-				for (let i=0; i<this.cart.length;i++) {
-					this.products.push(JSON.stringify(Object.values(this.cart[i])));
-				}
-				
+				this.cart.forEach(item => {
+					this.products.push(JSON.stringify(Object.values(item)));
+				});
+
 				const uniqueArr = [...new Set(this.products.map(JSON.stringify))].map(JSON.parse);
 				
 				// create cart list
