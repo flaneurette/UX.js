@@ -22,7 +22,7 @@ $blogs = "[
     }
 
   </style>
-<script src="../../../assets/UX.js"></script>
+<script src="../../../src/UX.js"></script>
 </head>
 <body>
 
