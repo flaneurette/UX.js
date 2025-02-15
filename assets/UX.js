@@ -577,7 +577,7 @@ class UX {
 			
 			node.style.opacity = "0"; 
 			node.style.transform = "translateY(-10px)";
-			node.style.transition = "opacity " + Reflect.get(lazy, 0) + " " + Reflect.get(lazy, 1), "transform "+ Reflect.get(lazy, 0) + " " +  Reflect.get(lazy, 1);
+			node.style.transition = "opacity " + Reflect.get(lazy, 0) + " " + Reflect.get(lazy, 1) + " transform "+ Reflect.get(lazy, 0) + " " +  Reflect.get(lazy, 1);
 		   
 			const observer = new IntersectionObserver((entries, observer) => {
 				entries.forEach(entry => {
