@@ -1,13 +1,13 @@
 # UX.js
 
-<img src="https://github.com/flaneurette/UX.js/blob/main/src/images/UX-logo.png" />
+<img src="https://github.com/flaneurette/UX.js/blob/main/examples/images/UX-logo.png" />
 
 UX.js is a Javascript frontend development framework, for single page apps and multiple page apps. 
 
 # What is new
 Version 1.4 introduces components. Components are reusable HTML fragments with a .ux extension. UX.js renders these components within a HTML page asynchronously, with the :render or :route attribute. For a demo, see UX-render.html in the examples folder.
 
-<img src="https://github.com/flaneurette/UX.js/blob/main/src/images/render_flowchart.png" />
+<img src="https://github.com/flaneurette/UX.js/blob/main/examples/images/render_flowchart.png" />
 
 # Requirements
 A local or live webserver.
