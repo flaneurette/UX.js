@@ -805,7 +805,7 @@ class UX {
 	}
 
 	/**
-	* Applies lazyloading to virutal DOM nodes.
+	* Applies lazyloading to virtual DOM nodes.
 	* @param {node} - the node to 'lazyload'
 	* @return none
 	*/
@@ -840,7 +840,7 @@ class UX {
 	}
 
 	/**
-	* Applies lazyloading to virutal DOM node images.
+	* Applies lazyloading to virtual DOM node images.
 	* @param {node} - the node image to 'lazyload'
 	* @return none
 	*/
