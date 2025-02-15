@@ -23,6 +23,12 @@ class UX {
 		instanceid: Date.now()
 	};
 	
+	/**
+	* Loads the configuration object upon mounting.
+	* @param {config} object
+	* @return none
+	*/
+
 	load(config) {
 		
 		if (!this.isValidObject(config)) {
@@ -38,28 +44,56 @@ class UX {
 			this.initDevTools(data);
 			Reflect.preventExtensions(data);
 		}
+		return
 	}
 	
 	initState() {
 		return {};
 	}
+
+	/**
+	* Initializes parse functions.
+	* @param {data,methods} objects
+	* @return none
+	*/
 	
 	initData(data,methods) {
 		this.parseFunctions(data, methods);
 		this.nodes('bindFunctions',false,false,data);
+	return;
 	}
 
+	/**
+	* Initializes components and rendering them.
+	* @param {data} object
+	* @return none
+	*/
+	
 	initComponents(data) {
 		this.nodes('renderComponents', data);
 		this.nodes('routeComponents', data);
+	return;
 	}
 
+	/**
+	* Initializes the developer-tool.
+	* @param {data} object
+	* @return none
+	*/
+	
 	initDevTools(data) {
 		if (Reflect.has(data, "devtools")) {
 			this.nodes('devtools', data);
 		}
+	return;
 	}
 
+	/**
+	* Initializes and applies methods
+	* @param {method,find,value,data,methods,callback} 
+	* @return none
+	*/
+	
 	nodes(method, find, value, data = null, methods = null, callback = null) {
 		
 		const documentElements = this.nodeParentList();
@@ -136,6 +170,12 @@ class UX {
 		});
 		return;
 	}
+
+	/**
+	* Queries the virtual DOM, getting and setting of information
+	* @param {id, method,value} 
+	* @return mixed var
+	*/
 	
 	dom(id, method, value = null) {
 	  const globalActions = {
@@ -171,27 +211,59 @@ class UX {
 	  return actions[method] ? actions[method]() : null;
 	}
 
-
+	/**
+	* Compares if an object is valid, or not
+	* @param {obj} 
+	* @return mixed boolean
+	*/
+	
 	isValidObject(obj) {
 		return typeof obj === 'object' && obj !== null;
 	}
+
+	/**
+	* Compares if a number is integer, or not
+	* @param {value} 
+	* @return int
+	*/
 	
 	isInt(value) {
 		return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
 	}
+
+	/**
+	* Retrieves all parent elements from the virtual DOM
+	* @return htmlcollection
+	*/
 	
 	getElements() {
 		return this.dom('', 'elements', '*')
 	}
 
+	/**
+	* A spread that retrieves all parent elements from the virtual DOM 
+	* @return htmlcollection
+	*/
+	
 	nodeParentList() {
 		return [...this.getElements()];
 	}
 
+	/**
+	* A spread that retrieves all child elements from the virtual DOM 
+	* @return htmlcollection
+	*/
+	
 	nodeChildren(parents) {
 		return [...parents.childNodes];
 	}
 
+	/**
+	* Getting a UX.js attribute
+	* @param {node,part} 
+	* @return node or null
+	*/
+	
 	getAtt(node, part) {
 		const prefixes = ['ux:', ':'];
 		for (const prefix of prefixes) {
@@ -201,18 +273,36 @@ class UX {
 		return null;
 	}
 
+	/**
+	* Checks a UX.js attribute
+	* @param {node,part} 
+	* @return mixed boolean
+	*/
+	
 	attributeCheck(node, part) {
 		let isAtrribute = (node.getAttribute('ux:' + part) !== null ||
 			node.getAttribute(':' + part) !== null) ? true : false;
 		return isAtrribute;
 	}
 
+	/**
+	* A method with regular expressions
+	* @param {type} - type of regular expression
+	* @return regular expression
+	*/
+	
 	regEx(type) {
 		if (type == 'spaces') return /\s+|\t+/gim;
 		if (type == 'punctuation') return /,|'|"|\{|\}|\[|\]/gim;
 		return;
 	}
 
+	/**
+	* Clones a node
+	* @param {list,id} - list is a node, and id is a node.id
+	* @return none
+	*/
+	
 	cloneNodes(list, id) {
 		if (id === null) {
 			return false;
@@ -227,6 +317,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Binds a class to a node and toggles it.
+	* @param {node, find, value}
+	* @return none
+	*/
+	
 	bindClass(node, find, value) {
 		let nodeAttribute = this.getAtt(node, 'class');
 		if (!nodeAttribute) return;
@@ -236,6 +332,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Binds a node.id to a node and sets a value
+	* @param {node, find, value}
+	* @return none
+	*/
+	
 	bindId(node, find, value) {
 		let nodeAttribute = this.getAtt(node, 'id');
 		if (!nodeAttribute) return;
@@ -245,6 +347,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Binds an eventlistener to each object with an attribute of :curtain, and either hides or shows an object.
+	* @param {node, find, value}
+	* @return none
+	*/
+	
 	bindCurtains(node, find, value) {
 		let nodeAttribute = this.getAtt(node, 'click');
 		if (!nodeAttribute) return;
@@ -265,6 +373,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Binds an eventlistener to each object with an attribute of :darkmode, and toggles a mode.
+	* @param {node, find, value}
+	* @return none
+	*/
+	
 	bindDarkMode(node, find, value) {
 		let nodeAttribute = this.getAtt(node, 'darkmode');
 		if (!nodeAttribute) return;
@@ -284,6 +398,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Checks if a string contains a certain value
+	* @param {value}
+	* @return none
+	*/
+	
 	has(value) {
 		if (value) {
 			if (value.indexOf("'") != -1) {
@@ -294,6 +414,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Makes a node visible
+	* @param {node} - the node to show
+	* @return none
+	*/
+	
 	bindShow(node) {
 		let nodeAttribute = this.getAtt(node, 'hidden');
 		if (!nodeAttribute) return;
@@ -303,6 +429,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Makes a node invisible
+	* @param {node} - the node to hide
+	* @return none
+	*/
+	
 	bindHide(node) {
 		let nodeAttribute = this.getAtt(node, 'hidden');
 		if (!nodeAttribute) return;
@@ -312,6 +444,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Set a void attribute
+	* @param {node} - the node to void
+	* @return none
+	*/
+	
 	bindVoid(node) {
 		let nodeAttribute = this.getAtt(node, 'void');
 		if (!nodeAttribute) return;
@@ -321,6 +459,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Adds an eventlistener to a node and scrolls it into view.
+	* @param {node} - the node to view
+	* @return none
+	*/
+	
 	bindView(node) {
 		let nodeAttribute = this.getAtt(node, 'view');
 		if (!nodeAttribute) return;
@@ -337,6 +481,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Sets an eventlistener to scroll the DOM up.
+	* @param {node} - the node to scroll
+	* @return none
+	*/
+	
 	bindScroll(node) {
 		let nodeAttribute = this.getAtt(node, 'scroll');
 		if (!nodeAttribute) return;
@@ -353,6 +503,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Sets an eventlistener and creates a sliding div.
+	* @param {node} - the node to slide
+	* @return none
+	*/
+	
 	bindSlide(node) {
 
 		const nodeAttribute = this.getAtt(node, 'slide');
@@ -373,6 +529,12 @@ class UX {
 		});
 		return;
 	}
+
+	/**
+	* Binds an eventlistener to the mousewheel
+	* @param {node} - the node to 'wheel'
+	* @return none
+	*/
 	
 	bindWheel(node) {
 
@@ -395,6 +557,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Binds an eventlistener to a node to switch an id
+	* @param {node} - the node to switch
+	* @return none
+	*/
+	
 	bindSwitch(node) {
 		let nodeAttribute = this.getAtt(node, 'switch');
 		if (!nodeAttribute) return;
@@ -408,6 +576,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Switches a className on active links
+	* @param {node} - the node to switch classes
+	* @return none
+	*/
+	
 	bindActive(node) {
 		let nodeAttribute = this.getAtt(node, 'active');
 		if (!nodeAttribute) return;
@@ -423,6 +597,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Selects a className
+	* @param {node} - the node to switch
+	* @return none
+	*/
+	
 	bindSelect(node) {
 		let nodeAttribute = this.getAtt(node, 'select');
 		if (!nodeAttribute) return;
@@ -432,6 +612,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Creates a flexbox dynamically
+	* @param {node} - the node to 'flex'
+	* @return none
+	*/
+	
 	bindFlex(node) {
 		const nodeAttribute = this.getAtt(node, 'flex');
 		if (!nodeAttribute) return;
@@ -460,6 +646,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Binds an animation to a node
+	* @param {node} - the node to animate
+	* @return none
+	*/
+	
 	bindAnimate(node) {
 		const nodeAttribute = this.getAtt(node, 'animate');
 		if (!nodeAttribute) return;
@@ -489,6 +681,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Fades a node into view.
+	* @param {node} - the node to 'fade'
+	* @return none
+	*/
+	
 	bindFade(node) {
 		let nodeAttribute = this.getAtt(node, 'fade');
 		if (!nodeAttribute) return;
@@ -513,6 +711,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Binds a node and 'grows' it into view
+	* @param {node} - the node to switch
+	* @return none
+	*/
+	
 	bindIntoView(node) {
 		let nodeAttribute = this.getAtt(node, 'grow');
 		if (!nodeAttribute) return;
@@ -537,6 +741,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Creating a cascade on a node.
+	* @param {node} - the node to 'cascade'
+	* @return none
+	*/
+	
 	bindCascade(node, find) {
 		
 		let nodeAttribute = this.getAtt(node, 'cascade');
@@ -594,6 +804,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Applies lazyloading to virutal DOM nodes.
+	* @param {node} - the node to 'lazyload'
+	* @return none
+	*/
+	
 	bindLazyLoad(node) {
 		
 		let nodeAttribute = this.getAtt(node, 'lazyload');
@@ -622,7 +838,13 @@ class UX {
 		}
 		return;
 	}
-			
+
+	/**
+	* Applies lazyloading to virutal DOM node images.
+	* @param {node} - the node image to 'lazyload'
+	* @return none
+	*/
+	
 	bindLazyImg(node) {
 		
 		const nodeAttribute = this.getAtt(node, 'lazyimg');
@@ -658,6 +880,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Creates a dynamic link
+	* @param {node} - the node to 'link'
+	* @return none
+	*/
+	
 	bindUri(node) {
 		let nodeAttribute = this.getAtt(node, 'link');
 		if (!nodeAttribute) return;
@@ -670,6 +898,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Applies a flip effects on a virtual DOM node
+	* @param {node} - the node to 'flip'
+	* @return none
+	*/
+	
 	bindFlip(node) {
 		let nodeAttribute = this.getAtt(node, 'flip');
 		if (!nodeAttribute) return;
@@ -684,6 +918,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Creates a hamburger menu with canvas
+	* @param {node} - the node to apply it to.
+	* @return none
+	*/
+	
 	bindHamburger(node) {
 		let nodeAttribute = this.getAtt(node, 'hamburger');
 		if (!nodeAttribute) return;
@@ -717,6 +957,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Creates a 'spinner' loading icon through canvas
+	* @param {node} - the node to 'spin'
+	* @return none
+	*/
+	
 	bindSpinner(node) {
 		let nodeAttribute = this.getAtt(node, 'spinner');
 		if (!nodeAttribute) return;
@@ -754,6 +1000,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Binds CSS
+	* @param {node} - the node to style.
+	* @return none
+	*/
+	
 	bindCSS(node) {
 		let nodeAttribute = this.getAtt(node, 'css');
 		if (!nodeAttribute) return;
@@ -763,6 +1015,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Toggles a node by adding an eventlistener.
+	* @param {node} - the node to toggle
+	* @return none
+	*/
+	
 	bindToggle(node) {
 
 		const nodeAttribute = this.getAtt(node, 'toggle');
@@ -797,7 +1055,12 @@ class UX {
 		return;
 	}
 
-
+	/**
+	* Creates a dynamic menu
+	* @param {node} - the node to attach the menu to.
+	* @return none
+	*/
+	
 	bindMenu(node) {
 		const nodeAttribute = this.getAtt(node, 'menu');
 		if (!nodeAttribute || !nodeAttribute.includes(':')) return;
@@ -827,6 +1090,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Binds method functions and adds an eventlistener
+	* @param {node} - the node to attach to
+	* @return none
+	*/
+	
 	bindFunctions(node, data, find, value) {
 
 		let nodeAttribute = this.getAtt(node, 'click');
@@ -864,12 +1133,24 @@ class UX {
 		return;
 	}
 
-	bindMethods(node, data, methods, find, value) {
+	/**
+	* Applies new functions and executes them
+	* @param {node}
+	* @return none
+	*/
+	
+	bindMethods(node, data, methods) {
 		let process = new Function(methods);
 		process.apply();
 		return;
 	}
 
+	/**
+	* Adds an eventlistener that prevents default behaviour
+	* @param {node} - the node to attach to
+	* @return none
+	*/
+	
 	bindPrevent(node, find, value) {
 		let nodeAttribute = this.getAtt(node, 'prevent');
 		if (!nodeAttribute) return;
@@ -881,6 +1162,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Adds an eventlistener that hides a node
+	* @param {node} - the node to attach to
+	* @return none
+	*/
+	
 	bindClose(node) {
 		let nodeAttribute = this.getAtt(node, ':close');
 		if (!nodeAttribute) return;
@@ -892,6 +1179,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Adds an image to a node
+	* @param {node,array} - the node to attach to, array of images.
+	* @return none
+	*/
+	
 	onImg(node, array) {
 		
 		if (!node || !array?.length) return;
@@ -914,6 +1207,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Searches for operants to attach a dynamic image through UX methods.
+	* @param {node,operators} - the node to attach to, operators.
+	* @return none
+	*/
+	
 	onImgFill(node, operators) {
 
 		if (this.thread <= 1 && operators.length >= 1) {
@@ -940,6 +1239,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Searches for operants to replace text through UX methods.
+	* @param {node,operators} - the node to attach to, operators.
+	* @return none
+	*/
+	
 	onText(node, operators) {
 		
 		if (!node || !operators || operators.length < 2) return;
@@ -960,6 +1265,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Attaches a custom eventlistener to a node
+	* @param {node} 
+	* @return none
+	*/
+	
 	bindHandler(node, data, methods, find, value) {
 		let nodeAttribute = this.getAtt(node, 'handler');
 		if (!nodeAttribute) return;
@@ -982,6 +1293,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Binds UX methods, image fills, and adds eventlisteners
+	* @param {node} 
+	* @return none
+	*/
+	
 	bindMethods(node, data, methods, find, value) {
 		let nodeAttribute = this.getAtt(node, 'method');
 		if (!nodeAttribute || !this.attributeCheck(node, 'method')) return;
@@ -1003,6 +1320,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Processes UX methods.
+	* @param {node, methods, imageAssignments}
+	* @return none
+	*/
+	
 	processMethods(node, methods, imageAssignments) {
 		for (let key in methods) {
 			let method = methods[key];
@@ -1025,11 +1348,23 @@ class UX {
 		return;
 	}
 
+	/**
+	* Processes UX methods image assignments
+	* @param {line}
+	* @return none
+	*/
+	
 	isImageAssignment(line) {
 		return line.includes('this.') && line.includes('=') && 
 			   (line.includes('img') || line.includes('image'));
 	}
-
+	
+	/**
+	* Processes UX methods arrays
+	* @param {node}
+	* @return none
+	*/
+	
 	handleArrayClick(node) {
 		if (this.getAtt(node, 'method').includes('{{')) return;
 
@@ -1044,6 +1379,12 @@ class UX {
 	return;
 	}
 
+	/**
+	* Processes UX methods by addings eventlisteners.
+	* @param {node, methods}
+	* @return none
+	*/
+	
 	addEventListeners(node, methods) {
 		let eventType = this.getAtt(node, 'method').split(":")[0];
 
@@ -1075,6 +1416,12 @@ class UX {
 	return;
 	}
 
+	/**
+	* Binding dynamic IF statements
+	* @param {node}
+	* @return none
+	*/
+	
 	bindIf(node, find, value) {
 		let nodeAttribute = this.getAtt(node, 'if');
 		if (!nodeAttribute) return;
@@ -1103,6 +1450,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Loops over the virtual DOM, adds elements and replaces text - value pairs
+	* @param {node}
+	* @return none
+	*/
+	
 	loop(node, find, values) {
 		let nodeAttribute = this.getAtt(node, 'loop');
 		if (!nodeAttribute) return;
@@ -1148,6 +1501,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Routes components from the /components/ folder.
+	* @param {node, data}
+	* @return none
+	*/
+	
 	routeComponents(node, data) {
 		let attribute = this.getAtt(node, 'route');
 		if (!attribute) return;
@@ -1188,6 +1547,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Renders components from the /components/ folder
+	* @param {node, data}
+	* @return none
+	*/
+	
 	renderComponents(node, data) {
 		this.thread = 0;
 		let attribute = this.getAtt(node, 'render');
@@ -1218,6 +1583,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Renders HTML from a routed/rendered component
+	* @param {node, data}
+	* @return none
+	*/
+	
 	renderHTML(node, data) {
 		let content = node.innerHTML;
 		for (const [key, value] of Object.entries(data)) {
@@ -1235,6 +1606,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Fetches and replaces text - value pairs.
+	* @param {obj}
+	* @return none
+	*/
+	
 	fetch(obj) {
 		
 		if (!obj || typeof obj !== "object") return;
@@ -1260,6 +1637,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Adds a progressmeter to the virtual DOM
+	* @param {node}
+	* @return none
+	*/
+	
 	progress(node) {
 		let attribute = this.getAtt(node, 'progress');
 		if (!attribute) return;
@@ -1286,6 +1669,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Async form handler.
+	* @param {requestUri,method,callback}
+	* @return none
+	*/
+	
 	async (requestUri, method, callback) {
 
 	  const documentElements = this.nodeParentList();
@@ -1331,7 +1720,14 @@ class UX {
 		  });
 		}
 	  }
+	  return;
 	}
+
+	/**
+	* A method for fetching URI's asynchronously
+	* @param {requestUri,method,callback}
+	* @return none
+	*/
 
 	async http(requestUri, method, callback) {
 	  const headers = new Headers();
@@ -1364,8 +1760,15 @@ class UX {
 		console.error('Network Error:', error);
 		throw error;
 	  }
+	  return;
 	}
 
+	/**
+	* Creates a HTML element
+	* @param {node,type,elementOption}
+	* @return none
+	*/
+	
 	createElements(node, type, elementOption) {
 		let opt = this.dom('', 'create', type);
 		if (elementOption.type == 'text') {
@@ -1382,6 +1785,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Creates a HTML form dynamically
+	* @param {node}
+	* @return none
+	*/
+	
 	createForm(node, find, values) {
 		let nodeAttribute = this.getAtt(node, 'form');
 		if (nodeAttribute !== null) {
@@ -1415,6 +1824,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Parses functions and methods
+	* @param {data, method}
+	* @return none
+	*/
+	
 	parseFunctions(data, method) {
 		for (const [key, value] of Object.entries(data)) {
 			if (Array.isArray(value)) {
@@ -1437,6 +1852,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Parses HTML nodes
+	* @param {data} - object
+	* @return none
+	*/
+	
 	parseNodes(data) {
 		this.nodes('bindHamburger');
 		this.nodes('bindActive');
@@ -1469,6 +1890,12 @@ class UX {
 		return;
 	}
 
+	/**
+	* Binds a developer tool to the virtual DOM
+	* @param {node}
+	* @return none
+	*/
+	
 	bindDevtool(node) {
 		if (!node) return;
 
