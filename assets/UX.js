@@ -4,12 +4,17 @@ class UX {
 	static asyncType = "application/x-www-form-urlencoded; charset=UTF-8";
 	static cacheControl = "no-cache";
 	static allowOrigin = '*';
-	static thread = 0;
-	static array = [];
 
+    constructor() {
+        this.state = {};
+        this.listeners = [];
+		this.thread = 0;
+		this.array = [];
+    }
+	
 	init = {
 		name: "UX.js",
-		version: "1.160",
+		version: "1.170",
 		description: "A lightweight JavaScript framework",
 		copyright: "(c) 2024 flaneurette",
 		license: "GNU",
@@ -91,39 +96,39 @@ class UX {
 			bindScroll: this.bindScroll
 		};
 		
-		for (let index = 0; index < documentElements.length; index++) {
-			const element = documentElements[index];
-
+		documentElements.forEach(elem => {
+			
 			if (methodMap[method]) {
-				methodMap[method].call(this, element, find, value);
+				methodMap[method].call(this, elem, find, value);
 				} else {
 				switch(method) { 
 					case 'progress': 
-					this.progress(element, data, methods, find, value); 
+					this.progress(elem, data, methods, find, value); 
 					break;
 					case 'bindFunctions': 
-					this.bindFunctions(element, data, find, value); 
+					this.bindFunctions(elem, data, find, value); 
 					break;
 					case 'bindLogic': 
-					this.bindIf(element, find, value); 
+					this.bindIf(elem, find, value); 
 					break;
 					case 'bindMethods': 
-					this.bindMethods(element, data, methods, find, value); 
+					this.bindMethods(elem, data, methods, find, value); 
 					break;
 					case 'bindHandler': 
-					this.bindHandler(element, data, methods, find, value); 
+					this.bindHandler(elem, data, methods, find, value); 
 					break;
 				}
 			}
 			
 			if (method === "replaceNodeValue") {
-				this.nodeChildren(element).forEach(child => {
+				this.nodeChildren(elem).forEach(child => {
 					if (child.nodeType === Node.TEXT_NODE) {
 						child.nodeValue = child.nodeValue.replace(new RegExp(`{{\\s*${find}[0-9]*\\s*}}`, "gi"), value);
 					}
 				});
 			}
-		}
+			
+		});
 	}
 
 	dom(id, method, value = null) {
@@ -171,8 +176,7 @@ class UX {
 	}
 	
 	getElements() {
-		let documentElements = this.dom('', 'elements', '*');
-		return documentElements;
+		return this.dom('', 'elements', '*')
 	}
 
 	nodeParentList() {
@@ -210,9 +214,9 @@ class UX {
 			const parentItem = this.dom(id, 'parent');
 			let docItem = this.dom(id, 'id');
 			let docClone = docItem.cloneNode(true);
-			for (let i = 0; i < list.length; i++) {
+			list.forEach(elem => {
 				parentItem.appendChild(docClone);
-			}
+			});
 		}
 	}
 
@@ -232,28 +236,19 @@ class UX {
 		}
 	}
 
-	drawCurtains() {
-		let documentElements = this.dom('', 'elements', '*');
-		for (let i = 0; i < documentElements.length; i++) {
-			if (documentElements[i].getAttribute(':curtain') !== null) {
-				documentElements[i].hidden = false;
-			}
-		}
-	}
-
 	bindCurtains(node, find, value) {
 		let nodeAttribute = this.getAtt(node, 'click');
 		if (!nodeAttribute) return;
 		let documentElements = this.nodeParentList();
-		for (let i = 0; i < documentElements.length; i++) {
-			if (this.attributeCheck(documentElements[i], 'curtain') == true) documentElements[i].hidden = true;
-		}
+		documentElements.forEach( elem => {
+			if (this.attributeCheck(elem, 'curtain') == true) elem.hidden = true;
+		});
 		if (nodeAttribute !== null && this.attributeCheck(node, 'curtain') !== null) {
 			node.addEventListener('click', () => {
 				let documentElements = this.dom('', 'elements', '*');
 				for (let i = 0; i < documentElements.length; i++) {
 					if (documentElements[i].getAttribute(':curtain') !== null) {
-						documentElements[i].hidden = false;
+						(documentElements[i].hidden === false) ? documentElements[i].hidden = true:documentElements[i].hidden = false;
 					}
 				}
 			}, false);
@@ -878,7 +873,7 @@ class UX {
 	}
 
 	onImgFill(node, operators) {
-		if (UX.thread <= 1 && operators.length >= 1) {
+		if (this.thread <= 1 && operators.length >= 1) {
 			const spaces = this.regEx('spaces');
 			const punctuation = this.regEx('punctuation');
 			let doc = this.dom('', 'document');
@@ -921,12 +916,12 @@ class UX {
 				for (let key in methods) {
 					let funcs = methods[key];
 					let pairs = funcs.toString();
-					if (UX.thread <= 1) {
+					if (this.thread <= 1) {
 						node.addEventListener(Reflect.get(handlers, 0), () => {
 							funcs.apply();
 						});
 					}
-					UX.thread++;
+					this.thread++;
 				}
 			}
 		}
@@ -952,7 +947,7 @@ class UX {
 								array.push(operators);
 							}
 							// array elements
-							if (lines[i].indexOf('UX.array') !== -1) {
+							if (lines[i].indexOf('this.array') !== -1) {
 								if (nodeAttribute.indexOf('{{') == -1) {
 									let clicks = 0;
 									node.addEventListener('click', () => {
@@ -960,7 +955,7 @@ class UX {
 										let methodhandler = nodeAttribute.split(":");
 										let obj = Object.assign({}, methodhandler.splice(3, methodhandler.length));
 										if (Object.keys(obj).length > 1) {
-											UX.array.push(obj);
+											this.array.push(obj);
 										}
 									});
 								}
@@ -1088,14 +1083,14 @@ class UX {
 		let attribute = this.getAtt(node, 'route');
 		if (!attribute) return;
 		let [routeId, requestUri] = attribute.split(':');
-		if (!UX.array.includes(routeId)) {
-			UX.array.push(routeId);
+		if (!this.array.includes(routeId)) {
+			this.array.push(routeId);
 		}
 		node.addEventListener('click', async () => {
 
 			let routeNode = this.dom(routeId, 'id');
 
-			UX.array.forEach(id => {
+			this.array.forEach(id => {
 				let el = this.dom(id, 'id');
 				if (el) el.hidden = true;
 			});
@@ -1124,7 +1119,7 @@ class UX {
 	}
 
 	renderComponents(node, data) {
-		UX.thread = 0;
+		this.thread = 0;
 		let attribute = this.getAtt(node, 'render');
 		if (!attribute) return;
 		let requestUri = attribute;
@@ -1147,7 +1142,7 @@ class UX {
 
 		} else {
 			return Promise.resolve().finally(() => {
-				UX.thread = 0;
+				this.thread = 0;
 			});
 		}
 	}
@@ -1169,10 +1164,9 @@ class UX {
 	}
 
 	fetch(obj) {
+		
 		if (!obj || typeof obj !== "object") return;
-
 		let documentElements = this.nodeParentList();
-
 		documentElements.forEach(parent => {
 			let documentChildren = this.nodeChildren(parent);
 
