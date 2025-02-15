@@ -5,7 +5,7 @@ class UX {
 	static allowOrigin = '*';
 
 	constructor() {
-		this.state = this.initializeState();
+		this.state = this.initState();
 		this.listeners = [];
 		this.thread = 0;
 		this.counter = 0;
@@ -26,35 +26,35 @@ class UX {
 	load(config) {
 		
 		if (!this.isValidObject(config)) {
-			this.log(this.Message['initialize']);
+			this.log(this.Message['init']);
 			return false;
 		}
 
 		const { data, methods, events } = config;
 
 		if (data) {
-			this.initializeData(data,methods);
-			this.initializeComponents(data);
-			this.initializeDevTools(data);
+			this.initData(data,methods);
+			this.initComponents(data);
+			this.initDevTools(data);
 			Reflect.preventExtensions(data);
 		}
 	}
 	
-	initializeState() {
+	initState() {
 		return {};
 	}
 	
-	initializeData(data,methods) {
+	initData(data,methods) {
 		this.parseFunctions(data, methods);
 		this.nodes('bindFunctions',false,false,data);
 	}
 
-	initializeComponents(data) {
+	initComponents(data) {
 		this.nodes('renderComponents', data);
 		this.nodes('routeComponents', data);
 	}
 
-	initializeDevTools(data) {
+	initDevTools(data) {
 		if (Reflect.has(data, "devtools")) {
 			this.nodes('devtools', data);
 		}
@@ -1494,7 +1494,7 @@ class UX {
 	}
 
 	Message = {
-		initialize: "UX: Cannot initialize a non-object.",
+		init: "UX: Cannot init a non-object.",
 		enumerate: "UX: Could not enumerate global object."
 	}
 }
