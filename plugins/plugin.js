@@ -1,6 +1,6 @@
 class Plugin extends UX {
 	
-	constructor({}) {
+	constructor() {
 		super();
 	}
 	
