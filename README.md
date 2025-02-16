@@ -20,7 +20,7 @@ The release of UX.js v1.8 brings significant improvements, making the framework 
 
 - Reactive Models – A new reactivity system that ensures data updates are seamlessly reflected across the application without manual intervention. This enhancement simplifies state management and improves performance by efficiently handling UI updates.
 - Plugin Support – Developers can now extend UX.js with plugins, enabling easy integration of additional features, third-party tools, and custom functionalities. This opens the door for a more modular and scalable development experience.
-- 
+
 ### UX.js Version 1.4: introduces Components. 
 
 Components are reusable HTML fragments with a .ux extension. UX.js renders these components within a HTML page asynchronously, with the :render or :route attribute. For a demo, see UX-render.html in the examples folder.
