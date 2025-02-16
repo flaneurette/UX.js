@@ -158,7 +158,7 @@ UX.js allows extending functionality using plugins.
 
 Q: Is UX.js similar to React or Vue?
 
-A: UX.js takes inspiration from both but offers a simpler, lightweight approach. UX.js is what I wanted Vue and react to be able to do; easier to learn and smaller filesize.
+A: UX.js takes inspiration from both but offers a simpler, lightweight approach. UX.js is what I wanted Vue and react to be able to do.
 
 # Contributing
 
