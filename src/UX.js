@@ -44,7 +44,7 @@ class UX {
 			this.initDevTools(data);
 			Reflect.preventExtensions(data);
 		}
-		return
+		return;
 	}
 	
 	initState() {
@@ -64,7 +64,7 @@ class UX {
 	}
 
 	/**
-	* Initializes components and rendering them.
+	* Initializes components and rendering/routing them.
 	* @param {data} object
 	* @return none
 	*/
@@ -172,18 +172,42 @@ class UX {
 	}
 
 	/**
+	* Handle global node events
+	* @param {method} 
+	* @return mixed
+	*/
+	
+	evt(method) {
+		
+		const eventTypes = {
+			x: ()=> event.clientX,
+			y: ()=> event.clientY,
+			deltaY: ()=> event.deltaY,
+			deltaX: ()=> event.deltaX,
+			target: () => event.target,
+			parentNode: () => event.target.parentNode,
+			nextSibling: () => event.target.nextSibling,
+		};
+		
+		if(method in eventTypes) return eventTypes[method]();
+		return;
+	}
+	
+	/**
 	* Queries the virtual DOM, getting and setting of information
 	* @param {id, method,value} 
 	* @return mixed var
 	*/
 	
-	dom(id, method, value = null) {
+	dom(id, method, value) {
+		
 	  const globalActions = {
 		query: () => document.querySelector(value),
 		queryall: () => document.querySelectorAll(value),
 		elements: () => document.getElementsByTagName(value),
+		classes: () => document.getElementsByClassName(value),
 		create: () => document.createElement(value),
-		document: () => document.all,
+		document: () => document.all, // Note: deprecated
 		location: () => window.location.href,
 		innerheight: () => window.innerHeight,
 		innerwidth: () => window.innerWidth,
@@ -230,7 +254,7 @@ class UX {
 	isInt(value) {
 		return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
 	}
-
+	
 	/**
 	* Retrieves all parent elements from the virtual DOM
 	* @return htmlcollection
@@ -258,6 +282,23 @@ class UX {
 		return [...parents.childNodes];
 	}
 
+	/**
+	* Creates dynamic eventlisteners
+	* @return 
+	*/
+	
+	events(node, type, handler) {
+		if (!node || !type || typeof handler !== 'function') return;
+		if (!this.listeners) {
+			this.listeners = [];
+		}
+		const eventListener = function(event) {
+			handler.call(this, event);
+			this.listeners.push(handler);
+		};
+		node.addEventListener(type, eventListener.bind(this));
+	}
+	
 	/**
 	* Getting a UX.js attribute
 	* @param {node,part} 

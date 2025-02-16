@@ -28,6 +28,8 @@ An example to trigger a slide, using the :wheel attribute.
 An example with a spinner loader using the :spinner attribute
 #### UX-flip.html
 An example flipping objects using the :flip attribute
+#### UX-drag.html
+An drag and drop example from /plugins/
 #### UX-darkmode.html
 An example to trigger a different mode, light or dark.
 #### UX-hamburger.html

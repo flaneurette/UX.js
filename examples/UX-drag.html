@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Drag And Drop</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td, fieldset {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+			margin-top: 10px;
+        }
+        .drag-over {
+            background-color: #f0f0f0;
+        }
+		input {
+			display: block;
+			margin: 10px;
+			padding: 10px;
+			border: 1px solid #ddd;
+		}
+    </style>
+	<script src="../src/UX.js"></script>
+	<script src="../plugins/DragAndDrop.js"></script>
+</head>
+<body>
+
+<h1>UX Drag and Drop - Plugins</h1>
+
+<table>
+    <tbody>
+        <tr id="table1" class="order"><td>Alice</td><td>10</td></tr>
+        <tr id="table2" class="order"><td>Bob</td><td>11</td></tr>
+        <tr id="table3" class="order"><td>Joe</td><td>12</td></tr>
+    </tbody>
+</table>
+
+<h3>Result:</3>
+
+<fieldset>
+	<input id="input1">
+	<input id="input2">
+	<input id="input3">
+</fieldset>
+
+<script>
+	c = new DragAndDrop();
+	c.tableClass = 'order';
+	c.tableId = 'table';
+	c.inputId = 'input';
+	c.initDrag();
+</script>
+
+</body>
+</html>
+
