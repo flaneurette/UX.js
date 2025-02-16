@@ -179,6 +179,8 @@ class UX {
 	
 	evt(method) {
 		
+		if(!method) return;
+		
 		const eventTypes = {
 			x: ()=> event.clientX,
 			y: ()=> event.clientY,
@@ -284,7 +286,7 @@ class UX {
 
 	/**
 	* Creates dynamic eventlisteners
-	* @return 
+	* @return none
 	*/
 	
 	events(node, type, handler) {
@@ -297,6 +299,7 @@ class UX {
 			this.listeners.push(handler);
 		};
 		node.addEventListener(type, eventListener.bind(this));
+		return;
 	}
 	
 	/**
