@@ -114,22 +114,22 @@ An example of how methods in UX.js works (under development)
 An example showing a form, dynamically generated with UX.js
 
 # UX Components (.ux Files)
-A UX component is a self-contained UI element written in .ux format.
+A UX component is a self-contained UI element written in .ux format. It is possible to use the custom UX.js attributes to achieve certain features.
 
 Example of a .ux Component
 
-```<section>
+```
+<section>
     <header>
         <h1>{{title}}</h1>
     </header>
     <nav>
-        <ul>
+        <ul :loop="links">
             <li>{{link1}}</li>
-            <li>{{link2}}</li>
-            <li>{{link3}}</li>
         </ul>
     </nav>
-</section>```
+</section>
+```
 
 # Data Binding ({{}} Syntax)
 
