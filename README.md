@@ -133,11 +133,11 @@ Example of a .ux Component
 </section>
 ```
 
-# Data Binding ({{}} Syntax)
+### Data Binding ({{}} Syntax)
 
 The {{}} syntax is used to bind data to the HTML content dynamically. When the data changes, the UI updates automatically.
 
-# Creating a UX Component
+### Creating a UX Component
 
 To define a component in UX.js:
 
@@ -157,7 +157,8 @@ UX.js allows extending functionality using plugins.
 # Frequently Asked Questions
 
 Q: Is UX.js similar to React or Vue?
-A: UX.js takes inspiration from both but offers a simpler, lightweight approach. UX.js is what I wanted Vue and react to be able to do.
+
+A: UX.js takes inspiration from both but offers a simpler, lightweight approach. UX.js is what I wanted Vue and react to be able to do; easier to learn and smaller filesize.
 
 # Contributing
 
