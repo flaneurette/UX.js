@@ -113,5 +113,59 @@ An example of how methods in UX.js works (under development)
 #### UX-forms.html
 An example showing a form, dynamically generated with UX.js
 
+# UX Components (.ux Files)
+A UX component is a self-contained UI element written in .ux format.
+
+Example of a .ux Component
+ux
+Copy
+Edit
+<section>
+    <header>
+        <h1>{{title}}</h1>
+    </header>
+    <nav>
+        <ul>
+            <li>{{link1}}</li>
+            <li>{{link2}}</li>
+            <li>{{link3}}</li>
+        </ul>
+    </nav>
+</section>
+
+# Data Binding ({{}} Syntax)
+
+The {{}} syntax is used to bind data to the HTML content dynamically. When the data changes, the UI updates automatically.
+
+# Creating a UX Component
+
+To define a component in UX.js:
+
+Create a .ux file.
+Write the HTML structure.
+Use {{}} for dynamic data.
+Add methods inside the <script> tag.
+
+# State Management & Reactivity
+
+UX.js provides a reactive state system similar to Vue.js.
+
+#Plugins & Extensions
+
+UX.js allows extending functionality using plugins.
+
+#Frequently Asked Questions
+
+Q: Is UX.js similar to React or Vue?
+A: UX.js takes inspiration from both but offers a simpler, lightweight approach. UX.js is what I wanted Vue and react to be able to do.
+
+#Contributing
+
+Want to contribute to UX.js? Follow these steps:
+
+Fork the repo on GitHub.
+Create a new branch for your feature.
+Submit a pull request.
+
 # Donate
 If you found this library useful, please consider donating to a charity of your choiche.
