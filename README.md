@@ -6,13 +6,11 @@ UX.js is a powerful and lightweight JavaScript framework designed for building b
 
 Key Features of UX.js
 
-	Reactive Modules – UX.js leverages a reactive programming model, allowing components and data to update automatically when changes occur, eliminating the need for manual DOM manipulation.
-
-	UX Components – The framework introduces a component-based architecture, enabling developers to build reusable, modular UI elements for scalable application development.
-
-	UX Plugin Support – Extend the core functionality of UX.js with plugins, allowing seamless integration of additional features, third-party libraries, and custom enhancements.
-
-	UX Events & Methods – A robust event-handling system provides a clean way to manage user interactions and application logic through defined methods and event-driven programming.
+- Reactive Modules – UX.js leverages a reactive programming model, allowing components and data to update automatically when changes occur, eliminating the need for manual DOM manipulation.
+- UX Components – The framework introduces a component-based architecture, enabling developers to build reusable, modular UI elements for scalable application development.
+- UX Plugin Support – Extend the core functionality of UX.js with plugins, allowing seamless integration of additional features, third-party libraries, and custom enhancements.
+- UX Events & Methods – A robust event-handling system provides a clean way to manage user interactions and application logic through defined methods and event-driven programming.
+- Automates the most common front-end development tasks 
 
 With its focus on simplicity, flexibility, and performance, UX.js is an excellent choice for developers looking to build modern web applications with a clean and maintainable codebase.
 
@@ -20,14 +18,10 @@ With its focus on simplicity, flexibility, and performance, UX.js is an excellen
 ### UX.js Version 1.8: Exciting New Features & Enhancements
 The release of UX.js v1.8 brings significant improvements, making the framework more powerful and flexible than ever. This version introduces:
 
-	Reactive Models – A new reactivity system that ensures data updates are seamlessly reflected across the application without manual intervention. This enhancement simplifies state management and improves performance by efficiently handling UI updates.
-
-	Plugin Support – Developers can now extend UX.js with plugins, enabling easy integration of additional features, third-party tools, and custom functionalities. This opens the door for a more modular and scalable development experience.
-
-With these upgrades, UX.js 1.8 continues to evolve into a dynamic and developer-friendly framework, perfect for building modern web applications with enhanced responsiveness and extensibility.
-
-
-### Version 1.4 introduces components. 
+- Reactive Models – A new reactivity system that ensures data updates are seamlessly reflected across the application without manual intervention. This enhancement simplifies state management and improves performance by efficiently handling UI updates.
+- Plugin Support – Developers can now extend UX.js with plugins, enabling easy integration of additional features, third-party tools, and custom functionalities. This opens the door for a more modular and scalable development experience.
+- 
+### UX.js Version 1.4: introduces Components. 
 
 Components are reusable HTML fragments with a .ux extension. UX.js renders these components within a HTML page asynchronously, with the :render or :route attribute. For a demo, see UX-render.html in the examples folder.
 
