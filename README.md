@@ -117,10 +117,8 @@ An example showing a form, dynamically generated with UX.js
 A UX component is a self-contained UI element written in .ux format.
 
 Example of a .ux Component
-ux
-Copy
-Edit
-<section>
+
+```<section>
     <header>
         <h1>{{title}}</h1>
     </header>
@@ -131,7 +129,7 @@ Edit
             <li>{{link3}}</li>
         </ul>
     </nav>
-</section>
+</section>```
 
 # Data Binding ({{}} Syntax)
 
@@ -150,16 +148,16 @@ Add methods inside the <script> tag.
 
 UX.js provides a reactive state system similar to Vue.js.
 
-#Plugins & Extensions
+# Plugins & Extensions
 
 UX.js allows extending functionality using plugins.
 
-#Frequently Asked Questions
+# Frequently Asked Questions
 
 Q: Is UX.js similar to React or Vue?
 A: UX.js takes inspiration from both but offers a simpler, lightweight approach. UX.js is what I wanted Vue and react to be able to do.
 
-#Contributing
+# Contributing
 
 Want to contribute to UX.js? Follow these steps:
 
