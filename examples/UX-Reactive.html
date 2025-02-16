@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Reactive</title>
+	<script src="../src/UX.js"></script>
+</head>
+<body>
+
+<h1>UX Reactive - through modules</h1>
+
+<a href="/About" :hash="About:app">About</a>
+<a href="/Content" :hash="Content:app">Content</a>
+
+<div id="app"></div>
+
+<script>let app = new UX();</script>
+<script type="module" src="../modules/app.js"></script>
+</body>
+</html>
+

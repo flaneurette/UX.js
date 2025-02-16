@@ -10,6 +10,8 @@ class UX {
 		this.thread = 0;
 		this.counter = 0;
 		this.array = [];
+		this.modules = {};
+		this.routes = {};
 		this.parseNodes();
 	}
 	
@@ -103,6 +105,7 @@ class UX {
 			routeComponents: this.routeComponents,
 			bindSpinner: this.bindSpinner,
 			bindFlip: this.bindFlip,
+			bindHash: this.bindHash,
 			bindActive: this.bindActive,
 			bindSelect: this.bindSelect,
 			bindShow: this.bindShow,
@@ -362,6 +365,49 @@ class UX {
 	}
 
 	/**
+	* Binds a hash listener for module routing
+	* @param {node} - the node to attach listener to
+	* @return none
+	*/
+	
+	bindHash(node) {
+		let nodeAttribute = this.getAtt(node, 'hash');
+		if (!nodeAttribute) return;
+		node.addEventListener('click', (event) => this.hashHandler(node, nodeAttribute, event));
+	}
+	
+	hashHandler(node, nodeAttribute, event) {
+		event.preventDefault();
+		if (!node || !nodeAttribute) return;
+		this.navigateHash(nodeAttribute);
+	}
+	
+	navigateHash(uri) {
+	
+		const [data, id] = uri.split(':');
+		
+		if (!data || !id) return;
+		if(!this.modules) return false;
+		
+		this.modules.forEach(module => {
+			if(module['id'] == data) {
+				const element = this.dom(id,'id');
+				if (!element) {
+					console.error(`Element with id ${id} not found.`);
+					return;
+				}
+				if(module['render']) { 
+					element.innerHTML = module['render']();
+				}
+				if (module['init']) {
+					module['init']();
+				}
+			}
+			
+		});
+	}
+	
+	/**
 	* Binds a class to a node and toggles it.
 	* @param {node, find, value}
 	* @return none
@@ -573,7 +619,7 @@ class UX {
 		});
 		return;
 	}
-
+	
 	/**
 	* Binds an eventlistener to the mousewheel
 	* @param {node} - the node to 'wheel'
@@ -1930,6 +1976,7 @@ class UX {
 		this.nodes('bindScroll');
 		this.nodes('bindSpinner');
 		this.nodes('bindFlip');
+		this.nodes('bindHash');
 		this.nodes('progress');
 		return;
 	}
