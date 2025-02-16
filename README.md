@@ -34,6 +34,8 @@ A local or live webserver.
 
 #### hello-world.html
 A simple example of how UX.js works.
+#### UX-Reactive.html
+A reactive module loader example.
 #### UX-render.html
 An example of rendering reusable UX components from the /components/ directory.
 #### UX-route.html
