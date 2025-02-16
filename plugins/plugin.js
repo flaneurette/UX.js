@@ -1,7 +1,7 @@
 class Plugin extends UX {
 	
 	constructor() {
-		super();
+	super();
 	}
 	
 	/* Your plugin code */
