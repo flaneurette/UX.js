@@ -460,19 +460,14 @@ class UX {
 	*/
 	
 	bindReactiveDataActions(node) {
-		const buttons = this.dom(null, 'queryall', "[data-action]")
+		const buttons = this.dom(node, 'queryall', "[data-action]");
+		if (!buttons) return;
 		buttons.forEach((button) => {
 			const action = button.getAttribute("data-action");
-			if (action) {
-				if(this.functions) {
-					this.functions.forEach(func => {
-						if(func != undefined) {
-							if(action === func.name) { 
-								button.addEventListener("click", func);
-							}
-						}
-					});
-				}
+			if (!action || !this.functions) return;
+			const func = this.functions.find(f => f && f.name === action);
+			if (func && typeof func === "function") {
+				button.addEventListener("click", func.bind(this));
 			}
 		});
 	}
@@ -1374,8 +1369,8 @@ class UX {
 	onImgFill(node, operators) {
 
 		if (this.thread <= 1 && operators.length >= 1) {
-			const spaces = this.regEx('spaces');
-			const punctuation = this.regEx('punctuation');
+			let spaces = this.regEx('spaces');
+			let punctuation = this.regEx('punctuation');
 			let doc = this.dom('', 'document');
 			let j = 0;
 			for (let i = 0; i < doc.length; i++) {
@@ -1386,7 +1381,7 @@ class UX {
 					if (current) {
 						let thumbs = this.dom(current, 'id');
 						if (thumbs) {
-							let newSrc = operators[j] && operators[j][1] ? operators[j][1].toString().replaceAll(spaces, '').replaceAll(punctuation, '') : ''; 
+							let newSrc = operators[j] && operators[j][1] ? operators[j][1].toString().replaceAll(/\s+|\t+/gim, '').replaceAll(/,|'|"|\{|\}|\[|\]/gim, '') : ''; 
 							doc[i].setAttribute("src", newSrc);
 							j++;
 						}
