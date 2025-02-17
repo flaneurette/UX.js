@@ -12,6 +12,7 @@ class UX {
 		this.array = [];
 		this.modules = {};
 		this.routes = {};
+		this.functions = {};
 		this.vdom = {};
 		this.parseNodes();
 	}
@@ -107,6 +108,7 @@ class UX {
 			bindSpinner: this.bindSpinner,
 			bindFlip: this.bindFlip,
 			bindReactive: this.bindReactive,
+			bindReactiveDataActions: this.bindReactiveDataActions,
 			bindActive: this.bindActive,
 			bindSelect: this.bindSelect,
 			bindShow: this.bindShow,
@@ -379,13 +381,11 @@ class UX {
 		const [reactive, method, id] = nodeAttribute.split(':');
 		
 		const reactiveMap = {
-			
 			route: this.reactiveRoute,
-			
 		};
 		
 		if (reactiveMap[reactive]) {
-				reactiveMap[reactive].call(this, node, nodeAttribute);
+			reactiveMap[reactive].call(this, node, nodeAttribute);
 		}
 	}
 
@@ -417,22 +417,66 @@ class UX {
 		
 		this.modules.forEach(module => {
 			if(module['id'] == data) {
-				const element = this.dom(id,'id');
-				if (!element) {
+				const elem = this.dom(id,'id');
+				if (!elem) {
 					console.error(`Element with id ${id} not found.`);
 					return;
-				}
-				if(module['render']) { 
-					element.innerHTML = module['render']();
 				}
 				if (module['init']) {
 					module['init']();
 				}
+				if(module['render']) { 
+					elem.innerHTML = module['render']();
+				}
 			}
-			
 		});
+		this.bindReactiveDataActions();
 	}
 
+	/**
+	* Reactive code parser. (TODO)
+	* @param {function} - function to parse.
+	* @return none
+	*/
+	
+	reactiveParser(method) {	
+	  method
+		.toString()
+		.split("\n")
+		.filter(line => line.includes('this.'))
+		.forEach(line => {
+		  if (line.includes('=')) {
+		  } else if (line.includes('++') || line.includes('+=') ) {
+		  } else if (line.includes('--') || line.includes('-=')) {
+			  let c = line.split('\s');
+		  }
+		});
+	}
+	
+	/**
+	* Reactive data actions binds a listener to buttons and binds an action to it.
+	* @param {node}
+	* @return none
+	*/
+	
+    bindReactiveDataActions(node) {
+        const buttons = this.dom(null, 'queryall', "[data-action]")
+        buttons.forEach((button) => {
+            const action = button.getAttribute("data-action");
+            if (action) {
+				if(this.functions) {
+					this.functions.forEach(func => {
+						if(func != undefined) {
+							if(action === func.name) { 
+								button.addEventListener("click", func);
+							}
+						}
+					});
+				}
+            }
+        });
+    }
+	
 	/**
 	* Applies new functions and executes them
 	* @param {node}
@@ -2001,6 +2045,7 @@ class UX {
 		this.nodes('bindSpinner');
 		this.nodes('bindFlip');
 		this.nodes('bindReactive');
+		this.nodes('bindReactiveDataActions');
 		this.nodes('progress');
 		return;
 	}
