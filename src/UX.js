@@ -159,7 +159,7 @@ class UX {
 			}
 		  }
 		});
-
+		
 		return;
 	}
 
