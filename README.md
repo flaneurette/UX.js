@@ -6,10 +6,10 @@ UX.js is a powerful and lightweight JavaScript framework designed for building b
 
 Key Features of UX.js
 
-- Reactive Modules – UX.js leverages a reactive programming model
+- Automates the most common front-end development tasks
 - UX Components – The framework introduces a component-based architecture
 - UX Plugin Support – Extend the core functionality of UX.js with plugins
-- Automates the most common front-end development tasks
+- Reactive Modules – The framework has a reactive model
 
 With its focus on simplicity, flexibility, and performance, UX.js is an excellent choice for developers looking to build modern web applications with a clean and maintainable codebase.
 
@@ -157,14 +157,16 @@ UX.js allows extending functionality using plugins.
 
 Q: Is UX.js similar to React or Vue?
 
-A: UX.js takes inspiration from both but offers a simpler, lightweight approach. UX.js is what I wanted Vue and react to be able to do.
+A: UX.js takes inspiration from both but offers a simpler, lightweight approach. UX.js is what I wanted Vue and React to be able to do.
 
 # Contributing
 
 Want to contribute to UX.js? Follow these steps:
 
 Fork the repo on GitHub.
+
 Create a new branch for your feature.
+
 Submit a pull request.
 
 # Donate
