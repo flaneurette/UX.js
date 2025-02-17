@@ -12,6 +12,7 @@ class UX {
 		this.array = [];
 		this.modules = {};
 		this.routes = {};
+		this.vdom = {};
 		this.parseNodes();
 	}
 	
@@ -363,19 +364,39 @@ class UX {
 		}
 		return;
 	}
-
+	
 	/**
-	* Binds a hash listener for module routing
-	* @param {node} - the node to attach listener to
+	* Reactive bindings
+	* @param {node} -  the node to bind a reactive state to
 	* @return none
 	*/
 	
 	bindReactive(node) {
+		
 		let nodeAttribute = this.getAtt(node, 'reactive');
 		if (!nodeAttribute) return;
 		
 		const [reactive, method, id] = nodeAttribute.split(':');
 		
+		const reactiveMap = {
+			
+			route: this.reactiveRoute,
+			
+		};
+		
+		if (reactiveMap[reactive]) {
+				reactiveMap[reactive].call(this, node, nodeAttribute);
+		}
+	}
+
+	/**
+	* Reactive hash handlers for module routing
+	* @param {node}
+	* @return none
+	*/
+	
+	reactiveRoute(node,nodeAttribute) {
+		if(!node || !nodeAttribute) return;
 		if(node.hasAttribute('href')) { 
 			node.addEventListener('click', (event) => this.hashHandler(node, nodeAttribute, event));
 		}
