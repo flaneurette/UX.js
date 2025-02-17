@@ -6,5 +6,5 @@ import { Counter } from "./counter.js";
 app.modules = [Content, About, Counter];
 
 // Bind functions to UX.JS (except for init)
-app.functions = [Counter.increment, Counter.decrement];
+app.functions = [Counter.increment];
 
