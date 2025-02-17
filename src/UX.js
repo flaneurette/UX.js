@@ -105,7 +105,7 @@ class UX {
 			routeComponents: this.routeComponents,
 			bindSpinner: this.bindSpinner,
 			bindFlip: this.bindFlip,
-			bindHash: this.bindHash,
+			bindReactive: this.bindReactive,
 			bindActive: this.bindActive,
 			bindSelect: this.bindSelect,
 			bindShow: this.bindShow,
@@ -370,10 +370,15 @@ class UX {
 	* @return none
 	*/
 	
-	bindHash(node) {
-		let nodeAttribute = this.getAtt(node, 'hash');
+	bindReactive(node) {
+		let nodeAttribute = this.getAtt(node, 'reactive');
 		if (!nodeAttribute) return;
-		node.addEventListener('click', (event) => this.hashHandler(node, nodeAttribute, event));
+		
+		const [reactive, method, id] = nodeAttribute.split(':');
+		
+		if(node.hasAttribute('href')) { 
+			node.addEventListener('click', (event) => this.hashHandler(node, nodeAttribute, event));
+		}
 	}
 	
 	hashHandler(node, nodeAttribute, event) {
@@ -384,7 +389,7 @@ class UX {
 	
 	navigateHash(uri) {
 	
-		const [data, id] = uri.split(':');
+		const [reactive, data, id] = uri.split(':');
 		
 		if (!data || !id) return;
 		if(!this.modules) return false;
@@ -1976,7 +1981,7 @@ class UX {
 		this.nodes('bindScroll');
 		this.nodes('bindSpinner');
 		this.nodes('bindFlip');
-		this.nodes('bindHash');
+		this.nodes('bindReactive');
 		this.nodes('progress');
 		return;
 	}
