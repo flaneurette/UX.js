@@ -5,10 +5,10 @@
   <title>UX HTTP</title>
   <style>
   
-    .div {
-      border: 1px dashed black;
+    #div {
       padding: 10px;
 	  margin: 10px;
+	  display:none;
     }
 
   </style>
@@ -18,7 +18,7 @@
 
 <div id="app">
 <h1>UX FETCH</h1>
-  <div>
+  <div id="div">
     <div>
 	<div>
 		 <h2>{{blogname_1}}</h2>
@@ -47,6 +47,7 @@
 	
 	function mycall(dataset) {
 		app.fetch(JSON.parse(dataset));
+		document.getElementById('div').style.display = 'block';
 	}
 	</script>
 </body>
