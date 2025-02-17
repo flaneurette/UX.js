@@ -140,38 +140,24 @@ class UX {
 		};
 		
 		documentElements.forEach(elem => {
-			
-			if (methodMap[method]) {
-				methodMap[method].call(this, elem, find, value);
-				} else {
-				switch(method) { 
-					case 'progress': 
-					this.progress(elem, data, methods, find, value); 
-					break;
-					case 'bindFunctions': 
-					this.bindFunctions(elem, data, find, value); 
-					break;
-					case 'bindLogic': 
-					this.bindIf(elem, find, value); 
-					break;
-					case 'bindMethods': 
-					this.bindMethods(elem, data, methods, find, value); 
-					break;
-					case 'bindHandler': 
-					this.bindHandler(elem, data, methods, find, value); 
-					break;
-				}
+		  if (methodMap[method]) {
+			methodMap[method].call(this, elem, find, value);
+		  } else {
+			const methodHandlers = {
+			  'progress': () => this.progress(elem, data, methods, find, value),
+			  'bindFunctions': () => this.bindFunctions(elem, data, find, value),
+			  'bindLogic': () => this.bindIf(elem, find, value),
+			  'bindMethods': () => this.bindMethods(elem, data, methods, find, value),
+			  'bindHandler': () => this.bindHandler(elem, data, methods, find, value),
+			  'replaceNodeValue': () => this.verbatimBindings(elem, find, value)
+			};
+
+			if (methodHandlers[method]) {
+			  methodHandlers[method]();
 			}
-			
-			if (method === "replaceNodeValue") {
-				this.nodeChildren(elem).forEach(child => {
-					if (child.nodeType === Node.TEXT_NODE) {
-						child.nodeValue = child.nodeValue.replace(new RegExp(`{{\\s*${find}[0-9]*\\s*}}`, "gi"), value);
-					}
-				});
-			}
-			
+		  }
 		});
+
 		return;
 	}
 
@@ -198,6 +184,24 @@ class UX {
 		if(method in eventTypes) return eventTypes[method]();
 		return;
 	}
+
+	/**
+	* Creates dynamic eventlisteners
+	* @return none
+	*/
+	
+	events(node, type, handler, event) {
+		if (!node || !type || typeof handler !== 'function') return;
+		if (!this.listeners) {
+			this.listeners = [];
+		}
+		const eventListener = function(event) {
+			handler.call(this, event);
+			this.listeners.push(handler);
+		};
+		node.addEventListener(type, eventListener.bind(this));
+		return;
+	}
 	
 	/**
 	* Queries the virtual DOM, getting and setting of information
@@ -213,7 +217,7 @@ class UX {
 		elements: () => document.getElementsByTagName(value),
 		classes: () => document.getElementsByClassName(value),
 		create: () => document.createElement(value),
-		document: () => document.all, // Note: deprecated
+		document: () => document.all,
 		location: () => window.location.href,
 		innerheight: () => window.innerHeight,
 		innerwidth: () => window.innerWidth,
@@ -240,7 +244,7 @@ class UX {
 
 	  return actions[method] ? actions[method]() : null;
 	}
-
+	
 	/**
 	* Compares if an object is valid, or not
 	* @param {obj} 
@@ -287,24 +291,6 @@ class UX {
 	nodeChildren(parents) {
 		return [...parents.childNodes];
 	}
-
-	/**
-	* Creates dynamic eventlisteners
-	* @return none
-	*/
-	
-	events(node, type, handler, event) {
-		if (!node || !type || typeof handler !== 'function') return;
-		if (!this.listeners) {
-			this.listeners = [];
-		}
-		const eventListener = function(event) {
-			handler.call(this, event);
-			this.listeners.push(handler);
-		};
-		node.addEventListener(type, eventListener.bind(this));
-		return;
-	}
 	
 	/**
 	* Getting a UX.js attribute
@@ -332,16 +318,33 @@ class UX {
 			node.getAttribute(':' + part) !== null) ? true : false;
 		return isAtrribute;
 	}
-
+				
 	/**
 	* A method with regular expressions
 	* @param {type} - type of regular expression
 	* @return regular expression
 	*/
 	
-	regEx(type) {
-		if (type == 'spaces') return /\s+|\t+/gim;
-		if (type == 'punctuation') return /,|'|"|\{|\}|\[|\]/gim;
+	regEx(type, find) {
+		if (type == 'spaces') return `/\s+|\t+/gim`;
+		if (type == 'punctuation') return `/,|'|"|\{|\}|\[|\]/gim`;
+		if (type == 'bindings') return `{{\\s*${find}[0-9]*\\s*}}`
+		return;
+	}
+
+	/**
+	* Checks if a string contains a certain value
+	* @param {value}
+	* @return none
+	*/
+	
+	has(value) {
+		if (value) {
+			if (value.indexOf("'") != -1) {
+				let pieces = value.split('\'');
+				return Reflect.get(pieces, 1);
+			}
+		}
 		return;
 	}
 
@@ -352,16 +355,13 @@ class UX {
 	*/
 	
 	cloneNodes(list, id) {
-		if (id === null) {
-			return false;
-		} else {
+		if (!id || !list) return;
 			const parentItem = this.dom(id, 'parent');
 			let docItem = this.dom(id, 'id');
 			let docClone = docItem.cloneNode(true);
 			list.forEach(elem => {
 				parentItem.appendChild(docClone);
 			});
-		}
 		return;
 	}
 	
@@ -398,7 +398,6 @@ class UX {
 	reactiveRoute(node,nodeAttribute) {
 		if(!node || !nodeAttribute) return;
 		if(node.hasAttribute('href')) { 
-			//node.addEventListener('click', (event) => this.hashHandler(node, nodeAttribute, event));
 			this.events(node, 'click', (event) => this.hashHandler(node, nodeAttribute, event), event)
 		}
 	}
@@ -431,6 +430,32 @@ class UX {
 				}
 			}
 			
+		});
+	}
+
+	/**
+	* Applies new functions and executes them
+	* @param {node}
+	* @return none
+	*/
+	
+	bindMethods(node, data, methods) {
+		let process = new Function(methods);
+		process.apply();
+		return;
+	}
+	
+	/**
+	* Replaces verbatim bindings
+	* @param {elem, find, value}
+	* @return none
+	*/
+	
+	verbatimBindings(elem, find, value) {
+		this.nodeChildren(elem).forEach(child => {
+		if (child.nodeType === elem.TEXT_NODE) {
+			child.nodeValue = child.nodeValue.replace(new RegExp(this.regEx('bindings',find), "gi"), value);
+			}
 		});
 	}
 	
@@ -511,22 +536,6 @@ class UX {
 					localStorage.setItem("dark-mode", "disabled");
 				}
 			});
-		}
-		return;
-	}
-
-	/**
-	* Checks if a string contains a certain value
-	* @param {value}
-	* @return none
-	*/
-	
-	has(value) {
-		if (value) {
-			if (value.indexOf("'") != -1) {
-				let pieces = value.split('\'');
-				return Reflect.get(pieces, 1);
-			}
 		}
 		return;
 	}
@@ -1247,18 +1256,6 @@ class UX {
 				});
 			}
 		}
-		return;
-	}
-
-	/**
-	* Applies new functions and executes them
-	* @param {node}
-	* @return none
-	*/
-	
-	bindMethods(node, data, methods) {
-		let process = new Function(methods);
-		process.apply();
 		return;
 	}
 
