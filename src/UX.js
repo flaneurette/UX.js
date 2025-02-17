@@ -459,11 +459,11 @@ class UX {
 	* @return none
 	*/
 	
-    bindReactiveDataActions(node) {
-        const buttons = this.dom(null, 'queryall', "[data-action]")
-        buttons.forEach((button) => {
-            const action = button.getAttribute("data-action");
-            if (action) {
+	bindReactiveDataActions(node) {
+		const buttons = this.dom(null, 'queryall', "[data-action]")
+		buttons.forEach((button) => {
+			const action = button.getAttribute("data-action");
+			if (action) {
 				if(this.functions) {
 					this.functions.forEach(func => {
 						if(func != undefined) {
@@ -473,9 +473,9 @@ class UX {
 						}
 					});
 				}
-            }
-        });
-    }
+			}
+		});
+	}
 	
 	/**
 	* Applies new functions and executes them
