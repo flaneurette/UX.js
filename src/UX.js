@@ -293,7 +293,7 @@ class UX {
 	* @return none
 	*/
 	
-	events(node, type, handler) {
+	events(node, type, handler, event) {
 		if (!node || !type || typeof handler !== 'function') return;
 		if (!this.listeners) {
 			this.listeners = [];
@@ -367,7 +367,7 @@ class UX {
 	
 	/**
 	* Reactive bindings
-	* @param {node} -  the node to bind a reactive state to
+	* @param {node} - the node to bind a reactive state to
 	* @return none
 	*/
 	
@@ -398,7 +398,8 @@ class UX {
 	reactiveRoute(node,nodeAttribute) {
 		if(!node || !nodeAttribute) return;
 		if(node.hasAttribute('href')) { 
-			node.addEventListener('click', (event) => this.hashHandler(node, nodeAttribute, event));
+			//node.addEventListener('click', (event) => this.hashHandler(node, nodeAttribute, event));
+			this.events(node, 'click', (event) => this.hashHandler(node, nodeAttribute, event), event)
 		}
 	}
 	
