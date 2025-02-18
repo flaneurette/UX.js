@@ -463,7 +463,7 @@ class UX {
 			if (!action || !this.functions) return;
 			const func = this.functions.find(f => f && f.name === action);
 			if (func && typeof func === "function") {
-				button.addEventListener("click", func.bind(this));
+				this.events(button, 'click', func.bind(this), event)
 			}
 		});
 	}
