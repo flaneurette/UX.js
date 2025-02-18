@@ -8,5 +8,5 @@ app.state = 0;
 // Bind modules to UX.js
 app.modules = [Content, About, Counter];
 
-// Bind functions to UX.js (except for init, as init is already called by UX.js) 
+// Bind functions to UX.js (except for init() and render(), as they are called by UX.js) 
 app.functions = [Counter.increment];
