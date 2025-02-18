@@ -11,7 +11,7 @@ class DragAndDrop extends UX {
     }
 
     initDrag = function() {
-        let elems = this.dom('', 'classes', (this.tableClass));
+        let elems = this.dom(null, 'classes', (this.tableClass));
         var j = 1;
         Array.from(elems).forEach((elem) => {
             if (elem) {
@@ -39,7 +39,7 @@ class DragAndDrop extends UX {
     };
 
     DragEnd = function() {
-        const elems = this.dom('', 'classes', (this.tableClass));
+        const elems = this.dom(null, 'classes', (this.tableClass));
         Array.from(elems).forEach((elem, index) => {
             const ordering = elem.id.replace(this.tableId, '');
             const inputElement = this.dom((`${this.inputId}${index + 1}`), 'id');

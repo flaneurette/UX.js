@@ -269,7 +269,7 @@ class UX {
 	*/
 	
 	getElements() {
-		return this.dom('', 'elements', '*')
+		return this.dom(null, 'elements', '*')
 	}
 
 	/**
@@ -539,7 +539,7 @@ class UX {
 		});
 		if (nodeAttribute !== null && this.attributeCheck(node, 'curtain') !== null) {
 			node.addEventListener('click', () => {
-				let documentElements = this.dom('', 'elements', '*');
+				let documentElements = this.dom(null, 'elements', '*');
 				for (let i = 0; i < documentElements.length; i++) {
 					if (documentElements[i].getAttribute(':curtain') !== null) {
 						(documentElements[i].hidden === false) ? documentElements[i].hidden = true:documentElements[i].hidden = false;
@@ -746,7 +746,7 @@ class UX {
 	bindActive(node) {
 		let nodeAttribute = this.getAtt(node, 'active');
 		if (!nodeAttribute) return;
-		let active = this.dom('', 'location');
+		let active = this.dom(null, 'location');
 		if (nodeAttribute !== null) {
 			if (nodeAttribute.indexOf(':') != -1) {
 				let pieces = nodeAttribute.split(':');
@@ -865,7 +865,7 @@ class UX {
 			};
 			let observer = new IntersectionObserver(callback, options);
 			if (node.id) {
-				let target = this.dom('', 'query', '#' + node.id);
+				let target = this.dom(null, 'query', '#' + node.id);
 				observer.observe(target);
 			}
 		}
@@ -895,7 +895,7 @@ class UX {
 			};
 			let observer = new IntersectionObserver(callback, options);
 			if (node.id) {
-				let target = this.dom('', 'query', '#' + node.id);
+				let target = this.dom(null, 'query', '#' + node.id);
 				observer.observe(target);
 			}
 		}
@@ -993,7 +993,7 @@ class UX {
 				});
 			}, { threshold: 0.8 });
 			if (node.id) {
-				let target = this.dom('', 'query', '#' + node.id);
+				let target = this.dom(null, 'query', '#' + node.id);
 				observer.observe(target);
 			}
 		}
@@ -1094,7 +1094,7 @@ class UX {
 			let height = 10;
 			let spacing = Reflect.get(pairs, 2);
 			if (this.dom('uxcanvas', 'id') == null) {
-				let canvas = this.dom('', 'create', 'canvas');
+				let canvas = this.dom(null, 'create', 'canvas');
 				node.append(canvas);
 				canvas.setAttribute('width', width);
 				canvas.setAttribute('height', width);
@@ -1132,7 +1132,7 @@ class UX {
 				let pairs = nodeAttribute.split(':');
 				let width = Reflect.get(pairs, 0);
 				let color = Reflect.get(pairs, 1);
-				let canvas = this.dom('', 'create', 'canvas');
+				let canvas = this.dom(null, 'create', 'canvas');
 				node.append(canvas);
 				canvas.setAttribute('width', width);
 				canvas.setAttribute('height', width);
@@ -1261,7 +1261,7 @@ class UX {
 
 		let nodeAttribute = this.getAtt(node, 'click');
 		if (!nodeAttribute) return;
-		let documentElements = this.dom('', 'elements', '*');
+		let documentElements = this.dom(null, 'elements', '*');
 		let countID, count, multiply, countdown, interval, clear, countvalue = 0;
 
 		for (const [key, value] of Object.entries(data)) {
@@ -1367,7 +1367,7 @@ class UX {
 		if (this.thread <= 1 && operators.length >= 1) {
 			let spaces = this.regEx('spaces');
 			let punctuation = this.regEx('punctuation');
-			let doc = this.dom('', 'document');
+			let doc = this.dom(null, 'document');
 			let j = 0;
 			for (let i = 0; i < doc.length; i++) {
 				let findMethod = doc[i].getAttribute(':method');
@@ -1631,7 +1631,7 @@ class UX {
 
 			node.removeChild(node.children[0]);
 
-			let imageElements = this.dom('', 'queryall', 'img');
+			let imageElements = this.dom(null, 'queryall', 'img');
 			if (imageElements) {
 				imageElements.forEach(img => {
 					let imageAttr = img.getAttribute(':image');
@@ -1797,7 +1797,7 @@ class UX {
 		if (!attribute) return;
 		if (attribute !== null) {
 			let [totalLoad, progressBarId] = attribute.split(':');
-			let progressBar = this.dom('', 'query', '#' + progressBarId);
+			let progressBar = this.dom(null, 'query', '#' + progressBarId);
 
 			function updateProgress() {
 				let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
@@ -1834,7 +1834,7 @@ class UX {
 			
 		  element.addEventListener('submit', async event => {
 			event.preventDefault();
-			const forms = this.dom('', 'elements', '*');
+			const forms = this.dom(null, 'elements', '*');
 			
 			for (const form of forms) {
 			  if (form.getAttribute(':async') === 'true') {
@@ -1919,9 +1919,9 @@ class UX {
 	*/
 	
 	createElements(node, type, elementOption) {
-		let opt = this.dom('', 'create', type);
+		let opt = this.dom(null, 'create', type);
 		if (elementOption.type == 'text') {
-			let opt = this.dom('', 'create', 'input');
+			let opt = this.dom(null, 'create', 'input');
 		}
 		if (elementOption.name) opt.name = elementOption.name;
 		if (elementOption.type && elementOption.type != 'textarea') opt.type = elementOption.type;
@@ -1943,9 +1943,9 @@ class UX {
 	createForm(node, find, values) {
 		let nodeAttribute = this.getAtt(node, 'form');
 		if (nodeAttribute !== null) {
-			let parents = this.dom('', 'create', 'div');
+			let parents = this.dom(null, 'create', 'div');
 			node.appendChild(parents);
-			let options = this.dom('', 'create', 'form');
+			let options = this.dom(null, 'create', 'form');
 			for (let key in values) {
 				let elementOption = values[key];
 				if (elementOption.type == 'form') {
@@ -1961,7 +1961,7 @@ class UX {
 					this.createElements(options, 'label', elementOption);
 					this.createElements(options, 'textarea', elementOption);
 				} else if (elementOption.type == 'submit') {
-					let opt = this.dom('', 'create', 'input');
+					let opt = this.dom(null, 'create', 'input');
 					opt.type = elementOption.type;
 					opt.name = elementOption.name;
 					opt.value = elementOption.value;
