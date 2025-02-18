@@ -383,6 +383,7 @@ class UX {
 		if (reactiveMap[reactive]) {
 			reactiveMap[reactive].call(this, node, nodeAttribute);
 		}
+		return;
 	}
 
 	/**
@@ -396,12 +397,14 @@ class UX {
 		if(node.hasAttribute('href')) { 
 			this.events(node, 'click', (event) => this.reactiveHandler(node, nodeAttribute, event), event)
 		}
+		return;
 	}
 	
 	reactiveHandler(node, nodeAttribute, event) {
 		event.preventDefault();
 		if (!node || !nodeAttribute) return;
 		this.reactiveHash(nodeAttribute);
+		return;
 	}
 	
 	reactiveHash(uri) {
@@ -427,6 +430,7 @@ class UX {
 			}
 		});
 		this.bindReactiveDataActions();
+		return;
 	}
 
 	/**
@@ -447,6 +451,7 @@ class UX {
 			  let c = line.split('\s');
 		  }
 		});
+		return;
 	}
 	
 	/**
@@ -466,6 +471,7 @@ class UX {
 				this.events(button, 'click', func.bind(this), event)
 			}
 		});
+		return;
 	}
 	
 	/**
