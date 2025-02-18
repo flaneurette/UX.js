@@ -9,7 +9,7 @@ export const Counter = {
 	render() {
 		return `
 		<div>
-			<h2>Count: <span id="counter">${this.count}</span></h2>
+			<h1>Count: <span id="counter">${this.count}</span></h1>
 			<button data-action="increment">Increment</button>
 		</div>
 		`;
