@@ -3,7 +3,7 @@ export const Counter = {
 	id: 'Counter',
 	
 	init() {
-		this.count = 0;
+		this.count = app.state;
 	},
 
     	render() {
@@ -17,7 +17,10 @@ export const Counter = {
 
     	increment() {
 		let counterElement = document.querySelector('#counter');
-		let count = parseInt(counterElement.innerHTML, 10) || 0;
-		counterElement.innerHTML = count + 1;
+		let count = parseInt(counterElement.textContent, 10) || 0;
+		let counterBe = count + 1;
+		counterElement.textContent = counterBe;
+		// Update state
+		app.state = counterBe;
     	}
 }

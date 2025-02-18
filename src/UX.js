@@ -5,7 +5,6 @@ class UX {
 	static allowOrigin = '*';
 
 	constructor() {
-		this.state = this.initState();
 		this.listeners = [];
 		this.thread = 0;
 		this.counter = 0;
@@ -14,6 +13,7 @@ class UX {
 		this.routes = {};
 		this.functions = {};
 		this.vdom = {};
+		this.state = {};
 		this.parseNodes();
 	}
 	
@@ -49,10 +49,6 @@ class UX {
 			Reflect.preventExtensions(data);
 		}
 		return;
-	}
-	
-	initState() {
-		return {};
 	}
 
 	/**
@@ -398,17 +394,17 @@ class UX {
 	reactiveRoute(node,nodeAttribute) {
 		if(!node || !nodeAttribute) return;
 		if(node.hasAttribute('href')) { 
-			this.events(node, 'click', (event) => this.hashHandler(node, nodeAttribute, event), event)
+			this.events(node, 'click', (event) => this.reactiveHandler(node, nodeAttribute, event), event)
 		}
 	}
 	
-	hashHandler(node, nodeAttribute, event) {
+	reactiveHandler(node, nodeAttribute, event) {
 		event.preventDefault();
 		if (!node || !nodeAttribute) return;
-		this.navigateHash(nodeAttribute);
+		this.reactiveHash(nodeAttribute);
 	}
 	
-	navigateHash(uri) {
+	reactiveHash(uri) {
 	
 		const [reactive, data, id] = uri.split(':');
 		
