@@ -324,8 +324,8 @@ class UX {
 	*/
 	
 	regEx(type, find) {
-		if (type == 'spaces') return `/\s+|\t+/gim`;
-		if (type == 'punctuation') return `/,|'|"|\{|\}|\[|\]/gim`;
+		if (type == 'spaces') return /\s+|\t+/gim;
+		if (type == 'punctuation') return /,|'|"|\{|\}|\[|\]/gim;
 		if (type == 'bindings') return `{{\\s*${find}[0-9]*\\s*}}`
 		return;
 	}
@@ -1448,21 +1448,21 @@ class UX {
 	
 	onText(node, operators) {
 		
+		
 		if (!node || !operators || operators.length < 2) return;
 
 		const spaces = this.regEx('spaces');
 		const punctuation = this.regEx('punctuation');
 
-		let key = operators[0]?.toString().replace(spaces, '').split('.');
-		let value = operators[1]?.toString().replace(punctuation, '');
+		let key = operators[0]?.toString().replaceAll(spaces, '').split('.');
+		let value = operators[1]?.toString().replaceAll(punctuation, '');
 
 		if (!key || key.length < 2) return;
 
 		let placeholder = `{{${key[1]}}}`;
+		console.log(placeholder);
 
-		node.innerHTML = node.innerHTML
-			.replaceAll(placeholder, value)
-			.replaceAll(key[1], value);
+		node.innerHTML = node.innerHTML.replaceAll(placeholder, value).replaceAll(key[1], value);
 		return;
 	}
 
