@@ -189,7 +189,7 @@ class UX {
 	*/
 	
 	events(node, type, handler, event) {
-		if (!node || !type || typeof handler !== 'function') return;
+		if (!node || !type) return;
 		if (!this.listeners) {
 			this.listeners = [];
 		}
@@ -571,14 +571,15 @@ class UX {
 			if (localStorage.getItem("dark-mode") === "enabled") {
 				document.body.classList.add("dark-mode");
 			}
-			node.addEventListener("click", () => {
+			const handleMode = () => {
 				document.body.classList.toggle("dark-mode");
 				if (document.body.classList.contains("dark-mode")) {
 					localStorage.setItem("dark-mode", "enabled");
 				} else {
 					localStorage.setItem("dark-mode", "disabled");
 				}
-			});
+			};
+			this.events(node,'click', handleMode);
 		}
 		return;
 	}
@@ -738,7 +739,7 @@ class UX {
 		const [dimension, value] = nodeAttribute.split(':');
 		if (!dimension || !value) return;
 
-		node.addEventListener('wheel', (event) => {
+		const handleWheelY = (event) => {
 			event.preventDefault();
 			const delta = event.deltaY;
 			const targetProperty = dimension === 'height' ? 'height' : 'width';
@@ -747,7 +748,10 @@ class UX {
 			setTimeout(() => {
 				node.style.display = 'none';
 			}, 500);
-		});
+		};
+		
+		this.events(node,'wheel', handleWheelY);
+		
 		return;
 	}
 
@@ -762,10 +766,11 @@ class UX {
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			let switchWhat = nodeAttribute.split(':');
-			node.addEventListener(Reflect.get(switchWhat, 0), () => {
+			const handleSwitch = () => {
 				let switchId = Reflect.get(switchWhat, 1);
 				node.setAttribute('id', switchId);
-			});
+			};
+			this.events(node,Reflect.get(switchWhat, 0), handleSwitch);
 		}
 		return;
 	}
@@ -1053,9 +1058,11 @@ class UX {
 		if (node.tagName.toLowerCase() === 'img') {
 			node.src = imageUrl;
 			node.setAttribute("loading", "lazy");
-			node.addEventListener("load", () => {
+			const handleLoad = () => {
 				node.src = imageUrl;
-			});
+			};
+			this.events(node,'click', handleLoad);
+			
 		} else {
 			const observer = new IntersectionObserver((entries, observer) => {
 				entries.forEach(entry => {
@@ -1085,9 +1092,10 @@ class UX {
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			node.setAttribute('href', 'javascript:void(0);');
-			node.addEventListener('click', () => {
+			const handleUri = () => {
 				document.location = nodeAttribute;
-			});
+			};
+			this.events(node,'click', handleUri);
 		}
 		return;
 	}
@@ -1102,12 +1110,14 @@ class UX {
 		let nodeAttribute = this.getAtt(node, 'flip');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
-			node.addEventListener("mouseover", () => {
+			const handleMouseOver = () => {
 				node.style.transform = "scaleX(-1)";
-			});
-			node.addEventListener("mouseleave", () => {
+			};
+			const handleMouseLeave =  () => {
 				node.style.transform = "scaleX(1)";
-			});
+			};
+			this.events(node,'mouseover', handleMouseOver);
+			this.events(node,'mouseleave', handleMouseLeave);
 		}
 		return;
 	}
@@ -1187,9 +1197,12 @@ class UX {
 				}
 				drawSpinner();
 			}
-			window.addEventListener("load", () => {
+			
+			const handleSpinner = () => {
 				setTimeout(() => this.dom('uxspinner', 'none'), 200);
-			});
+			};
+			
+			this.events(window,'load', handleSpinner);
 		}
 		return;
 	}
@@ -1229,7 +1242,7 @@ class UX {
 			return false;
 		}
 
-		node.addEventListener('click', () => {
+		const handleToggle = () => {
 			let currentAttribute = node.getAttribute(':toggle');
 			if (!currentAttribute) return;
 
@@ -1244,7 +1257,9 @@ class UX {
 			if (currentClass) {
 				targetElement.classList.toggle(currentClass);
 			}
-		});
+		};
+		
+		this.events(node,'click',handleToggle);
 
 		return;
 	}
@@ -1269,17 +1284,18 @@ class UX {
 		if (state === 'in') {
 			menuElement.style.display = "none";
 
-			node.addEventListener('mouseover', () => {
-				console.log(`Showing menu: #${menuId}`);
+			const menuMouseOver = (event) => {
 				menuElement.style.display = "block";
-			});
+			};
 
-			node.addEventListener('mouseout', (event) => {
+			const menuMouseOut = (event) => {
 				if (!node.contains(event.relatedTarget) && !menuElement.contains(event.relatedTarget)) {
-					console.log(`Hiding menu: #${menuId}`);
 					menuElement.style.display = "none";
 				}
-			});
+			};
+			
+			this.events(node,'mouseover',menuMouseOver);
+			this.events(node,'mouseout',menuMouseOut);
 		}
 		return;
 	}
@@ -1310,7 +1326,7 @@ class UX {
 		if (nodeAttribute !== null) {
 			let counterNode = this.dom(countID, 'id');
 			if (counterNode) {
-				node.addEventListener('click', () => {
+				const handleFunctions = () => {
 					var calc = Number(counterNode.innerText);
 					if (nodeAttribute == 'count++') counterNode.innerText = this.isInt((calc) + countvalue);
 					if (nodeAttribute == 'count--') counterNode.innerText = this.isInt((calc) - countvalue);
@@ -1321,7 +1337,8 @@ class UX {
 							if (Number(counterNode.innerText) <= clear) clearInterval(timer);
 						}, interval);
 					}
-				});
+				};
+				this.events(node,'click',handleFunctions);
 			}
 		}
 		return;
@@ -1337,9 +1354,10 @@ class UX {
 		let nodeAttribute = this.getAtt(node, 'prevent');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
-			documentElements[j].addEventListener('submit', event => {
+			const handleFunctions = (event) => {
 				event.preventDefault();
-			});
+			};
+			this.events(node,'submit',handleFunctions);
 		}
 		return;
 	}
@@ -1354,9 +1372,10 @@ class UX {
 		let nodeAttribute = this.getAtt(node, ':close');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
-			node.addEventListener('onclick', () => {
+			const handleClose = () => {
 				this.dom(nodeAttribute, 'id').hidden = true;
-			});
+			};
+			this.events(node,'click',handleClose);
 		}
 		return;
 	}
@@ -1550,14 +1569,17 @@ class UX {
 	handleArrayClick(node) {
 		if (this.getAtt(node, 'method').includes('{{')) return;
 
-		node.addEventListener('click', () => {
+		const handleArray = () => {
 			let methodParts = this.getAtt(node, 'method').split(":");
 			let obj = Object.assign({}, methodParts.slice(3));
 
 			if (Object.keys(obj).length > 1) {
 				this.array.push(obj);
 			}
-		});
+		};
+		
+		this.events(node,'click', handleArray);
+		
 	return;
 	}
 
@@ -1568,9 +1590,10 @@ class UX {
 	*/
 	
 	addEventListeners(node, methods) {
+		
 		let eventType = this.getAtt(node, 'method').split(":")[0];
 
-		node.addEventListener(eventType, () => {
+		const handleEvt = (event) => {
 			let findMethod = node.getAttribute(':method');
 			if (!findMethod || !methods || typeof methods !== "object") return;
 
@@ -1594,7 +1617,10 @@ class UX {
 				this.onImg(node, imageAssignments);
 				method(); 
 			}
-		});
+		};
+		
+		this.events(node,eventType,handleEvt,event);
+		
 	return;
 	}
 
@@ -1696,6 +1722,7 @@ class UX {
 		if (!this.array.includes(routeId)) {
 			this.array.push(routeId);
 		}
+		
 		node.addEventListener('click', async () => {
 
 			let routeNode = this.dom(routeId, 'id');
@@ -1838,15 +1865,19 @@ class UX {
 				let progress = (scrollTop / scrollHeight) * 100;
 				progressBar.style.width = progress + "%";
 			}
-			window.addEventListener("scroll", updateProgress);
-			document.addEventListener("DOMContentLoaded", function() {
+				
+			const updateLoaded = () => {
 				progressBar.style.width = "50%";
-			});
+			};
 
-			window.addEventListener("load", function() {
+			const handleLoadProgress = () => {
 				progressBar.style.width = "100%";
 				setTimeout(() => progressBar.style.display = "none", 500);
-			});
+			};
+			
+			this.events(window,'scroll', updateProgress);
+			this.events(document,'DOMContentLoaded', updateLoaded);
+			this.events(window,'load', handleLoadProgress);
 		}
 		return;
 	}
