@@ -680,15 +680,32 @@ class UX {
 
 		const nodeAttribute = this.getAtt(node, 'slide');
 		if (!nodeAttribute) return;
-
 		const [dimension, value] = nodeAttribute.split(':');
 		if (!dimension || !value) return;
-
+		let delta = 0;
+		let ticking = false;
+		document.addEventListener('scroll', (event) => {
+		  if (!ticking) {
+			window.requestAnimationFrame(() => {
+					let deltaY = window.scrollY;
+					const targetProperty = dimension === 'height' ? 'height' : 'width';
+					const newValue = deltaY > 0 ? '0px' : value;
+					node.style[targetProperty] = newValue; 
+					setTimeout(() => {
+						node.style.display = 'none';
+					}, 500);
+			  ticking = false;
+			});
+		  }
+		ticking = true;
+		});
+			
 		node.addEventListener('wheel', (event) => {
 			event.preventDefault();
-			const delta = event.deltaY;
+			const deltaY = this.evt('deltaY');
+			console.log(deltaY);
 			const targetProperty = dimension === 'height' ? 'height' : 'width';
-			const newValue = delta > 0 ? '0px' : value;
+			const newValue = deltaY > 0 ? '0px' : value;
 			node.style[targetProperty] = newValue; 
 			setTimeout(() => {
 				node.style.display = 'none';

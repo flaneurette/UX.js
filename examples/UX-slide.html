@@ -5,27 +5,54 @@
   <style>
 	.text {
 		padding:30px;
-		margin: 30px;
-		width: 80%;
+		height: 120vh;
+		z-index: 0;
+		position: absolute;
+		top: 0px;
+		left: 0px;
 	}
-	#mySlideId {
-		transition: all 0.5s ease 0s;
-		background-color: #000;
+	#red {
+		transition: all 0.8s ease 0s;
+		background-color: crimson;
 		width: 100%;
-		height: 80vh;
+		height: 120vh;
 		z-index: 2;
 		position: absolute;
-		top: 130px;
+		top: 0px;
 		left: 0px;
+	}
+	#blue {
+		transition: all 0.8s ease 0s;
+		background-color: darkcyan;
+		width: 100%;
+		height: 120vh;
+		z-index: 3;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+	}
+	
+	#blue > div, #red > div {
+		padding: 30px;
 	}
 </style>
 <script src="../src/UX.js"></script>
 </head>
 <body>
-<h1>UX Slide</h1>
-<p>Hoover over the black box and use mousewheel to slide.</p>
-	<!-- event, id, width or height, maximum percentage -->
-	<div id="mySlideId" :slide="wheel:mySlideId:width:86%"></div>
+<!-- event, id, width or height, maximum percentage -->
+<div id="red" :slide="wheel:red:height:100%">
+	<div>
+	<h1>UX Slide</h1>
+	<p>Use mousewheel to slide.</p>
+	</div>
+</div>
+<!-- event, id, width or height, maximum percentage -->
+<div id="blue" :slide="wheel:blue:width:100%">
+	<div>
+	<h1>UX Slide</h1>
+	<p>Use mousewheel to slide.</p>
+	</div>
+</div>
 	<div class="text">
 	{{text}}
 	</div>
