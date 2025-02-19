@@ -12,20 +12,18 @@
             width: 900px;
             height: 300px;
             background: crimson;
-            color: black;
+            color: white;
             text-align: center;
             transition: transform 1s ease-in-out;
+			direction: ltr;
+			unicode-bidi: bidi-override;
         }
-	
     </style>
 	<script src="../src/UX.js"></script>
 </head>
 <body>
 	<h1>UX Flip</h1>
-	<div class="flip-container" id="card" :flip="true">
-		<span class="flip-text">{{text}}</span>
-	</div>
-
+    <div id="card" :flip="true"><h1>{{text}}</h1></div>
 
 <script>
 	
