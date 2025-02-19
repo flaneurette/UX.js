@@ -1460,7 +1460,6 @@ class UX {
 		if (!key || key.length < 2) return;
 
 		let placeholder = `{{${key[1]}}}`;
-		console.log(placeholder);
 
 		node.innerHTML = node.innerHTML.replaceAll(placeholder, value).replaceAll(key[1], value);
 		return;
