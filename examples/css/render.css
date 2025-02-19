@@ -10,7 +10,7 @@
    margin: 0px;
    background-color: #fff;
    color: #fff;
-   border: 1px dashed black;
+   border: 1px solid #ddd;
    }
 
    #navigation ul li {
@@ -48,7 +48,7 @@
    background-color: #fff;
    height: 300px;
    color: #000;
-   border: 1px dashed black;
+   border: 1px solid #ddd;
    }
 
    #login {
@@ -118,7 +118,7 @@
    z-index: 2;
    float: right;
    margin-right: 0px;
-   border: 1px dashed black;
+   border: 1px solid #ddd;
    display: block;
    }
    .menu-shown li {

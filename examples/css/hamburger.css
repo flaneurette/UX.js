@@ -10,7 +10,7 @@
   margin: 0px;
   background-color: white;
   height:80px;
-  border: 1px dashed black;
+  border: 1px solid #ddd;
   }
 
   .div1, .div2 {
@@ -73,7 +73,7 @@
   z-index: 2;
   float: right;
   margin-right: 0px;
-  border: 1px dashed black;
+  border: 1px solid #ddd;
   display: block;
   }
 

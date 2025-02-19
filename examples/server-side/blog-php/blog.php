@@ -16,7 +16,7 @@ $blogs = "[
   <title>Blog</title>
   <style>
     .div {
-      border: 1px dashed black;
+      border: 1px solid #ddd;
       padding: 10px;
 	  margin: 10px;
     }

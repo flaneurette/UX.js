@@ -7,11 +7,11 @@
 	background-color: #f7f7f7;
 	padding: 10px;
 	margin: 10px;
-	border: 1px dashed #ddd;
+	border: 1px solid #ddd;
 }
 #image img {
 	background-color: #f7f7f7;
-	border: 1px dashed #ddd;
+	border: 1px solid #ddd;
 	width: 450px;
 	min-height: 450px;
 }
@@ -20,11 +20,11 @@
 	padding: 10px;
 	margin: 10px;
 	height: 150px;
-	border: 1px dashed #ddd;
+	border: 1px solid #ddd;
 }
 #thumbs img {
 	background-color: #fff;
-	border: 1px dashed #ddd;
+	border: 1px solid #ddd;
 	min-height: 150px;
 	width: 150px;
 	cursor:pointer;
@@ -39,7 +39,7 @@
 			<p>Click on a thumb below:</p>
 			<div id="image">
 				<!-- id is required -->
-				<img id="main"/>
+				<img id="main" src="https://fakeimg.pl/500x500/f7f7f7" />
 			</div>
 			<div id="thumbs">
 				<!-- method, function, id of main image, image -->
@@ -56,9 +56,9 @@
           text: 'UX Gallery (Through Methods)'
 		},methods: {
           imageChange() {
-          this.img1 = 'https://fakeimg.pl/250x250/ffff00',
-		  this.img2 = 'https://fakeimg.pl/250x250/336600',
-		  this.img3 = 'https://fakeimg.pl/250x250/ff3300'
+          this.img1 = 'https://fakeimg.pl/500x500/ffff00',
+		  this.img2 = 'https://fakeimg.pl/500x500/336600',
+		  this.img3 = 'https://fakeimg.pl/500x500/ff3300'
         }
 	  }
 	});

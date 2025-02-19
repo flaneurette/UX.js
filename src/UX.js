@@ -2036,16 +2036,16 @@ class UX {
 
 		if (node.className && node.id) {
 			node.setAttribute('title', `CLASS: ${node.className}, ID: ${node.id}`);
-			node.style.border = '1px dashed green';
+			node.style.border = '1px solid green';
 		} else if (node.className) {
 			node.setAttribute('title', `CLASS: ${node.className}`);
-			node.style.border = '1px dashed black';
+			node.style.border = '1px solid black';
 		} else if (node.id) {
 			node.setAttribute('title', `ID: ${node.id}`);
-			node.style.border = '1px dashed red';
+			node.style.border = '1px solid red';
 		} else {
 			node.setAttribute('title', 'No ID or CLASS');
-			node.style.border = '1px dashed gray';
+			node.style.border = '1px solid gray';
 		}
 		return;
 	}
