@@ -143,27 +143,8 @@ Add methods inside the <script> tag.
 
 # State Management & Reactivity
 
-UX.js provides a reactive state system similar to Vue.js.
+UX.js provides a reactive state system similar to Vue.js and React.js.
 
 # Plugins & Extensions
 
 UX.js allows extending functionality using plugins.
-
-# Frequently Asked Questions
-
-Q: Is UX.js similar to React or Vue?
-
-A: UX.js takes inspiration from both but offers a simpler, lightweight approach. UX.js is what I wanted Vue and React to be able to do.
-
-# Contributing
-
-Want to contribute to UX.js? Follow these steps:
-
-Fork the repo on GitHub.
-
-Create a new branch for your feature.
-
-Submit a pull request.
-
-# Donate
-If you found this library useful, please consider donating to a charity of your choiche.
