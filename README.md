@@ -69,8 +69,6 @@ An example creating a gallery through methods.
 An example showing the :grow attribute, to grow elements dynamically on scroll into view.
 #### UX-animate.html
 An example showing the :animate attribute, to dynamically animate objects.
-#### UX-cascade.html
-An example showing the :cascade attribute, to dynamically layer objects.
 #### UX-fetch.html
 An example fetching unique JSON and displaying it.
 #### UX-lazyload.html
@@ -87,8 +85,6 @@ An example to see how the IF statements in UX.js works
 An example of how the loop function in UX.js works
 #### UX-curtain.html
 An example to show and hide objects in HTML
-#### UX-menu.html
-An example showing the :menu attribute, dynamically generated with UX.js
 #### UX-zebra.html
 An example showing the :zebra attribute, dynamically generated with UX.js
 #### UX-active.html

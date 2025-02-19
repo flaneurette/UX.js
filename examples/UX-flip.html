@@ -11,18 +11,21 @@
 			justify-content: center;
             width: 900px;
             height: 300px;
-            background: #f7f7f7;
-			border: 1px dashed #ddd;
+            background: crimson;
             color: black;
             text-align: center;
             transition: transform 1s ease-in-out;
         }
+	
     </style>
 	<script src="../src/UX.js"></script>
 </head>
 <body>
 	<h1>UX Flip</h1>
-    <div id="card" :flip="true"><h1>{{text}}</h1></div>
+	<div class="flip-container" id="card" :flip="true">
+		<span class="flip-text">{{text}}</span>
+	</div>
+
 
 <script>
 	

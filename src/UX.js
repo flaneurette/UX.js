@@ -114,14 +114,12 @@ class UX {
 			bindLoop: this.loop,
 			bindAttributesNode: this.bindClass,
 			bindFlex: this.bindFlex,
-			bindMenu: this.bindMenu,
 			bindToggle: this.bindToggle,
 			bindVoid: this.bindVoid,
 			bindPrevent: this.bindPrevent,
 			bindAsync: this.bindAsync,
 			devtools: this.bindDevtool,
 			bindAnimate: this.bindAnimate,
-			bindCascade: this.bindCascade,
 			bindLazyImg: this.bindLazyImg,
 			bindLazyLoad: this.bindLazyLoad,
 			bindUri: this.bindUri,
@@ -739,6 +737,25 @@ class UX {
 		const [dimension, value] = nodeAttribute.split(':');
 		if (!dimension || !value) return;
 
+		let delta = 0;
+		let ticking = false;
+		
+		const handleScroll = (event) => {
+		  if (!ticking) {
+			window.requestAnimationFrame(() => {
+					let deltaY = window.scrollY;
+					const targetProperty = dimension === 'height' ? 'height' : 'width';
+					const newValue = deltaY > 0 ? '0px' : value;
+					node.style[targetProperty] = newValue; 
+					setTimeout(() => {
+						node.style.display = 'none';
+					}, 500);
+			  ticking = false;
+			});
+		  }
+		ticking = true;
+		};
+		
 		const handleWheelY = (event) => {
 			event.preventDefault();
 			const delta = event.deltaY;
@@ -750,6 +767,7 @@ class UX {
 			}, 500);
 		};
 		
+		this.events(document,'scroll', handleScroll);
 		this.events(node,'wheel', handleWheelY);
 		
 		return;
@@ -941,69 +959,6 @@ class UX {
 	}
 
 	/**
-	* Creating a cascade on a node.
-	* @param {node} - the node to 'cascade'
-	* @return none
-	*/
-	
-	bindCascade(node, find) {
-		
-		let nodeAttribute = this.getAtt(node, 'cascade');
-		if (!nodeAttribute) return;
-		let [type, index, height1, height2] = nodeAttribute.split(':');
-		
-		index = parseInt(index, 10);
-		height1 = parseInt(height1, 10);
-		height2 = parseInt(height2, 10);
-
-		if (isNaN(index) || isNaN(height1) || isNaN(height2)) {
-			return;
-		}
-
-		let children = Array.from(node.children);
-
-		children.forEach((child, i) => {
-			let styles = {};
-			
-			if (type === 'menu') {
-				if (i === index) {
-					styles = {
-						position: 'fixed',
-						zIndex: children.length + 1,
-						height: `${height1}px`,
-						width: '100%'
-					};
-				} else {
-					styles = {
-						position: 'relative',
-						zIndex: i + 2,
-						top: `${height2}px`
-					};
-				}
-			} else {
-				if (i === index) {
-					styles = {
-						position: 'fixed',
-						zIndex: 0,
-						width: '100%'
-					};
-				} else {
-					styles = {
-						position: 'relative',
-						zIndex: i + 2,
-						top: `${height2}px`
-					};
-				}
-			}
-			
-			Object.entries(styles).forEach(([key, value]) => {
-				child.style.setProperty(key, value, 'important');
-			});
-		});
-		return;
-	}
-
-	/**
 	* Applies lazyloading to virtual DOM nodes.
 	* @param {node} - the node to 'lazyload'
 	* @return none
@@ -1107,20 +1062,25 @@ class UX {
 	*/
 	
 	bindFlip(node) {
+		if (!node || node._flipBound) return;
+
 		let nodeAttribute = this.getAtt(node, 'flip');
 		if (!nodeAttribute) return;
-		if (nodeAttribute !== null) {
-			const handleMouseOver = () => {
-				node.style.transform = "scaleX(-1)";
-			};
-			const handleMouseLeave =  () => {
-				node.style.transform = "scaleX(1)";
-			};
-			this.events(node,'mouseover', handleMouseOver);
-			this.events(node,'mouseleave', handleMouseLeave);
-		}
-		return;
+
+		const handleMouseOver = () => {
+			node.style.transform = "scaleX(-1)";
+		};
+
+		const handleMouseLeave = () => {
+			node.style.transform = "scaleX(1)";
+		};
+		
+		this.events(node,'mouseover', handleMouseOver);
+		this.events(node,'mouseleave', handleMouseLeave);
+
+		node._flipBound = true;
 	}
+
 
 	/**
 	* Creates a hamburger menu with canvas
@@ -1261,42 +1221,6 @@ class UX {
 		
 		this.events(node,'click',handleToggle);
 
-		return;
-	}
-
-	/**
-	* Creates a dynamic menu
-	* @param {node} - the node to attach the menu to.
-	* @return none
-	*/
-	
-	bindMenu(node) {
-		const nodeAttribute = this.getAtt(node, 'menu');
-		if (!nodeAttribute || !nodeAttribute.includes(':')) return;
-
-		const [menuId, state] = nodeAttribute.split(':');
-		const menuElement = document.getElementById(menuId);
-
-		if (!menuElement) {
-			return;
-		}
-		
-		if (state === 'in') {
-			menuElement.style.display = "none";
-
-			const menuMouseOver = (event) => {
-				menuElement.style.display = "block";
-			};
-
-			const menuMouseOut = (event) => {
-				if (!node.contains(event.relatedTarget) && !menuElement.contains(event.relatedTarget)) {
-					menuElement.style.display = "none";
-				}
-			};
-			
-			this.events(node,'mouseover',menuMouseOver);
-			this.events(node,'mouseout',menuMouseOut);
-		}
 		return;
 	}
 
@@ -2074,7 +1998,6 @@ class UX {
 		this.nodes('bindActive');
 		this.nodes('bindToggle');
 		this.nodes('bindDarkMode');
-		this.nodes('bindMenu');
 		this.nodes('bindVoid');
 		this.nodes('bindPrevent');
 		this.nodes('bindSelect');
@@ -2085,7 +2008,6 @@ class UX {
 		this.nodes('bindAnimate');
 		this.nodes('bindLazyImg');
 		this.nodes('bindLazyLoad');
-		this.nodes('bindCascade');
 		this.nodes('bindUri');
 		this.nodes('bindIntoView');
 		this.nodes('bindFade');
