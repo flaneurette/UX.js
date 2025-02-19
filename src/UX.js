@@ -1448,7 +1448,6 @@ class UX {
 	
 	onText(node, operators) {
 		
-		
 		if (!node || !operators || operators.length < 2) return;
 
 		const spaces = this.regEx('spaces');
