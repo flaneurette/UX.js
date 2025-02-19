@@ -544,15 +544,17 @@ class UX {
 			if (this.attributeCheck(elem, 'curtain') == true) elem.hidden = true;
 		});
 		if (nodeAttribute !== null && this.attributeCheck(node, 'curtain') !== null) {
-			node.addEventListener('click', () => {
+			const handleCurtain = (event) => {
 				let documentElements = this.dom(null, 'elements', '*');
 				for (let i = 0; i < documentElements.length; i++) {
 					if (documentElements[i].getAttribute(':curtain') !== null) {
 						(documentElements[i].hidden === false) ? documentElements[i].hidden = true:documentElements[i].hidden = false;
 					}
 				}
-			}, false);
+			};
+			this.events(node,'click', handleCurtain);
 		}
+		
 		return;
 	}
 
@@ -636,14 +638,15 @@ class UX {
 		let nodeAttribute = this.getAtt(node, 'view');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
-			node.addEventListener('click', () => {
+			const handleView = (event) => {
 				let documentElement = this.dom(nodeAttribute, 'id');
 				documentElement.scrollIntoView({
 					behavior: "smooth",
 					block: "start",
 					inline: "nearest"
 				});
-			});
+			};
+			this.events(node,'click', handleView);
 		}
 		return;
 	}
@@ -659,13 +662,14 @@ class UX {
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
 			node.setAttribute('href', 'javascript:void(0);');
-			node.addEventListener('click', () => {
+			const handleScroll = (event) => {
 				window.scroll({
 					top: 0,
 					left: 0,
 					behavior: 'smooth'
 				});
-			});
+			};
+			this.events(node,'click', handleScroll);
 		}
 		return;
 	}
@@ -680,11 +684,14 @@ class UX {
 
 		const nodeAttribute = this.getAtt(node, 'slide');
 		if (!nodeAttribute) return;
+		
 		const [dimension, value] = nodeAttribute.split(':');
 		if (!dimension || !value) return;
+		
 		let delta = 0;
 		let ticking = false;
-		document.addEventListener('scroll', (event) => {
+		
+		const handleScroll = (event) => {
 		  if (!ticking) {
 			window.requestAnimationFrame(() => {
 					let deltaY = window.scrollY;
@@ -698,19 +705,22 @@ class UX {
 			});
 		  }
 		ticking = true;
-		});
+		};
 			
-		node.addEventListener('wheel', (event) => {
+		const handleWheel = (event) => {
 			event.preventDefault();
 			const deltaY = this.evt('deltaY');
-			console.log(deltaY);
 			const targetProperty = dimension === 'height' ? 'height' : 'width';
 			const newValue = deltaY > 0 ? '0px' : value;
 			node.style[targetProperty] = newValue; 
 			setTimeout(() => {
 				node.style.display = 'none';
 			}, 500);
-		});
+		};
+		
+		this.events(document,'scroll', handleScroll);
+		this.events(node,'wheel', handleWheel);
+			
 		return;
 	}
 	
