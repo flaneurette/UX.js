@@ -5,6 +5,10 @@
   <title>UX HTTP</title>
   <style>
   
+	#app {
+		display:none;
+	}
+	
     .div {
       border: 1px solid #ddd;
       padding: 10px;
@@ -43,6 +47,7 @@
 				blogs: JSON.parse(dataset)
 			}
 		});
+		document.getElementById('app').style.display = 'block';
 	}
 	</script>
 </body>
