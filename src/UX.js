@@ -367,7 +367,7 @@ class UX {
 	/**
 	* Handle touch events by binding eventlisteners to a node
 	* @param {node} 
-	* @return mixed
+	* @return none
 	*/
 	
 	bindTouches(node) {
