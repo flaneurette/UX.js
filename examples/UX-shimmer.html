@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UX Shimmer</title>
+	<style>
+
+		.shimmer {
+			background: linear-gradient(90deg, #f7f7f7 25%, #ddd 50%, #f7f7f7 75%);
+			background-size: 200% 100%;
+			animation: shimmer 3.5s infinite linear;
+		}
+
+		@keyframes shimmer {
+			0% { background-position: 200% 0; }
+			100% { background-position: -200% 0; }
+		}
+
+		.skeleton {
+			height: 17px;
+			background-color:#f7f7f7;
+		}
+
+		div {
+			margin: 10px;
+			background-color: #f7f7f7;
+			padding: 10px;
+		}
+		
+		#shimmering {
+			background-color: white;
+		}
+	</style>
+	<script src="../src/UX.js"></script>
+</head>
+<body>
+<h1>UX Shimmer</h1>
+<div id="shimmering">
+		<div class="shimmer skeleton"></div>
+		<div class="shimmer skeleton"></div>
+		<div class="shimmer skeleton"></div>
+</div>
+
+<script>
+	
+	let app = new UX();
+	
+	const shimmer = () => {
+
+		const container = app.dom('shimmering','id');
+
+		function render(data) {
+		if(data) { 
+			data = JSON.parse(data);
+			container.innerHTML = "";
+				data.forEach(blog => {
+					const element = document.createElement("div");
+					element.textContent = blog.blogname;
+					container.appendChild(element);
+				});
+			}
+		}
+		
+		function init() {
+			setTimeout(() => {
+			let data = app.http('server-side/blog-xhr/data.php', 'callback', render);
+			}, 2000); // Pseudo loading a large file.
+		}
+
+		init();
+	};
+	
+	app.events(document,'DOMContentLoaded',shimmer);
+
+	</script>
+
+</body>
+</html>
