@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>UX Lazyload</title>
+<title>UX Image Lazyload</title>
 <style>
 .text {
       display: inline-block;
       padding: 10px;
       width: 300px;
 }
-ul, li {
-     list-style: none;
-}	
 
 .div {
 	width: 400px;
 	height: 400px;
 	border: 1px solid #ddd;
+	margin: 30px;
 }
 
 </style>
@@ -27,16 +25,14 @@ ul, li {
 <h1>UX Image Lazy load</h1>
  <p>{{text}}</p>
   <div :class="myClass">
-    <ul>
-	 <li><div :lazyimg="#ff0000:../examples/demo/assets/images/bg2.png" class="div"></div></li>
-	 <li><div :lazyimg="#ff0000:../examples/demo/assets/images/bg2.png" class="div"></div></li>
-	 <li><div :lazyimg="#ff0000:../examples/demo/assets/images/bg2.png" class="div"></div></li>
-	 <li><div :lazyimg="#ff0000:../examples/demo/assets/images/bg2.png" class="div"></div></li>
-	 <li><div :lazyimg="#ff0000:../examples/demo/assets/images/bg2.png" class="div"></div></li>
-	 <li><div :lazyimg="#ff0000:../examples/demo/assets/images/bg2.png" class="div"></div></li>
-	 <li><div :lazyimg="#ff0000:../examples/demo/assets/images/bg2.png" class="div"></div></li>
-	 <li><div :lazyimg="#ff0000:../examples/demo/assets/images/bg2.png" class="div"></div></li>
-    </ul>
+	 <div :lazyimg="#000:../examples/demo/assets/images/image.png" class="div"></div>
+	 <div :lazyimg="#000:../examples/demo/assets/images/image.png" class="div"></div>
+	 <div :lazyimg="#000:../examples/demo/assets/images/image.png" class="div"></div>
+	 <div :lazyimg="#000:../examples/demo/assets/images/image.png" class="div"></div>
+	 <div :lazyimg="#000:../examples/demo/assets/images/image.png" class="div"></div>
+	 <div :lazyimg="#000:../examples/demo/assets/images/image.png" class="div"></div>
+	 <div :lazyimg="#000:../examples/demo/assets/images/image.png" class="div"></div>
+	 <div :lazyimg="#000:../examples/demo/assets/images/image.png" class="div"></div>
   </div>
 </div>
 	<script>
@@ -46,7 +42,7 @@ ul, li {
 	app.load({
 		data: {
 			myClass: "text",
-			text: "Loading lazy..."
+			text: "The images load upon intersection on scrolling"
 		}
 	});
   

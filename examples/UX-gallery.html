@@ -4,10 +4,8 @@
 		<title>{{text}}</title>
 		<style>
 #image {
-	background-color: #f7f7f7;
 	padding: 10px;
 	margin: 10px;
-	border: 1px solid #ddd;
 }
 #image img {
 	background-color: #f7f7f7;
@@ -16,17 +14,16 @@
 	min-height: 450px;
 }
 #thumbs {
-	background-color: #f7f7f7;
+	background-color: #fff;
 	padding: 10px;
 	margin: 10px;
-	height: 150px;
-	border: 1px solid #ddd;
+	height: 140px;
 }
 #thumbs img {
 	background-color: #fff;
 	border: 1px solid #ddd;
 	min-height: 150px;
-	width: 150px;
+	width: 145px;
 	cursor:pointer;
 }
 
@@ -43,9 +40,9 @@
 			</div>
 			<div id="thumbs">
 				<!-- method, function, id of main image, image -->
-				<img width="150" :method="mouseover:imageChange:main:img1"/>
-				<img width="150" :method="click:imageChange:main:img2"/>
-				<img width="150" :method="click:imageChange:main:img3"/>
+				<img width="140" :method="mouseover:imageChange:main:img1"/>
+				<img width="140" :method="click:imageChange:main:img2"/>
+				<img width="140" :method="click:imageChange:main:img3"/>
 			</div>
 		</div>
 		<script>
@@ -56,9 +53,9 @@
           text: 'UX Gallery (Through Methods)'
 		},methods: {
           imageChange() {
-          this.img1 = 'https://fakeimg.pl/500x500/ffff00',
-		  this.img2 = 'https://fakeimg.pl/500x500/336600',
-		  this.img3 = 'https://fakeimg.pl/500x500/ff3300'
+          this.img1 = '../examples/demo/assets/images/image.png',
+		  this.img2 = '../examples/demo/assets/images/image.png',
+		  this.img3 = '../examples/demo/assets/images/image.png'
         }
 	  }
 	});

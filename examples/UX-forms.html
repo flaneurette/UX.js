@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UX Forms</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
   
 	html, body {
@@ -12,29 +11,32 @@
 		padding:20;
 	}
     .text {
-      display: inline-block;
-      border: 1px solid #ddd;
-      padding: 10px;
-      background-color: #dedede;
+		display: inline-block;
+		border: 1px solid #ddd;
+		padding: 10px;
+		background-color: #f7f7f7;
     }
 	input, textarea {
 		display: block;
 		padding: 10px;
 		margin:10px;
+		border: 1px solid #ddd;
 	}
   </style>
 <script src="../src/UX.js"></script>
 </head>
 <body>
 
-<div id="app">
-<h1>UX Forms</h1>
- <p>{{formTitle}}</p>
-  <div :class="myClass" :form="forms">
-  </div>
-</div>
+	<div id="app">
+	<h1>UX Forms</h1>
 	
-	<script>
+	 <p>{{formTitle}}</p>
+	 
+		<div :class="myClass" :form="forms"></div>
+		
+	</div>
+
+<script>
 	
 	let app = new UX();
 	
@@ -55,6 +57,7 @@
 		}
 	});
   
-	</script>
+</script>
+
 </body>
 </html>

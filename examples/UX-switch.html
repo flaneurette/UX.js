@@ -7,7 +7,6 @@
       height: 240px;
       display: block;
       padding: 30px;
-	  margin: 50px;
     }
 
     #scroll {
@@ -17,13 +16,16 @@
 	  border: 1px solid #ddd;
       display: block;
       overflow: hidden;
-	  padding: 30px;
     }
 
+	.text {
+		overflow:hidden;
+		margin: 30px;
+	}
+	
     #trigger {
-      transition: height 1s ease;
+      transition: width 0.5s ease;
       width: 100%;
-      height: 250px;
       background: #f7f7f7;
 	  border: 1px solid #ddd;
 	  padding: 30px;
@@ -37,6 +39,7 @@
     <div id="scrollbox">
 		<!-- switch: event, id to trigger -->
       <div id="scroll" :switch="wheel:trigger">
+		<div class="text">
         {{text}} 
 		{{text}} 
 		{{text}} 
@@ -44,32 +47,9 @@
 		{{text}} 
 		{{text}} 
 		{{text}}
+		</div>
       </div>
     </div>
-    <div id="scrollbox">
-		<!-- switch: event, id to trigger -->
-      <div id="scroll" :switch="wheel:trigger">
-        {{text}} 
-		{{text}} 
-		{{text}} 
-		{{text}} 
-		{{text}} 
-		{{text}} 
-		{{text}}
-      </div>
-    </div>
-    <div id="scrollbox">
-		<!-- switch: event, id to trigger -->
-      <div id="scroll" :switch="wheel:trigger">
-        {{text}} 
-		{{text}} 
-		{{text}} 
-		{{text}} 
-		{{text}} 
-		{{text}} 
-		{{text}}
-      </div>
-    </div>	
     <script>
     let app = new UX();
     app.load({

@@ -1,37 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>UX Async</title>
 		<script src="../src/UX.js"></script>
 		<style>
-	form {
-		background-color: #f7f7f7;
-		padding: 10px;
-		margin: 10px;
-		width:550px;
-		border: 1px solid #ddd;
-	}
-	input {
-		padding:10px;
-	}
+		form {
+			background-color: #f7f7f7;
+			padding: 10px;
+			width:550px;
+			border: 1px solid #ddd;
+		}
+		input {
+			padding:10px;
+			border: 1px solid #ddd;
+		}
 	</style>
 	</head>
 	<body>
 		<h1>UX Async</h1>
 		<div class="div1" :flex="start:row">
 			<form :async="true">
-				<input type="text" name="name"/>
-				<input type="text" name="email"/>
+				<input type="text" name="name" value="Alice"/>
+				<input type="text" name="email" value="alice@example.com"/>
 				<input type="submit" value="submit"/>
 			</form>
 		</div>
+		<div id="response"></div>
 		<script>
 	
 	let app = new UX();
 	
-	app.async('server-side/blog-xhr/response.php', 'callback', mycall);
+	app.async('server-side/blog-xhr/response.php', 'callback', feedback);
 	
-	function mycall(response) {
+	function feedback(response) {
+		// Process response here.
+		app.dom('response','id').textContent = "Thank you for submitting";
 		alert(response);
 	}
 	</script>
