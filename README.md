@@ -22,7 +22,7 @@ The release of UX.js v1.8 brings significant improvements, making the framework 
 
 ### UX.js Version 1.4: introduces Components. 
 
-Components are reusable HTML fragments with a .ux extension. UX.js renders these components within a HTML page asynchronously, with the :render or :route attribute. For a demo, see UX-render.html in the examples folder.
+Components are reusable HTML fragments with a .ux extension. UX.js components separates HTML from scripts, and renders these components within a HTML page asynchronously with the :render or :route attribute. For a demo, see UX-render.html in the examples folder.
 
 <img src="https://github.com/flaneurette/UX.js/blob/main/examples/images/render_flowchart.png" />
 
