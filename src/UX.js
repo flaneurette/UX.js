@@ -451,7 +451,7 @@ class UX {
 	}
 
 	/**
-	* Reactive hash handlers for module routing
+	* Reactive handlers for module routing
 	* @param {node}
 	* @return none
 	*/
@@ -610,11 +610,11 @@ class UX {
 		if (nodeAttribute !== null && this.attributeCheck(node, 'curtain') !== null) {
 			const handleCurtain = (event) => {
 				let documentElements = this.dom(null, 'elements', '*');
-				for (let i = 0; i < documentElements.length; i++) {
-					if (documentElements[i].getAttribute(':curtain') !== null) {
-						(documentElements[i].hidden === false) ? documentElements[i].hidden = true:documentElements[i].hidden = false;
+				Array.from(documentElements).forEach(elem => {
+					if (elem.getAttribute(':curtain') !== null) {
+						(elem.hidden === false) ? elem.hidden = true:elem.hidden = false;
 					}
-				}
+				});
 			};
 			this.events(node,'click', handleCurtain);
 		}
