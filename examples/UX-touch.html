@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UX Touch</title>
+	<script src="../src/UX.js"></script>
+	<style>
+	div {
+		padding: 30px;
+		background-color: crimson;
+		margin: 10px;
+	}
+	</style>
+</head>
+<body>
+<h1>UX Touch</h1>
+<p>On mobile, try to swipe/tap a box.</p>
+<div :touch="swipe">Text 1</div>
+<div :touch="swipe">Text 2</div>
+<div :touch="swipe">Text 3</div>
+
+<script>
+let app = new UX();
+
+app.swipe = (node,direction) => {
+	// Do something with the swipe event.
+	node.style.backgroundColor = "darkcyan";
+	node.textContent = direction;
+};
+
+</script>
+
+</body>
+</html>
