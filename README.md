@@ -26,6 +26,24 @@ Components are reusable HTML fragments with a .ux extension. UX.js renders these
 
 <img src="https://github.com/flaneurette/UX.js/blob/main/examples/images/render_flowchart.png" />
 
+# UX Components (.ux Files)
+A UX component is a self-contained UI element written in .ux format. It is possible to call custom UX.js attributes/functions to achieve certain features.
+
+Example of a .ux Component:
+
+```
+<section>
+    <header>
+        <h1>{{title}}</h1>
+    </header>
+    <nav>
+        <ul :loop="links">
+            <li>{{link}}</li>
+        </ul>
+    </nav>
+</section>
+```
+
 # Requirements
 A local or live webserver.
 
@@ -113,37 +131,6 @@ An example to trigger events
 An example of how methods in UX.js works (under development)
 #### UX-forms.html
 An example showing a form, dynamically generated with UX.js
-
-# UX Components (.ux Files)
-A UX component is a self-contained UI element written in .ux format. It is possible to call custom UX.js attributes/functions to achieve certain features.
-
-Example of a .ux Component:
-
-```
-<section>
-    <header>
-        <h1>{{title}}</h1>
-    </header>
-    <nav>
-        <ul :loop="links">
-            <li>{{link}}</li>
-        </ul>
-    </nav>
-</section>
-```
-
-### Data Binding ({{}} Syntax)
-
-The {{}} syntax is used to bind data to the HTML content dynamically. When the data changes, the UI updates automatically.
-
-### Creating a UX Component
-
-To define a component in UX.js:
-
-Create a .ux file.
-Write the HTML structure.
-Use {{}} for dynamic data.
-Add methods inside the <script> tag.
 
 # State Management & Reactivity
 
