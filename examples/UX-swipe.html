@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UX Swipe</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		.swiper-container {
+			width: 100%;
+			overflow: hidden;
+			position: relative;
+		}
+
+		.swiper {
+			display: flex;
+			transition: transform 0.5s ease-in-out;
+			will-change: transform;
+		}
+
+		.swipe {
+			min-width: 100%;
+			height: 100vh;
+			display:flex;
+			align-items: center;
+			justify-content:center;
+			text-align: center;
+			color: white;
+		}
+		
+		.swipe:nth-child(1) { background: crimson; }
+		.swipe:nth-child(2) { background: darkcyan; }
+		.swipe:nth-child(3) { background: green; }
+		.swipe:nth-child(4) { background: orange; }
+	</style>
+	<script src="../src/UX.js"></script>
+</head>
+<body>
+
+<div class="swiper-container">
+	<div class="swiper" id="swiper">
+		<!-- :swipe = id of the swiper class -->
+		<div class="swipe" :swipe="swiper">
+		<h1>Swipe or scroll to switch slides</h1>
+		</div>
+		<div class="swipe" :swipe="swiper"><h1>Swipe 2</h1></div>
+		<div class="swipe" :swipe="swiper"><h1>Swipe 3</h1></div>
+		<div class="swipe" :swipe="swiper"><h1>Swipe 4</h1></div>
+	</div>
+</div>
+<script>
+	let app = new UX();
+</script>
+</body>
+</html>

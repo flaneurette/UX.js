@@ -136,6 +136,7 @@ class UX {
 			bindSlide: this.bindSlide,
 			bindScroll: this.bindScroll,
 			bindTouches: this.bindTouches,
+			bindSwipe: this.bindSwipe,
 		};
 		
 		documentElements.forEach(elem => {
@@ -788,7 +789,70 @@ class UX {
 			
 		return;
 	}
+
+	/**
+	* Creates a swiping effect.
+	* @param {node} - the node to attach a listener to
+	* @return none
+	*/
 	
+	bindSwipe(node) {
+		const nodeAttribute = this.getAtt(node, 'swipe');
+		if (!nodeAttribute) return;
+
+		this.swiper = this.dom(nodeAttribute, 'id');
+		if (!this.swiper || !this.swiper.children.length) return;
+
+		this.swipes = this.swiper.children;
+		this.totalswipes = this.swipes.length;
+		this.index = 0;
+		this.currentTranslate = 0;
+
+		const updatePosition = () => {
+			this.currentTranslate = -this.index * 100;
+			this.swiper.style.transform = `translateX(${this.currentTranslate}%)`;
+		};
+
+		const handleSwipe = (direction) => {
+			if (direction === 'next' && this.index < this.totalswipes - 1) {
+				this.index++;
+			} else if (direction === 'prev' && this.index > 0) {
+				this.index--;
+			}
+			updatePosition();
+		};
+
+		const handleScroll = (event) => {
+			event.preventDefault();
+			if (event.deltaY > 0) handleSwipe('next');
+			if (event.deltaY < 0) handleSwipe('prev');
+		};
+
+		const touchStart = (event) => {
+			this.startX = event.touches[0].clientX;
+			this.startY = event.touches[0].clientY;
+		};
+
+		const touchEnd = (event) => {
+			
+			const deltaX = this.startX - event.changedTouches[0].clientX;
+			const deltaY = this.startY - event.changedTouches[0].clientY;
+
+			if (Math.abs(deltaX) > Math.abs(deltaY)) { 
+				if(deltaX > 50) handleSwipe('next');
+				else if(deltaX < -50) handleSwipe('prev');
+			} else { 
+				if(deltaY > 50) handleSwipe('next');
+				else if(deltaY < -50) handleSwipe('prev');
+			}
+		};
+
+		this.events(node, 'touchstart', touchStart);
+		this.events(node, 'touchend', touchEnd);
+		this.events(node, 'wheel', handleScroll, { passive: false });
+		this.events(node, 'scroll', handleScroll, { passive: false });
+	}
+
 	/**
 	* Binds an eventlistener to the mousewheel
 	* @param {node} - the node to 'wheel'
@@ -2088,6 +2152,7 @@ class UX {
 		this.nodes('bindReactive');
 		this.nodes('bindReactiveDataActions');
 		this.nodes('bindTouches');
+		this.nodes('bindSwipe');
 		this.nodes('progress');
 		return;
 	}

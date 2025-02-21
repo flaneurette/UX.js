@@ -61,6 +61,8 @@ An example of asynchronous component routing, using the :route attribute.
 An example of event binding to trigger CSS transformations, using the :switch attribute.
 #### UX-wheel.html
 An example to trigger a slide, using the :wheel attribute.
+#### UX-swipe.html
+An example on how to move objects, using the :swipe attribute.
 #### UX-touch.html
 An example handling touch events using the :touch attribute
 #### UX-shimmer.html
