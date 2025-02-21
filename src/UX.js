@@ -364,69 +364,6 @@ class UX {
 			});
 		return;
 	}
-
-	/**
-	* Handle touch events by binding eventlisteners to a node
-	* @param {node} 
-	* @return none
-	*/
-	
-	bindTouches(node) {
-		
-		let nodeAttribute = this.getAtt(node, 'touch');
-		if (!nodeAttribute) return;
-
-		const [method,callback] = nodeAttribute.split(':');
-		
-		this.touches = { startX: 0, startY: 0, endX: 0, endY: 0 };
-
-		const touchStart = (nodeAttribute,event) => {
-			this.touches.startX = event.touches[0].clientX;
-			this.touches.startY = event.touches[0].clientY;
-		};
-
-		const touchEnd = (nodeAttribute,event) => {
-			
-			const threshold = 50;
-			
-			this.touches.endX = event.changedTouches[0].clientX;
-			this.touches.endY = event.changedTouches[0].clientY;
-			let deltaX = this.touches.startX - this.touches.endX;
-			let deltaY = this.touches.startY - this.touches.endY;
-		
-			if (Math.abs(deltaX) > Math.abs(deltaY)) {
-				if (deltaX > threshold) {
-					this.handleSwipe(node,'left');
-				} else if (deltaX < - threshold) {
-					this.handleSwipe(node,'right');
-				}
-			} else {
-				if (deltaY > threshold) {
-					this.handleSwipe(node,'up');
-				} else if (deltaY < - threshold) {
-					this.handleSwipe(node,'down');
-				}
-			}
-			if (Math.abs(deltaX) < 5 && Math.abs(deltaY) < 5) {
-				this.handleSwipe(node,'tap');
-			}
-		};
-
-		this.events(node, 'touchstart', (event) => touchStart(nodeAttribute, event));
-		this.events(node, 'touchend', (event) => touchEnd(nodeAttribute, event));
-
-		return;
-	}
-
-	/**
-	* Handle 'swipes'
-	* @param {node, direction} 
-	* @return none
-	*/
-	
-	handleSwipe(node, direction) {
-		this.swipe(node, direction);
-	}
 	
 	/**
 	* Reactive bindings
@@ -740,6 +677,64 @@ class UX {
 		return;
 	}
 
+	/**
+	* Handle touch events by binding eventlisteners to a node
+	* @param {node} 
+	* @return none
+	*/
+	
+	bindTouches(node) {
+		
+		let nodeAttribute = this.getAtt(node, 'touch');
+		if (!nodeAttribute) return;
+
+		const [method,callback] = nodeAttribute.split(':');
+		
+		this.touches = { startX: 0, startY: 0, endX: 0, endY: 0 };
+
+		const touchStart = (nodeAttribute,event) => {
+			this.touches.startX = event.touches[0].clientX;
+			this.touches.startY = event.touches[0].clientY;
+		};
+
+		const touchEnd = (nodeAttribute,event) => {
+			
+			const threshold = 50;
+			
+			this.touches.endX = event.changedTouches[0].clientX;
+			this.touches.endY = event.changedTouches[0].clientY;
+			let deltaX = this.touches.startX - this.touches.endX;
+			let deltaY = this.touches.startY - this.touches.endY;
+		
+			if (Math.abs(deltaX) > Math.abs(deltaY)) {
+				if (deltaX > threshold) {
+					this.handleSwipe(node,'left');
+				} else if (deltaX < - threshold) {
+					this.handleSwipe(node,'right');
+				}
+			} else {
+				if (deltaY > threshold) {
+					this.handleSwipe(node,'up');
+				} else if (deltaY < - threshold) {
+					this.handleSwipe(node,'down');
+				}
+			}
+			if (Math.abs(deltaX) < 5 && Math.abs(deltaY) < 5) {
+				this.handleSwipe(node,'tap');
+			}
+		};
+
+		this.events(node, 'touchstart', (event) => touchStart(nodeAttribute, event));
+		this.events(node, 'touchend', (event) => touchEnd(nodeAttribute, event));
+
+		return;
+	}
+
+	handleSwipe(node, direction) {
+		this.swipe(node, direction);
+		return;
+	}
+	
 	/**
 	* Sets an eventlistener and creates a sliding div.
 	* @param {node} - the node to slide
