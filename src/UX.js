@@ -810,7 +810,11 @@ class UX {
 				
 				let match = slideView.match(/\d+/);
 				let increase = match ? parseInt(match[0], 10) : 1; 
-				this.index = increase;
+				
+				if (this.index < this.totalswipes) {
+					this.index = increase;
+				} 
+	
 				this.currentTranslate = -this.index * 100;
 				let documentElement = this.dom(slideView, 'id');
 				
@@ -862,10 +866,8 @@ class UX {
 			};
 
 			const touchEnd = (event) => {
-				
 				const deltaX = this.startX - event.changedTouches[0].clientX;
 				const deltaY = this.startY - event.changedTouches[0].clientY;
-
 				if (Math.abs(deltaX) > Math.abs(deltaY)) { 
 					if(deltaX > 50) handleSwipe('next');
 					else if(deltaX < -50) handleSwipe('prev');
