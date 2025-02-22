@@ -3,7 +3,7 @@ export const Counter = {
 	id: 'Counter',
 	
 	init() {
-		this.count = app.state;
+		this.count = app.state.counter;
 	},
 
 	render() {
@@ -21,6 +21,6 @@ export const Counter = {
 		let counter = count + 1;
 		counterElement.textContent = counter;
 		// Update state
-		app.state = counter;
+		app.state.counter = counter;
 	}
 }

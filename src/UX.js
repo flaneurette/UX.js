@@ -406,11 +406,11 @@ class UX {
 	reactiveHandler(node, nodeAttribute, event) {
 		event.preventDefault();
 		if (!node || !nodeAttribute) return;
-		this.reactiveHash(nodeAttribute);
+		this.reactiveBind(nodeAttribute);
 		return;
 	}
 	
-	reactiveHash(uri) {
+	reactiveBind(uri) {
 	
 		const [reactive, data, id] = uri.split(':');
 		
@@ -429,6 +429,7 @@ class UX {
 				}
 				if(module['render']) { 
 					elem.innerHTML = module['render']();
+					this.bindReactiveActions(module['render']);
 				}
 			}
 		});
@@ -455,6 +456,16 @@ class UX {
 		  }
 		});
 		return;
+	}
+
+	/**
+	* Reactive code parser. (TODO)
+	* @param {data} - functions to parse.
+	* @return none
+	*/
+	
+	bindReactiveActions(data) {
+		// TODO
 	}
 	
 	/**

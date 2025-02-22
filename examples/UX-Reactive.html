@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UX Reactive</title>
+	<script type="module" src="../modules/reactive/app.js"></script>
 	<script src="../src/UX.js"></script>
+	<style>
+		a:link, a:visited {
+			margin-right: 30px;
+			margin-bottom: 30px;
+		}
+		
+	</style>
 </head>
 <body>
 
@@ -14,6 +22,7 @@
 
 <a href="/About" :reactive="route:About:app">About</a>
 <a href="/Content" :reactive="route:Content:app">Content</a>
+<a href="/Form" :reactive="route:Form:app">Form</a>
 <a href="/Counter" :reactive="route:Counter:app">Counter</a>
 
 <div id="app"></div>
