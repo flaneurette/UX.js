@@ -50,7 +50,7 @@ export const Form = {
 	},
 }
 
-// Functions must be global, so bind to window.
+// Functions must be global.
 window.reactiveChecked = function (value) {
 	let counterElement = document.querySelector('#agreed');
 	counterElement.textContent = value;
