@@ -5,7 +5,7 @@ export const Form = {
 	init() {
 		// Get states.
 		this.agreed = app.state.agreed;
-		this.food 	= app.state.foods;
+		this.food = app.state.foods;
 	},
 
 	render() {
