@@ -842,7 +842,6 @@ class UX {
 			};
 
 			const handleSwipe = (direction) => {
-				console.log(this.index);
 				if (direction === 'next' && this.index < this.totalswipes - 1) {
 					this.index++;
 				} else if (direction === 'prev' && this.index > 0) {

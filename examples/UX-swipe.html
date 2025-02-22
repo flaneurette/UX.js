@@ -21,7 +21,7 @@
 			margin-right: 30px;
 		}
 		
-		.swiper-container {
+		.container {
 			width: 100%;
 			overflow: hidden;
 			position: relative;
@@ -43,10 +43,21 @@
 			color: white;
 		}
 		
-		.s:nth-child(1) { background: crimson; }
-		.s:nth-child(2) { background: darkcyan; }
-		.s:nth-child(3) { background: green; }
-		.s:nth-child(4) { background: orange; }
+		.s:nth-child(1) { 
+			background: crimson; 
+		}
+		
+		.s:nth-child(2) { 
+			background: darkcyan;
+		}
+		
+		.s:nth-child(3) { 
+			background: green;
+		}
+		
+		.s:nth-child(4) { 
+			background: orange; 
+		}
 	</style>
 	<script src="../src/UX.js"></script>
 </head>
@@ -60,7 +71,7 @@
 	<a :void="true" :swipe="swiper:slide4">Slide 4</a>	
 </div>
 	
-<div class="swiper-container">
+<div class="container">
 	<div id="swiper">
 		<!-- :swipe = id of the swiper div -->
 		<div class="s" id="slide1" :swipe="swiper">
