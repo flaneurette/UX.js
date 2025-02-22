@@ -792,60 +792,93 @@ class UX {
 	*/
 	
 	bindSwipe(node) {
+		
+		let slideView = false;
+		this.index = 0;
+		this.currentTranslate = 0;
+		
 		const nodeAttribute = this.getAtt(node, 'swipe');
 		if (!nodeAttribute) return;
 
-		this.swiper = this.dom(nodeAttribute, 'id');
-		if (!this.swiper || !this.swiper.children.length) return;
+		if(nodeAttribute.includes(':')) {
+			slideView = nodeAttribute.split(':')[1];
+		}
+		
+		if(slideView !== false) { 
 
-		this.swipes = this.swiper.children;
-		this.totalswipes = this.swipes.length;
-		this.index = 0;
-		this.currentTranslate = 0;
-
-		const updatePosition = () => {
-			this.currentTranslate = -this.index * 100;
-			this.swiper.style.transform = `translateX(${this.currentTranslate}%)`;
-		};
-
-		const handleSwipe = (direction) => {
-			if (direction === 'next' && this.index < this.totalswipes - 1) {
-				this.index++;
-			} else if (direction === 'prev' && this.index > 0) {
-				this.index--;
-			}
-			updatePosition();
-		};
-
-		const handleScroll = (event) => {
-			event.preventDefault();
-			if (event.deltaY > 0) handleSwipe('next');
-			if (event.deltaY < 0) handleSwipe('prev');
-		};
-
-		const touchStart = (event) => {
-			this.startX = event.touches[0].clientX;
-			this.startY = event.touches[0].clientY;
-		};
-
-		const touchEnd = (event) => {
+			const handleView = (event) => {
+				
+				let match = slideView.match(/\d+/);
+				let increase = match ? parseInt(match[0], 10) : 1; 
+				this.index = increase;
+				let documentElement = this.dom(slideView, 'id');
+				
+				documentElement.scrollIntoView({
+					behavior: "smooth",
+					block: "nearest", 
+					inline: "center"
+				});
+				
+				window.scrollTo({
+				  top: 0,
+				  behavior: "smooth"
+				});
+			};
 			
-			const deltaX = this.startX - event.changedTouches[0].clientX;
-			const deltaY = this.startY - event.changedTouches[0].clientY;
+			this.events(node,'click', handleView);
+		
+		} else {
+			
+			this.swiper = this.dom(nodeAttribute, 'id');
+			if (!this.swiper || !this.swiper.children.length) return;
 
-			if (Math.abs(deltaX) > Math.abs(deltaY)) { 
-				if(deltaX > 50) handleSwipe('next');
-				else if(deltaX < -50) handleSwipe('prev');
-			} else { 
-				if(deltaY > 50) handleSwipe('next');
-				else if(deltaY < -50) handleSwipe('prev');
-			}
-		};
+			this.swipes = this.swiper.children;
+			this.totalswipes = this.swipes.length;
 
-		this.events(node, 'touchstart', touchStart);
-		this.events(node, 'touchend', touchEnd);
-		this.events(node, 'wheel', handleScroll, { passive: false });
-		this.events(node, 'scroll', handleScroll, { passive: false });
+			const updatePosition = () => {
+				this.currentTranslate = -this.index * 100;
+				this.swiper.style.transform = `translateX(${this.currentTranslate}%)`;
+			};
+
+			const handleSwipe = (direction) => {
+				if (direction === 'next' && this.index < this.totalswipes - 1) {
+					this.index++;
+				} else if (direction === 'prev' && this.index > 0) {
+					this.index--;
+				}
+				updatePosition();
+			};
+
+			const handleScroll = (event) => {
+				event.preventDefault();
+				if (event.deltaY > 0) handleSwipe('next');
+				if (event.deltaY < 0) handleSwipe('prev');
+			};
+
+			const touchStart = (event) => {
+				this.startX = event.touches[0].clientX;
+				this.startY = event.touches[0].clientY;
+			};
+
+			const touchEnd = (event) => {
+				
+				const deltaX = this.startX - event.changedTouches[0].clientX;
+				const deltaY = this.startY - event.changedTouches[0].clientY;
+
+				if (Math.abs(deltaX) > Math.abs(deltaY)) { 
+					if(deltaX > 50) handleSwipe('next');
+					else if(deltaX < -50) handleSwipe('prev');
+				} else { 
+					if(deltaY > 50) handleSwipe('next');
+					else if(deltaY < -50) handleSwipe('prev');
+				}
+			};
+
+			this.events(node, 'touchstart', touchStart);
+			this.events(node, 'touchend', touchEnd);
+			this.events(node, 'wheel', handleScroll, { passive: false });
+			this.events(node, 'scroll', handleScroll, { passive: false });
+		}
 	}
 
 	/**

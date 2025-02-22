@@ -10,13 +10,24 @@
 			padding: 0;
 		}
 
+		.navigation {
+			padding: 30px;
+			background-color: black;
+		}
+		
+		a:link, a:visited {
+			color: white;
+			text-decoration: none;
+			margin-right: 30px;
+		}
+		
 		.swiper-container {
 			width: 100%;
 			overflow: hidden;
 			position: relative;
 		}
 
-		.swiper {
+		#swiper {
 			display: flex;
 			transition: transform 0.5s ease-in-out;
 			will-change: transform;
@@ -41,15 +52,23 @@
 </head>
 <body>
 
+<div class="navigation">
+	<!-- :swipe = id of the swiper class, an individual slide to trigger -->
+	<a :void="true" :swipe="swiper:slide1">Slide 1</a>
+	<a :void="true" :swipe="swiper:slide2">Slide 2</a>
+	<a :void="true" :swipe="swiper:slide3">Slide 3</a>
+	<a :void="true" :swipe="swiper:slide4">Slide 4</a>	
+</div>
+	
 <div class="swiper-container">
-	<div class="swiper" id="swiper">
+	<div id="swiper">
 		<!-- :swipe = id of the swiper class -->
-		<div class="swipe" :swipe="swiper">
-		<h1>Swipe or scroll to switch slides</h1>
+		<div class="swipe" id="slide1" :swipe="swiper">
+		<h1>Swipe or scroll to switch slides, or use navigation.</h1>
 		</div>
-		<div class="swipe" :swipe="swiper"><h1>Swipe 2</h1></div>
-		<div class="swipe" :swipe="swiper"><h1>Swipe 3</h1></div>
-		<div class="swipe" :swipe="swiper"><h1>Swipe 4</h1></div>
+		<div class="swipe" id="slide2" :swipe="swiper"><h1>Swipe 2</h1></div>
+		<div class="swipe" id="slide3" :swipe="swiper"><h1>Swipe 3</h1></div>
+		<div class="swipe" id="slide4" :swipe="swiper"><h1>Swipe 4</h1></div>
 	</div>
 </div>
 <script>
