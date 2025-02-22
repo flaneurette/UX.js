@@ -811,6 +811,7 @@ class UX {
 				let match = slideView.match(/\d+/);
 				let increase = match ? parseInt(match[0], 10) : 1; 
 				this.index = increase;
+				this.currentTranslate = -this.index * 100;
 				let documentElement = this.dom(slideView, 'id');
 				
 				documentElement.scrollIntoView({
@@ -879,6 +880,7 @@ class UX {
 			this.events(node, 'wheel', handleScroll, { passive: false });
 			this.events(node, 'scroll', handleScroll, { passive: false });
 		}
+		return;
 	}
 
 	/**
