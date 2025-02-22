@@ -51,14 +51,14 @@ export const Form = {
 }
 
 // Functions must be global.
-window.reactiveChecked = function (value) {
+window.reactiveChecked = (value) => {
 	let counterElement = document.querySelector('#agreed');
 	counterElement.textContent = value;
 	// Update state
 	app.state.agreed = value;
 }
 
-window.reactiveFoods = function (value,checked) {
+window.reactiveFoods = (value,checked) => {
 	if (!app.state.foods.includes(value)) {
 		app.state.foods.push(value);
 	}
