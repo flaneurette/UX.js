@@ -455,6 +455,12 @@ class UX {
 		return;
 	}
 	
+	initState(config) {
+		const { data, methods, events } = config;
+		this.data = { ...data };
+		this.initData(data,methods);
+	}
+
 	setState(newState,VDOM) {
 		this.state = { ...this.state, ...newState };
 		this.reactiveUpdateVDOM(VDOM);
