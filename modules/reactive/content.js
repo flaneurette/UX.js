@@ -1,10 +1,16 @@
 export const Content = {
+	
 	id: 'Content',
+
+	init: () => null,
+	
+	// All UX.js attribute functions can be called, such as :loop
 	
 	render: () => `
-		<h1>Content</h1>
-		<p>This is reactive modular UX.JS.</p>
+		<h3>Content</h3>
+		<p>{{stock}}</p>
+		<ul :loop="foods">
+			<li>{{name}}</li>
+		</ul>
 	`,
-	
-	init: () => null, 
 };

@@ -14,6 +14,8 @@ class UX {
 		this.modules = {};
 		this.routes = {};
 		this.functions = {};
+		this.data = {};
+		this.methods = {};
 		this.vdom = {};
 		this.state = {};
 		this.swipe = {};
@@ -61,6 +63,8 @@ class UX {
 	*/
 	
 	initData(data,methods) {
+		this.data = data;
+		this.methods = methods;
 		this.parseFunctions(data, methods);
 		this.nodes('bindFunctions',false,false,data);
 	return;
@@ -161,6 +165,40 @@ class UX {
 		
 		return;
 	}
+
+	/**
+	* Parses HTML nodes
+	* @param {data, exclude} - object, array of items not to parse.
+	* @return none
+	*/
+	
+	parseNodes(data, exclude = []) {
+		
+		if (!Array.isArray(exclude)) exclude = [];
+
+		let bindings = [
+			'bindHamburger', 'bindActive', 'bindToggle', 'bindDarkMode', 'bindVoid', 
+			'bindPrevent', 'bindSelect', 'bindFlex', 'bindShow', 'bindHide', 
+			'bindCurtains', 'bindAnimate', 'bindLazyImg', 'bindLazyLoad', 'bindUri', 
+			'bindIntoView', 'bindFade', 'bindClose', 'bindView', 'bindSwitch', 
+			'bindWheel', 'bindSlide', 'bindScroll', 'bindSpinner', 'bindFlip', 
+			'bindTouches', 'bindSwipe', 'progress', 'bindReactive', 'bindReactiveDataActions'
+		];
+
+		if (exclude.includes('bindReactive') || exclude.includes('bindReactiveDataActions')) {
+			bindings = bindings.filter(b => !['bindReactive', 'bindReactiveDataActions'].includes(b));
+		}
+
+		bindings.forEach(binding => {
+			if (this.isValidFunction(this.nodes)) {
+				this.nodes(binding);
+			} else {
+				console.warn(`this.nodes is not defined`);
+			}
+		});
+		
+		return;
+	}
 	
 	/**
 	* Handle global node events
@@ -256,6 +294,16 @@ class UX {
 		return typeof obj === 'object' && obj !== null;
 	}
 
+	/**
+	* Compares if a function is valid, or not
+	* @param {fun} 
+	* @return mixed boolean
+	*/
+	
+	isValidFunction(fun) {
+		return typeof fun === 'function' && fun !== null;
+	}
+	
 	/**
 	* Compares if a number is integer, or not
 	* @param {value} 
@@ -431,12 +479,38 @@ class UX {
 					elem.innerHTML = module['render']();
 					this.bindReactiveActions(module['render']);
 				}
+				if (module['effect']) {
+					module['effect']();
+				}
 			}
 		});
 		this.bindReactiveDataActions();
+		// Reparse vdom for UX.js attribute handlers.
+		this.parseNodes(this.data,['bindReactive', 'bindReactiveDataActions']);
+		this.parseFunctions(this.data, this.methods);
 		return;
 	}
 
+	/**
+	* Reactive data actions binds a listener to buttons and binds an action to it.
+	* @param {node}
+	* @return none
+	*/
+	
+	bindReactiveDataActions(node) {
+		const buttons = this.dom(node, 'queryall', "[data-action]");
+		if (!buttons) return;
+		buttons.forEach((button) => {
+			const action = button.getAttribute("data-action");
+			if (!action || !this.functions) return;
+			const func = this.functions.find(f => f && f.name === action);
+			if (func && typeof func === "function") {
+				this.events(button, 'click', func.bind(this), event)
+			}
+		});
+		return;
+	}
+	
 	/**
 	* Reactive code parser. (TODO)
 	* @param {function} - function to parse.
@@ -466,26 +540,6 @@ class UX {
 	
 	bindReactiveActions(data) {
 		// TODO
-	}
-	
-	/**
-	* Reactive data actions binds a listener to buttons and binds an action to it.
-	* @param {node}
-	* @return none
-	*/
-	
-	bindReactiveDataActions(node) {
-		const buttons = this.dom(node, 'queryall', "[data-action]");
-		if (!buttons) return;
-		buttons.forEach((button) => {
-			const action = button.getAttribute("data-action");
-			if (!action || !this.functions) return;
-			const func = this.functions.find(f => f && f.name === action);
-			if (func && typeof func === "function") {
-				this.events(button, 'click', func.bind(this), event)
-			}
-		});
-		return;
 	}
 	
 	/**
@@ -1985,10 +2039,10 @@ class UX {
 	  const documentElements = this.nodeParentList();
 	  
 	  for (const element of documentElements) {
-		  
+
 		if (this.getAtt(element, 'async') !== null) {
-			
 		  element.addEventListener('submit', async event => {
+			  
 			event.preventDefault();
 			const forms = this.dom(null, 'elements', '*');
 			
@@ -2154,46 +2208,6 @@ class UX {
 				this.nodes('bindHandler', key, value, data, method);
 			}
 		}
-		return;
-	}
-
-	/**
-	* Parses HTML nodes
-	* @param {data} - object
-	* @return none
-	*/
-	
-	parseNodes(data) {
-		this.nodes('bindHamburger');
-		this.nodes('bindActive');
-		this.nodes('bindToggle');
-		this.nodes('bindDarkMode');
-		this.nodes('bindVoid');
-		this.nodes('bindPrevent');
-		this.nodes('bindSelect');
-		this.nodes('bindFlex');
-		this.nodes('bindShow');
-		this.nodes('bindHide');
-		this.nodes('bindCurtains');
-		this.nodes('bindAnimate');
-		this.nodes('bindLazyImg');
-		this.nodes('bindLazyLoad');
-		this.nodes('bindUri');
-		this.nodes('bindIntoView');
-		this.nodes('bindFade');
-		this.nodes('bindClose');
-		this.nodes('bindView');
-		this.nodes('bindSwitch');
-		this.nodes('bindWheel');
-		this.nodes('bindSlide');
-		this.nodes('bindScroll');
-		this.nodes('bindSpinner');
-		this.nodes('bindFlip');
-		this.nodes('bindReactive');
-		this.nodes('bindReactiveDataActions');
-		this.nodes('bindTouches');
-		this.nodes('bindSwipe');
-		this.nodes('progress');
 		return;
 	}
 
