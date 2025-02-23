@@ -455,6 +455,22 @@ class UX {
 		return;
 	}
 	
+	setState(newState,VDOM) {
+		this.state = { ...this.state, ...newState };
+		this.reactiveUpdateVDOM(VDOM);
+	}
+	
+	reactiveUpdateVDOM(VDOM) {
+		if(!this.modules) return false;
+		
+		this.modules.forEach(module => {
+			if(module['template']) { 
+				let modal = this.dom(VDOM,'id');
+				modal.innerHTML = module['template']();
+			}
+		});	
+	}
+	
 	reactiveBind(uri) {
 	
 		const [reactive, data, id] = uri.split(':');
@@ -474,6 +490,10 @@ class UX {
 				}
 				if(module['render']) { 
 					elem.innerHTML = module['render']();
+					this.bindReactiveActions(module['render']);
+				}
+				if(module['template']) { 
+					elem.innerHTML = module['template']();
 					this.bindReactiveActions(module['render']);
 				}
 				if (module['effect']) {
