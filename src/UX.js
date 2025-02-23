@@ -190,11 +190,7 @@ class UX {
 		}
 
 		bindings.forEach(binding => {
-			if (this.isValidFunction(this.nodes)) {
-				this.nodes(binding);
-			} else {
-				console.warn(`this.nodes is not defined`);
-			}
+			this.nodes(binding);
 		});
 		
 		return;
@@ -311,7 +307,8 @@ class UX {
 	*/
 	
 	isInt(value) {
-		return (value === parseInt(value)) ? parseInt(value).toFixed(2) : parseFloat(value).toFixed(2);
+		const num = Number(value);
+		return Number.isInteger(num) ? num.toFixed(2) : parseFloat(num).toFixed(2);
 	}
 	
 	/**
