@@ -385,13 +385,12 @@ class UX {
 	*/
 	
 	has(value) {
-		if (value) {
-			if (value.indexOf("'") != -1) {
-				let pieces = value.split('\'');
-				return Reflect.get(pieces, 1);
-			}
-		}
-		return;
+		if (!value) return;
+
+		let matches = value.match(/'([^']+)'/g);
+		if (!matches) return; 
+
+		return matches.map(m => m.replace(/'/g, ''));
 	}
 
 	/**
