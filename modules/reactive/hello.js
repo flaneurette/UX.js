@@ -12,5 +12,5 @@ export const Hello = {
 
 window.changeTitle = () => {
 	// setState(object,appId) requires a template() to render.
-    app.setState({ title: 'Hello!' },'app');
+	app.setState({ title: 'Hello!' },'app');
 }
