@@ -39,19 +39,16 @@ class UX {
 	*/
 
 	load(config) {
-		
 		if (!this.isValidObject(config)) {
 			this.log(this.Message['init']);
 			return false;
 		}
-
 		const { data, methods, events } = config;
-
 		if (data) {
 			this.initData(data,methods);
 			this.initComponents(data);
 			this.initDevTools(data);
-			Reflect.preventExtensions(data);
+			Object.freeze(data)
 		}
 		return;
 	}
@@ -154,7 +151,7 @@ class UX {
 			  'bindLogic': () => this.bindIf(elem, find, value),
 			  'bindMethods': () => this.bindMethods(elem, data, methods, find, value),
 			  'bindHandler': () => this.bindHandler(elem, data, methods, find, value),
-			  'replaceNodeValue': () => this.verbatimBindings(elem, find, value)
+			  'replaceNodeValue': () => this.interpolation(elem, find, value)
 			};
 
 			if (methodHandlers[method]) {
@@ -578,12 +575,12 @@ class UX {
 	}
 	
 	/**
-	* Replaces verbatim bindings
+	* Interpolation of strings
 	* @param {elem, find, value}
 	* @return none
 	*/
 	
-	verbatimBindings(elem, find, value) {
+	interpolation(elem, find, value) {
 		this.nodeChildren(elem).forEach(child => {
 		if (child.nodeType === elem.TEXT_NODE) {
 			child.nodeValue = child.nodeValue.replace(new RegExp(this.regEx('bindings',find), "gi"), value);

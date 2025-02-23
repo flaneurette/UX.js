@@ -20,7 +20,7 @@ export const Content = {
 		<h3>Content</h3>
 		<p>{{stock}}</p>
 		<ul :loop="foods">
-			<li onclick="handleClick(event.target.innerText);">{{name}}</li>
+			<li><input type="button" onclick="handleClick(event.target.value);" value="{{name}}" /></li>
 		</ul>
 	`,
 };
