@@ -24,7 +24,7 @@ class UX {
 	
 	init = {
 		name: "UX.js",
-		version: "1.80",
+		version: "1.90",
 		description: "UX.JS | JavaScript framework",
 		copyright: "(c) 2024 flaneurette",
 		license: "GNU",
