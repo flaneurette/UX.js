@@ -2,22 +2,22 @@ export const Shimmer = {
 	
 	id: 'Shimmer',
 
-	// init() is always called by UX.js, if it exists.
+	// init() is always called by UX.js, if it exists
 	init() {
 		this.count = app.state.counter;
 	},
 	
-	// render() is always called by UX.js, if it exists.
+	// render() is always called by UX.js, if it exists
 	render: () => `
 		<h3>UX Shimmer</h3>
 		<div id="shimmering">
-				<div class="shimmer skeleton"></div>
-				<div class="shimmer skeleton"></div>
-				<div class="shimmer skeleton"></div>
+			<div class="shimmer skeleton"></div>
+			<div class="shimmer skeleton"></div>
+			<div class="shimmer skeleton"></div>
 		</div>
 	`,
 
-	// effect() is always called by UX.js, if it exists.
+	// effect() is always called by UX.js, if it exists
 	effect() {
 		const shimmer = () => {
 
