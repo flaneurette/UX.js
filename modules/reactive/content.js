@@ -15,7 +15,7 @@ export const Content = {
 		});
 	},
 	
-	// All UX.js attribute functions can be called, such as :loop
+	// UX.js attribute functions can be called, such as :loop
 	render: () => `
 		<h3>Content</h3>
 		<p>{{stock}}</p>

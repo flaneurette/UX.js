@@ -467,6 +467,7 @@ class UX {
 	}
 	
 	reactiveUpdateVDOM(VDOM) {
+		
 		if(!this.modules) return false;
 		
 		this.modules.forEach(module => {
@@ -526,9 +527,9 @@ class UX {
 		buttons.forEach((button) => {
 			const action = button.getAttribute("data-action");
 			if (!action || !this.functions) return;
-			const func = this.functions.find(f => f && f.name === action);
-			if (func && typeof func === "function") {
-				this.events(button, 'click', func.bind(this), event)
+			const fun = this.functions.find(f => f && f.name === action);
+			if (fun && typeof fun === "function") {
+				this.events(button, 'click', fun.bind(this), event)
 			}
 		});
 		return;
