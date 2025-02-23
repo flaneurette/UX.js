@@ -11,9 +11,9 @@ export const Shimmer = {
 	render: () => `
 		<h3>UX Shimmer</h3>
 		<div id="shimmering">
-				<div class="shimmer skeleton"></div>
-				<div class="shimmer skeleton"></div>
-				<div class="shimmer skeleton"></div>
+			<div class="shimmer skeleton"></div>
+			<div class="shimmer skeleton"></div>
+			<div class="shimmer skeleton"></div>
 		</div>
 	`,
 
