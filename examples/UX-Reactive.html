@@ -64,23 +64,22 @@
 <a href="/Counter" :reactive="route:Counter:app">Counter</a>
 
 <div id="app">
-<p>This example shows UX.JS reactivity in short:</p>
-<ul>
-	<li>UX.js uses a reactivity and state-management model similar to that of Vue.js and React.js. However, UX.js reactivity works much more simpler than React.js</li>
-	<li>By default UX.js calls three functions automatically: <strong>init(), render() and effect().</strong> All other functions need to be subscribed to, by adding them into the <strong>app.functions</strong> array.</li>
-	<li>It is possible to call all UX.js attributes inside a module, making UX.js much more versatile.</li>
-	<li><strong>app.state.mystring</strong> is the global state and can be array, object, number or string.</li>
-</ul>
-<p>UX.JS reactive functions:</p>
-<ul>
-	<li>{app}.functions.{function} - subscribes a new function which can be called through data-actions.</li>
-	<li>{app}.state.{string} - setting of a state</li>
-	<li>{app}.setState(object) - setting and updating of a state with an object</li>
-	<li>{app}.initState(object) - initializing an object before rendering</li>
-</ul>
+	<p>This example shows UX.JS reactivity in short:</p>
+	<ul>
+		<li>UX.js uses a reactivity and state-management model similar to that of Vue.js and React.js. However, UX.js reactivity works much more simpler than React.js</li>
+		<li>By default UX.js calls three functions automatically: <strong>init(), render() and effect().</strong> All other functions need to be subscribed to, by adding them into the <strong>app.functions</strong> array.</li>
+		<li>It is possible to call all UX.js attributes inside a module, making UX.js much more versatile.</li>
+		<li><strong>app.state.mystring</strong> is the global state and can be array, object, number or string.</li>
+	</ul>
+	<p>UX.JS reactive functions:</p>
+	<ul>
+		<li>{app}.functions.{function} - subscribes a new function which can be called through data-actions.</li>
+		<li>{app}.state.{string} - setting of a state</li>
+		<li>{app}.setState(object) - setting and updating of a state with an object</li>
+		<li>{app}.initState(object) - initializing an object before rendering</li>
+	</ul>
 </div>
 <script>let app = new UX();</script>
 <script type="module" src="../modules/reactive/app.js"></script>
 </body>
 </html>
-
