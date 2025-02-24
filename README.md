@@ -27,7 +27,7 @@ Components are reusable HTML fragments with a .ux extension. UX.js components se
 <img src="https://github.com/flaneurette/UX.js/blob/main/examples/images/render_flowchart.png" />
 
 ### UX Components (.ux Files)
-A UX component is a self-contained UI element written in .ux format. It is possible to call custom UX.js attributes/functions to achieve certain features.
+A UX component is a self-contained UI element written in .ux format. It is possible to call all UX.js one-way attribute bindings to achieve certain features.
 
 Example of a .ux Component:
 
