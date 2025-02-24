@@ -15,7 +15,7 @@ export const Content = {
 		});
 	},
 	
-	// UX.js attribute functions can be called, such as :loop
+	// UX.js one-way attribute bindings can be called, such as :loop
 	render: () => `
 		<h3>Content</h3>
 		<p>{{stock}}</p>
@@ -25,7 +25,11 @@ export const Content = {
 	`,
 };
 
+const fun = () => {
+	window.handleClick = (text) => {
+		alert(text);
+	}
+};
 
-window.handleClick = (text) => {
-	alert(text);
-}
+app.setFun(fun);
+

@@ -151,7 +151,7 @@ class UX {
 			  'bindLogic': () => this.bindIf(elem, find, value),
 			  'bindMethods': () => this.bindMethods(elem, data, methods, find, value),
 			  'bindHandler': () => this.bindHandler(elem, data, methods, find, value),
-			  'replaceNodeValue': () => this.interpolation(elem, find, value)
+			  'interpolation': () => this.interpolation(elem, find, value)
 			};
 
 			if (methodHandlers[method]) {
@@ -460,6 +460,10 @@ class UX {
 	setState(newState,VDOM) {
 		this.state = { ...this.state, ...newState };
 		this.reactiveUpdateVDOM(VDOM);
+	}
+	
+	setFun(fun) {
+		if(fun) fun();
 	}
 	
 	reactiveUpdateVDOM(VDOM) {
@@ -2214,14 +2218,14 @@ class UX {
 			if (Array.isArray(value)) {
 				this.nodes('bindLoop', key, value);
 				this.nodes('createForm', key, value);
-				this.nodes('replaceNodeValue', key, value);
+				this.nodes('interpolation', key, value);
 				this.nodes('bindAttributesNode', key, value);
 				this.nodes('bindLogic', key, value);
 				this.nodes('bindMethods', key, value, data, method);
 				this.nodes('bindHandler', key, value, data, method);
 			} else {
 				this.nodes('bindActive');
-				this.nodes('replaceNodeValue', key, value);
+				this.nodes('interpolation', key, value);
 				this.nodes('bindAttributesNode', key, value);
 				this.nodes('bindLogic', key, value);
 				this.nodes('bindMethods', key, value, data, method);

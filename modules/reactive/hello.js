@@ -5,12 +5,15 @@ export const Hello = {
 	template() {
 		return `
 		<h3>${app.state.title || 'Hello World!'}</h3>
-			<button onclick="changeTitle()">Update title</button>
+		<button onclick="changeTitle()">Update title</button>
 		`;
 	},
 };
 
-window.changeTitle = () => {
-	// setState(object,appId) requires a template() to render.
-	app.setState({ title: 'Hello!' },'app');
+const fun = () => {
+	window.changeTitle = () => {
+		app.setState({ title: 'Hello this is reactive UX.js!' },'app');
+	}
 }
+
+app.setFun(fun);

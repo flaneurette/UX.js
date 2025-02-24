@@ -50,21 +50,28 @@ export const Form = {
 	},
 }
 
-// Any function, must be global and bound to window.
-window.reactiveRadio = (value) => {
-	let counterElement = document.querySelector('#agreed');
-	counterElement.textContent = value;
-	// Update state
-	app.state.agreed = value;
-}
-
-window.reactiveChecked = (value,checked) => {
-	if (!app.state.selected .includes(value)) {
-		app.state.selected .push(value);
+const fun1 = () => {
+	window.reactiveRadio = (value) => {
+		let counterElement = document.querySelector('#agreed');
+		counterElement.textContent = value;
+		// Update state
+		app.state.agreed = value;
 	}
-	let allFood = checked ? [...new Set(app.state.selected )] : app.state.selected .filter(item => item !== value);
-	// Update state
-	app.state.selected  = allFood;
-	let counterElement = document.querySelector('#foods');
-	counterElement.textContent = app.state.selected ;
-}
+};
+
+const fun2 = () => {
+	
+	window.reactiveChecked = (value,checked) => {
+		if (!app.state.selected .includes(value)) {
+			app.state.selected .push(value);
+		}
+		let allFood = checked ? [...new Set(app.state.selected )] : app.state.selected .filter(item => item !== value);
+		// Update state
+		app.state.selected  = allFood;
+		let counterElement = document.querySelector('#foods');
+		counterElement.textContent = app.state.selected ;
+	}
+};
+
+app.setFun(fun1);
+app.setFun(fun2);
