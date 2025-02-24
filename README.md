@@ -79,6 +79,8 @@ An example to trigger a different mode, light or dark.
 An example showing the :hamburger attribute, same as ux-toggle.
 #### UX-toggle.html
 An example showing the :toggle attribute, to switch a menu on/off.
+#### UX-input.html
+An example showing the :input attribute.
 #### UX-cart.html
 An example creating a shopping cart with UX.js.
 #### UX-fade.html

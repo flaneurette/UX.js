@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UX Input</title>
+	<style>
+	textarea {
+		background-color: #f7f7f7;
+		border: 1px solid #ddd;
+	}
+	
+	</style>
+	<script src="../src/UX.js"></script>
+</head>
+<body>
+<h1>UX Input</h1>
+<div>
+	<textarea cols="100" rows="10" id="text" :input="click:textChange">{{text}}</textarea>
+</div>
+	
+<script>
+let app = new UX();
+app.load({
+	data: {
+        text: 'This is the input binding... try typing here.'
+	},
+	methods: {
+		textChange() {
+			document.getElementById('text').textContent = 'Hello!';
+		}
+	}
+});
+</script>
+</body>
+</html>

@@ -150,6 +150,7 @@ class UX {
 			  'bindFunctions': () => this.bindFunctions(elem, data, find, value),
 			  'bindLogic': () => this.bindIf(elem, find, value),
 			  'bindMethods': () => this.bindMethods(elem, data, methods, find, value),
+			  'bindInput': () => this.bindInput(elem, data, methods, find, value),
 			  'bindHandler': () => this.bindHandler(elem, data, methods, find, value),
 			  'interpolation': () => this.interpolation(elem, find, value)
 			};
@@ -190,6 +191,36 @@ class UX {
 			this.nodes(binding);
 		});
 		
+		return;
+	}
+
+	/**
+	* Parses functions and methods
+	* @param {data, method}
+	* @return none
+	*/
+	
+	parseFunctions(data, method) {
+		for (const [key, value] of Object.entries(data)) {
+			if (Array.isArray(value)) {
+				this.nodes('bindLoop', key, value);
+				this.nodes('createForm', key, value);
+				this.nodes('interpolation', key, value);
+				this.nodes('bindAttributesNode', key, value);
+				this.nodes('bindLogic', key, value);
+				this.nodes('bindMethods', key, value, data, method);
+				this.nodes('bindInput', key, value, data, method);
+				this.nodes('bindHandler', key, value, data, method);
+			} else {
+				this.nodes('bindActive');
+				this.nodes('interpolation', key, value);
+				this.nodes('bindAttributesNode', key, value);
+				this.nodes('bindLogic', key, value);
+				this.nodes('bindMethods', key, value, data, method);
+				this.nodes('bindInput', key, value, data, method);
+				this.nodes('bindHandler', key, value, data, method);
+			}
+		}
 		return;
 	}
 	
@@ -1665,12 +1696,39 @@ class UX {
 	}
 
 	/**
+	* Binds UX inputs, and adds eventlisteners
+	* @param {node} 
+	* @return none
+	*/
+	
+	bindInput(node, data, methods, find, value) { 
+		
+		let nodeAttribute = this.getAtt(node, 'input');
+		if (!nodeAttribute || !this.attributeCheck(node, 'input')) return;
+		
+		let methodParts = nodeAttribute.split(":");
+		
+		if(!methodParts[0]) return;
+
+			for (let fun in methods) {
+				let method = methods[fun];
+				if (typeof method == "function") {
+					this.events(node,methodParts[0],method); 
+					break;
+				}
+			}
+
+		return;
+	}	
+	
+	/**
 	* Binds UX methods, image fills, and adds eventlisteners
 	* @param {node} 
 	* @return none
 	*/
 	
 	bindMethods(node, data, methods, find, value) {
+		
 		let nodeAttribute = this.getAtt(node, 'method');
 		if (!nodeAttribute || !this.attributeCheck(node, 'method')) return;
 
@@ -2203,34 +2261,6 @@ class UX {
 				}
 			}
 			parents.appendChild(options);
-		}
-		return;
-	}
-
-	/**
-	* Parses functions and methods
-	* @param {data, method}
-	* @return none
-	*/
-	
-	parseFunctions(data, method) {
-		for (const [key, value] of Object.entries(data)) {
-			if (Array.isArray(value)) {
-				this.nodes('bindLoop', key, value);
-				this.nodes('createForm', key, value);
-				this.nodes('interpolation', key, value);
-				this.nodes('bindAttributesNode', key, value);
-				this.nodes('bindLogic', key, value);
-				this.nodes('bindMethods', key, value, data, method);
-				this.nodes('bindHandler', key, value, data, method);
-			} else {
-				this.nodes('bindActive');
-				this.nodes('interpolation', key, value);
-				this.nodes('bindAttributesNode', key, value);
-				this.nodes('bindLogic', key, value);
-				this.nodes('bindMethods', key, value, data, method);
-				this.nodes('bindHandler', key, value, data, method);
-			}
 		}
 		return;
 	}
