@@ -1219,7 +1219,6 @@ class UX {
 						if(callbackName) { 
 							callback(entry);
 						}
-						observer.unobserve(entry.target);
 					}
 				});
 		}, options);
