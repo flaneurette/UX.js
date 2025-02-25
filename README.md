@@ -2,7 +2,7 @@
 
 <img src="https://github.com/flaneurette/UX.js/blob/main/examples/images/UX-logo.png" />
 
-UX.js is a powerful and lightweight JavaScript framework designed for building both single-page applications (SPAs) and multi-page applications (MPAs) with ease. It provides a structured and efficient approach to frontend development, enabling developers to create dynamic, interactive, and highly responsive web applications.
+UX.js is a powerful and lightweight JavaScript framework designed for building both single-page applications (SPAs) and multi-page applications (MPAs) with ease. It provides a structured and efficient approach to frontend development, enabling developers to create dynamic, interactive, and highly responsive web applications for better user experiences.
 
 Key Features of UX.js
 
