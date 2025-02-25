@@ -3,22 +3,22 @@ export const Counter = {
 	id: 'Counter',
 	
 	init() {
-		this.count = app.state.counter;
+		app.state.counter = app.state.counter ?? 0;
 	},
 
 	render() {
 		return `
-			<h3>Count: <span id="counter">${this.count || 0}</span></h3>
-			<button data-action="increment">Increment</button>
+			<h3>Count: <span id="counter">${app.state.counter || 0}</span></h3>
+			<button data-action="increment" class="button">Increment</button>
+			<button data-action="decrement" class="button">Decrement</button>
 		`;
 	},
 
 	increment() {
-		let counterElement = document.querySelector('#counter');
-		let count = parseInt(counterElement.textContent, 10) || 0;
-		let c = count + 1;
-		counterElement.textContent = c;
-		// Update state
-		app.setState({counter: c});
+		app.setState({counter: app.state.counter += 1}, Counter.id);
+	},
+	
+	decrement() {
+		app.setState({counter: app.state.counter -= 1}, Counter.id);
 	}
 }

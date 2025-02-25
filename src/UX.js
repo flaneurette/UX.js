@@ -497,28 +497,38 @@ class UX {
 		this.state = {};
 	}
 
-	setState(newState,compile) {
+	setState(newState,id) {
 		this.state = { ...this.state, ...newState };
 		sessionStorage.state = JSON.stringify(this.state);
-		if(compile == true) { 
-			this.reactiveUpdateVDOM();
-		}
+		this.reactiveUpdateVDOM(id);
 	}
 	
 	setFun(fun) {
 		if(fun) fun();
 	}
 	
-	reactiveUpdateVDOM() {
+	reactiveUpdateVDOM(id) {
 		
 		if(!this.modules) return false;
 		
 		this.modules.forEach(module => {
-			if(module['template']) { 
-				let modal = this.dom('root','id');
-				modal.innerHTML = module['template']();
+			
+			if(module['id'] == id) {
+				if (module['init']) {
+					module['init']();
+				}
+				if(module['render']) { 
+					const elem = this.dom('root','id');
+					elem.innerHTML = module['render']();
+				}
+				if(module['template']) { 
+					const modal = this.dom('root','id');
+					modal.innerHTML = module['template']();
+				}
 			}
+			
 		});	
+		this.bindReactiveDataActions();
 	}
 	
 	reactiveBind(uri) {
@@ -552,7 +562,7 @@ class UX {
 			}
 		});
 		this.bindReactiveDataActions();
-		// Reparse vdom for UX.js attribute handlers.
+		// Reparse VDOM for UX.js attribute handlers.
 		this.compileNodes(this.data,['bindReactive', 'bindReactiveDataActions']);
 		this.parseFunctions(this.data, this.methods);
 		return;
@@ -573,6 +583,7 @@ class UX {
 			const fun = this.functions.find(f => f && f.name === action);
 			if (fun && typeof fun === "function") {
 				this.events(button, 'click', fun.bind(this), event)
+				
 			}
 		});
 		return;

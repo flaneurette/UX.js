@@ -9,4 +9,4 @@ import { Hello } from "./hello.js";
 app.modules = [Content, Shimmer, About, Form, Counter, Hello];
 
 // Bind functions to UX.js 
-app.functions = [Counter.increment];
+app.functions = [Counter.increment,Counter.decrement];
