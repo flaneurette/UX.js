@@ -1259,7 +1259,7 @@ class UX {
 
 	/**
 	* Binds a node and 'grows' it into view
-	* @param {node} - the node to switch
+	* @param {node} - the node to grow
 	* @return none
 	*/
 	
