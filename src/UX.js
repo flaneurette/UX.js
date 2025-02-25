@@ -204,28 +204,31 @@ class UX {
 	*/
 	
 	parseFunctions(data, method) {
-		for (const [key, value] of Object.entries(data)) {
+		
+		if(!data) return;
+		
+		Object.entries(data).forEach(([key, value]) => {
+			const bindings = [
+				'interpolation',
+				'bindAttributesNode',
+				'bindLogic',
+				'bindMethods',
+				'bindInput',
+				'bindHandler'
+			];
+
 			if (Array.isArray(value)) {
-				this.nodes('bindLoop', key, value);
-				this.nodes('createForm', key, value);
-				this.nodes('interpolation', key, value);
-				this.nodes('bindAttributesNode', key, value);
-				this.nodes('bindLogic', key, value);
-				this.nodes('bindMethods', key, value, data, method);
-				this.nodes('bindInput', key, value, data, method);
-				this.nodes('bindHandler', key, value, data, method);
+				['bindLoop', 'createForm', ...bindings].forEach(fun => 
+					this.nodes(fun, key, value, data, method)
+				);
 			} else {
-				this.nodes('bindActive');
-				this.nodes('interpolation', key, value);
-				this.nodes('bindAttributesNode', key, value);
-				this.nodes('bindLogic', key, value);
-				this.nodes('bindMethods', key, value, data, method);
-				this.nodes('bindInput', key, value, data, method);
-				this.nodes('bindHandler', key, value, data, method);
+				['bindActive', ...bindings].forEach(fun => 
+					this.nodes(fun, key, value, data, method)
+				);
 			}
-		}
-		return;
+		});
 	}
+
 	
 	/**
 	* Handle global node events
@@ -257,17 +260,20 @@ class UX {
 	*/
 	
 	events(node, type, handler, event) {
+		
 		if (!node || !type) return;
-		if (!this.listeners) {
-			this.listeners = [];
-		}
+
+		const key = `${node.id}-${type}`;
+		if(!this.listeners.includes(key)) {
 		const eventListener = function(event) {
 			handler.call(this, event);
 			this.listeners.push(handler);
 		};
 		node.addEventListener(type, eventListener.bind(this));
+		}
 		return;
 	}
+	
 	
 	/**
 	* Queries the virtual DOM, getting and setting of information
