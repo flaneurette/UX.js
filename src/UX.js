@@ -19,7 +19,8 @@ class UX {
 		this.vdom = {};
 		this.state = {};
 		this.swipe = {};
-		this.parseNodes();
+		this.initState({});
+		this.compileNodes();
 	}
 	
 	init = {
@@ -170,7 +171,7 @@ class UX {
 	* @return none
 	*/
 	
-	parseNodes(data, exclude = []) {
+	compileNodes(data, exclude = []) {
 		
 		if (!Array.isArray(exclude)) exclude = [];
 
@@ -484,26 +485,35 @@ class UX {
 	
 	initState(config) {
 		const { data, methods, events } = config;
-		this.data = { ...data };
-		this.initData(data,methods);
+		const savedState = sessionStorage.state ? JSON.parse(sessionStorage.state) : data;
+		this.state = { ...data, ...savedState };
+		this.initData(this.state, methods);
+	}
+	
+	releaseState() {
+		sessionStorage.state = '';	
+		this.state = {};
 	}
 
-	setState(newState,VDOM) {
+	setState(newState,compile) {
 		this.state = { ...this.state, ...newState };
-		this.reactiveUpdateVDOM(VDOM);
+		sessionStorage.state = JSON.stringify(this.state);
+		if(compile == true) { 
+			this.reactiveUpdateVDOM();
+		}
 	}
 	
 	setFun(fun) {
 		if(fun) fun();
 	}
 	
-	reactiveUpdateVDOM(VDOM) {
+	reactiveUpdateVDOM() {
 		
 		if(!this.modules) return false;
 		
 		this.modules.forEach(module => {
 			if(module['template']) { 
-				let modal = this.dom(VDOM,'id');
+				let modal = this.dom('root','id');
 				modal.innerHTML = module['template']();
 			}
 		});	
@@ -511,14 +521,14 @@ class UX {
 	
 	reactiveBind(uri) {
 	
-		const [reactive, data, id] = uri.split(':');
+		const [reactive, data] = uri.split(':');
 		
-		if (!data || !id) return;
+		if (!data) return;
 		if(!this.modules) return false;
 		
 		this.modules.forEach(module => {
 			if(module['id'] == data) {
-				const elem = this.dom(id,'id');
+				const elem = this.dom('root','id');
 				if (!elem) {
 					console.error(`Element with id ${id} not found.`);
 					return;
@@ -541,7 +551,7 @@ class UX {
 		});
 		this.bindReactiveDataActions();
 		// Reparse vdom for UX.js attribute handlers.
-		this.parseNodes(this.data,['bindReactive', 'bindReactiveDataActions']);
+		this.compileNodes(this.data,['bindReactive', 'bindReactiveDataActions']);
 		this.parseFunctions(this.data, this.methods);
 		return;
 	}
@@ -1975,7 +1985,7 @@ class UX {
 					routeNode.innerHTML = content;
 
 					this.renderHTML(routeNode, data);
-					this.parseNodes(data);
+					this.compileNodes(data);
 				} catch (error) {
 					console.error("Routing fetch failed:", error);
 				}
@@ -2007,7 +2017,7 @@ class UX {
 					node.setHTMLUnsafe(response);
 					return this.renderHTML(node, data);
 				})
-				.then(() => this.parseNodes(data))
+				.then(() => this.compileNodes(data))
 				.finally(() => {
 					this.nodes('bindToggle');
 				});

@@ -3,6 +3,7 @@ export const Content = {
 	id: 'Content',
 
 	init() {
+		
 		app.initState({
 			data: {
 				stock: 'We have these foods in stock;',

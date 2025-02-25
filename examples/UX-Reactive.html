@@ -16,6 +16,10 @@
 			margin: 10px;
 		}
 		
+		fieldset {
+			border: 1px solid #ddd;
+		}
+		
 		.shimmer {
 			background: linear-gradient(90deg, #f7f7f7 25%, #ddd 50%, #f7f7f7 75%);
 			background-size: 200% 100%;
@@ -54,32 +58,35 @@
 
 <h1>UX Reactive - through modules</h1>
 
-<!-- :reactive = method, module, id of app -->
+<!-- :reactive = method, module -->
 
-<a href="/About" :reactive="route:About:app">About</a>
-<a href="/Hello" :reactive="route:Hello:app">Hello</a>
-<a href="/Content" :reactive="route:Content:app">Content</a>
-<a href="/Shimmer" :reactive="route:Shimmer:app">Shimmer</a>
-<a href="/Form" :reactive="route:Form:app">Form</a>
-<a href="/Counter" :reactive="route:Counter:app">Counter</a>
+<a href="/About" :reactive="route:About">About</a>
+<a href="/Hello" :reactive="route:Hello">Hello</a>
+<a href="/Content" :reactive="route:Content">Content</a>
+<a href="/Shimmer" :reactive="route:Shimmer">Shimmer</a>
+<a href="/Form" :reactive="route:Form">Form</a>
+<a href="/Counter" :reactive="route:Counter">Counter</a>
 
-<div id="app">
+<div id="root">
 	<p>This example shows UX.JS reactivity in short:</p>
 	<ul>
 		<li>UX.js uses a reactivity and state-management model similar to that of Vue.js and React.js.</li>
 		<li>By default UX.js calls three functions automatically: <strong>init(), render() and effect().</strong> All other functions need to be subscribed to, by adding them into the <strong>app.functions</strong> array.</li>
 		<li>It is possible to call all UX.js one-way attribute bindings inside a module, making UX.js much more versatile.</li>
 		<li><strong>app.state</strong> is the global state and can be array, object, number or string.</li>
+		<li>By default, sessionStorage is used to keep alive the reactive state when something changes.</li>
 	</ul>
 	<p>UX.JS reactive functions:</p>
 	<ul>
 		<li>{app}.functions.{function} - subscribes a new function which can be called through data-actions.</li>
 		<li>{app}.state.{string} - setting of a state</li>
-		<li>{app}.initState(object) - initializing an object before rendering</li>
-		<li>{app}.setState(object,appId) - setting and updating of a state with an object template. setState(object,appId) requires a template() to render</li>
+		<li>{app}.initState(object) - initializing an object before rendering.</li>
+		<li>{app}.setState(object,render=false) - setting and updating of a state with an object template. setState(object,render) requires a template() to render.</li>
 		<li>{app}.setFun(function) - initializing a function</li>
+		<li>{app}.releaseState() - clears sessionStorage</li>
 	</ul>
 </div>
+<input type="button" value="clear session storage" onclick="javascript:app.releaseState(); window.location.reload();">
 <script>let app = new UX();</script>
 <script type="module" src="../modules/reactive/app.js"></script>
 </body>

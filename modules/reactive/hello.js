@@ -12,7 +12,7 @@ export const Hello = {
 
 const fun = () => {
 	window.changeTitle = () => {
-		app.setState({ title: 'Hello this is reactive UX.js!' },'app');
+		app.setState({ title: 'Hello this is reactive UX.js!' }, true);
 	}
 }
 

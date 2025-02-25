@@ -4,6 +4,7 @@ export const Form = {
 	
 	init() {
 		// Get states.
+		app.state.selected = app.state.selected ?? [];
 		this.agreed = app.state.agreed;
 		this.food = app.state.selected;
 	},
@@ -44,34 +45,33 @@ export const Form = {
 		</form>
 		<p>
 			<strong>Selected:</strong>
-			<span id="foods">${app.state.selected}</span>
+			<span id="foods">${this.food}</span>
 		</p>
 		`;
 	},
 }
 
 const fun1 = () => {
+	
 	window.reactiveRadio = (value) => {
 		let counterElement = document.querySelector('#agreed');
 		counterElement.textContent = value;
 		// Update state
-		app.state.agreed = value;
+		app.setState({ agreed: value });
 	}
 };
 
 const fun2 = () => {
 	
-	window.reactiveChecked = (value,checked) => {
-		if (!app.state.selected .includes(value)) {
-			app.state.selected .push(value);
-		}
-		let allFood = checked ? [...new Set(app.state.selected )] : app.state.selected .filter(item => item !== value);
-		// Update state
-		app.state.selected  = allFood;
-		let counterElement = document.querySelector('#foods');
-		counterElement.textContent = app.state.selected ;
-	}
+    window.reactiveChecked = (value, checked) => {
+        app.state.selected = checked  ? [...new Set([...app.state.selected, value])]: app.state.selected.filter(item => item !== value);
+        // Update state
+        app.setState({ selected: app.state.selected });
+
+        document.querySelector('#foods').textContent = app.state.selected.join(', ');
+    };
 };
+
 
 app.setFun(fun1);
 app.setFun(fun2);

@@ -10,9 +10,3 @@ app.modules = [Content, Shimmer, About, Form, Counter, Hello];
 
 // Bind functions to UX.js 
 app.functions = [Counter.increment];
-
-// Default state of counter
-app.state.counter = 0;
-
-// Default states of the form
-app.state.selected = [];

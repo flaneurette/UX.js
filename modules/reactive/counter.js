@@ -8,7 +8,7 @@ export const Counter = {
 
 	render() {
 		return `
-			<h3>Count: <span id="counter">${this.count}</span></h3>
+			<h3>Count: <span id="counter">${this.count || 0}</span></h3>
 			<button data-action="increment">Increment</button>
 		`;
 	},
@@ -16,9 +16,9 @@ export const Counter = {
 	increment() {
 		let counterElement = document.querySelector('#counter');
 		let count = parseInt(counterElement.textContent, 10) || 0;
-		let counter = count + 1;
-		counterElement.textContent = counter;
+		let c = count + 1;
+		counterElement.textContent = c;
 		// Update state
-		app.state.counter = counter;
+		app.setState({counter: c});
 	}
 }
