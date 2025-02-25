@@ -75,6 +75,8 @@ An example flipping objects using the :flip attribute
 An drag and drop example plugin from /plugins/
 #### UX-darkmode.html
 An example to trigger a different mode, light or dark.
+#### UX-observe.html
+An example showing the :observe attribute, to observe intersections
 #### UX-hamburger.html
 An example showing the :hamburger attribute, same as ux-toggle.
 #### UX-toggle.html

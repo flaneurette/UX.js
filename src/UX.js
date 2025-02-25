@@ -140,6 +140,7 @@ class UX {
 			bindScroll: this.bindScroll,
 			bindTouches: this.bindTouches,
 			bindSwipe: this.bindSwipe,
+			bindObserver: this.bindObserver,
 		};
 		
 		documentElements.forEach(elem => {
@@ -181,7 +182,8 @@ class UX {
 			'bindCurtains', 'bindAnimate', 'bindLazyImg', 'bindLazyLoad', 'bindUri', 
 			'bindIntoView', 'bindFade', 'bindClose', 'bindView', 'bindSwitch', 
 			'bindWheel', 'bindSlide', 'bindScroll', 'bindSpinner', 'bindFlip', 
-			'bindTouches', 'bindSwipe', 'progress', 'bindReactive', 'bindReactiveDataActions'
+			'bindTouches', 'bindSwipe', 'progress', 'bindReactive', 'bindReactiveDataActions',
+			'bindObserver'
 		];
 
 		if (exclude.includes('bindReactive') || exclude.includes('bindReactiveDataActions')) {
@@ -1185,6 +1187,45 @@ class UX {
 		node.style.animation = `${animationName} ${duration} forwards`;
 		node.style.animationTimingFunction = timingFunction;
 		return;
+	}
+	
+	/**
+	* Binds an observer
+	* @param {node} - the node to observe
+	* @return none
+	*/
+	
+	bindObserver(node) {
+		
+		let nodeAttribute = this.getAtt(node, 'observe');
+		if (!nodeAttribute) return;
+
+		const [id, root, margin, threshold, callbackName] = nodeAttribute.split(':');
+		const targetElement = this.dom(id,'id');
+
+		let parsedThreshold = threshold ? JSON.parse(threshold) : 0;
+		
+		const options = {
+			root: root ? document.querySelector(root) : null,
+			rootMargin: margin || '0px',
+			threshold: parsedThreshold
+		};
+
+		const callback = this[callbackName] || window[callbackName];
+
+		const observer = new IntersectionObserver((entries, observer) => {
+				entries.forEach(entry => {
+					if (entry.isIntersecting) {
+						if(callbackName) { 
+							callback(entry);
+						}
+						observer.unobserve(entry.target);
+					}
+				});
+		}, options);
+
+		observer.observe(targetElement);
+		
 	}
 
 	/**

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX observer</title>
+    <style>
+
+        .spacer {
+            height: 100vh;
+            background-color: #f7f7f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+			height: 600px;
+            padding: 50px;
+            background-color: #ddd;
+            margin: 0 auto;
+        }
+    </style>
+	<script src="../src/UX.js"></script>
+</head>
+<body>
+
+	<div id="root">
+		<div class="spacer">Scroll down to intersect</div>
+		<!-- :observe = id, root, margin of root, threshold, callback function -->
+		<div class="box hidden" id="box" :observe="box:root:200px:0.8:callback">Intersected box</div>
+		<div class="spacer"></div>
+	</div>
+    <script>
+		
+		let app = new UX();
+		
+		function callback(entry) {
+			alert(entry + 'Box area intersected upon scrolling!');
+		}
+		
+    </script>
+
+</body>
+</html>
