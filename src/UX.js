@@ -144,23 +144,23 @@ class UX {
 		};
 		
 		documentElements.forEach(elem => {
-		  if (methodMap[method]) {
+			if (methodMap[method]) {
 			methodMap[method].call(this, elem, find, value);
-		  } else {
+			} else {
 			const methodHandlers = {
-			  'progress': () => this.progress(elem, data, methods, find, value),
-			  'bindFunctions': () => this.bindFunctions(elem, data, find, value),
-			  'bindLogic': () => this.bindIf(elem, find, value),
-			  'bindMethods': () => this.bindMethods(elem, data, methods, find, value),
-			  'bindInput': () => this.bindInput(elem, data, methods, find, value),
-			  'bindHandler': () => this.bindHandler(elem, data, methods, find, value),
-			  'interpolation': () => this.interpolation(elem, find, value)
+				'progress': () => this.progress(elem, data, methods, find, value),
+				'bindFunctions': () => this.bindFunctions(elem, data, find, value),
+				'bindLogic': () => this.bindIf(elem, find, value),
+				'bindMethods': () => this.bindMethods(elem, data, methods, find, value),
+				'bindInput': () => this.bindInput(elem, data, methods, find, value),
+				'bindHandler': () => this.bindHandler(elem, data, methods, find, value),
+				'interpolation': () => this.interpolation(elem, find, value)
 			};
 
 			if (methodHandlers[method]) {
-			  methodHandlers[method]();
+				methodHandlers[method]();
 			}
-		  }
+			}
 		});
 		
 		return;
@@ -264,13 +264,15 @@ class UX {
 		if (!node || !type) return;
 
 		const key = `${node.id}-${type}`;
+		
 		if(!this.listeners.includes(key)) {
-		const eventListener = function(event) {
-			handler.call(this, event);
-			this.listeners.push(handler);
-		};
-		node.addEventListener(type, eventListener.bind(this));
+			const eventListener = function(event) {
+				handler.call(this, event);
+				this.listeners.push(handler);
+			};
+			node.addEventListener(type, eventListener.bind(this));
 		}
+		
 		return;
 	}
 	
@@ -283,38 +285,38 @@ class UX {
 	
 	dom(id, method, value) {
 		
-	  const globalActions = {
-		query: () => document.querySelector(value),
-		queryall: () => document.querySelectorAll(value),
-		elements: () => document.getElementsByTagName(value),
-		classes: () => document.getElementsByClassName(value),
-		create: () => document.createElement(value),
-		document: () => document.all,
-		location: () => window.location.href,
-		innerheight: () => window.innerHeight,
-		innerwidth: () => window.innerWidth,
-	  };
+		const globalActions = {
+			query: () => document.querySelector(value),
+			queryall: () => document.querySelectorAll(value),
+			elements: () => document.getElementsByTagName(value),
+			classes: () => document.getElementsByClassName(value),
+			create: () => document.createElement(value),
+			document: () => document.all,
+			location: () => window.location.href,
+			innerheight: () => window.innerHeight,
+			innerwidth: () => window.innerWidth,
+		};
 
-	  if (method in globalActions) return globalActions[method]();
+		if (method in globalActions) return globalActions[method]();
 
-	  const elem = id ? document.getElementById(id) : null;
-	  if (!elem) return null; 
+		const elem = id ? document.getElementById(id) : null;
+		if (!elem) return null; 
 
-	  const actions = {
-		id: () => elem,
-		get: () => elem.value,
-		set: () => { elem.value = value; },
-		none: () => { elem.style.display = 'none'; },
-		block: () => { elem.style.display = 'block'; },
-		sethtml: () => { elem.innerHTML = value; },
-		gethtml: () => elem.innerHTML,
-		innerHTML: () => document.body.innerHTML,
-		display: () => { elem.style.display = value; },
-		parent: () => elem.parentNode,
-		children: () => elem.children,
-	  };
+		const actions = {
+			id: () => elem,
+			get: () => elem.value,
+			set: () => { elem.value = value; },
+			none: () => { elem.style.display = 'none'; },
+			block: () => { elem.style.display = 'block'; },
+			sethtml: () => { elem.innerHTML = value; },
+			gethtml: () => elem.innerHTML,
+			innerHTML: () => document.body.innerHTML,
+			display: () => { elem.style.display = value; },
+			parent: () => elem.parentNode,
+			children: () => elem.children,
+		};
 
-	  return actions[method] ? actions[method]() : null;
+		return actions[method] ? actions[method]() : null;
 	}
 	
 	/**
@@ -602,16 +604,16 @@ class UX {
 	*/
 	
 	reactiveParser(method) {	
-	  method
+		method
 		.toString()
 		.split("\n")
 		.filter(line => line.includes('this.'))
 		.forEach(line => {
-		  if (line.includes('=')) {
-		  } else if (line.includes('++') || line.includes('+=') ) {
-		  } else if (line.includes('--') || line.includes('-=')) {
-			  let c = line.split('\s');
-		  }
+			if (line.includes('=')) {
+			} else if (line.includes('++') || line.includes('+=') ) {
+			} else if (line.includes('--') || line.includes('-=')) {
+				let c = line.split('\s');
+			}
 		});
 		return;
 	}
@@ -624,6 +626,7 @@ class UX {
 	
 	bindReactiveActions(data) {
 		// TODO
+		return;
 	}
 	
 	/**
@@ -706,7 +709,6 @@ class UX {
 			};
 			this.events(node,'click', handleCurtain);
 		}
-		
 		return;
 	}
 
@@ -903,7 +905,7 @@ class UX {
 		let ticking = false;
 		
 		const handleScroll = (event) => {
-		  if (!ticking) {
+			if (!ticking) {
 			window.requestAnimationFrame(() => {
 					let deltaY = window.scrollY;
 					const targetProperty = dimension === 'height' ? 'height' : 'width';
@@ -912,9 +914,9 @@ class UX {
 					setTimeout(() => {
 						node.style.display = 'none';
 					}, 500);
-			  ticking = false;
+				ticking = false;
 			});
-		  }
+			}
 		ticking = true;
 		};
 			
@@ -970,8 +972,8 @@ class UX {
 				});
 				
 				window.scrollTo({
-				  top: 0,
-				  behavior: "smooth"
+					top: 0,
+					behavior: "smooth"
 				});
 			};
 			
@@ -1049,7 +1051,7 @@ class UX {
 		let ticking = false;
 		
 		const handleScroll = (event) => {
-		  if (!ticking) {
+			if (!ticking) {
 			window.requestAnimationFrame(() => {
 					let deltaY = window.scrollY;
 					const targetProperty = dimension === 'height' ? 'height' : 'width';
@@ -1058,9 +1060,9 @@ class UX {
 					setTimeout(() => {
 						node.style.display = 'none';
 					}, 500);
-			  ticking = false;
+				ticking = false;
 			});
-		  }
+			}
 		ticking = true;
 		};
 		
@@ -1144,6 +1146,7 @@ class UX {
 	*/
 	
 	bindFlex(node) {
+		
 		const nodeAttribute = this.getAtt(node, 'flex');
 		if (!nodeAttribute) return;
 
@@ -1178,6 +1181,7 @@ class UX {
 	*/
 	
 	bindAnimate(node) {
+		
 		const nodeAttribute = this.getAtt(node, 'animate');
 		if (!nodeAttribute) return;
 
@@ -1251,6 +1255,7 @@ class UX {
 	*/
 	
 	bindFade(node) {
+		
 		let nodeAttribute = this.getAtt(node, 'fade');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
@@ -1281,6 +1286,7 @@ class UX {
 	*/
 	
 	bindIntoView(node) {
+		
 		let nodeAttribute = this.getAtt(node, 'grow');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
@@ -1320,8 +1326,8 @@ class UX {
 			
 			node.style.opacity = "0"; 
 			node.style.transform = "translateY(-10px)";
-			node.style.transition = "opacity " + Reflect.get(lazy, 0) + " " + Reflect.get(lazy, 1) + " transform "+ Reflect.get(lazy, 0) + " " +  Reflect.get(lazy, 1);
-		   
+			node.style.transition = "opacity " + Reflect.get(lazy, 0) + " " + Reflect.get(lazy, 1) + " transform "+ Reflect.get(lazy, 0) + " " +	Reflect.get(lazy, 1);
+			 
 			const observer = new IntersectionObserver((entries, observer) => {
 				entries.forEach(entry => {
 					if (entry.isIntersecting) {
@@ -1389,6 +1395,7 @@ class UX {
 	*/
 	
 	bindUri(node) {
+		
 		let nodeAttribute = this.getAtt(node, 'link');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
@@ -1408,6 +1415,7 @@ class UX {
 	*/
 	
 	bindFlip(node) {
+		
 		if (!node || node._flipBound) return;
 
 		let nodeAttribute = this.getAtt(node, 'flip');
@@ -1435,6 +1443,7 @@ class UX {
 	*/
 	
 	bindHamburger(node) {
+		
 		let nodeAttribute = this.getAtt(node, 'hamburger');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null && nodeAttribute.indexOf(':') !== -1) {
@@ -1474,6 +1483,7 @@ class UX {
 	*/
 	
 	bindSpinner(node) {
+		
 		let nodeAttribute = this.getAtt(node, 'spinner');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null && nodeAttribute.indexOf(':') !== -1) {
@@ -1520,6 +1530,7 @@ class UX {
 	*/
 	
 	bindCSS(node) {
+		
 		let nodeAttribute = this.getAtt(node, 'css');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
@@ -1621,6 +1632,7 @@ class UX {
 	*/
 	
 	bindPrevent(node, find, value) {
+		
 		let nodeAttribute = this.getAtt(node, 'prevent');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
@@ -1639,6 +1651,7 @@ class UX {
 	*/
 	
 	bindClose(node) {
+		
 		let nodeAttribute = this.getAtt(node, ':close');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
@@ -1741,6 +1754,7 @@ class UX {
 	*/
 	
 	bindHandler(node, data, methods, find, value) {
+		
 		let nodeAttribute = this.getAtt(node, 'handler');
 		if (!nodeAttribute) return;
 
@@ -1823,6 +1837,7 @@ class UX {
 	*/
 	
 	processMethods(node, methods, imageAssignments) {
+		
 		for (let key in methods) {
 			let method = methods[key];
 
@@ -1851,8 +1866,7 @@ class UX {
 	*/
 	
 	isImageAssignment(line) {
-		return line.includes('this.') && line.includes('=') && 
-			   (line.includes('img') || line.includes('image'));
+		return line.includes('this.') && line.includes('=') && (line.includes('img') || line.includes('image'));
 	}
 	
 	/**
@@ -1862,6 +1876,7 @@ class UX {
 	*/
 	
 	handleArrayClick(node) {
+		
 		if (this.getAtt(node, 'method').includes('{{')) return;
 
 		const handleArray = () => {
@@ -1926,6 +1941,7 @@ class UX {
 	*/
 	
 	bindIf(node, find, value) {
+		
 		let nodeAttribute = this.getAtt(node, 'if');
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null) {
@@ -1960,6 +1976,7 @@ class UX {
 	*/
 	
 	loop(node, find, values) {
+		
 		let nodeAttribute = this.getAtt(node, 'loop');
 		if (!nodeAttribute) return;
 		let zebra = this.getAtt(node, 'zebra');
@@ -2011,6 +2028,7 @@ class UX {
 	*/
 	
 	routeComponents(node, data) {
+		
 		let attribute = this.getAtt(node, 'route');
 		if (!attribute) return;
 		let [routeId, requestUri] = attribute.split(':');
@@ -2058,6 +2076,7 @@ class UX {
 	*/
 	
 	renderComponents(node, data) {
+		
 		this.thread = 0;
 		let attribute = this.getAtt(node, 'render');
 		if (!attribute) return;
@@ -2094,6 +2113,7 @@ class UX {
 	*/
 	
 	renderHTML(node, data) {
+		
 		let content = node.innerHTML;
 		for (const [key, value] of Object.entries(data)) {
 			if (Array.isArray(value)) {
@@ -2148,6 +2168,7 @@ class UX {
 	*/
 	
 	progress(node) {
+		
 		let attribute = this.getAtt(node, 'progress');
 		if (!attribute) return;
 		if (attribute !== null) {
@@ -2185,50 +2206,50 @@ class UX {
 	
 	async (requestUri, method, callback) {
 
-	  const documentElements = this.nodeParentList();
-	  
-	  for (const element of documentElements) {
+		const documentElements = this.nodeParentList();
+		
+		for (const element of documentElements) {
 
 		if (this.getAtt(element, 'async') !== null) {
-		  element.addEventListener('submit', async event => {
-			  
+			element.addEventListener('submit', async event => {
+				
 			event.preventDefault();
 			const forms = this.dom(null, 'elements', '*');
 			
 			for (const form of forms) {
-			  if (form.getAttribute(':async') === 'true') {
+				if (form.getAttribute(':async') === 'true') {
 				const formData = new FormData();
 				formData.append('UXAsync', 'true');
 
 				Array.from(form.elements).forEach(input => {
-				  if (input.name && input.value) formData.append(input.name, input.value);
+					if (input.name && input.value) formData.append(input.name, input.value);
 				});
 
 				try {
-				  const response = await fetch(requestUri, {
+					const response = await fetch(requestUri, {
 					method: 'POST',
 					headers: {
-					  'Access-Control-Allow-Origin': UX.allowOrigin,
+						'Access-Control-Allow-Origin': UX.allowOrigin,
 					},
 					body: formData,
 					credentials: 'include',
-				  });
+					});
 
-				  if (response.ok) {
+					if (response.ok) {
 					const responseText = await response.text();
 					callback(responseText);
-				  } else {
+					} else {
 					console.error('Request failed with status:', response.status);
-				  }
+					}
 				} catch (error) {
-				  console.error('Error in async request:', error);
+					console.error('Error in async request:', error);
 				}
-			  }
+				}
 			}
-		  });
+			});
 		}
-	  }
-	  return;
+		}
+		return;
 	}
 
 	/**
@@ -2238,37 +2259,38 @@ class UX {
 	*/
 
 	async http(requestUri, method, callback) {
-	  const headers = new Headers();
-	  if (typeof UX !== "undefined" && UX.contentType) {
+		
+		const headers = new Headers();
+		if (typeof UX !== "undefined" && UX.contentType) {
 		headers.append("Content-Type", UX.contentType);
-	  }
+		}
 
-	  try {
+		try {
 		const response = await fetch(requestUri, {
-		  method: 'GET',
-		  headers: headers,
-		  credentials: 'include',
+			method: 'GET',
+			headers: headers,
+			credentials: 'include',
 		});
 
 		if (!response.ok) {
-		  throw new Error(`Request failed with status: ${response.status}`);
+			throw new Error(`Request failed with status: ${response.status}`);
 		}
 
 		const responseText = await response.text();
 
 		if (method === 'callback') {
-		  callback(responseText);
+			callback(responseText);
 		} else if (method === 'get') {
-		  return JSON.parse(responseText);
+			return JSON.parse(responseText);
 		} else if (method === 'render') {
-		  return responseText;
+			return responseText;
 		}
 
-	  } catch (error) {
+		} catch (error) {
 		console.error('Network Error:', error);
 		throw error;
-	  }
-	  return;
+		}
+		return;
 	}
 
 	/**
@@ -2278,6 +2300,7 @@ class UX {
 	*/
 	
 	createElements(node, type, elementOption) {
+		
 		let opt = this.dom(null, 'create', type);
 		if (elementOption.type == 'text') {
 			let opt = this.dom(null, 'create', 'input');
@@ -2300,6 +2323,7 @@ class UX {
 	*/
 	
 	createForm(node, find, values) {
+		
 		let nodeAttribute = this.getAtt(node, 'form');
 		if (nodeAttribute !== null) {
 			let parents = this.dom(null, 'create', 'div');
@@ -2339,6 +2363,7 @@ class UX {
 	*/
 	
 	bindDevtool(node) {
+		
 		if (!node) return;
 
 		if (node.className && node.id) {

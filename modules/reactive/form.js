@@ -65,13 +65,12 @@ const fun2 = () => {
 	
     window.reactiveChecked = (value, checked) => {
         app.state.selected = checked  ? [...new Set([...app.state.selected, value])]: app.state.selected.filter(item => item !== value);
-        // Update state
-        app.setState({ selected: app.state.selected });
-
         document.querySelector('#foods').textContent = app.state.selected.join(', ');
+		// Update state
+        app.setState({ selected: app.state.selected });
     };
 };
 
-
+// Subscribe
 app.setFun(fun1);
 app.setFun(fun2);

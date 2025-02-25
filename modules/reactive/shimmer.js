@@ -3,7 +3,7 @@ export const Shimmer = {
 	id: 'Shimmer',
 
 	init() {
-		this.count = app.state.counter;
+		null
 	},
 	
 	render: () => `
@@ -39,4 +39,3 @@ export const Shimmer = {
 		shimmer();
 	},
 };
-

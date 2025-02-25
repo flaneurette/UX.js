@@ -16,4 +16,5 @@ const fun = () => {
 	}
 }
 
+// Subscribe
 app.setFun(fun);
