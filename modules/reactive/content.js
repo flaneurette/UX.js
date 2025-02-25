@@ -16,7 +16,7 @@ export const Content = {
 		});
 	},
 	
-	// UX.js one-way attribute bindings can be called, such as :loop
+	// UX.js one-way attribute bindings can be attached, such as :loop
 	render: () => `
 		<h3>Content</h3>
 		<p>{{stock}}</p>
