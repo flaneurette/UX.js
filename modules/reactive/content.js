@@ -20,7 +20,7 @@ export const Content = {
 	render: () => `
 		<h3>Content</h3>
 		<p>{{stock}}</p>
-		<ul :loop="foods">
+		<ul :loop="foods" class="buttons">
 			<li><input type="button" onclick="handleClick(event.target.value);" value="{{name}}" /></li>
 		</ul>
 	`,

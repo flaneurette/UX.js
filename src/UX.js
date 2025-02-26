@@ -19,6 +19,7 @@ class UX {
 		this.vdom = {};
 		this.state = {};
 		this.swipe = {};
+		this.shadow = {};
 		this.initState({});
 		this.compileNodes();
 	}
@@ -141,6 +142,7 @@ class UX {
 			bindTouches: this.bindTouches,
 			bindSwipe: this.bindSwipe,
 			bindObserver: this.bindObserver,
+			bindTemplate: this.bindTemplate,
 		};
 		
 		documentElements.forEach(elem => {
@@ -183,7 +185,7 @@ class UX {
 			'bindIntoView', 'bindFade', 'bindClose', 'bindView', 'bindSwitch', 
 			'bindWheel', 'bindSlide', 'bindScroll', 'bindSpinner', 'bindFlip', 
 			'bindTouches', 'bindSwipe', 'progress', 'bindReactive', 'bindReactiveDataActions',
-			'bindObserver'
+			'bindObserver','bindTemplate'
 		];
 
 		if (exclude.includes('bindReactive') || exclude.includes('bindReactiveDataActions')) {
@@ -448,6 +450,38 @@ class UX {
 			});
 		return;
 	}
+	
+	/**
+	* Create shadowroot
+	* @param {node} - the node to bind a shadowroot to
+	* @return shadowroot
+	*/
+	
+	bindShadow(node) {
+		const shadow = node.attachShadow({ mode: "open" });	
+		return shadow;
+	}
+
+	/**
+	* Bind a webcomponent template
+	* @param {node} - the shadow node to bind a template to
+	* @return none
+	*/
+	
+	bindTemplate(node) {
+		
+		let nodeAttribute = this.getAtt(node, 'shadow');
+		if (!nodeAttribute) return;
+
+		const templateElement = this.dom(nodeAttribute, 'id');
+		if (!templateElement) return;
+
+		const template = templateElement.content.cloneNode(true);
+		const root = this.bindShadow(node);
+		root.appendChild(template);
+		return;
+	}
+
 	
 	/**
 	* Reactive bindings

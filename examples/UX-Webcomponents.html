@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UX Webcomponents</title>
+	<script src="../src/UX.js"></script>
+	<style>
+	body {
+		padding: 10px;
+	}
+	
+	#host {
+		background-color: lightblue;
+		padding: 10px;
+		border-radius: 5px;
+		color: white;
+		margin: 30px;
+		width: 250px;
+	}
+	</style>
+</head>
+<body>
+	<h1>UX Webcomponents</h1>
+	
+	<div id="host" :shadow="ux-template">
+		<ux-button>I am NOT in shadow DOM.</ux-button>
+	</div>
+	
+	<template id="ux-template">
+		<style>
+		div {
+			background-color: blue;
+			border-radius: 5px;
+			color: white;
+			text-align:center;
+			cursor: pointer;
+			padding: 10px;
+		}
+		</style>
+		<div>I am in the shadow DOM</div>
+	</template>
+
+<script>
+let app = new UX();
+
+// Register event on click
+app.events(app.dom('host','id'),'click',hello);
+
+function hello() {
+	alert('It works!');
+}
+
+</script>
+</body>
+</html>

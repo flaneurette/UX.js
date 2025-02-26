@@ -42,7 +42,7 @@
 			padding: 10px;
 		}
 		
-		#app {
+		#root {
 			padding: 30px;
 			margin: 0px;
 			margin-top: 30px;
@@ -52,6 +52,14 @@
 		#shimmering {
 			background-color: white;
 		}
+		
+		ul {
+			list-style-type: space-counter;
+			margin: 0px;
+			padding: 0px;
+			margin-left: 30px;
+		}
+		
 	</style>
 </head>
 <body>
@@ -86,7 +94,7 @@
 		<li>{app}.releaseState() - clears sessionStorage</li>
 	</ul>
 </div>
-<input type="button" value="clear session storage" onclick="javascript:app.releaseState(); window.location.reload();">
+<input type="button" value="Clear Session Storage" onclick="javascript:app.releaseState(); window.location.reload();">
 <script>let app = new UX();</script>
 <script type="module" src="../modules/reactive/app.js"></script>
 </body>
