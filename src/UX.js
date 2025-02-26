@@ -625,7 +625,6 @@ class UX {
 	*/
 	
 	bindReactiveActions(data) {
-		// TODO
 		return;
 	}
 	
@@ -1216,7 +1215,7 @@ class UX {
 	* @return none
 	*/
 	
-	bindObserver(node) {
+	bindObserver(node, params=false) {
 		
 		let nodeAttribute = this.getAtt(node, 'observe');
 		if (!nodeAttribute) return;
@@ -1567,7 +1566,7 @@ class UX {
 
 			if (currentState === 'in') {
 				node.setAttribute('toggle', `${currentTargetId}:out:${currentClass}`);
-			} else {
+				} else {
 				node.setAttribute('toggle', `${currentTargetId}:in:${currentClass}`);
 			}
 

@@ -8,5 +8,5 @@ import { Hello } from "./hello.js";
 // Bind modules to UX.js
 app.modules = [Content, Shimmer, About, Form, Counter, Hello];
 
-// Bind functions to UX.js 
+// Subscribe functions to UX.js 
 app.functions = [Counter.increment,Counter.decrement];
