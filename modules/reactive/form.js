@@ -4,9 +4,8 @@ export const Form = {
 	
 	init() {
 		// Get states.
-		app.state.selected = app.state.selected ?? [];
-		this.agreed = app.state.agreed;
-		this.food = app.state.selected;
+		app.state.selected = app.getState('selected') ?? [];
+		app.state.agreed = app.getState('agreed');
 	},
 
 	render() {
@@ -16,36 +15,36 @@ export const Form = {
 			<fieldset>
 				<legend>Do you agree to our terms?</legend>
 				<input type="radio" name="agreed" id="yes" value="Yes" 
-				${this.agreed === 'Yes' ? 'checked' : ''} 
+				${app.state.agreed === 'Yes' ? 'checked' : ''} 
 				onChange="reactiveRadio(event.target.value);" />
 				<label for="yes">Yes</label>
 				<br />
 				<input type="radio" name="agreed" id="no" value="No" 
-				${this.agreed === 'No' ? 'checked' : ''} 
+				${app.state.agreed === 'No' ? 'checked' : ''} 
 				onChange="reactiveRadio(event.target.value);" />
 				<label for="no">No</label>
 			</fieldset>
 		</form>
 		<p>
 			<strong>Agreed to:</strong>
-			<span id="agreed">${this.agreed}</span>
+			<span id="agreed">${app.state.agreed}</span>
 		</p>
 		<form :async="true">
 		<fieldset>
 			<legend>Select items:</legend>
 				<input type="checkbox" name="foods[]" id="apples" value="Apples" 
-				${this.food.includes('Apples') ? 'checked' : ''} 
+				${app.state.selected.includes('Apples') ? 'checked' : ''} 
 				onChange="reactiveChecked(event.target.value,event.target.checked);" />
 				<label for="apples">Apples</label>
 				<input type="checkbox" name="foods[]" id="oranges" value="Oranges" 
-				${this.food.includes('Oranges') ? 'checked' : ''} 
+				${app.state.selected.includes('Oranges') ? 'checked' : ''} 
 				onChange="reactiveChecked(event.target.value,event.target.checked);" />
 				<label for="oranges">Oranges</label>
 		</fieldset>
 		</form>
 		<p>
 			<strong>Selected:</strong>
-			<span id="foods">${this.food}</span>
+			<span id="foods">${app.state.selected}</span>
 		</p>
 		`;
 	},
@@ -57,7 +56,7 @@ const fun1 = () => {
 		let counterElement = document.querySelector('#agreed');
 		counterElement.textContent = value;
 		// Update state
-		app.setState({ agreed: value });
+		app.setState({ agreed: value }, Form.id, true);
 	}
 };
 
@@ -67,7 +66,7 @@ const fun2 = () => {
         app.state.selected = checked  ? [...new Set([...app.state.selected, value])]: app.state.selected.filter(item => item !== value);
         document.querySelector('#foods').textContent = app.state.selected.join(', ');
 		// Update state
-        app.setState({ selected: app.state.selected });
+        app.setState({ selected: app.state.selected }, Form.id, true);
     };
 };
 

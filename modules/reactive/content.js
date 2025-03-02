@@ -13,7 +13,7 @@ export const Content = {
 				{name: 'Oranges'},
 				{name: 'Vegetables'}]
 			}
-		});
+		}, true);
 	},
 	
 	// UX.js one-way attribute bindings can be attached, such as :loop

@@ -527,10 +527,27 @@ class UX {
 		return;
 	}
 	
-	initState(config) {
+	getState(ofWhat) {
+		try {
+			const storedState = sessionStorage.getItem("state");
+			if (!storedState) return this.state?.[ofWhat];
+			const state = JSON.parse(storedState);
+			return state?.[ofWhat] ?? this.state?.[ofWhat]; 
+		} catch (error) {
+			console.error("Failed to parse sessionStorage.state:", error);
+			return this.state?.[ofWhat];
+		}
+	}
+	
+	initState(config, session) {
 		const { data, methods, events } = config;
-		const savedState = sessionStorage.state ? JSON.parse(sessionStorage.state) : data;
-		this.state = { ...data, ...savedState };
+		if(session === true) {
+			let savedState = sessionStorage.state ? JSON.parse(sessionStorage.state) : data;
+			this.state = { ...data, ...savedState };
+			} else {
+			this.state = { ...data, ...data };
+		}
+		
 		this.initData(this.state, methods);
 	}
 	
@@ -539,9 +556,11 @@ class UX {
 		this.state = {};
 	}
 
-	setState(newState,id) {
+	setState(newState, id, session) {
 		this.state = { ...this.state, ...newState };
-		sessionStorage.state = JSON.stringify(this.state);
+		if(session === true) {
+			sessionStorage.state = JSON.stringify(this.state);
+		}
 		this.reactiveUpdateVDOM(id);
 	}
 	

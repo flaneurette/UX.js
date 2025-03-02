@@ -3,7 +3,7 @@ export const Counter = {
 	id: 'Counter',
 	
 	init() {
-		app.state.counter = app.state.counter ?? 0;
+		app.state.counter = app.getState('counter') ?? 0;
 	},
 
 	render() {
@@ -15,10 +15,10 @@ export const Counter = {
 	},
 
 	increment() {
-		app.setState({counter: app.state.counter += 1}, Counter.id);
+		app.setState({counter: app.state.counter += 1}, Counter.id, true);
 	},
 	
 	decrement() {
-		app.setState({counter: app.state.counter -= 1}, Counter.id);
+		app.setState({counter: app.state.counter -= 1}, Counter.id, true);
 	}
 }
