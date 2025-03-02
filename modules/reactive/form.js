@@ -5,7 +5,7 @@ export const Form = {
 	init() {
 		// Get states.
 		app.state.selected = app.getState('selected') ?? [];
-		app.state.agreed = app.getState('agreed');
+		app.state.agreed = app.getState('agreed') ?? 'Select item.';
 	},
 
 	render() {

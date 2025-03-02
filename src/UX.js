@@ -534,7 +534,7 @@ class UX {
 			const state = JSON.parse(storedState);
 			return state?.[ofWhat] ?? this.state?.[ofWhat]; 
 		} catch (error) {
-			console.error("Failed to parse sessionStorage.state:", error);
+			console.error("UX Error: Failed to parse sessionStorage.state:", error);
 			return this.state?.[ofWhat];
 		}
 	}
@@ -603,7 +603,7 @@ class UX {
 			if(module['id'] == data) {
 				const elem = this.dom('root','id');
 				if (!elem) {
-					console.error(`Element with id ${id} not found.`);
+					console.error(`UX Error: Element with id ${id} not found.`);
 					return;
 				}
 				if (module['init']) {
@@ -2114,7 +2114,7 @@ class UX {
 					this.renderHTML(routeNode, data);
 					this.compileNodes(data);
 				} catch (error) {
-					console.error("Routing fetch failed:", error);
+					console.error("UX Error: Routing fetch failed:", error);
 				}
 			}
 		});
@@ -2291,10 +2291,10 @@ class UX {
 					const responseText = await response.text();
 					callback(responseText);
 					} else {
-					console.error('Request failed with status:', response.status);
+					console.error('UX Error: Request failed with status:', response.status);
 					}
 				} catch (error) {
-					console.error('Error in async request:', error);
+					console.error('UX Error: Error in async request:', error);
 				}
 				}
 			}
@@ -2325,7 +2325,7 @@ class UX {
 		});
 
 		if (!response.ok) {
-			throw new Error(`Request failed with status: ${response.status}`);
+			throw new Error(`UX Error: Request failed with status: ${response.status}`);
 		}
 
 		const responseText = await response.text();
@@ -2339,7 +2339,7 @@ class UX {
 		}
 
 		} catch (error) {
-		console.error('Network Error:', error);
+		console.error('UX Error: Network Error:', error);
 		throw error;
 		}
 		return;
@@ -2440,7 +2440,7 @@ class UX {
 	}
 
 	Message = {
-		init: "UX: Cannot init a non-object.",
-		enumerate: "UX: Could not enumerate global object."
+		init: "UX Error: Cannot init a non-object.",
+		enumerate: "UX Error: Could not enumerate global object."
 	}
 }
