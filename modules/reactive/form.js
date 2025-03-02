@@ -52,7 +52,7 @@ export const Form = {
 
 const fun1 = () => {
 	
-	window.reactiveRadio = (value) => {
+	globalThis.reactiveRadio = (value) => {
 		let counterElement = document.querySelector('#agreed');
 		counterElement.textContent = value;
 		// Update state
@@ -62,10 +62,10 @@ const fun1 = () => {
 
 const fun2 = () => {
 	
-    window.reactiveChecked = (value, checked) => {
+    globalThis.reactiveChecked = (value, checked) => {
         app.state.selected = checked  ? [...new Set([...app.state.selected, value])]: app.state.selected.filter(item => item !== value);
         document.querySelector('#foods').textContent = app.state.selected.join(', ');
-		// Update state
+		// Update state 
         app.setState({ selected: app.state.selected }, Form.id, true);
     };
 };

@@ -27,7 +27,7 @@ export const Content = {
 };
 
 const fun = () => {
-	window.handleClick = (text) => {
+	globalThis.handleClick = (text) => {
 		alert(text);
 	}
 };

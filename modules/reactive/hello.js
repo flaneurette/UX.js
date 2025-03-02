@@ -16,7 +16,7 @@ export const Hello = {
 };
 
 const fun = () => {
-	window.changeTitle = () => {
+	globalThis.changeTitle = () => {
 		app.setState({ title: 'Hello this is reactive UX.js!' }, Hello.id, true);
 	}
 }
