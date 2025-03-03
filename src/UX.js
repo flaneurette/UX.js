@@ -1015,7 +1015,7 @@ class UX {
 				
 				const deltaX = window.scrollX;
 				const deltaY = window.scrollY;
-				this.index = slideView.match(/\d+/)[0];
+				this.index = slideView.match(/\d+/)[0]-1;
 				this.currentTranslate = -this.index * 100;
 				let documentElement = this.dom(slideView, 'id');
 				
