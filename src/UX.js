@@ -270,11 +270,10 @@ class UX {
 		if(!this.listeners.includes(key)) {
 			const eventListener = function(event) {
 				handler.call(this, event);
-				this.listeners.push(handler);
 			};
 			node.addEventListener(type, eventListener.bind(this));
+			this.listeners.push(key);
 		}
-		
 		return;
 	}
 	
