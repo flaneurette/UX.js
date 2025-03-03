@@ -10,26 +10,36 @@
 		padding: 10px;
 	}
 	
-	#host {
-		background-color: lightblue;
+	#button {
 		padding: 10px;
 		border-radius: 5px;
 		color: white;
 		margin: 30px;
 		width: 250px;
 	}
+	
+	ux-button {
+		background-color: red;
+		border-radius: 5px;
+		color: white;
+		text-align:center;
+		cursor: pointer;
+		padding: 10px;
+		margin: 10px;
+	}
+	
 	</style>
 </head>
 <body>
 	<h1>UX Webcomponents</h1>
 	<!-- :shadow = id of template -->
-	<div id="host" :shadow="ux-template">
+	<div id="button" :shadow="ux-template">
 		<ux-button>I am NOT in shadow DOM.</ux-button>
 	</div>
 	
 	<template id="ux-template">
 		<style>
-		div {
+		ux-button {
 			background-color: blue;
 			border-radius: 5px;
 			color: white;
@@ -38,14 +48,14 @@
 			padding: 10px;
 		}
 		</style>
-		<div>I am in the shadow DOM</div>
+		<ux-button>I am in the shadow DOM</ux-button>
 	</template>
 
 <script>
 let app = new UX();
 
 // Register event on click
-app.events(app.dom('host','id'),'click',hello);
+app.events(app.dom('button','id'),'click',hello);
 
 function hello() {
 	alert('It works!');

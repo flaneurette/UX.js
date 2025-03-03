@@ -998,6 +998,7 @@ class UX {
 	bindSwipe(node) {
 		
 		let slideView = false;
+		let slideId = false;
 		this.currentTranslate = 0;
 		
 		const nodeAttribute = this.getAtt(node, 'swipe');
@@ -1005,6 +1006,7 @@ class UX {
 
 		if(nodeAttribute.includes(':')) {
 			slideView = nodeAttribute.split(':')[1];
+			slideId = nodeAttribute.split(':')[0];
 		}
 		
 		if(slideView !== false) { 
@@ -1017,16 +1019,8 @@ class UX {
 				this.currentTranslate = -this.index * 100;
 				let documentElement = this.dom(slideView, 'id');
 				
-				documentElement.scrollIntoView({
-					behavior: "smooth",
-					block: "nearest", 
-					inline: "center"
-				});
-				
-				window.scrollTo({
-					top: 0,
-					behavior: "smooth"
-				});
+				this.currentTranslate = -this.index * 100;
+				this.dom(slideId,'id').style.transform = `translateX(${this.currentTranslate}%)`;
 			};
 			
 			this.events(node,'click', handleView);
@@ -1080,7 +1074,6 @@ class UX {
 			this.events(node, 'touchstart', touchStart);
 			this.events(node, 'touchend', touchEnd);
 			this.events(node, 'wheel', handleScroll, { passive: false });
-			this.events(node, 'scroll', handleScroll, { passive: false });
 		}
 		return;
 	}
