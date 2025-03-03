@@ -81,7 +81,7 @@ ul.products {
 					<span class="itemName">{{name}}</span> 
 					<span class="itemPrice">${{price}}</span>
 				</div>
-			<input type="button" value="+" class="btn" :method="click:addItem:cart:{{id}}:{{name}}:{{price}}" />
+			<input type="button" value="+" class="btn" id="{{id}}" :method="click:addItem:cart:{{id}}:{{name}}:{{price}}" />
 		  </div>
 		  <input type="submit" value="Buy" class="buy" />
       </div>

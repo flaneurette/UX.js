@@ -22,6 +22,7 @@ class UX {
 		this.shadow = {};
 		this.initState({});
 		this.compileNodes();
+
 	}
 	
 	init = {
@@ -270,13 +271,29 @@ class UX {
 		if(!this.listeners.includes(key)) {
 			const eventListener = function(event) {
 				handler.call(this, event);
+				// this.listeners.push(key);
+			};
+			node.addEventListener(type, eventListener.bind(this));
+			
+		}
+		return;
+	}
+
+	eventsSwipe(node, type, handler, event) {
+		
+		if (!node || !type) return;
+
+		const key = `${node.id}-${type}`;
+		
+		if(!this.listeners.includes(key)) {
+			const eventListener = function(event) {
+				handler.call(this, event);
 			};
 			node.addEventListener(type, eventListener.bind(this));
 			this.listeners.push(key);
 		}
 		return;
-	}
-	
+	}	
 	
 	/**
 	* Queries the virtual DOM, getting and setting of information
@@ -1022,7 +1039,7 @@ class UX {
 				this.dom(slideId,'id').style.transform = `translateX(${this.currentTranslate}%)`;
 			};
 			
-			this.events(node,'click', handleView);
+			this.eventsSwipe(node,'click', handleView);
 		
 		} else {
 			
@@ -1070,9 +1087,9 @@ class UX {
 				}
 			};
 
-			this.events(node, 'touchstart', touchStart);
-			this.events(node, 'touchend', touchEnd);
-			this.events(node, 'wheel', handleScroll, { passive: false });
+			this.eventsSwipe(node, 'touchstart', touchStart);
+			this.eventsSwipe(node, 'touchend', touchEnd);
+			this.eventsSwipe(node, 'wheel', handleScroll, { passive: false });
 		}
 		return;
 	}

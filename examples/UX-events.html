@@ -18,10 +18,10 @@
 <h1>UX Events</h1>
 <div id="app">
   <p :class="myClass">Counted products: <span id="counter">{{count}}</span></p>
-  <button :click="count++">Count products up</button>
-  <button :click="count--">Count products down</button>
-  <button :click="multiply">Multiply products</button>
-  <button :click="countdown">Timer products</button>
+  <button :click="count++" id="count++">Count products up</button>
+  <button :click="count--" id="count--">Count products down</button>
+  <button :click="multiply" id="multiply">Multiply products</button>
+  <button :click="countdown" id="countdown">Timer products</button>
 </div>
 	
 	<script>
