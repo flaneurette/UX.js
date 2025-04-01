@@ -13,6 +13,13 @@ Key Features of UX.js
 
 With its focus on simplicity, flexibility, and performance, UX.js is an excellent choice for developers looking to build modern web applications with a clean and maintainable codebase.
 
+# Installation
+
+Use jsdelivr for CDN hosting:
+https://cdn.jsdelivr.net/gh/flaneurette/UX.js@master/src/UX.js
+
+Or download and clone the full package.
+
 # What is new
 ### UX.js Version 1.8: Exciting New Features & Enhancements
 The release of UX.js v1.8 brings significant improvements, making the framework more powerful and flexible than ever. This version introduces:
