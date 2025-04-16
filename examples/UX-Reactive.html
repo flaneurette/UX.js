@@ -85,6 +85,8 @@
 	</ul>
 	<p>UX.JS reactive methods:</p>
 	<ul>
+		<li>{app}.loadModule(module) - runs a module and executes it.</li>
+		<li>{app}.loadFunction(elementId=root,function) - runs a function and injects the response into a given ID.</li>
 		<li>{app}.functions = [function, function] - subscribes new functions which can be called through data-actions.</li>
 		<li>{app}.state.{string} - getting/setting of a state</li>
 		<li>{app}.initState(object,session) - initializing an object before rendering. When session is true, sessionStorage is used, default is false.</li>
