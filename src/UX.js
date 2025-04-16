@@ -22,12 +22,11 @@ class UX {
 		this.shadow = {};
 		this.initState({});
 		this.compileNodes();
-
 	}
 	
 	init = {
 		name: "UX.js",
-		version: "1.90",
+		version: "1.99",
 		description: "UX.JS | JavaScript framework",
 		copyright: "(c) 2024 flaneurette",
 		license: "GNU",
@@ -144,6 +143,8 @@ class UX {
 			bindSwipe: this.bindSwipe,
 			bindObserver: this.bindObserver,
 			bindTemplate: this.bindTemplate,
+			bindRun: this.bindRun,
+			bindOn: this.bindOn,
 		};
 		
 		documentElements.forEach(elem => {
@@ -175,22 +176,28 @@ class UX {
 	* @return none
 	*/
 	
-	compileNodes(data, exclude = []) {
+	compileNodes(data, exclude = [], include=false) {
+		
+		let bindings = [];
 		
 		if (!Array.isArray(exclude)) exclude = [];
-
-		let bindings = [
-			'bindHamburger', 'bindActive', 'bindToggle', 'bindDarkMode', 'bindVoid', 
-			'bindPrevent', 'bindSelect', 'bindFlex', 'bindShow', 'bindHide', 
-			'bindCurtains', 'bindAnimate', 'bindLazyImg', 'bindLazyLoad', 'bindUri', 
-			'bindIntoView', 'bindFade', 'bindClose', 'bindView', 'bindSwitch', 
-			'bindWheel', 'bindSlide', 'bindScroll', 'bindSpinner', 'bindFlip', 
-			'bindTouches', 'bindSwipe', 'progress', 'bindReactive', 'bindReactiveDataActions',
-			'bindObserver','bindTemplate'
-		];
+		
+		if (Array.isArray(include)) {
+			bindings = include;
+		} else {
+			bindings = [
+				'bindHamburger', 'bindActive', 'bindToggle', 'bindDarkMode', 'bindVoid', 
+				'bindPrevent', 'bindSelect', 'bindFlex', 'bindShow', 'bindHide', 
+				'bindCurtains', 'bindAnimate', 'bindLazyImg', 'bindLazyLoad', 'bindUri', 
+				'bindIntoView', 'bindFade', 'bindClose', 'bindView', 'bindSwitch', 
+				'bindWheel', 'bindSlide', 'bindScroll', 'bindSpinner', 'bindFlip', 
+				'bindTouches', 'bindSwipe', 'progress', 'bindReactive', 'bindReactiveDataActions',
+				'bindObserver','bindTemplate', 'bindRun', 'bindOn'
+			];
+		}
 
 		if (exclude.includes('bindReactive') || exclude.includes('bindReactiveDataActions')) {
-			bindings = bindings.filter(b => !['bindReactive', 'bindReactiveDataActions'].includes(b));
+			//bindings = bindings.filter(b => !['bindReactive', 'bindReactiveDataActions'].includes(b));
 		}
 
 		bindings.forEach(binding => {
@@ -211,6 +218,7 @@ class UX {
 		if(!data) return;
 		
 		Object.entries(data).forEach(([key, value]) => {
+			
 			const bindings = [
 				'interpolation',
 				'bindAttributesNode',
@@ -269,12 +277,13 @@ class UX {
 		const key = `${node.id}-${type}`;
 		
 		if(!this.listeners.includes(key)) {
+			if(node.id) {
+				//this.listeners.push(key);
+			}
 			const eventListener = function(event) {
 				handler.call(this, event);
-				// this.listeners.push(key);
 			};
 			node.addEventListener(type, eventListener.bind(this));
-			
 		}
 		return;
 	}
@@ -506,7 +515,6 @@ class UX {
 	*/
 	
 	bindReactive(node) {
-		
 		let nodeAttribute = this.getAtt(node, 'reactive');
 		if (!nodeAttribute) return;
 		
@@ -607,19 +615,88 @@ class UX {
 		});	
 		this.bindReactiveDataActions();
 	}
+
+	loadModule(module) {
+		
+		const mod = module;
+		
+		if (!mod) return;
+		if(!this.modules) return false;
+
+		this.modules.forEach(module => {
+			
+			if(module['id'] == mod) {
+				const elem = this.dom('root','id');
+				if (!elem) {
+					console.error(`UX Error: Element with id root not found.`);
+					return;
+				}
+				if (module['init']) {
+					module['init']();
+				}
+				if(module['render']) { 
+					elem.innerHTML = module['render']();
+					this.bindReactiveActions(module['render']);
+				}
+				if(module['template']) { 
+					elem.innerHTML = module['template']();
+					this.bindReactiveActions(module['render']);
+				}
+				if (module['effect']) {
+					module['effect']();
+				}
+			}
+		});
+		this.bindReactiveDataActions();
+		// Reparse VDOM for UX.js attribute handlers.
+		this.compileNodes(this.data,['bindReactive', 'bindReactiveDataActions']);
+		this.parseFunctions(this.data, this.methods);
+		return;
+	}
+
+	loadFunction(container,fun) {
+		
+		if (!fun) return;
+		if(!container) return;
+		if(!this.functions) return false;
+		
+		let loadinto = this.dom(container,'id');
+		
+		this.functions.forEach(module => {
+			if (fun !== undefined) {
+				const elem = this.dom('root', 'id');
+				if (!elem) {
+					console.error(`UX Error: Element with id root not found.`);
+					return;
+				}
+				
+				const f = this.functions.find(fn => fn.name === fun);
+				
+				if (f) {
+					loadinto.innerHTML = f();
+				} 
+			}
+		});
+
+		this.bindReactiveDataActions();
+		// Reparse VDOM for UX.js attribute handlers.
+		this.compileNodes(this.data,['bindReactive', 'bindReactiveDataActions']);
+		this.parseFunctions(this.data, this.methods);
+		return;
+	}
 	
 	reactiveBind(uri) {
-	
+		
 		const [reactive, data] = uri.split(':');
 		
 		if (!data) return;
 		if(!this.modules) return false;
-		
 		this.modules.forEach(module => {
+			
 			if(module['id'] == data) {
 				const elem = this.dom('root','id');
 				if (!elem) {
-					console.error(`UX Error: Element with id ${id} not found.`);
+					console.error(`UX Error: Element with id root not found.`);
 					return;
 				}
 				if (module['init']) {
@@ -1543,11 +1620,18 @@ class UX {
 	* @return none
 	*/
 	
-	bindSpinner(node) {
-		
-		let nodeAttribute = this.getAtt(node, 'spinner');
+	bindSpinner(node,id) {
+		let nodeAttribute = false;
+		if(id != 'spinner') {
+			nodeAttribute = this.getAtt(node, 'spinner');
+			} else {
+			let nodeSpin = document.getElementById(id);
+			nodeAttribute = this.getAtt(nodeSpin, 'spinner');
+		}
+
 		if (!nodeAttribute) return;
 		if (nodeAttribute !== null && nodeAttribute.indexOf(':') !== -1) {
+			
 			if (this.dom('uxspinner', 'id') == null) {
 				let pairs = nodeAttribute.split(':');
 				let width = Reflect.get(pairs, 0);
@@ -1559,7 +1643,7 @@ class UX {
 				canvas.setAttribute('id', 'uxspinner');
 				const ctx = canvas.getContext("2d");
 				let angle = 0;
-
+				
 				function drawSpinner() {
 					ctx.clearRect(0, 0, canvas.width, canvas.height);
 					ctx.beginPath();
@@ -2258,24 +2342,90 @@ class UX {
 		}
 		return;
 	}
+ 
+ 	/**
+	* On handler. Bind and runs an eventhandler (such as oninput)
+	* @param {node}
+	* @return none
+	*/
+	
+	bindOn(node) {
 
+		let attribute = this.getAtt(node, 'on');
+		if (!attribute) return;
+		let [method, func] = attribute.split(':');
+		node.addEventListener(method, event => {
+			event.preventDefault(); 
+			const elements = this.dom(null, 'elements', '*');
+			for (const ele of elements) {
+				if (ele.getAttribute(':on')) {
+				const [method, func] = attribute.split(':');
+					if (method && func) {
+						if (typeof window[func] === 'function') {
+							this.events(ele,method, (event) => {
+								event.preventDefault();
+								window[func](event.target.textContent.substring(1));
+							});
+						}
+					}
+				}
+			}
+		});
+	}
+
+	/**
+	* Run handler. Bind and runs an eventhandler (such as oninput)
+	* @param {node}
+	* @return none
+	*/
+	
+	bindRun(node) {
+		
+		let attribute = this.getAtt(node, 'run');
+		if (!attribute) return;
+			if (attribute !== null) {
+				let [method, fun] = attribute.split(':');
+				node.addEventListener(method, async event => {
+					event.preventDefault();
+					const elements = this.dom(null, 'elements', '*');
+					for (const ele of elements) {
+						if (ele.getAttribute(':run')) {
+							let [methods, func] = attribute.split(':');
+								const fun = this.functions.find(f => f && f.name === func);
+								if (fun && typeof fun === "function") {
+									fun();
+									} else {
+									func();
+								}
+						}
+					}
+				});
+			}
+		return;
+	}
+	
 	/**
 	* Async form handler.
 	* @param {requestUri,method,callback}
 	* @return none
 	*/
 	
-	async (requestUri, method, callback) {
-
+	async (requestUri, method, callback, jit=false) {
+		
 		const documentElements = this.nodeParentList();
 		
 		for (const element of documentElements) {
 
 		if (this.getAtt(element, 'async') !== null) {
+			
 			element.addEventListener('submit', async event => {
-				
+			
 			event.preventDefault();
+			
 			const forms = this.dom(null, 'elements', '*');
+			
+			// jit is a just in time callback that can be called before the fetch request runs.
+			if(jit) jit();
 			
 			for (const form of forms) {
 				if (form.getAttribute(':async') === 'true') {
