@@ -116,6 +116,10 @@ An example lazyloading images with :lazyimg attribute
 An example creating evenlisteners through the :handler attribute.
 #### UX-bind.html
 An example how to bind to classes.
+#### UX-on.html
+Listens for an event and executes a global function.
+#### UX-run.html
+Listens for an event and executes a subscribed function (useful with :reactive)
 #### UX-if.html
 An example to see how the IF statements in UX.js works
 #### UX-loop.html

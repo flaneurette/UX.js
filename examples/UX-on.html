@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UX On</title>
+	<script src="../src/UX.js"></script>
+</head>
+<body>
+<h1>UX On</h1>
+<div>
+	<a href="#" :on="click:text">{{text}}</a>
+</div>
+	
+<script>
+let app = new UX();
+app.load({
+	data: {
+        text: 'Click here to see the action of the :on event handler.'
+	}
+});
+
+// Needs to be set as a global function.
+window.text = function() {
+	alert('It works!');
+}
+
+</script>
+</body>
+</html>
