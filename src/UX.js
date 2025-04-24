@@ -1,7 +1,7 @@
 class UX {
 
 	static contentType = "application/json;charset=UTF-8";
-	static cacheControl = "no-cache";
+	static cacheControl = "default";
 	static allowOrigin = '*';
 
 	constructor() {
@@ -26,7 +26,7 @@ class UX {
 	
 	init = {
 		name: "UX.js",
-		version: "1.99",
+		version: "2.0",
 		description: "UX.JS | JavaScript framework",
 		copyright: "(c) 2024 flaneurette",
 		license: "GNU",
@@ -270,24 +270,39 @@ class UX {
 	* @return none
 	*/
 	
-	events(node, type, handler, event) {
+	events(node, type, handler, event, bypass = false) {
 		
 		if (!node || !type) return;
+		if (!node.id) node.id = node === window ? 'window' : crypto.randomUUID();
 
 		const key = `${node.id}-${type}`;
-		
 		if(!this.listeners.includes(key)) {
-			if(node.id) {
-				//this.listeners.push(key);
+			if(node.id && bypass == false) {
+				this.listeners.push(key);
 			}
 			const eventListener = function(event) {
-				handler.call(this, event);
+				if (typeof handler === 'function') {
+					handler.call(this, event);
+				} else {
+				}
 			};
 			node.addEventListener(type, eventListener.bind(this));
 		}
 		return;
 	}
 
+	eventsWindow(node, type, handler, event, bypass = false) {
+		if (!node || !type) return;
+			const eventListener = function(event) {
+				if (typeof handler === 'function') {
+					handler.call(this, event);
+				} else {
+				}
+			};
+			node.addEventListener(type, eventListener.bind(this));
+		return;
+	}
+	
 	eventsSwipe(node, type, handler, event) {
 		
 		if (!node || !type) return;
@@ -2350,27 +2365,23 @@ class UX {
 	*/
 	
 	bindOn(node) {
-
 		let attribute = this.getAtt(node, 'on');
 		if (!attribute) return;
-		let [method, func] = attribute.split(':');
-		node.addEventListener(method, event => {
-			event.preventDefault(); 
-			const elements = this.dom(null, 'elements', '*');
+		let [method, func] = attribute.split(':'); 
+		const elements = this.dom(null, 'elements', '*');
 			for (const ele of elements) {
-				if (ele.getAttribute(':on')) {
-				const [method, func] = attribute.split(':');
+				if (ele.getAttribute(':on') && !ele.hasEventListener) {
+                const [method, func] = attribute.split(':');
 					if (method && func) {
 						if (typeof window[func] === 'function') {
-							this.events(ele,method, (event) => {
+							this.eventsWindow(ele,method,(event) => {
 								event.preventDefault();
-								window[func](event.target.textContent.substring(1));
-							});
+								window[func](event);
+							},true);
 						}
 					}
 				}
 			}
-		});
 	}
 
 	/**
@@ -2390,12 +2401,12 @@ class UX {
 					const elements = this.dom(null, 'elements', '*');
 					for (const ele of elements) {
 						if (ele.getAttribute(':run')) {
-							let [methods, func] = attribute.split(':');
+							let [methods, func, id] = attribute.split(':');
 								const fun = this.functions.find(f => f && f.name === func);
 								if (fun && typeof fun === "function") {
-									fun();
+									fun(id);
 									} else {
-									func();
+									func(id);
 								}
 						}
 					}
@@ -2434,6 +2445,11 @@ class UX {
 
 				Array.from(form.elements).forEach(input => {
 					if (input.name && input.value) formData.append(input.name, input.value);
+					if (input.type === 'file') {
+						Array.from(input.files).forEach(file => {
+							formData.append(input.name, file);
+						});
+					}
 				});
 
 				try {
