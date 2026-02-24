@@ -7,9 +7,9 @@ UX.js is a powerful and lightweight JavaScript framework designed for building b
 Key Features of UX.js
 
 - Automates the most common front-end development tasks
-- UX Components – The framework introduces a component-based architecture
-- UX Plugin Support – Extend the core functionality of UX.js with plugins
-- Reactive Modules – The framework has a reactive model
+- UX Components - The framework introduces a component-based architecture
+- UX Plugin Support - Extend the core functionality of UX.js with plugins
+- Reactive Modules - The framework has a reactive model
 
 With its focus on simplicity, flexibility, and performance, UX.js is an excellent choice for developers looking to build modern web applications with a clean and maintainable codebase.
 
@@ -24,8 +24,8 @@ Or download and clone the full package.
 ### UX.js Version 1.8: Exciting New Features & Enhancements
 The release of UX.js v1.8 brings significant improvements, making the framework more powerful and flexible than ever. This version introduces:
 
-- Reactive Models – A new reactivity system that ensures data updates are seamlessly reflected across the application without manual intervention. This enhancement simplifies state management and improves performance by efficiently handling UI updates.
-- Plugin Support – Developers can now extend UX.js with plugins, enabling easy integration of additional features, third-party tools, and custom functionalities. This opens the door for a more modular and scalable development experience.
+- Reactive Models - A new reactivity system that ensures data updates are seamlessly reflected across the application without manual intervention. This enhancement simplifies state management and improves performance by efficiently handling UI updates.
+- Plugin Support - Developers can now extend UX.js with plugins, enabling easy integration of additional features, third-party tools, and custom functionalities. This opens the door for a more modular and scalable development experience.
 
 ### UX.js Version 1.4: introduces Components. 
 
